@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  nuxt:
+    build:
+      context: ./
+    networks:
+      default: {}
+    image: ${APP_NAME}-nuxt
+    container_name: ${APP_NAME}-nuxt
+    restart: 'always'
+    ports:
+      - '${APP_PORT-3000}:3000'
+#    volumes:
+#      - ${APP_DIR-./nuxt}:/var/www
+
+networks:
+  default:
+    name: ${APP_NETWORK}
