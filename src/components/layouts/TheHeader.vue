@@ -14,8 +14,10 @@
       </div>
       <div class="header-block header-block__btn">
         <div class="header-btn header-sign">
-          <img class="header-sign__img" src="@/assets/img/user_icon.png" alt="Войти" />
-          <span class="header-sign__text">Войти</span>
+          <nuxt-link to="/profile">
+            <img class="header-sign__img" src="@/assets/img/user_icon.png" alt="Войти" />
+            <span class="header-sign__text">Войти</span>
+          </nuxt-link>
         </div>
       </div>
     </div>

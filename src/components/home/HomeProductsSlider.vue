@@ -6,84 +6,9 @@
       <span class="products-left__btn">Смотреть всё</span>
     </div>
 
-    <div class="jars-right" onscroll="scrolled(this)">
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
-        <span class="jars-block__title">Баллон 10 литров</span>
-        <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
-      </div>
-
-      <div class="jars-block">
-        <img src="img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
+    <div class="jars-right">
+      <div v-for="index in 10" :key="index" class="jars-block">
+        <img src="@/assets/img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
         <span class="jars-block__title">Баллон 10 литров</span>
         <span class="jars-block__price">от ₽24/шт.</span>
         <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
@@ -91,3 +16,9 @@
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'HomeProductsSlider',
+  }
+</script>
