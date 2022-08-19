@@ -17,6 +17,7 @@
   import CatalogSidebar from '~/components/catalog/CatalogSidebar/index.vue'
 
   export default {
+    name: 'CatalogLayout',
     components: {
       TheHeader,
       TheFooter,

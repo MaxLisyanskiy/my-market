@@ -2,8 +2,14 @@
   <div class="wrapper-sidebar sidebar">
     <span class="sidebar-title">Категории</span>
     <ul class="sidebar-list">
-      <li v-for="category in categories" :key="category" class="sidebar-link">
-        {{ category }}
+      <li
+        v-for="category in categories"
+        :key="`${category + category.id}`"
+        class="sidebar-link"
+      >
+        <NuxtLink :to="`/category/${category.id}`">
+          {{ category.name }}
+        </NuxtLink>
         <svg
           class="sidebar-link__svg"
           width="6"
@@ -24,13 +30,18 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   export default {
     name: 'HomeCategories',
 
-    data() {
-      return {
-        categories: ['Банки', 'Бутылки', 'Бутыли, балоны, графины', 'Крышки, пробки, колпаки', 'Оборудование, станки'],
-      }
+    async fetch() {
+      await this.GET_CATEGORIES()
+    },
+    computed: {
+      ...mapState('categories', ['categories']),
+    },
+    methods: {
+      ...mapActions('categories', ['GET_CATEGORIES']),
     },
   }
 </script>

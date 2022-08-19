@@ -1,28 +1,30 @@
 <template>
   <ul class="categories-sidebar__menu">
     <li
-      v-for="(category, index) in categories"
-      :key="category"
+      v-for="category in categories"
+      :key="`${category + category.id}`"
       class="categories-sidebar__link"
     >
-      <NuxtLink :to="`/category/${index}`">{{ category }}</NuxtLink>
+      <NuxtLink :to="`/category/${category.id}`">
+        {{ category.name }}
+      </NuxtLink>
     </li>
   </ul>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   export default {
     name: 'CatalogSidebarMenu',
-    data() {
-      return {
-        categories: [
-          'Банки',
-          'Бутылки',
-          'Бутыли, балоны, графины',
-          'Крышки, пробки, колпаки',
-          'Оборудование, станки',
-        ],
-      }
+
+    async fetch() {
+      await this.GET_CATEGORIES()
+    },
+    computed: {
+      ...mapState('categories', ['categories']),
+    },
+    methods: {
+      ...mapActions('categories', ['GET_CATEGORIES']),
     },
   }
 </script>
