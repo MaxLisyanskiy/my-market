@@ -1,12 +1,12 @@
 <template>
-  <div class="home content-row">
+  <section class="home content-row">
     <div class="wrapper">
       <HomeCategories />
       <HomeSwiper />
     </div>
     <HomeProductsSlider />
     <HomeProducts />
-  </div>
+  </section>
 </template>
 
 <script>

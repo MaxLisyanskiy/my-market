@@ -4,5 +4,5 @@
   "semi": false,
   "arrowParens": "avoid",
   "vueIndentScriptAndStyle": true,
-  "printWidth": 120
+  "printWidth": 80
 }
