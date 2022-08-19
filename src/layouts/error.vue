@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'ErrorPage',
+    name: 'ErrorLayout',
     props: {
       error: {
         type: Object,
