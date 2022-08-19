@@ -9,7 +9,7 @@
 
 <script>
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
-  import CatalogProducts from '~/components/catalog/CatalogProducts.vue'
+  import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
   export default {
     name: 'CategoryPage',
