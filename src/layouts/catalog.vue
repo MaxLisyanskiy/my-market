@@ -1,13 +1,15 @@
 <template>
-  <main class="content">
+  <div class="content">
     <TheHeader />
-    <TheBreadcrumbs />
-    <div class="wrapper">
-      <CatalogSidebar />
-      <Nuxt />
-    </div>
+    <main>
+      <TheBreadcrumbs />
+      <article class="wrapper">
+        <CatalogSidebar />
+        <Nuxt />
+      </article>
+    </main>
     <TheFooter />
-  </main>
+  </div>
 </template>
 
 <script>

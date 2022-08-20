@@ -1,5 +1,5 @@
 <template>
-  <div class="products jars">
+  <section class="products jars">
     <div class="jars-shadow jars-shadow__right"></div>
     <div class="products-left products-left__jars">
       <span class="products-left__title">Банки</span>
@@ -14,7 +14,7 @@
         <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

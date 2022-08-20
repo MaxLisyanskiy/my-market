@@ -1,10 +1,10 @@
 <template>
-  <div class="breadcrumb">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
     <ul class="breadcrumb-list">
       <li class="breadcrumb-link">Главная</li>
-      <li class="breadcrumb-link">Банки</li>
+      <li class="breadcrumb-link" aria-current="location">Банки</li>
     </ul>
-  </div>
+  </nav>
 </template>
 
 <script>

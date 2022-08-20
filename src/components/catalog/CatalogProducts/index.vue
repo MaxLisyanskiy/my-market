@@ -1,7 +1,7 @@
 <template>
-  <div :class="productsClass === 'gallery' ? 'gallery' : 'list'">
-    <CatalogProductsGallery v-if="productsClass === 'gallery'" />
-    <CatalogProductsList v-else />
+  <div>
+    <CatalogProductsGallery v-if="productsClass === 'gallery'" :products="products"/>
+    <CatalogProductsList v-else :products="products"/>
   </div>
 </template>
 
@@ -22,10 +22,6 @@
         productsClass: 'list',
       }
     },
-    created() {
-      console.log(this.products)
-    },
+
   }
 </script>
-
-<style lang="scss" scoped></style>

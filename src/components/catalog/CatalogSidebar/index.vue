@@ -1,9 +1,9 @@
 <template>
-  <div class="categories-sidebar">
+  <aside class="categories-sidebar">
     <span class="categories-sidebar__title">Категории</span>
     <CatalogSidebarMenu />
     <CatalogSidebarFilter />
-  </div>
+  </aside>
 </template>
 
 <script>
