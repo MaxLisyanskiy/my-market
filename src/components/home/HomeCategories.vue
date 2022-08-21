@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-sidebar sidebar">
+  <aside class="wrapper-sidebar sidebar">
     <span class="sidebar-title">Категории</span>
     <ul class="sidebar-list">
       <li
@@ -26,7 +26,7 @@
         </svg>
       </li>
     </ul>
-  </div>
+  </aside>
 </template>
 
 <script>

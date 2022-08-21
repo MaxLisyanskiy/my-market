@@ -1,13 +1,16 @@
 <template>
-  <div :class="productsClass === 'gallery' ? 'gallery' : 'list'">
-    <CatalogProductsGallery v-if="productsClass === 'gallery'" />
-    <CatalogProductsList v-else />
+  <div>
+    <CatalogProductsGallery v-if="viewMode === 'gallery'" :products="products"/>
+    <CatalogProductsList v-else :products="products"/>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   import CatalogProductsList from './CatalogProductsList.vue'
-  import CatalogProductsGallery from './CatalogProductsGallery.vue'
+  import CatalogProductsGallery from './CatalogProductsGallery.vue'  
+
   export default {
     name: 'CatalogProducts',
     components: { CatalogProductsList, CatalogProductsGallery },
@@ -17,15 +20,9 @@
         default: () => [],
       },
     },
-    data() {
-      return {
-        productsClass: 'list',
-      }
+    computed: {
+      ...mapState('catalog', ['viewMode']),
     },
-    created() {
-      console.log(this.products)
-    },
+
   }
 </script>
-
-<style lang="scss" scoped></style>
