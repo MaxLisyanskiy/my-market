@@ -1,4 +1,5 @@
 import head from './config/head'
+import pwa from './config/pwa'
 
 export default {
   // Указываем порт, на котором будет работать приложение.
@@ -54,24 +55,7 @@ export default {
   },
 
   // PWA options
-  pwa: {
-    icon: {
-      source: '/static/',
-      fileName: 'logo_v.png',
-      sizes: [64, 120, 144, 152, 192, 384, 512],
-    },
-    manifest: {
-      name: 'Оптовый интернет магазин VALE.SU',
-      short_name: 'VALE.SU',
-      description:
-        'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
-      lang: 'ru',
-      start_url: '/profile',
-    },
-    workbox: {
-      enabled: false,
-    },
-  },
+  pwa,
 
   // Vue settings
   vue: {
