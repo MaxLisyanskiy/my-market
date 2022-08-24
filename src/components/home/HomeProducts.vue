@@ -8,9 +8,15 @@
     <div class="products-right">
       <div v-for="index in 10" :key="index" class="products-block">
         <div class="products-block__path">
-          <span class="products-block__text">Графин 1.75 л. Январский с крышкой</span>
+          <span class="products-block__text"
+            >Графин 1.75 л. Январский с крышкой</span
+          >
         </div>
-        <img src="@/assets/img/Графин 1,75л _Январский_ с крышкой 1.png" alt="" class="products-block__img" />
+        <img
+          src="@/assets/img/Графин 1,75л _Январский_ с крышкой 1.png"
+          alt="Графин 1.75 л. Январский с крышкой"
+          class="products-block__img"
+        />
       </div>
     </div>
   </section>
@@ -18,6 +24,6 @@
 
 <script>
   export default {
-    name: 'HomeProductsSlider',
+    name: 'HomeProducts',
   }
 </script>

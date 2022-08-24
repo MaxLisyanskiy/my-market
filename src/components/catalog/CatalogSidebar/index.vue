@@ -14,5 +14,3 @@
     components: { CatalogSidebarMenu },
   }
 </script>
-
-<style lang="scss" scoped></style>

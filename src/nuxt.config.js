@@ -1,3 +1,5 @@
+import head from './config/head'
+
 export default {
   // Указываем порт, на котором будет работать приложение.
   server: {
@@ -13,29 +15,7 @@ export default {
   },
 
   // Глобальные настройки секции Head. Можно прописать общие мета-теги, атрибуты и прочее.
-  head: {
-    htmlAttrs: { lang: 'ru' },
-    title: 'Оптовый интернет магазин VALE.SU',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'format-detection', content: 'telephone=no' },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
-      },
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        as: 'style',
-        rel: 'stylesheet preload prefetch',
-        href: '/fonts/fonts.css',
-      },
-    ],
-  },
+  head,
 
   // Включаем автоматическое подключение компонентов.
   components: true,
@@ -50,13 +30,13 @@ export default {
   css: ['@/assets/styles/main.scss', 'swiper/css/swiper.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/skeleton-loader-vue.js'],
 
   // Customize the progress-bar color
-  loading: { color: '#3B8070' },
+  // loading: { color: '#3B8070' },
   // Отключаем индикацию загрузки страниц.
-  // loading: false,
-  // loadingIndicator: false,
+  loading: false,
+  loadingIndicator: false,
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
