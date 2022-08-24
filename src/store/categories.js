@@ -4,6 +4,13 @@ export const state = () => ({
   categories: [],
 })
 
+export const getters = {
+  GET_CATEGORY_BY_ID: state => id => {
+    const category = state.categories.filter(c => Number(c.id) === Number(id))
+    return category[0]
+  },
+}
+
 export const mutations = {
   SET_CATEGORIES(state, categories) {
     state.categories = categories

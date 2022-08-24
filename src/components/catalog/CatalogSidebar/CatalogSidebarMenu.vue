@@ -13,18 +13,12 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState } from 'vuex'
   export default {
     name: 'CatalogSidebarMenu',
 
-    async fetch() {
-      await this.GET_CATEGORIES()
-    },
     computed: {
       ...mapState('categories', ['categories']),
-    },
-    methods: {
-      ...mapActions('categories', ['GET_CATEGORIES']),
     },
   }
 </script>

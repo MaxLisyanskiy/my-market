@@ -15,5 +15,24 @@
     name: 'CategoryPage',
     components: { CatalogFilter, CatalogProducts },
     layout: 'catalog',
+
+    async asyncData({ store }) {
+      /**
+       * Get all categoris
+       */
+      await store.dispatch('categories/GET_CATEGORIES')
+    },
+    head() {
+      return {
+        title: `Категории | VALE.SU`,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: `Категории`,
+          },
+        ],
+      }
+    },
   }
 </script>

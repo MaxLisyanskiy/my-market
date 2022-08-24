@@ -68,11 +68,16 @@
     methods: {
       ...mapActions('catalog', ['CHANGE_VIEW_MODE']),
 
+      /**
+       * Toggle products view type
+       *
+       * @param {string} viewType View type.
+       */
       handleChangeViewMode(viewType) {
-        if(this.viewMode !== viewType) {
+        if (this.viewMode !== viewType) {
           this.CHANGE_VIEW_MODE(viewType)
         }
-      }
+      },
     },
   }
 </script>

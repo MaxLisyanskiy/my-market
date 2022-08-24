@@ -8,10 +8,16 @@
 
     <div class="jars-right">
       <div v-for="index in 10" :key="index" class="jars-block">
-        <img src="@/assets/img/Баллон 10лит 1.png" alt="" class="jars-block__img" />
+        <img
+          src="@/assets/img/Баллон 10лит 1.png"
+          alt="Баллон 10 литров"
+          class="jars-block__img"
+        />
         <span class="jars-block__title">Баллон 10 литров</span>
         <span class="jars-block__price">от ₽24/шт.</span>
-        <span class="jars-block__description">Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span>
+        <span class="jars-block__description"
+          >Мин. заказ: <span class="products-block__pcs">1000 шт.</span></span
+        >
       </div>
     </div>
   </section>
