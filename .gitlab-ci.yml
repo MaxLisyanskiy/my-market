@@ -82,7 +82,7 @@ deploy-fe-stage:      # This job runs in the deploy stage.
         IdentityFile ~/.ssh/ssh.key
         StrictHostKeyChecking no
       END
-- echo "Deploying application source..."
+    - echo "Deploying application source..."
     #- echo "PATH=$TARGET_PATH"
     #- pwd
     - ssh target "bash -c 'mkdir -p $TARGET_PATH'"
@@ -172,7 +172,7 @@ deploy-fe-prod:      # This job runs in the deploy stage.
         IdentityFile ~/.ssh/ssh.key
         StrictHostKeyChecking no
       END
-- echo "Deploying application source..."
+    - echo "Deploying application source..."
     #- echo "PATH=$TARGET_PATH"
     #- pwd
     - ssh target "bash -c 'mkdir -p $TARGET_PATH'"
@@ -192,4 +192,3 @@ deploy-fe-prod:      # This job runs in the deploy stage.
     - ssh target "bash -c 'mv $TARGET_PATH $TARGET_PATH_OLD'"
     - ssh target "bash -c 'mv $TARGET_PATH_NEW $TARGET_PATH'"
     - echo "Deployment complete!"
-
