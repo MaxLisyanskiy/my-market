@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import TheHeader from '../components/layouts/TheHeader.vue'
-  import TheFooter from '~/components/layouts/TheFooter.vue'
-  import TheBreadcrumbs from '~/components/layouts/TheBreadcrumbs.vue'
+  import TheHeader from '../components/common/TheHeader.vue'
+  import TheFooter from '~/components/common/TheFooter.vue'
+  import TheBreadcrumbs from '~/components/common/TheBreadcrumbs.vue'
   import CatalogSidebar from '~/components/catalog/CatalogSidebar/index.vue'
 
   export default {

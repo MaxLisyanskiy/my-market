@@ -24,7 +24,10 @@
         type: Array,
         default: () => [],
       },
-      loading: Boolean,
+      loading: {
+        type: Boolean,
+        default: false,
+      },
     },
     computed: {
       ...mapState('catalog', ['viewMode']),

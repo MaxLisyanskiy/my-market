@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
@@ -16,17 +17,19 @@
     components: { CatalogFilter, CatalogProducts },
     layout: 'catalog',
 
-    async asyncData({ store, params }) {
-      /**
-       * Get all categoris
-       */
+    async asyncData({ store, params, error }) {
+      // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
-      /**
-       * Get category in store by ID and overwrite in data.
-       */
+
+      // Get category in store by ID and overwrite in data.
       const get = await store.getters['categories/GET_CATEGORY_BY_ID']
       const category = await get(params.id)
-      return { category }
+
+      if (category) {
+        return { category }
+      } else {
+        error({ statusCode: 404 })
+      }
     },
     data() {
       return {
@@ -40,20 +43,29 @@
        */
       const id = await this.$route.params.id
       await this.onLoadCategoryProducts(id)
+
+      this.SET_BREADCRUMBS([
+        { name: 'Главная', path: '/' },
+        {
+          name: `${this.category.name}`,
+          path: `/category/${this.category.id}`,
+        },
+      ])
     },
     head() {
       return {
-        title: `${this.category.name} | VALE.SU`,
+        title: `${this.category?.name} | VALE.SU`,
         meta: [
           {
             hid: 'description',
             name: 'description',
-            content: `${this.category.name} по ценам от заводов России. Низкие цены доставка в регионы. Гарантия качества.`,
+            content: `${this.category?.name} по ценам от заводов России. Низкие цены доставка в регионы. Гарантия качества.`,
           },
         ],
       }
     },
     methods: {
+      ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
       /**
        * Get category by ID and overwrite in data. Change loading.
        *
