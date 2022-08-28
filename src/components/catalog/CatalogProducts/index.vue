@@ -3,7 +3,7 @@
     <client-only v-if="loading">
       <CatalogProductsSkeleton />
     </client-only>
-    <CatalogProductsItems v-else :products="products" />
+    <CatalogProductsItems :products="products" />
   </div>
 </template>
 

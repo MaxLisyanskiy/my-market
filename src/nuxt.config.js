@@ -34,10 +34,10 @@ export default {
   plugins: ['~plugins/skeleton-loader-vue'],
 
   // Customize the progress-bar color
-  // loading: { color: '#3B8070' },
+  loading: { color: '#f00b1d' },
   // Отключаем индикацию загрузки страниц.
-  loading: false,
-  loadingIndicator: false,
+  // loading: false,
+  // loadingIndicator: false,
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
@@ -64,6 +64,8 @@ export default {
       devtools: process.env.NODE_ENV !== 'production',
     },
   },
+
+  // cache: process.env.NODE_ENV === 'production',
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

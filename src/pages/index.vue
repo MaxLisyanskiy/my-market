@@ -16,6 +16,12 @@
   import HomeProducts from '~/components/home/HomeProducts.vue'
   export default {
     name: 'HomePage',
-    components: { HomeCategories, HomeSwiper, HomeProductsSlider, HomeProducts },
+    components: {
+      HomeCategories,
+      HomeSwiper,
+      HomeProductsSlider,
+      HomeProducts,
+    },
+    layout: 'default',
   }
 </script>
