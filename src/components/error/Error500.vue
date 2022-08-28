@@ -68,7 +68,12 @@
     name: 'Error404',
     methods: {
       goToHome() {
-        this.$router.push('/')
+        const fullPath = this.$router.history.current.fullPath
+
+        if (fullPath !== '/') {
+          return this.$router.push('/')
+        }
+        this.$router.go('/')
       },
     },
   }

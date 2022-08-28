@@ -7,7 +7,14 @@
         class="product"
       >
         <img
-          src="@/assets/img/Баллон 10лит 1.png"
+          v-if="product?.images?.[0]?.url"
+          :src="product.images[0].url"
+          :alt="product.name"
+          class="product__img"
+        />
+        <img
+          v-else
+          src="@/assets/img/default-card.png"
           :alt="product.name"
           class="product__img"
         />
@@ -26,7 +33,14 @@
       >
         <div class="product-left">
           <img
-            src="@/assets/img/product.png"
+            v-if="product?.images?.[0]?.url"
+            :src="product.images[0].url"
+            :alt="product.name"
+            class="product-left__img"
+          />
+          <img
+            v-else
+            src="@/assets/img/default-card.png"
             :alt="product.name"
             class="product-left__img"
           />
