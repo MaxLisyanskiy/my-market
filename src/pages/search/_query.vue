@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
@@ -19,7 +19,7 @@
     components: { CatalogFilter, CatalogProducts },
     layout: 'catalog',
 
-    async asyncData({ store, query, app }) {
+    async asyncData({ store, query, app, error }) {
       /**
        * Get all categoris
        */
@@ -37,10 +37,14 @@
       return await app.$axios
         .$get(`/products?page=1&count=20&name=${q}`)
         .then(({ data }) => {
+          store.commit(
+            'search/UPDATE_SEARCH_PRODUCTS_COUNT',
+            data.products.length
+          )
           return { products: data.products }
         })
         .catch(() => {
-          app.error({ statusCode: 500 })
+          error({ statusCode: 500 })
         })
     },
     data() {
@@ -71,6 +75,8 @@
       },
     },
     methods: {
+      ...mapMutations('search', ['UPDATE_SEARCH_PRODUCTS_COUNT']),
+
       /**
        * Get products by query when change search input
        *
@@ -80,6 +86,7 @@
         await this.$axios
           .$get(`/products?page=1&count=20&name=${this.searchQuery}`)
           .then(({ data }) => {
+            this.UPDATE_SEARCH_PRODUCTS_COUNT(data.products.length)
             this.products = data.products
           })
           .catch(() => {

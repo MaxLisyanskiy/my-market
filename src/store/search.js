@@ -3,6 +3,7 @@ export const state = () => {
   return {
     searchInput: '',
     searchQuery: '',
+    searchProductsCount: null,
   }
 }
 
@@ -12,6 +13,9 @@ export const mutations = {
   },
   UPDATE_SEARCH_QUERY(state, payload) {
     state.searchQuery = payload
+  },
+  UPDATE_SEARCH_PRODUCTS_COUNT(state, payload) {
+    state.searchProductsCount = payload
   },
 }
 
