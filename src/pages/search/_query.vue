@@ -1,11 +1,10 @@
 <template>
   <section class="applyied">
     <CatalogFilter />
-    <div class="categories">
-      <CatalogProducts v-if="products.length > 0" :products="products" />
-      <!-- TODO -->
-      <h1 v-else class="temporary-title">Товары не найдены</h1>
+    <div v-if="products.length > 0" class="categories">
+      <CatalogProducts :products="products" />
     </div>
+    <CatalogProductsNotFound v-else />
   </section>
 </template>
 
@@ -13,10 +12,11 @@
   import { mapState, mapMutations } from 'vuex'
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
+  import CatalogProductsNotFound from '~/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
   export default {
     name: 'SearchPage',
-    components: { CatalogFilter, CatalogProducts },
+    components: { CatalogFilter, CatalogProducts, CatalogProductsNotFound },
     layout: 'catalog',
 
     async asyncData({ store, query, app, error }) {
