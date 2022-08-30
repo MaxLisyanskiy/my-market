@@ -26,7 +26,7 @@
           loop: true,
           direction: 'horizontal',
           autoplay: {
-            delay: 52222222000,
+            delay: 5000,
           },
           pagination: {
             el: '.swiper-pagination',
