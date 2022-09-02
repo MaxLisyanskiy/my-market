@@ -31,13 +31,10 @@ export default {
   css: ['~/assets/styles/main.scss', 'swiper/css/swiper.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~plugins/skeleton-loader-vue'],
+  plugins: [{ src: '~/plugins/axios.js' }],
 
   // Customize the progress-bar color
   loading: { color: '#f00b1d' },
-  // Отключаем индикацию загрузки страниц.
-  // loading: false,
-  // loadingIndicator: false,
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
@@ -74,5 +71,5 @@ export default {
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/eslint-module'],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa'],
 }

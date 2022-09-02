@@ -2,12 +2,14 @@
   <section class="applyied">
     <CatalogFilter />
     <div class="categories">
-      <CatalogProducts />
+      <CatalogProducts :products="products" />
     </div>
   </section>
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
+
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
@@ -16,11 +18,19 @@
     components: { CatalogFilter, CatalogProducts },
     layout: 'catalog',
 
-    async asyncData({ store }) {
-      /**
-       * Get all categoris
-       */
+    async asyncData({ store, app, query }) {
+      // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
+
+      // Get all products
+      const { products } = await app.$productService.getProducts(query.p ?? 1, 30)
+      return { products }
+    },
+    fetch() {
+      // Hiding breadcrumbs
+      this.SET_BREADCRUMBS({
+        showBreadcrumbs: false,
+      })
     },
     head() {
       return {
@@ -33,6 +43,9 @@
           },
         ],
       }
+    },
+    methods: {
+      ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
     },
   }
 </script>

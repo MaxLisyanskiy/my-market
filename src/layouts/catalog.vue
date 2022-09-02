@@ -2,7 +2,7 @@
   <div class="content">
     <TheHeader />
     <main>
-      <TheBreadcrumbs />
+      <TheBreadcrumbs v-show="showBreadcrumbs" />
       <article class="wrapper">
         <CatalogSidebar />
         <Nuxt />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   import TheHeader from '../components/common/TheHeader.vue'
   import TheFooter from '~/components/common/TheFooter.vue'
@@ -28,22 +28,15 @@
       TheBreadcrumbs,
       CatalogSidebar,
     },
-    data() {
-      return {
-        showBreadcrumbs: true,
-      }
+    computed: {
+      ...mapState('breadcrumbs', ['showBreadcrumbs']),
     },
     watch: {
-      /**
-       * Observing the query in the routing. If empty, then clear the input
-       */
+      // Observing the query in the routing. If empty, then clear the input
       $route() {
         const query = this.$router.history.current.query
         if (query && !Object.prototype.hasOwnProperty.call(query, 'q')) {
           this.SET_SEARCH_QUERY('')
-          this.showBreadcrumbs = true
-        } else {
-          this.showBreadcrumbs = false
         }
       },
     },
