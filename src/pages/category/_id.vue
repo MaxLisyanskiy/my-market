@@ -2,7 +2,8 @@
   <section class="applyied">
     <CatalogFilter />
     <div class="categories">
-      <CatalogProducts :products="products" :loading="loading" />
+      <CatalogProducts :products="products" />
+      <AppPagination v-if="showPagination" :initial-page="pagen.page" :page-count="100" />
     </div>
   </section>
 </template>
@@ -12,12 +13,14 @@
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
+  import AppPagination from '~/components/UI/AppPagination.vue'
+
   export default {
     name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogProducts },
+    components: { CatalogFilter, CatalogProducts, AppPagination },
     layout: 'catalog',
 
-    async asyncData({ store, params, error }) {
+    async asyncData({ app, store, params, query, error }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
@@ -25,32 +28,35 @@
       const get = await store.getters['categories/GET_CATEGORY_BY_ID']
       const category = await get(params.id)
 
+      // If the category is valid, get the products of the category. If not, go to the error page 404
       if (category) {
-        return { category }
+        const { products, count, pagen } = await app.$categoryService.getProductsCategory(params.id, query.p ?? 1, 3)
+        return { category, products, count, pagen }
       } else {
         error({ statusCode: 404 })
       }
     },
     data() {
       return {
-        products: null,
-        loading: false,
+        category: {},
+        products: [],
+        count: 0,
+        pagen: [],
+        showPagination: false,
       }
     },
-    async fetch() {
-      /**
-       * Get category products by by ID
-       */
-      const id = await this.$route.params.id
-      await this.onLoadCategoryProducts(id)
-
-      this.SET_BREADCRUMBS([
-        { name: 'Главная', path: '/' },
-        {
-          name: `${this.category.name}`,
-          path: `/category/${this.category.id}`,
-        },
-      ])
+    fetch() {
+      // Set links and name for breadcrumbs
+      this.SET_BREADCRUMBS({
+        showBreadcrumbs: true,
+        breadcrumbsLinks: [
+          { name: 'Главная', path: '/' },
+          {
+            name: `${this.category.name}`,
+            path: `/category/${this.category.id}`,
+          },
+        ],
+      })
     },
     head() {
       return {
@@ -73,7 +79,6 @@
        * @param {number} id Router params id.
        */
       async onLoadCategoryProducts(id) {
-        this.loading = true
         await this.$axios
           .$get(`/categories/${id}/products?page=1&count=20`)
           .then(({ data }) => {
@@ -83,6 +88,9 @@
             this.loading = false
           })
       },
+      // clickCallback(pageNum) {
+      //   console.log(pageNum)
+      // },
     },
   }
 </script>

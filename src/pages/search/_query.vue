@@ -10,6 +10,7 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex'
+
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
   import CatalogProductsNotFound from '~/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
@@ -19,38 +20,29 @@
     components: { CatalogFilter, CatalogProducts, CatalogProductsNotFound },
     layout: 'catalog',
 
-    async asyncData({ store, query, app, error }) {
-      /**
-       * Get all categoris
-       */
+    async asyncData({ store, query, app }) {
+      // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
-      /**
-       * Check query in the routing and set query in store
-       */
+      // Check query in the routing and set query in store
       const { q } = await query
       await store.dispatch('search/SET_SEARCH_QUERY', q)
 
-      /**
-       * Get products by query
-       */
-      return await app.$axios
-        .$get(`/products?page=1&count=20&name=${q}`)
-        .then(({ data }) => {
-          store.commit(
-            'search/UPDATE_SEARCH_PRODUCTS_COUNT',
-            data.products.length
-          )
-          return { products: data.products }
-        })
-        .catch(() => {
-          error({ statusCode: 500 })
-        })
+      // Get products by query
+      const { products } = await app.$productService.getProducts(query.p ?? 1, 30, q)
+      store.commit('search/UPDATE_SEARCH_PRODUCTS_COUNT', products.length)
+      return { products }
     },
     data() {
       return {
         products: [],
       }
+    },
+    fetch() {
+      // Hiding breadcrumbs
+      this.SET_BREADCRUMBS({
+        showBreadcrumbs: false,
+      })
     },
     head() {
       return {
@@ -70,38 +62,22 @@
     watch: {
       searchQuery(newCount, oldCount) {
         if (oldCount !== newCount) {
-          this.onLoadCategoryProducts()
+          this.handleLoadProducts()
         }
       },
     },
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_PRODUCTS_COUNT']),
+      ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
 
       /**
        * Get products by query when change search input
-       *
-       * @async
        */
-      async onLoadCategoryProducts() {
-        await this.$axios
-          .$get(`/products?page=1&count=20&name=${this.searchQuery}`)
-          .then(({ data }) => {
-            this.UPDATE_SEARCH_PRODUCTS_COUNT(data.products.length)
-            this.products = data.products
-          })
-          .catch(() => {
-            this.$nuxt.error({ statusCode: 500 })
-          })
+      async handleLoadProducts() {
+        const { products } = await this.$productService.getProducts(1, 30, this.searchQuery)
+        this.UPDATE_SEARCH_PRODUCTS_COUNT(products.length)
+        this.products = products
       },
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .temporary-title {
-    display: flex;
-    justify-content: center;
-    padding-top: 30px;
-    font-size: 30px;
-  }
-</style>
