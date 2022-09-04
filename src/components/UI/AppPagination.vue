@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="!noLiSurround" :class="containerClass">
+  <ul class="pagination">
     <li v-if="firstLastButton" :class="[pageClass, firstPageSelected() ? disabledClass : '']">
       <a
         :class="pageLinkClass"
@@ -7,28 +7,28 @@
         @click="selectFirstPage()"
         @keyup.enter="selectFirstPage()"
       >
-        First
+        &lt;&lt;
       </a>
     </li>
 
-    <li v-if="!(firstPageSelected() && hidePrevNext)" :class="[prevClass, firstPageSelected() ? disabledClass : '']">
+    <li
+      v-if="!(firstPageSelected() && hidePrevNext)"
+      :class="[firstPageSelected() ? disabledClass : '']"
+      class="pagination__first-arrow"
+    >
       <a :class="prevLinkClass" :tabindex="firstPageSelected() ? -1 : 0" @click="prevPage()" @keyup.enter="prevPage()">
-        Prev
+        &lt;
       </a>
     </li>
 
     <li
       v-for="page in pages"
       :key="page.index"
-      :class="[
-        pageClass,
-        page.selected ? activeClass : '',
-        page.disabled ? disabledClass : '',
-        page.breakView ? breakViewClass : '',
-      ]"
+      class="pagination__item"
+      :class="[page.selected ? 'pagination__item_active' : '', page.disabled ? 'pagination__item_disabled' : '']"
     >
-      <a v-if="page.breakView" :class="[pageLinkClass, breakViewLinkClass]" tabindex="0">
-        <slot name="breakViewContent">{{ breakViewText }}</slot>
+      <a v-if="page.breakView" :class="[pageLinkClass]" tabindex="0">
+        <slot name="breakViewContent"> ... </slot>
       </a>
       <a v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">{{ page.content }}</a>
       <a
@@ -42,9 +42,13 @@
       </a>
     </li>
 
-    <li v-if="!(lastPageSelected() && hidePrevNext)" :class="[nextClass, lastPageSelected() ? disabledClass : '']">
+    <li
+      v-if="!(lastPageSelected() && hidePrevNext)"
+      :class="[lastPageSelected() ? disabledClass : '']"
+      class="pagination__last-arrow"
+    >
       <a :class="nextLinkClass" :tabindex="lastPageSelected() ? -1 : 0" @click="nextPage()" @keyup.enter="nextPage()">
-        Next
+        &gt;
       </a>
     </li>
 
@@ -55,84 +59,15 @@
         @click="selectLastPage()"
         @keyup.enter="selectLastPage()"
       >
-        Last
+        &gt;&gt;
       </a>
     </li>
   </ul>
-
-  <div v-else :class="containerClass">
-    <a
-      v-if="firstLastButton"
-      :class="[pageLinkClass, firstPageSelected() ? disabledClass : '']"
-      tabindex="0"
-      @click="selectFirstPage()"
-      @keyup.enter="selectFirstPage()"
-    ></a>
-    <a
-      v-if="!(firstPageSelected() && hidePrevNext)"
-      :class="[prevLinkClass, firstPageSelected() ? disabledClass : '']"
-      tabindex="0"
-      @click="prevPage()"
-      @keyup.enter="prevPage()"
-    >
-      Prev
-    </a>
-    <template v-for="page in pages">
-      <a
-        v-if="page.breakView"
-        :key="page.index"
-        :class="[pageLinkClass, breakViewLinkClass, page.disabled ? disabledClass : '']"
-        tabindex="0"
-      >
-        <slot name="breakViewContent">{{ breakViewText }}</slot>
-      </a>
-      <a
-        v-else-if="page.disabled"
-        :key="`${page.index + Math.random()}`"
-        :class="[pageLinkClass, page.selected ? activeClass : '', disabledClass]"
-        tabindex="0"
-      >
-        {{ page.content }}
-      </a>
-      <a
-        v-else
-        :key="`${page.index + Date.now()}`"
-        tabindex="0"
-        :class="[pageLinkClass, page.selected ? activeClass : '']"
-        @click="handlePageSelected(page.index + 1)"
-        @keyup.enter="handlePageSelected(page.index + 1)"
-      >
-        {{ page.content }}
-      </a>
-    </template>
-    <a
-      v-if="!(lastPageSelected() && hidePrevNext)"
-      :class="[nextLinkClass, lastPageSelected() ? disabledClass : '']"
-      tabindex="0"
-      @click="nextPage()"
-      @keyup.enter="nextPage()"
-    >
-      Next
-    </a>
-    <a
-      v-if="firstLastButton"
-      :class="[pageLinkClass, lastPageSelected() ? disabledClass : '']"
-      tabindex="0"
-      @click="selectLastPage()"
-      @keyup.enter="selectLastPage()"
-    >
-      Last
-    </a>
-  </div>
 </template>
 
 <script>
   export default {
     props: {
-      // modelValue: {
-      //   type: Number,
-      //   // default: 1,
-      // },
       pageCount: {
         type: Number,
         required: true,
@@ -141,10 +76,6 @@
         type: Number,
         default: 1,
       },
-      // forcePage: {
-      //   type: Number,
-      //   // default: 1,
-      // },
       clickHandler: {
         type: Function,
         default: () => {},
@@ -157,22 +88,6 @@
         type: Number,
         default: 1,
       },
-      // prevText: {
-      //   type: String,
-      //   default: 'Prev',
-      // },
-      // nextText: {
-      //   type: String,
-      //   default: 'Next',
-      // },
-      breakViewText: {
-        type: String,
-        default: '…',
-      },
-      containerClass: {
-        type: String,
-        default: 'pagination',
-      },
       pageClass: {
         type: String,
         default: 'page-item',
@@ -180,10 +95,6 @@
       pageLinkClass: {
         type: String,
         default: 'page-link',
-      },
-      prevClass: {
-        type: String,
-        default: 'page-item',
       },
       prevLinkClass: {
         type: String,
@@ -197,14 +108,6 @@
         type: String,
         default: 'page-link',
       },
-      breakViewClass: {
-        type: String,
-        default: '',
-      },
-      breakViewLinkClass: {
-        type: String,
-        default: '',
-      },
       activeClass: {
         type: String,
         default: 'active',
@@ -213,22 +116,10 @@
         type: String,
         default: 'disabled',
       },
-      noLiSurround: {
-        type: Boolean,
-        default: false,
-      },
       firstLastButton: {
         type: Boolean,
         default: false,
       },
-      // firstButtonText: {
-      //   type: String,
-      //   default: 'First',
-      // },
-      // lastButtonText: {
-      //   type: String,
-      //   default: 'Last',
-      // },
       hidePrevNext: {
         type: Boolean,
         default: false,
@@ -367,6 +258,54 @@
   }
 </script>
 
-<style scoped>
-  /* @import 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css'; */
+<style lang="scss" scoped>
+  .pagination {
+    margin-top: 10px;
+    margin-right: 15px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__item {
+      margin: 0 2.5px;
+      padding: 3px 6px;
+
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      color: #4d4d4d;
+
+      cursor: pointer;
+
+      &_active {
+        background: #ff5833;
+        border-radius: 4px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        /* line-height: 17px; */
+        color: #ffffff;
+      }
+
+      &_disabled {
+        cursor: default;
+      }
+    }
+
+    &__first-arrow {
+      margin-right: 1.5px;
+      padding: 3px 6px;
+      cursor: pointer;
+    }
+
+    &__last-arrow {
+      margin-left: 1.5px;
+      padding: 3px 6px;
+      cursor: pointer;
+    }
+  }
 </style>

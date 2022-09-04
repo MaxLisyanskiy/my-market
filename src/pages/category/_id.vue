@@ -3,8 +3,8 @@
     <CatalogFilter />
     <div class="categories">
       <CatalogProducts :products="products" />
-      <AppPagination v-if="showPagination" :initial-page="pagen.page" :page-count="100" />
     </div>
+    <AppPagination v-if="showPagination" :initial-page="pagen.page" :page-count="100" />
   </section>
 </template>
 
