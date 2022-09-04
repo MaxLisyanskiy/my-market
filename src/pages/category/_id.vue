@@ -10,6 +10,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
+
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
@@ -48,7 +49,6 @@
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
-        showBreadcrumbs: true,
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {
