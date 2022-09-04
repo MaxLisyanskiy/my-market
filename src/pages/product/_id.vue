@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <!-- TODO -->
+  <h1 class="product-id-page__title">В разработке...</h1>
+
+  <!-- <div>
     <div class="wrapper wrapper-product">
       <div class="card">
         <div class="product">
@@ -23,7 +26,6 @@
                     class="swiper-slide product-slider__img"
                   />
                 </div>
-                <!--	 If we need navigation buttons -->
                 <div class="product-swiper__button-prev"></div>
                 <div class="product-swiper__button-next"></div>
               </div>
@@ -236,7 +238,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -246,10 +248,10 @@
 
   export default {
     name: 'ProductIdPage',
-    components: {
-      Swiper,
-      SwiperSlide,
-    },
+    // components: {
+    //   Swiper,
+    //   SwiperSlide,
+    // },
     layout: 'default',
 
     async asyncData({ app, store, params, query, error }) {
@@ -304,6 +306,7 @@
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
+        showBreadcrumbs: true,
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {
@@ -335,4 +338,10 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .product-id-page__title {
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+  }
+</style>
