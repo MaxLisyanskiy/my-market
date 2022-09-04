@@ -306,7 +306,6 @@
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
-        showBreadcrumbs: true,
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {
@@ -327,7 +326,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: `${this.product.name} по ценам от заводов России. Низкие цены доставка в регионы. Гарантия качества.`,
+            content: `${this.product.name} - оптом от завода. По низким ценам с доставкой`,
           },
         ],
       }
