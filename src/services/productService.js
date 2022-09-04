@@ -18,7 +18,7 @@ export default ($axios, error) => {
       }
 
       return await $axios
-        .get('/products/', config)
+        .get('/products', config)
         .then(({ data }) => {
           return { ...data.data }
         })
