@@ -24,6 +24,13 @@
       await this.SET_SEARCH_QUERY('')
     },
 
+    head() {
+      const canonical = `${process.env.ORIGIN_URL}${this.$route.path.toLowerCase().replace(/\/$/, '')}`
+      return {
+        link: [{ rel: 'canonical', href: canonical }],
+      }
+    },
+
     methods: {
       ...mapActions('search', ['SET_SEARCH_QUERY']),
     },

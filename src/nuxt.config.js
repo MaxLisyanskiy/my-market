@@ -1,5 +1,7 @@
 import head from './config/head'
 import pwa from './config/pwa'
+import sitemap from './config/sitemap'
+import robots from './config/robots'
 
 export default {
   // Указываем порт, на котором будет работать приложение.
@@ -31,13 +33,13 @@ export default {
   css: ['~/assets/styles/main.scss', 'swiper/css/swiper.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/axios.js' }],
+  plugins: [{ src: '~/plugins/axios.js' }, { src: '~~/plugins/vue-lazy-load.js' }],
 
   // Customize the progress-bar color
   loading: { color: '#f00b1d' },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/sitemap', '@nuxtjs/robots', '@nuxtjs/yandex-metrika'],
 
   // Отключаем генерацию создания файла .eslintcache
   eslint: {
@@ -62,14 +64,33 @@ export default {
     },
   },
 
-  // cache: process.env.NODE_ENV === 'production',
+  /**
+   ****** SEO *******
+   */
+
+  // sitemap.xml settings
+  sitemap,
+
+  // robot.txt settings
+  robots,
+
+  // Yandex Metrika settings
+  // https://www.npmjs.com/package/@nuxtjs/yandex-metrika
+  yandexMetrika: {
+    id: process.env.YANDEX_METRIKA_ID,
+    webvisor: true,
+  },
+
+  /**
+   ****** Build *******
+   */
+
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true, // Просим стили вырезать в отдельные файлы. Иначе css будет inline.
     devtools: process.env.NODE_ENV !== 'production',
   },
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa'],
 }

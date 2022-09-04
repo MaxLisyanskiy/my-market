@@ -28,6 +28,12 @@
       TheBreadcrumbs,
       CatalogSidebar,
     },
+    head() {
+      const canonical = `${process.env.ORIGIN_URL}${this.$route.path.toLowerCase().replace(/\/$/, '')}`
+      return {
+        link: [{ rel: 'canonical', href: canonical }],
+      }
+    },
     computed: {
       ...mapState('breadcrumbs', ['showBreadcrumbs']),
     },
