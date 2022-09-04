@@ -38,12 +38,6 @@
         products: [],
       }
     },
-    fetch() {
-      // Hiding breadcrumbs
-      this.SET_BREADCRUMBS({
-        showBreadcrumbs: false,
-      })
-    },
     head() {
       return {
         title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,

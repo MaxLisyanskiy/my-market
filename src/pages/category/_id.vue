@@ -49,7 +49,6 @@
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
-        showBreadcrumbs: true,
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {

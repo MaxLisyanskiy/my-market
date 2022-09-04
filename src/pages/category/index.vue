@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
-
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
@@ -23,14 +21,8 @@
       await store.dispatch('categories/GET_CATEGORIES')
 
       // Get all products
-      const { products } = await app.$productService.getProducts(query.p ?? 1, 30)
+      const { products } = await app.$productService.getProducts(query.p ?? 1, 30, null)
       return { products }
-    },
-    fetch() {
-      // Hiding breadcrumbs
-      this.SET_BREADCRUMBS({
-        showBreadcrumbs: false,
-      })
     },
     head() {
       return {
@@ -43,9 +35,6 @@
           },
         ],
       }
-    },
-    methods: {
-      ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
     },
   }
 </script>

@@ -4,14 +4,16 @@ export const state = () => {
     showBreadcrumbs: false,
     breadcrumbsLinks: [
       { name: 'Главная', path: '/' },
-      { name: '', path: '' },
+      { name: '...', path: '/' },
     ],
   }
 }
 
 export const mutations = {
-  SET_BREADCRUMBS(state, { showBreadcrumbs, breadcrumbsLinks }) {
-    state.showBreadcrumbs = showBreadcrumbs
+  SET_BREADCRUMBS(state, { breadcrumbsLinks }) {
     state.breadcrumbsLinks = breadcrumbsLinks
+  },
+  SET_SHOW_BREADCRUMBS(state, payload) {
+    state.showBreadcrumbs = payload
   },
 }

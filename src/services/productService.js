@@ -8,7 +8,7 @@ export default ($axios, error) => {
      * @param {string} query query in the routing
      * @returns {object} Object with field products, count, pages
      */
-    getProducts: async (page = 1, count = 20, query = '') => {
+    getProducts: async (page = 1, count = 20, query = null) => {
       const config = {
         params: {
           page: Number(page),
@@ -16,8 +16,9 @@ export default ($axios, error) => {
           name: query,
         },
       }
+
       return await $axios
-        .get('/products', config)
+        .get('/products/', config)
         .then(({ data }) => {
           return { ...data.data }
         })
@@ -36,7 +37,6 @@ export default ($axios, error) => {
       return await $axios
         .get(`/products/${id}`)
         .then(({ data }) => {
-          console.log(data.data)
           return { ...data.data }
         })
         .catch(() => {

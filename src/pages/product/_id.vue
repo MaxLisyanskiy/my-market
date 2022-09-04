@@ -1,5 +1,5 @@
 <template>
-  <Fragment>
+  <div>
     <div class="wrapper wrapper-product">
       <div class="card">
         <div class="product">
@@ -236,20 +236,17 @@
         </div>
       </div>
     </div>
-  </Fragment>
+  </div>
 </template>
 
 <script>
   import { mapMutations } from 'vuex'
-
-  import { Fragment } from 'vue-fragment'
 
   import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
   export default {
     name: 'ProductIdPage',
     components: {
-      Fragment,
       Swiper,
       SwiperSlide,
     },
@@ -263,8 +260,6 @@
 
       const get = await store.getters['categories/GET_CATEGORY_BY_ID']
       const category = await get(product.category_id)
-
-      console.log(category)
 
       return { product, company, category }
     },
@@ -309,7 +304,6 @@
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
-        showBreadcrumbs: true,
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {
