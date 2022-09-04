@@ -25,5 +25,23 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Get product by id
+     *
+     * @param {number} id product id
+     * @returns {object} Object with field products, count, pages
+     */
+    getProductById: async id => {
+      return await $axios
+        .get(`/products/${id}`)
+        .then(({ data }) => {
+          console.log(data.data)
+          return { ...data.data }
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }

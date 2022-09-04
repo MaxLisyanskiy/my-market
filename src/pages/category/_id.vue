@@ -10,6 +10,7 @@
 
 <script>
   import { mapMutations } from 'vuex'
+
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
