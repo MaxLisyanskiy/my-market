@@ -64,6 +64,29 @@ export default {
     },
   },
 
+  // @nuxtjs/auth-next
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'data.access_token',
+          global: true,
+          type: 'Bearer ',
+          maxAge: 60 * 60 * 24 * 30, // token lifetime in Number of seconds. Default is 30 min. Now is 30 days
+        },
+        user: {
+          property: 'data.user',
+          autoFetch: false,
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          logout: { url: '/logout', method: 'post' },
+          user: { url: '/profile', method: 'get' },
+        },
+      },
+    },
+  },
+
   /**
    ****** SEO *******
    */
