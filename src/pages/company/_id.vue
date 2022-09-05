@@ -92,7 +92,7 @@
 
 <script>
   export default {
-    name: 'ProductIdPage',
+    name: 'ComapnyIdPage',
     layout: 'default',
 
     async asyncData({ app, store, params, query, error }) {
