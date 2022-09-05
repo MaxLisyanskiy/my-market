@@ -6,7 +6,7 @@ export default ($axios, error) => {
      * @param {number} id Router params id.
      * @param {number} page page number of products list (use for pagination)
      * @param {number} count number of products to display
-     * @returns {object} Object with field products, count, pages
+     * @returns {object} Object with field products, pages
      */
     getProductsCategory: async (id, page = 1, count = 20) => {
       const config = {
