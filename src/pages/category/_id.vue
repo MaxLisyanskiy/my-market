@@ -4,7 +4,12 @@
     <div class="categories">
       <CatalogProducts :products="products" />
     </div>
-    <AppPagination v-if="showPagination" :initial-page="pagen.page" :page-count="100" />
+    <AppPagination
+      v-if="pagen.total > countProducts"
+      :initial-page="pagen.page"
+      :page-count="Math.ceil(pagen.total / countProducts)"
+      :click-handler="handleClickPagination"
+    />
   </section>
 </template>
 
@@ -31,8 +36,8 @@
 
       // If the category is valid, get the products of the category. If not, go to the error page 404
       if (category) {
-        const { products, count, pagen } = await app.$categoryService.getProductsCategory(params.id, query.p ?? 1, 3)
-        return { category, products, count, pagen }
+        const { products, pagen } = await app.$categoryService.getProductsCategory(params.id, query.p ?? 1, 20)
+        return { category, products, pagen }
       } else {
         error({ statusCode: 404 })
       }
@@ -41,9 +46,8 @@
       return {
         category: {},
         products: [],
-        count: 0,
         pagen: [],
-        showPagination: false,
+        countProducts: 20,
       }
     },
     fetch() {
@@ -72,25 +76,24 @@
     },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
+
       /**
-       * Get category by ID and overwrite in data. Change loading.
-       *
-       * @async
-       * @param {number} id Router params id.
+       * Get category products with configs after change page in pagination
+       * @param {number} pageNum page number in pagination
+       * @returns {object} Object with field products, pages
        */
-      async onLoadCategoryProducts(id) {
-        await this.$axios
-          .$get(`/categories/${id}/products?page=1&count=20`)
-          .then(({ data }) => {
-            this.products = data.products
-          })
-          .then(() => {
-            this.loading = false
-          })
+      async handleClickPagination(pageNum) {
+        const { products, pagen } = await this.$categoryService.getProductsCategory(
+          this.$route.params.id,
+          pageNum,
+          this.countProducts
+        )
+
+        this.products = products
+        this.pagen = pagen
+
+        this.$router.push(`${this.$route.path}?p=${pageNum}`)
       },
-      // clickCallback(pageNum) {
-      //   console.log(pageNum)
-      // },
     },
   }
 </script>
