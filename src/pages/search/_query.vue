@@ -5,7 +5,7 @@
       <CatalogProducts :products="products" />
     </div>
     <AppPagination
-      v-if="pagen.total > countProducts"
+      v-if="pagen.total > countProducts && products.length > 0"
       :initial-page="pagen.page"
       :page-count="Math.ceil(pagen.total / countProducts)"
       :click-handler="handleClickPagination"
@@ -76,6 +76,7 @@
 
       /**
        * Get products by query when change search input
+       * @returns {object} Object with field products, pages
        */
       async handleLoadProducts() {
         const { products, pagen } = await this.$productService.getProducts(
@@ -98,8 +99,7 @@
 
         this.products = products
         this.pagen = pagen
-
-        this.$router.push(`${this.$route.path}?p=${pageNum}`)
+        this.$router.push(`${this.$route.path}?q=${this.$route.query.q}&p=${pageNum}`)
       },
     },
   }
