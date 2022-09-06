@@ -7,8 +7,19 @@
 
   & .list .product {
     display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid #e5e0e0;
     margin-bottom: -3px;
+    transition: color 0.5s;
+
+    &-wrapp {
+      display: flex;
+      &:hover {
+        .product-center__title {
+          color: #ff5833;
+        }
+      }
+    }
 
     &-left {
       width: 180px;
@@ -16,6 +27,7 @@
       height: auto;
       margin-left: 10px;
       position: relative;
+
       &__img {
         margin: 10px 0 10.5px 0;
         width: 180px;
@@ -46,6 +58,10 @@
         margin-bottom: 5px;
       }
 
+      &__wrapp {
+        display: flex;
+      }
+
       &__text {
         color: #999999;
         font-size: 16px;
@@ -64,9 +80,7 @@
       }
 
       &__description {
-        float: left;
-        position: relative;
-        top: 6px;
+        margin-top: 7px;
         font-size: 14px;
 
         font-weight: 500;
@@ -105,28 +119,30 @@
   }
 
   & .gallery {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
   }
 
   & .gallery .product {
-    width: 216px;
-    margin-bottom: 26px;
     height: 300px;
     position: relative;
-    overflow: hidden;
+    padding: 7px 7px 10px;
+    margin-bottom: 20px;
+    transition: color 0.5s;
+    &:hover {
+      box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      & .product-title {
+        color: #ff5833;
+      }
+    }
     &__img {
       width: 100%;
       height: 216px;
       position: relative;
       z-index: 2;
-    }
-    &__plug {
-      position: absolute;
-      z-index: 1;
-      left: 0;
     }
     &-title {
       font-family: 'Roboto';
@@ -151,7 +167,7 @@
       color: #404040;
       display: block;
       position: absolute;
-      bottom: 18px;
+      bottom: 21px;
     }
 
     &-order {
@@ -162,7 +178,7 @@
       color: #999999;
       display: block;
       position: absolute;
-      bottom: 0;
+      bottom: 3px;
 
       &__pcs {
         color: #404040;
@@ -384,7 +400,7 @@
   background-position: center center;
   background-size: 50% 50%;
   box-sizing: border-box;
-  curspor: pointer;
+  cursor: pointer;
 }
 
 /* стили при наведении курсора на checkbox */
