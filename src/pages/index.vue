@@ -1,11 +1,11 @@
 <template>
-  <article class="home content-row">
+  <article class="content-row">
     <section class="wrapper">
       <HomeCategories />
       <HomeSwiper />
     </section>
     <HomeProductsSlider />
-    <HomeProducts />
+    <!-- <HomeProducts /> -->
   </article>
 </template>
 
@@ -20,7 +20,7 @@
       HomeCategories,
       HomeSwiper,
       HomeProductsSlider,
-      HomeProducts,
+      // HomeProducts,
     },
     layout: 'default',
   }

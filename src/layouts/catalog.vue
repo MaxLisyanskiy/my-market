@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <TheHeader />
-    <main>
+    <TheBreadcrumbs v-show="showBreadcrumbs" />
+    <main :class="{ mainWrapper: !showBreadcrumbs }">
       <article class="wrapper">
         <CatalogSidebar />
         <Nuxt />
@@ -12,16 +13,19 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   import TheHeader from '../components/common/TheHeader.vue'
-  import TheFooter from '~/components/common/TheFooter.vue'
-  import CatalogSidebar from '~/components/catalog/CatalogSidebar/index.vue'
+  import TheBreadcrumbs from '../components/common/TheBreadcrumbs.vue'
+  import TheFooter from '../components/common/TheFooter.vue'
+
+  import CatalogSidebar from '../components/catalog/CatalogSidebar/index.vue'
 
   export default {
     name: 'CatalogLayout',
     components: {
       TheHeader,
+      TheBreadcrumbs,
       TheFooter,
       CatalogSidebar,
     },
@@ -30,6 +34,9 @@
       return {
         link: [{ rel: 'canonical', href: canonical }],
       }
+    },
+    computed: {
+      ...mapState('breadcrumbs', ['showBreadcrumbs']),
     },
     watch: {
       // Observing the query in the routing. If empty, then clear the input

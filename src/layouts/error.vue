@@ -1,17 +1,15 @@
 <template>
-  <Fragment>
+  <div>
     <template v-if="error.statusCode === 404">
       <TheHeader />
       <main>
-        <section class="section-error404">
-          <Error404 />
-        </section>
+        <Error404 />
       </main>
     </template>
-    <section v-else>
+    <main v-else>
       <Error500 />
-    </section>
-  </Fragment>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -25,7 +23,7 @@
     name: 'ErrorLayout',
     components: {
       TheHeader,
-      Fragment,
+      // Fragment,
       Error404,
       Error500,
     },
@@ -37,9 +35,7 @@
       },
     },
     head() {
-      const errorMessage = `${
-        this.error.statusCode === 404 ? 'Страница не найдена' : 'Ошибка сервера'
-      } | VALE.SU`
+      const errorMessage = `${this.error.statusCode === 404 ? 'Страница не найдена' : 'Ошибка сервера'} | VALE.SU`
 
       return {
         title: errorMessage,

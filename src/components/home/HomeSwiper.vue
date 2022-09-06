@@ -1,5 +1,5 @@
 <template>
-  <swiper class="home wrapper-slider swiper" :options="swiperOption">
+  <swiper class="wrapper-slider swiper" :options="swiperOption">
     <swiper-slide v-for="index in 4" :key="index" class="swiper-slide">
       <span class="slider-text">Slide {{ index }}</span>
     </swiper-slide>
