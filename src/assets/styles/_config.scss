@@ -1,0 +1,57 @@
+// GENERAL DOCUMENT STYLES
+html {
+  height: 100%;
+}
+
+img {
+  text-indent: -10000px;
+}
+
+body {
+  font-family: $userfont;
+  font-size: $fontsize;
+  line-height: $lineheight;
+  font-weight: $fontweight;
+  color: $textcolor;
+  overflow-x: hidden;
+  height: 100%;
+  background: #f7f5f5;
+  &.lock {
+    overflow: hidden;
+  }
+}
+
+.content {
+  padding-bottom: 90px;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+.content-row {
+  @extend %container;
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+    margin-top: 57px;
+  }
+}
+.mainWrapper {
+  padding-top: 90px;
+  @media (max-width: 768px) {
+    padding-top: 15px;
+  }
+  @media (max-width: 670px) {
+    padding-top: 0;
+  }
+}
+.desktop {
+  display: flex;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.mobile {
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}

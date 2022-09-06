@@ -1,0 +1,23 @@
+// USER VARIABLES SECTION
+// $accent: #f00b1d; // Accent Color
+$fontsize: 16px; // Body Font Size
+$textcolor: #262626; // Text Color
+$lineheight: 24px; // Document Line Height
+$userfont: "Roboto", sans-serif; // User Font Family
+$systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif; // System Font Family
+$fontweight: 300;
+
+/*variables*/
+%container {
+  width: 1200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 1220px) {
+    width: 92%;
+    max-width: 92%;
+  }
+  @media (max-width: 992px) {
+    width: 95%;
+    max-width: 95%;
+  }
+}

@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <TheHeader />
-    <main>
+    <TheBreadcrumbs v-show="showBreadcrumbs" />
+    <main :class="{ mainWrapper: !showBreadcrumbs }">
       <Nuxt />
     </main>
     <TheFooter />
@@ -9,15 +10,17 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   import TheHeader from '../components/common/TheHeader.vue'
-  import TheFooter from '~/components/common/TheFooter.vue'
+  import TheBreadcrumbs from '../components/common/TheBreadcrumbs.vue'
+  import TheFooter from '../components/common/TheFooter.vue'
 
   export default {
     name: 'DefaultLayout',
     components: {
       TheHeader,
+      TheBreadcrumbs,
       TheFooter,
     },
     async fetch() {
@@ -29,6 +32,9 @@
       return {
         link: [{ rel: 'canonical', href: canonical }],
       }
+    },
+    computed: {
+      ...mapState('breadcrumbs', ['showBreadcrumbs']),
     },
     watch: {
       // Observing the query in the routing. If empty, then clear the input
