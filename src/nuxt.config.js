@@ -39,7 +39,14 @@ export default {
   loading: { color: '#f00b1d' },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/sitemap', '@nuxtjs/robots', '@nuxtjs/yandex-metrika'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    '@nuxtjs/yandex-metrika',
+    '@nuxtjs/auth-next',
+  ],
 
   // Отключаем генерацию создания файла .eslintcache
   eslint: {
