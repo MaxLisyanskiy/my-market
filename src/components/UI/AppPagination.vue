@@ -1,6 +1,6 @@
 <template>
   <ul class="pagination">
-    <li v-if="firstLastButton" :class="[pageClass, firstPageSelected() ? disabledClass : '']">
+    <!-- <li v-if="firstLastButton" :class="[pageClass, firstPageSelected() ? disabledClass : '']">
       <a
         :class="pageLinkClass"
         :tabindex="firstPageSelected() ? -1 : 0"
@@ -9,15 +9,16 @@
       >
         &lt;&lt;
       </a>
-    </li>
+    </li> -->
 
+    <!-- PaginationArrowLeft -->
     <li
       v-if="!(firstPageSelected() && hidePrevNext)"
       :class="[firstPageSelected() ? disabledClass : '']"
       class="pagination__first-arrow"
     >
       <a :class="prevLinkClass" :tabindex="firstPageSelected() ? -1 : 0" @click="prevPage()" @keyup.enter="prevPage()">
-        &lt;
+        <PaginationLeftSvg />
       </a>
     </li>
 
@@ -28,7 +29,7 @@
       :class="[page.selected ? 'pagination__item_active' : '', page.disabled ? 'pagination__item_disabled' : '']"
     >
       <a v-if="page.breakView" :class="[pageLinkClass]" tabindex="0">
-        <slot name="breakViewContent"> ... </slot>
+        <PaginationDotsSvg />
       </a>
       <a v-else-if="page.disabled" :class="pageLinkClass" tabindex="0">{{ page.content }}</a>
       <a
@@ -42,17 +43,18 @@
       </a>
     </li>
 
+    <!-- PaginationArrowRight -->
     <li
       v-if="!(lastPageSelected() && hidePrevNext)"
       :class="[lastPageSelected() ? disabledClass : '']"
       class="pagination__last-arrow"
     >
       <a :class="nextLinkClass" :tabindex="lastPageSelected() ? -1 : 0" @click="nextPage()" @keyup.enter="nextPage()">
-        &gt;
+        <PaginationRightSvg />
       </a>
     </li>
 
-    <li v-if="firstLastButton" :class="[pageClass, lastPageSelected() ? disabledClass : '']">
+    <!-- <li v-if="firstLastButton" :class="[pageClass, lastPageSelected() ? disabledClass : '']">
       <a
         :class="pageLinkClass"
         :tabindex="lastPageSelected() ? -1 : 0"
@@ -61,12 +63,18 @@
       >
         &gt;&gt;
       </a>
-    </li>
+    </li> -->
   </ul>
 </template>
 
 <script>
+  import PaginationLeftSvg from '@/assets/img/icons/svg/pagination-left.svg?inline'
+  import PaginationRightSvg from '@/assets/img/icons/svg/pagination-right.svg?inline'
+  import PaginationDotsSvg from '@/assets/img/icons/svg/pagination-dots.svg?inline'
+
   export default {
+    name: 'AppPagination',
+    components: { PaginationLeftSvg, PaginationRightSvg, PaginationDotsSvg },
     props: {
       pageCount: {
         type: Number,

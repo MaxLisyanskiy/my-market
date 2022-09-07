@@ -3,7 +3,7 @@
     <div class="header-row">
       <div class="header-block header-block__logo">
         <nuxt-link to="/">
-          <img src="@/assets/img/icons/logo.svg" alt="logo" class="header-logo" />
+          <LogoSvg class="header-logo" />
         </nuxt-link>
       </div>
       <div class="header-block header-block__search">
@@ -21,7 +21,7 @@
       <div class="header-block header-block__btn">
         <div class="header-btn header-sign">
           <nuxt-link to="/login/">
-            <img class="header-sign__img" src="@/assets/img/user_icon.png" alt="Войти" />
+            <ProfileSvg class="header-sign__img" />
             <span class="header-sign__text">Войти</span>
           </nuxt-link>
         </div>
@@ -33,7 +33,12 @@
 <script>
   import { mapState, mapMutations, mapActions } from 'vuex'
 
+  import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
+  import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
+
   export default {
+    name: 'TheHeader',
+    components: { LogoSvg, ProfileSvg },
     computed: {
       ...mapState('search', ['searchInput']),
     },

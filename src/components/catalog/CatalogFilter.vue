@@ -33,41 +33,16 @@
       </div> -->
 
       <div class="sorting">
-        <svg
+        <SortingListSvg
           class="sorting-icon sorting-list"
           :class="{ active: viewMode === 'list' }"
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
           @click="handleChangeViewMode('list')"
-        >
-          <rect x="13" y="23" width="13" height="2" fill="#FF5833" />
-          <rect x="13" y="19" width="13" height="2" fill="#FF5833" />
-          <rect x="13" y="15" width="13" height="2" fill="#FF5833" />
-          <rect y="14" width="12" height="12" rx="3" fill="#FF5833" />
-          <rect x="13" y="9" width="13" height="2" fill="#FF5833" />
-          <rect x="13" y="5" width="13" height="2" fill="#FF5833" />
-          <rect x="13" y="1" width="13" height="2" fill="#FF5833" />
-          <rect width="12" height="12" rx="3" fill="#FF5833" />
-        </svg>
-
-        <svg
+        />
+        <SortingGallerySvg
           class="sorting-icon sorting-gallery"
           :class="{ active: viewMode === 'gallery' }"
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
           @click="handleChangeViewMode('gallery')"
-        >
-          <rect x="14" y="14" width="12" height="12" rx="3" fill="#E5E0E0" />
-          <rect y="14" width="12" height="12" rx="3" fill="#E5E0E0" />
-          <rect x="14" width="12" height="12" rx="3" fill="#E5E0E0" />
-          <rect width="12" height="12" rx="3" fill="#E5E0E0" />
-        </svg>
+        />
       </div>
     </div>
   </div>
@@ -76,8 +51,12 @@
 <script>
   import { mapState, mapActions } from 'vuex'
 
+  import SortingListSvg from '@/assets/img/icons/svg/sorting-list.svg?inline'
+  import SortingGallerySvg from '@/assets/img/icons/svg/sorting-gallery.svg?inline'
+
   export default {
     name: 'CatalogFilter',
+    components: { SortingListSvg, SortingGallerySvg },
     data() {
       return {
         showApplyiedResult: false,
