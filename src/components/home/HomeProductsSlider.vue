@@ -6,7 +6,7 @@
       <button class="products-btn">
         <a>
           <span class="products-btn__text">Смотреть<span class="desktop">всё</span></span>
-          <img src="@/assets/img/icons/right.svg" alt="" class="products-btn__img" />
+          <!-- <img src="@/assets/img/icons/right.svg" alt="" class="products-btn__img" /> -->
         </a>
       </button>
     </div>

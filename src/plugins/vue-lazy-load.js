@@ -8,8 +8,8 @@ export default (context, inject) => {
   Vue.use(VueLazyload, {
     preLoad: 0,
     // eslint-disable-next-line
-    error: require(`${'~~/assets/products-not_found.png'}`),
-    loading: require(`${'~~/assets/loading-skeleton.gif'}`),
+    error: require(`${'~~/assets/img/img-not_found.jpg'}`),
+    loading: require(`${'~~/assets/img/loading-skeleton.gif'}`),
     attempt: 3,
     lazyComponent: true,
     observer: true,
