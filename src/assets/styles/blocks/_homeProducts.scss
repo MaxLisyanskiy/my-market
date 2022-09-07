@@ -262,12 +262,6 @@
         width: 100%;
       }
     }
-    &__plug {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
   }
 
   &-mob {
@@ -289,11 +283,6 @@
       @media (max-width: 480px) {
         height: 110px;
       }
-    }
-    &__plug {
-      position: absolute;
-      top: 0;
-      z-index: 1;
     }
     &__title,
     &__price,
@@ -394,9 +383,6 @@
       z-index: 2;
       position: absolute;
       top: 40px;
-    }
-    &__plug {
-      z-index: 1;
     }
   }
 }

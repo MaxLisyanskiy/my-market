@@ -38,11 +38,11 @@
           <span class="product-right__title">Наименование организации</span>
 
           <button class="btn-call product-call">
-            <img src="@/assets/img/icons/btn-call.svg" alt="btn-call" class="btn-call__img" />
+            <BtnCallSvg class="btn-call__img" />
             <span class="product-call__text">Позвонить</span>
           </button>
           <button class="btn-chat product-chat">
-            <img src="@/assets/img/icons/btn-message.svg" alt="btn-message" class="btn-chat__img" />
+            <BtnMessageSvg class="btn-chat__img" />
             <span class="product-chat__text">Чат</span>
           </button>
         </div>
@@ -54,8 +54,12 @@
 <script>
   import { mapState } from 'vuex'
 
+  import BtnCallSvg from '@/assets/img/icons/svg/btn-call.svg?inline'
+  import BtnMessageSvg from '@/assets/img/icons/svg/btn-message.svg?inline'
+
   export default {
     name: 'CatalogProducts',
+    components: { BtnCallSvg, BtnMessageSvg },
     props: {
       products: {
         type: Array,

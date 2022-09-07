@@ -21,7 +21,7 @@
       <div class="header-block header-block__btn">
         <div class="header-btn header-sign">
           <nuxt-link to="/login/">
-            <ProfileSvg class="header-sign__img" />
+            <img src="@/assets/img/icons/signIn.svg" alt="signIn-icons" />
             <span class="header-sign__text">Войти</span>
           </nuxt-link>
         </div>
@@ -34,11 +34,10 @@
   import { mapState, mapMutations, mapActions } from 'vuex'
 
   import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
-  import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
 
   export default {
     name: 'TheHeader',
-    components: { LogoSvg, ProfileSvg },
+    components: { LogoSvg },
     computed: {
       ...mapState('search', ['searchInput']),
     },
