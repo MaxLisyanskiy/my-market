@@ -51,6 +51,10 @@
         line-height: 19.8px;
         color: #186dbc;
         margin-bottom: 5px;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       &__wrapp {
@@ -81,6 +85,11 @@
         font-weight: 500;
         line-height: 16.41px;
         color: #999999;
+
+        -webkit-line-clamp: 7;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
     }
 
