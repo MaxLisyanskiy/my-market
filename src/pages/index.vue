@@ -4,7 +4,7 @@
       <HomeCategories />
       <HomeSwiper />
     </section>
-    <HomeProductsSlider />
+    <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
     <!-- <HomeProducts /> -->
   </article>
 </template>
@@ -23,5 +23,16 @@
       // HomeProducts,
     },
     layout: 'default',
+
+    async asyncData({ app }) {
+      // Get the categories with products for the HomeProductsSlider
+      const { categories } = await app.$categoryService.getCategoriesWithProducts()
+      return { categories }
+    },
+    data() {
+      return {
+        categories: [],
+      }
+    },
   }
 </script>
