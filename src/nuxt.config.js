@@ -121,7 +121,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true, // Просим стили вырезать в отдельные файлы. Иначе css будет inline.
-    // transpile: ['vue-awesome-swiper'],
+    transpile: ['vue-awesome-swiper'],
     devtools: process.env.NODE_ENV !== 'production',
   },
 }

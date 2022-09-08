@@ -282,7 +282,7 @@
     components: { AppSwiper },
     layout: 'default',
 
-    async asyncData({ app, store, params, query, error }) {
+    async asyncData({ app, store, params }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
