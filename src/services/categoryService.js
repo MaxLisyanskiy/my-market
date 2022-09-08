@@ -24,5 +24,21 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Get products of a category with some configs
+     *
+     * @returns {array} Array with category objects
+     */
+    getCategoriesWithProducts: async () => {
+      return await $axios
+        .get('/categories/products')
+        .then(({ data }) => {
+          return { ...data.data }
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }
