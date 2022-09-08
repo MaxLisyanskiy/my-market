@@ -2,7 +2,7 @@
   <article class="content-row">
     <section class="wrapper">
       <HomeCategories />
-      <HomeSwiper />
+      <AppSwiper :swiper-config="swiperConfig" />
     </section>
     <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
     <!-- <HomeProducts /> -->
@@ -10,17 +10,18 @@
 </template>
 
 <script>
+  import AppSwiper from '~/components/UI/AppSwiper.vue'
+
   import HomeCategories from '~/components/home/HomeCategories.vue'
-  import HomeSwiper from '~/components/home/HomeSwiper.vue'
   import HomeProductsSlider from '~/components/home/HomeProductsSlider.vue'
   import HomeProducts from '~/components/home/HomeProducts.vue'
+
   export default {
     name: 'HomePage',
     components: {
       HomeCategories,
-      HomeSwiper,
       HomeProductsSlider,
-      // HomeProducts,
+      AppSwiper,
     },
     layout: 'default',
 
@@ -32,6 +33,19 @@
     data() {
       return {
         categories: [],
+        swiperConfig: {
+          mainClass: 'wrapper-slider',
+          wrapperClass: '',
+          slidesPerView: 1,
+          loop: true,
+          direction: 'horizontal',
+          autoplay: {
+            delay: 5000,
+          },
+          isPagination: true,
+          btnPrevClass: 'swiper-button-prev',
+          btnNextClass: 'swiper-button-next',
+        },
       }
     },
   }

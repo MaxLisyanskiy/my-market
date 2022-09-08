@@ -1,60 +1,27 @@
 <template>
-  <!-- TODO -->
-  <h1 class="product-id-page__title">В разработке...</h1>
-
-  <!-- <div>
-    <div class="wrapper wrapper-product">
-      <div class="card">
+  <div>
+    <article class="wrapper-product">
+      <section class="card">
         <div class="product">
-          <client-only>
-            <div class="product-left">
-              <img :src="product.images[0].url" alt="" class="product-left__img" />
-              <Swiper ref="swiperPreview" :options="swiperOptionPreview" class="swiper product-swiper">
-                <swiper-slide v-for="(image, imageIndex) of product.images" :key="`slider-preview-${imageIndex}`">
-                  <div class="product-slider swiper-wrapper">
-                    <img :src="image.url" class="swiper-slide product-slider__img" />
-                  </div>
+          <div class="product-left">
+            <img src="@/assets/img/product-max.png" alt="" class="product-left__img" />
+            <!-- <swiper class="swiper product-swiper" :options="swiperOption2">
+              <div class="product-slider swiper-wrapper">
+                <swiper-slide v-for="index in 22" :key="index" class="swiper-slide">
+                  <img src="@/assets/img/product.png" alt="product" class="product-slider__img" />
                 </swiper-slide>
-              </Swiper>
-              <div class="swiper product-swiper">
-                <div class="product-slider swiper-wrapper">
-                  <img
-                    v-for="item in 10"
-                    :key="item"
-                    src="img/product.png"
-                    alt="product"
-                    class="swiper-slide product-slider__img"
-                  />
-                </div>
-                <div class="product-swiper__button-prev"></div>
-                <div class="product-swiper__button-next"></div>
               </div>
-            </div>
-          </client-only>
+              <div slot="button-prev" class="product-swiper__button-prev"></div>
+              <div slot="button-next" class="product-swiper__button-next"></div>
+            </swiper> -->
+            <AppSwiper :swiper-config="swiperConfig" />
+          </div>
 
           <div class="product-center">
-            <span class="product-center__title">{{ product.name }}</span>
+            <span class="product-center__title">Банка стеклянная 82мм 500мл для консервирования, хранения сыпучих</span>
             <div class="product-center__block">
-              <div class="product-block">
-                <span class="product-block__price">₽36/шт.</span>
-                <span class="product-block__count">1,000-1,999</span>
-                <span class="product-block__text">шт.</span>
-              </div>
-
-              <div class="product-block">
-                <span class="product-block__price">₽36/шт.</span>
-                <span class="product-block__count">1,000-1,999</span>
-                <span class="product-block__text">шт.</span>
-              </div>
-
-              <div class="product-block">
-                <span class="product-block__price">₽36/шт.</span>
-                <span class="product-block__count">1,000-1,999</span>
-                <span class="product-block__text">шт.</span>
-              </div>
-
-              <div class="product-block">
-                <span class="product-block__price">₽36/шт.</span>
+              <div v-for="index in 4" :key="index" class="product-block">
+                <span class="product-block__price">₽24/шт.</span>
                 <span class="product-block__count">1,000-1,999</span>
                 <span class="product-block__text">шт.</span>
               </div>
@@ -64,7 +31,7 @@
               <div class="rectangle-block">
                 <span class="rectangle-block__text">Цвет:</span>
                 <div class="rectangle-row">
-                  <img src="img/Баллон 10лит 1.png" alt="" class="rectangle-row__img" />
+                  <img src="@/assets/img/Баллон 10лит 1.png" alt="" class="rectangle-row__img" />
                 </div>
               </div>
               <div class="rectangle-block">
@@ -90,7 +57,18 @@
 
               <div class="rectangle-from">
                 <span class="rectangle-from__text">Отправка из:</span>
-                <img src="img/icons/flag-russia.svg" alt="" class="rectangle-from__flag" />
+                <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#a)">
+                    <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF" />
+                    <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB" />
+                    <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B" />
+                  </g>
+                  <defs>
+                    <clipPath id="a">
+                      <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z" />
+                    </clipPath>
+                  </defs>
+                </svg>
                 <span class="rectangle-from__location">РСО-А, г. Владикавказ</span>
               </div>
             </div>
@@ -98,11 +76,58 @@
 
           <div class="product-right">
             <div class="product-owner">
-              <span class="product-owner__title">{{ company.name }}</span>
-              <img src="img/flag_rus.png" alt="" class="product-owner__flag" />
+              <span class="product-owner__title">ООО “Стеклянные банки”</span>
+              <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#a)">
+                  <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF" />
+                  <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB" />
+                  <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B" />
+                </g>
+                <defs>
+                  <clipPath id="a">
+                    <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z" />
+                  </clipPath>
+                </defs>
+              </svg>
               <span class="product-owner__address">РСО-А, г. Владикавказ</span>
-              <button class="btn-call product-owner__call">Позвонить</button>
-              <button class="btn-chat product-owner__chat">Написать</button>
+              <button class="btn-call product-owner__call">
+                <svg class="btn-call__img" width="10" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7.873 0H1.46C.656 0 0 .656 0 1.459v14.584c0 .803.656 1.459 1.459 1.459h6.416c.803 0 1.459-.656 1.459-1.459V1.459A1.466 1.466 0 0 0 7.874 0ZM3.791 1.166h1.75a.292.292 0 0 1 0 .582h-1.75a.292.292 0 0 1-.291-.291c0-.16.13-.291.291-.291Zm.875 15.75a.874.874 0 0 1-.875-.875c0-.484.39-.875.875-.875.484 0 .875.39.875.875 0 .484-.39.875-.875.875Zm4.084-2.332H.584V2.916H8.75v11.668Z"
+                    fill="#fff"
+                  />
+                </svg>
+                <span class="product-call__text">Позвонить</span>
+              </button>
+              <button class="btn-chat product-owner__chat">
+                <svg
+                  class="btn-chat__img"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.5 1.5H2.5C1.67125 1.5 1.0075 2.17125 1.0075 3L1 16.5L4 13.5H14.5C15.3287 13.5 16 12.8288 16 12V3C16 2.17125 15.3287 1.5 14.5 1.5ZM13 10.5H4V9H13V10.5ZM13 8.25H4V6.75H13V8.25ZM13 6H4V4.5H13V6Z"
+                    fill="url(#paint0_linear_515_1843)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_515_1843"
+                      x1="1"
+                      y1="16.5"
+                      x2="18.2884"
+                      y2="13.085"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#F00B1D" />
+                      <stop offset="1" stop-color="#FF5833" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <span class="product-chat__text">Написать в чат</span>
+              </button>
             </div>
 
             <div class="schedule">
@@ -110,14 +135,14 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </article>
 
-    <div class="product-description">
-      <div class="tabs">
+    <article class="product-description">
+      <section class="tabs">
         <ul class="tabs-menu">
-          <li class="tabs-menu__link active">Описание</li>
-          <li class="tabs-menu__link">Вопросы и ответы</li>
+          <li class="tabs-menu__link">Описание</li>
+          <li class="tabs-menu__link active">Вопросы и ответы</li>
         </ul>
 
         <div class="tabs-block description active">
@@ -167,91 +192,94 @@
             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </span>
         </div>
-      </div>
-
-      <div class="similar">
-        <div class="similar-row">
+      </section>
+      <section class="similar">
+        <aside class="similar-row">
           <span class="similar-row__title">Похожее у продавца</span>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
+          <div v-for="index in 3" :key="index" class="product">
+            <img src="@/assets/img/img-not_found.jpg" alt="" class="product__img" />
+            <span class="product-title">Банка стеклянная 182мм 500мл</span>
             <span class="product-pcs">от ₽24/шт.</span>
             <span class="product-order">Мин. заказ: <span class="product-order__pcs">1000 шт.</span></span>
           </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-            <span class="product-order">Мин. заказ: <span class="product-order__pcs">1000 шт.</span></span>
-          </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-            <span class="product-order">Мин. заказ: <span class="product-order__pcs">1000 шт.</span></span>
-          </div>
-        </div>
-        <div class="similar-info product-owner">
+        </aside>
+        <aside class="similar-info product-owner">
           <span class="product-owner__title">ООО “Стеклянные банки”</span>
-          <img src="img/flag_rus.png" alt="" class="product-owner__flag" />
+          <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#a)">
+              <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF" />
+              <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB" />
+              <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B" />
+            </g>
+            <defs>
+              <clipPath id="a">
+                <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z" />
+              </clipPath>
+            </defs>
+          </svg>
           <span class="product-owner__address">РСО-А, г. Владикавказ</span>
-          <button class="btn-call product-owner__call">Позвонить</button>
-          <button class="btn-chat product-owner__chat">Написать</button>
-        </div>
-      </div>
-
-      <div class="watched">
+          <button class="btn-call product-owner__call">
+            <svg class="btn-call__img" width="10" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.873 0H1.46C.656 0 0 .656 0 1.459v14.584c0 .803.656 1.459 1.459 1.459h6.416c.803 0 1.459-.656 1.459-1.459V1.459A1.466 1.466 0 0 0 7.874 0ZM3.791 1.166h1.75a.292.292 0 0 1 0 .582h-1.75a.292.292 0 0 1-.291-.291c0-.16.13-.291.291-.291Zm.875 15.75a.874.874 0 0 1-.875-.875c0-.484.39-.875.875-.875.484 0 .875.39.875.875 0 .484-.39.875-.875.875Zm4.084-2.332H.584V2.916H8.75v11.668Z"
+                fill="#fff"
+              />
+            </svg>
+            <span class="product-call__text">Позвонить</span>
+          </button>
+          <button class="btn-chat product-owner__chat">
+            <svg
+              class="btn-chat__img"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.5 1.5H2.5C1.67125 1.5 1.0075 2.17125 1.0075 3L1 16.5L4 13.5H14.5C15.3287 13.5 16 12.8288 16 12V3C16 2.17125 15.3287 1.5 14.5 1.5ZM13 10.5H4V9H13V10.5ZM13 8.25H4V6.75H13V8.25ZM13 6H4V4.5H13V6Z"
+                fill="url(#paint0_linear_515_1843)"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_515_1843"
+                  x1="1"
+                  y1="16.5"
+                  x2="18.2884"
+                  y2="13.085"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#F00B1D" />
+                  <stop offset="1" stop-color="#FF5833" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="product-chat__text">Написать в чат</span>
+          </button>
+        </aside>
+      </section>
+      <section class="watched">
         <span class="watched-title">Вы смотрели ранее</span>
         <div class="watched-row">
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-          </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-          </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-          </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
-            <span class="product-title">Банка стеклянная 82мм 500мл</span>
-            <span class="product-pcs">от ₽24/шт.</span>
-          </div>
-
-          <div class="product">
-            <img src="img/Баллон 10лит 1.png" alt="" class="product__img" />
+          <div v-for="index in 6" :key="index" class="product">
+            <img src="@/assets/img/img-not_found.jpg" alt="" class="product__img" />
             <span class="product-title">Банка стеклянная 82мм 500мл</span>
             <span class="product-pcs">от ₽24/шт.</span>
           </div>
         </div>
-      </div>
-    </div>
-  </div> -->
+      </section>
+    </article>
+  </div>
 </template>
 
 <script>
   import { mapMutations } from 'vuex'
 
-  import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+  import AppSwiper from '../../components/UI/AppSwiper.vue'
 
   export default {
     name: 'ProductIdPage',
-    // components: {
-    //   Swiper,
-    //   SwiperSlide,
-    // },
+    components: { AppSwiper },
     layout: 'default',
 
     async asyncData({ app, store, params, query, error }) {
@@ -269,37 +297,16 @@
       return {
         product: {},
         company: {},
-        swiperOptionTop: {
-          loop: true,
-          loopedSlides: 5,
-          spaceBetween: 10,
-          navigation: {
-            nextEl: '.swiper-top-button-next',
-            prevEl: '.swiper-top-button-prev',
-          },
-          pagination: {
-            clickable: true,
-            dynamicBullets: true,
-            el: '.swiper-top-pagination',
-          },
-          autoHeight: true,
-        },
-        swiperOptionThumbs: {
-          loop: true,
-          loopedSlides: 5,
-          spaceBetween: 10,
-          centeredSlides: true,
-          slidesPerView: 'auto',
-          touchRatio: 0.2,
-          slideToClickedSlide: true,
-        },
-        swiperOptionPreview: {
-          autoHeight: true,
-          spaceBetween: 20,
-          navigation: {
-            nextEl: '.swiper-detail-button-next',
-            prevEl: '.swiper-detail-button-prev',
-          },
+        swiperConfig: {
+          mainClass: 'product-swiper',
+          wrapperClass: 'product-slider',
+          slidesPerView: 5,
+          loop: false,
+          direction: this.getDirection(),
+          autoplay: false,
+          isPagination: false,
+          btnPrevClass: 'product-swiper__button-prev',
+          btnNextClass: 'product-swiper__button-next',
         },
       }
     },
@@ -333,6 +340,14 @@
     },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
+
+      getDirection() {
+        if (process.browser) {
+          const direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal'
+
+          return direction
+        }
+      },
     },
   }
 </script>

@@ -80,3 +80,17 @@
   &__text {
   }
 }
+.product-owner {
+  &__chat {
+    width: 204px;
+    bottom: 10px;
+    position: absolute;
+    & path {
+    }
+  }
+  &__call {
+    width: 204px;
+    bottom: 55px;
+    position: absolute;
+  }
+}
