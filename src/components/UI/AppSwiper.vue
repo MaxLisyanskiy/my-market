@@ -14,7 +14,6 @@
 <script>
   // import Swiper JS
   import { Swiper, Navigation, Pagination, Autoplay } from 'swiper'
-  import 'swiper/swiper-bundle.min.css'
 
   export default {
     props: {

@@ -24,11 +24,11 @@
           <span class="products-mob__price">от ₽{{ product.min_price.price }}/шт.</span>
           <span class="products-mob__description products-mob__desktop">
             Мин. заказ:
-            <span class="products-mob__pcs">1000 шт.</span>
+            <span class="products-mob__pcs">{{ product.min_price.amount }} шт.</span>
           </span>
           <span class="products-mob__description products-mob__mobile">
             Заказ
-            <span class="products-mob__pcs">от 1000 шт.</span>
+            <span class="products-mob__pcs">от {{ product.min_price.amount }} шт.</span>
           </span>
         </div>
       </nuxt-link>
@@ -46,11 +46,11 @@
         <span class="products-max__price">от ₽{{ product.min_price.price }}/шт.</span>
         <span class="products-max__description products-max__desktop">
           Мин. заказ:
-          <span class="products-max__pcs">1000 шт.</span>
+          <span class="products-max__pcs">{{ product.min_price.amount }} шт.</span>
         </span>
         <span class="products-max__description products-max__mobile">
           Заказ
-          <span class="products-max__pcs">от 1000 шт.</span>
+          <span class="products-max__pcs">от {{ product.min_price.amount }} шт.</span>
         </span>
       </nuxt-link>
     </div>
