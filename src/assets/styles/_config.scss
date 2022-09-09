@@ -55,3 +55,39 @@ body {
     display: flex;
   }
 }
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0px;
+  @media (max-width: 1220px) {
+    margin-top: 9px;
+  }
+  &-slider {
+    width: 936px;
+    height: 320px;
+    border-radius: 10px;
+    margin-left: 20px;
+    box-shadow: 0 0 2px rgba(204, 204, 204, 0.6);
+
+    &:hover .swiper-button-next,
+    &:hover .swiper-button-prev {
+      opacity: 1;
+    }
+    @media (max-width: 1220px) {
+      width: 75%;
+    }
+    @media (max-width: 768px) {
+      width: 70%;
+    }
+    @media (max-width: 670px) {
+      width: 100%;
+      margin: 0;
+      height: 220px;
+    }
+    @media (max-width: 480px) {
+      height: 170px;
+    }
+  }
+}

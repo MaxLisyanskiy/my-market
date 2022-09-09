@@ -1,6 +1,6 @@
 <template>
   <article class="content-row">
-    <section class="wrapper">
+    <section class="home-wrapper">
       <HomeCategories />
       <AppSwiper :swiper-config="swiperConfig" />
     </section>
