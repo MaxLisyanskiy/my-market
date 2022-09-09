@@ -30,7 +30,7 @@ export default {
   router: { prefetchLinks: false },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/styles/main.scss'],
+  css: ['~/assets/styles/main.scss', 'swiper/swiper-bundle.min.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [{ src: '~/plugins/axios.js' }, { src: '~/plugins/vue-lazy-load.js' }, { src: '~/plugins/router.js' }],
@@ -121,7 +121,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true, // Просим стили вырезать в отдельные файлы. Иначе css будет inline.
-    transpile: ['vue-awesome-swiper'],
+    // transpile: ['vue-awesome-swiper'],
     devtools: process.env.NODE_ENV !== 'production',
   },
 }
