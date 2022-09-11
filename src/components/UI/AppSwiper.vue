@@ -1,8 +1,14 @@
 <template>
   <div class="swiper" :class="swiperConfig.mainClass">
     <div class="swiper-wrapper" :class="swiperConfig.wrapperClass">
-      <div v-for="index of 10" :key="index" class="swiper-slide">
-        <img src="@/assets/img/product.png" alt="product" class="product-slider__img" />
+      <div
+        v-for="(img, index) of images"
+        :key="index"
+        class="swiper-slide"
+        :class="{ active: index === activeSlideIndex }"
+        @click="handleImgSelected(index)"
+      >
+        <img v-lazy="img.url" :alt="`SwipperImg${index}`" class="product-slider__img" />
       </div>
     </div>
     <div v-if="swiperConfig.isPagination" id="swiperPagination" class="swiper-pagination"></div>
@@ -21,6 +27,19 @@
         type: Object,
         default: () => {},
       },
+      images: {
+        type: Array,
+        default: () => [],
+      },
+      clickHandler: {
+        type: Function,
+        default: () => {},
+      },
+    },
+    data() {
+      return {
+        activeSlideIndex: 0,
+      }
     },
     mounted() {
       // configure Swiper to use modules. The modules were tested with SwiperJS v6.8.4 with NuxtJS v2.15.7
@@ -53,11 +72,17 @@
       })
     },
     methods: {
-      getDirection() {
-        if (process.browser) {
-          const direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal'
-          return direction
-        }
+      // getDirection() {
+      //   if (process.browser) {
+      //     const direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal'
+      //     return direction
+      //   }
+      // },
+      handleImgSelected(index) {
+        if (this.activeSlideIndex === index) return false
+
+        this.activeSlideIndex = index
+        this.clickHandler(index)
       },
     },
   }
@@ -68,9 +93,7 @@
     overflow: hidden !important;
     position: relative;
   }
-  // .product-slider__img {
-  //   &:hover {
-  //     border: 1px solid linear-gradient(#f00b1d 0%, #ff5833 100%);
-  //   }
-  // }
+  .swiper-slide.active {
+    border: 1px solid #f00b1d;
+  }
 </style>
