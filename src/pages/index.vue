@@ -18,11 +18,7 @@
 
   export default {
     name: 'HomePage',
-    components: {
-      HomeCategories,
-      HomeProductsSlider,
-      AppSwiper,
-    },
+    components: { HomeCategories, HomeProductsSlider, AppSwiper },
     layout: 'default',
 
     async asyncData({ app }) {
@@ -61,7 +57,7 @@
           },
         ],
         swiperConfig: {
-          mainClass: 'wrapper-slider',
+          mainClass: 'wrapper-slider company-slider',
           wrapperClass: '',
           slidesPerView: 1,
           loop: true,
