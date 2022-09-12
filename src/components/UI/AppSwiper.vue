@@ -5,10 +5,10 @@
         v-for="(img, index) of images"
         :key="index"
         class="swiper-slide"
-        :class="{ active: index === activeSlideIndex }"
+        :class="{ active: swiperConfig.addColorForActiveSlide && index === activeSlideIndex }"
         @click="handleImgSelected(index)"
       >
-        <img v-lazy="img.url" :alt="`SwipperImg${index}`" class="product-slider__img" />
+        <img :src="img.url" :alt="`SwipperImg${index}`" class="product-slider__img" />
       </div>
     </div>
     <div v-if="swiperConfig.isPagination" id="swiperPagination" class="swiper-pagination"></div>
@@ -54,7 +54,7 @@
         loop: this.swiperConfig.loop,
         direction: this.swiperConfig.direction,
         autoplay: this.swiperConfig.autoplay,
-
+        // slideActiveClass: this.swiperConfig.addColorForActiveSlide ? 'swiper-slide-active' : '',
         navigation: {
           prevEl: '#btnPrev',
           nextEl: '#btnNext',
@@ -95,5 +95,9 @@
   }
   .swiper-slide.active {
     border: 1px solid #f00b1d;
+  }
+  .product-slider__img {
+    width: 100%;
+    height: inherit;
   }
 </style>

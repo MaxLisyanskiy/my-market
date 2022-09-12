@@ -2,7 +2,7 @@
   <article class="content-row">
     <section class="home-wrapper">
       <HomeCategories />
-      <AppSwiper :swiper-config="swiperConfig" />
+      <AppSwiper :swiper-config="swiperConfig" :images="images" />
     </section>
     <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
     <!-- <HomeProducts /> -->
@@ -38,6 +38,28 @@
     data() {
       return {
         categories: [],
+        images: [
+          {
+            id: 1,
+            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+          },
+          {
+            id: 2,
+            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+          },
+          {
+            id: 3,
+            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+          },
+          {
+            id: 4,
+            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+          },
+          {
+            id: 5,
+            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+          },
+        ],
         swiperConfig: {
           mainClass: 'wrapper-slider',
           wrapperClass: '',
@@ -50,6 +72,7 @@
           isPagination: true,
           btnPrevClass: 'swiper-button-prev',
           btnNextClass: 'swiper-button-next',
+          addColorForActiveSlide: false,
         },
       }
     },
