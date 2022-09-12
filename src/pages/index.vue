@@ -28,6 +28,11 @@
     async asyncData({ app }) {
       // Get the categories with products for the HomeProductsSlider
       const { categories } = await app.$categoryService.getCategoriesWithProducts()
+
+      // Add color for categories
+      const colorArray = ['#F2F2D2', '#F2D2EF', '#F2D2D2', '#D2F2EA', '#D2D9F2', '#DAF2D2', '#F2DED2', '#A6D8D4']
+      categories.map((item, index) => (item.color = colorArray[index]))
+
       return { categories }
     },
     data() {
