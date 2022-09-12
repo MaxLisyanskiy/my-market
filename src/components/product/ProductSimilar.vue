@@ -10,7 +10,7 @@
           </div>
         </div> -->
     <div class="similar-info product-owner">
-      <span class="product-owner__title">{{ company.name }}</span>
+      <nuxt-link :to="`/company/${company.id}`" class="product-owner__title">{{ company.name }}</nuxt-link>
 
       <!-- TODO -->
       <!-- <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
