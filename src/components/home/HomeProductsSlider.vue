@@ -1,7 +1,7 @@
 <template>
   <section class="products scroll">
     <div class="scroll-shadow scroll-shadow__right"></div>
-    <div class="products-left products-left__scroll">
+    <div :style="{ background: category.color }" class="products-left products-left__scroll">
       <span class="products-left__title">{{ category.name }}</span>
       <button class="products-btn">
         <nuxt-link :to="`/category/${category.id}`">

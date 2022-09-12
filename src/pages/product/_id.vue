@@ -37,6 +37,7 @@
           isPagination: false,
           btnPrevClass: 'product-swiper__button-prev',
           btnNextClass: 'product-swiper__button-next',
+          addColorForActiveSlide: true,
         },
       }
     },
