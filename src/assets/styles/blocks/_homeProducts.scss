@@ -153,8 +153,7 @@
       width: 70%;
       background: #fff;
       height: auto;
-      padding: 15px 0 12px 0;
-      justify-content: space-around;
+      padding: 0 0 10px;
       align-items: center;
     }
     @media (max-width: 670px) {
@@ -162,7 +161,7 @@
       border-radius: 0 0 10px 10px;
     }
     @media (max-width: 480px) {
-      padding: 10px 0 0 0;
+      padding: 10px 5px 7px;
     }
   }
   &-shadow__right {
@@ -265,14 +264,12 @@
   }
 
   &-mob {
-    width: 125px;
+    min-width: 145px;
+    margin: 15px 0 0 15px;
     position: relative;
     @media (max-width: 480px) {
-      width: 110px;
-      padding-bottom: 4px;
-    }
-    @media (max-width: 370px) {
-      width: 30%;
+      min-width: 110px;
+      margin: 0px 5px;
     }
     &__img {
       width: 100%;
