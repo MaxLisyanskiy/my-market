@@ -93,6 +93,11 @@
     overflow: hidden !important;
     position: relative;
   }
+  .swiper-pagination,
+  .swiper-button-prev,
+  .swiper-button-next {
+    z-index: 2 !important;
+  }
   .swiper-slide.active {
     border: 1px solid #f00b1d;
   }
