@@ -11,19 +11,18 @@
       <span class="tabs-block__title">Базовая информация</span>
       <div class="tabs-table__row">
         <div class="tabs-table__block">
-          <div class="tabs-table__left"></div>
-          <div class="tabs-table__right"></div>
-          <div class="tabs-table__left"></div>
-          <div class="tabs-table__right"></div>
-          <div class="tabs-table__left"></div>
-          <div class="tabs-table__right"></div>
-          <div class="tabs-table__left"></div>
-          <div class="tabs-table__right"></div>
-          <div class="tabs-table__left"></div>
-          <div class="tabs-table__right"></div>
+          <div v-for="(spec, index) in productSpecsLeft" :key="index" class="tabs-table__wrapp">
+            <div class="tabs-table__left">{{ spec.key }}:</div>
+            <div class="tabs-table__right">{{ spec.value }}</div>
+          </div>
+        </div>
+        <div v-if="productSpecsRight.length > 0" class="tabs-table__block">
+          <div v-for="(spec, index) in productSpecsRight" :key="index" class="tabs-table__wrapp">
+            <div class="tabs-table__left">{{ spec.key }}:</div>
+            <div class="tabs-table__right">{{ spec.value }}</div>
+          </div>
         </div>
       </div>
-
       <span class="tabs-block__title">Описание товара</span>
       <span class="tabs-block__text">{{ product.description }}</span>
     </div>
@@ -74,6 +73,16 @@
     data() {
       return {
         tabIndex: 0,
+        productSpecsLeft: [],
+        productSpecsRight: [],
+      }
+    },
+    created() {
+      if (this.product.specs.length > 5) {
+        this.productSpecsLeft = this.product.specs.slice(0, 5)
+        this.productSpecsRight = this.product.specs.slice(0, 5)
+      } else {
+        this.productSpecsLeft = this.product.specs
       }
     },
     methods: {

@@ -21,17 +21,25 @@
     </div>
 
     <div class="banner-tabs">
-      <ul class="banner-tabs__list">
-        <li class="banner-tabs__link" :class="{ active: activeTab === 'Main' }">
-          <nuxt-link :to="`/company/${company.id}`"> Главная </nuxt-link>
-        </li>
-        <li class="banner-tabs__link" :class="{ active: activeTab === 'Products' }">
-          <nuxt-link :to="`/company/${company.id}/products`">Товары</nuxt-link>
-        </li>
-        <li class="banner-tabs__link" :class="{ active: activeTab === 'About' }">
-          <nuxt-link :to="`/company/${company.id}/about/`">О компании</nuxt-link>
-        </li>
-      </ul>
+      <div class="banner-tabs__list">
+        <nuxt-link :to="`/company/${company.id}`" class="banner-tabs__link" :class="{ active: activeTab === 'Main' }">
+          Главная
+        </nuxt-link>
+        <nuxt-link
+          :to="`/company/${company.id}/products`"
+          class="banner-tabs__link"
+          :class="{ active: activeTab === 'Products' }"
+        >
+          Товары
+        </nuxt-link>
+        <nuxt-link
+          :to="`/company/${company.id}/about/`"
+          class="banner-tabs__link"
+          :class="{ active: activeTab === 'About' }"
+        >
+          О компании
+        </nuxt-link>
+      </div>
     </div>
   </section>
 </template>
