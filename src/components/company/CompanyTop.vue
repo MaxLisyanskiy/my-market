@@ -22,7 +22,12 @@
 
     <div class="banner-tabs">
       <div class="banner-tabs__list">
-        <nuxt-link :to="`/company/${company.id}`" class="banner-tabs__link" :class="{ active: activeTab === 'Main' }">
+        <nuxt-link
+          v-show="false"
+          :to="`/company/${company.id}`"
+          class="banner-tabs__link"
+          :class="{ active: activeTab === 'Main' }"
+        >
           Главная
         </nuxt-link>
         <nuxt-link
