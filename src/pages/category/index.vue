@@ -24,10 +24,7 @@
     components: { CatalogFilter, CatalogProducts, AppPagination },
     layout: 'catalog',
 
-    async asyncData({ store, app, query }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
-
+    async asyncData({ app, query }) {
       // Get all products
       const { products, pagen } = await app.$productService.getProducts(query.p ?? 1, 20, null)
       return { products, pagen }

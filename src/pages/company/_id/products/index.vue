@@ -17,9 +17,6 @@
     layout: 'default',
 
     async asyncData({ app, store, params, query }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
-
       const { company } = await app.$companyService.getCompanyById(params.id)
 
       const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, query.q ?? null)

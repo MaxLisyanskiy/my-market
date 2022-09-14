@@ -29,9 +29,6 @@
     layout: 'catalog',
 
     async asyncData({ store, query, app }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
-
       // Check query in the routing and set query in store
       const { q } = await query
       await store.dispatch('search/SET_SEARCH_QUERY', q)
