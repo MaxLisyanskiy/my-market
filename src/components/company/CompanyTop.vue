@@ -3,6 +3,7 @@
     <div class="banner-bg">
       <img src="@/assets/img/company-bg_one.png" alt="banner-bg" class="banner-bg__img" />
     </div>
+
     <div class="banner-info">
       <div class="banner-info__left">
         <img v-lazy="company?.logo" alt="company-logo" class="banner-info__logo" />
@@ -12,11 +13,16 @@
         </div>
       </div>
       <div class="banner-info__right">
-        <div class="banner-search">
-          <input placeholder="Искать в этом магазине..." type="text" class="banner-search__input" />
-          <button class="banner-search__btn">Поиск</button>
-        </div>
-        <input type="text" class="banner-input" />
+        <form type="search" class="banner-search" @submit.prevent="handleSearchCompanyProducts">
+          <input
+            type="text"
+            placeholder="Искать в этом магазине..."
+            class="banner-search__input"
+            :value="companySearchInput"
+            @input="handleUpdateCompanySearchInput"
+          />
+          <button type="submit" class="banner-search__btn">Поиск</button>
+        </form>
       </div>
     </div>
 
@@ -50,6 +56,8 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
+
   export default {
     name: 'CompanyTop',
     props: {
@@ -60,6 +68,34 @@
       activeTab: {
         type: String,
         default: 'Main',
+      },
+    },
+    computed: {
+      ...mapState('company', ['companySearchInput']),
+    },
+    methods: {
+      ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
+
+      /**
+       * Update search input in the store and in the input
+       *
+       * @param {Event & { target: HTMLInputElement }} e
+       */
+      handleUpdateCompanySearchInput(e) {
+        this.UPDATE_COMPANY_SEARCH_INPUT(e.target.value)
+      },
+
+      /**
+       * Submit to search company products if valid query
+       */
+      handleSearchCompanyProducts() {
+        if (this.companySearchInput.trim() !== '') {
+          this.UPDATE_COMPANY_SEARCH_QUERY(this.companySearchInput)
+          this.$router.push({
+            path: `/company/${this.company.id}/products`,
+            query: { q: this.companySearchInput },
+          })
+        }
       },
     },
   }

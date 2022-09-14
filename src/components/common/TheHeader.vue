@@ -72,7 +72,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations, mapActions } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
 
   import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
   import SearchIconSvg from '@/assets/img/icons/svg/search-icon.svg?inline'
@@ -125,7 +125,6 @@
     },
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_INPUT', 'UPDATE_SEARCH_QUERY']),
-      ...mapActions('search', ['SET_SEARCH_QUERY']),
       /**
        * Update search input in the store and in the input
        *

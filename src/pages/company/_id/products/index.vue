@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   import CompanyTop from '@/components/company/CompanyTop.vue'
   import CompanyProducts from '@/components/company/CompanyProducts.vue'
 
@@ -14,20 +16,26 @@
     components: { CompanyTop, CompanyProducts },
     layout: 'default',
 
-    async asyncData({ app, store, params, query, error }) {
+    async asyncData({ app, store, params, query }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
-      // const { product, company } = await app.$productService.getProductById(params.id)
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, null)
+      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, query.q ?? null)
+
+      // Check query in the routing and set query in store
+      await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
 
       return { company, products }
     },
+
     data() {
       return {
         company: {},
+        products: [],
+        pagen: [],
+        countProducts: 20,
       }
     },
     head() {
@@ -42,7 +50,33 @@
         ],
       }
     },
-    methods: {},
+    computed: {
+      ...mapState('company', ['companySearchQuery']),
+    },
+    watch: {
+      companySearchQuery(newCount, oldCount) {
+        if (oldCount !== newCount) {
+          this.handleLoadCompanyProducts()
+        }
+      },
+    },
+    methods: {
+      /**
+       * Get company products by query when change search input
+       * @returns {object} Object with field products, pages
+       */
+      async handleLoadCompanyProducts() {
+        const { products } = await this.$companyService.getCompanyProducts(
+          this.$route.params.id,
+          1,
+          this.countProducts,
+          this.companySearchQuery
+        )
+
+        this.products = products
+        // this.pagen = pagen
+      },
+    },
   }
 </script>
 
