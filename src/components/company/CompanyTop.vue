@@ -71,7 +71,7 @@
       },
     },
     computed: {
-      ...mapState('company', ['companySearchInput']),
+      ...mapState('company', ['companySearchInput', 'companySearchQuery']),
     },
     methods: {
       ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
@@ -94,6 +94,11 @@
           this.$router.push({
             path: `/company/${this.company.id}/products`,
             query: { q: this.companySearchInput },
+          })
+        } else if (this.companySearchInput !== this.companySearchQuery) {
+          this.UPDATE_COMPANY_SEARCH_QUERY(this.companySearchInput)
+          this.$router.push({
+            path: `/company/${this.company.id}/products`,
           })
         }
       },

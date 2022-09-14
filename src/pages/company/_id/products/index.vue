@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Products'" />
-    <CompanyProducts :products="products" />
+    <CompanyProducts :products="products" :company="company" />
   </article>
 </template>
 
@@ -19,7 +19,7 @@
     async asyncData({ app, store, params, query }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, query.q ?? null)
+      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, query?.q)
 
       // Check query in the routing and set query in store
       await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
