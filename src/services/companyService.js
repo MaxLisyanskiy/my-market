@@ -31,9 +31,12 @@ export default ($axios, error) => {
         params: {
           page: Number(page),
           count,
-          name: query,
         },
       }
+      if (query) {
+        config.params.name = query
+      }
+      
       return await $axios
         .get(`/companies/${id}/products`, config)
         .then(({ data }) => {
