@@ -16,10 +16,7 @@
     components: { CompanyTop, CompanyAbout },
     layout: 'default',
 
-    async asyncData({ app, store, params }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
-
+    async asyncData({ app, params }) {
       // const { product, company } = await app.$productService.getProductById(params.id)
       const { company } = await app.$companyService.getCompanyById(params.id)
 
