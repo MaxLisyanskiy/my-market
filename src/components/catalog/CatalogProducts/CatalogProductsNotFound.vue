@@ -9,15 +9,16 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   import SearchNotFoundSvg from '@/assets/img/icons/svg/search-not-found.svg?inline'
 
   export default {
     name: 'CatalogProductsNotFound',
     components: { SearchNotFoundSvg },
-    computed: {
-      ...mapState('search', ['searchQuery']),
+    props: {
+      searchQuery: {
+        type: String,
+        default: () => '',
+      },
     },
   }
 </script>

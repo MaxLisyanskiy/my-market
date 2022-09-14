@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   import CompanyTop from '@/components/company/CompanyTop.vue'
   import CompanyMain from '@/components/company/CompanyMain.vue'
 
@@ -14,15 +16,12 @@
     components: { CompanyTop, CompanyMain },
     layout: 'default',
 
-    async asyncData({ app, store, params, query, error }) {
+    async asyncData({ app, store, params }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
       // const { product, company } = await app.$productService.getProductById(params.id)
       const { company } = await app.$companyService.getCompanyById(params.id)
-
-      // const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-      // const category = await get(product.category_id)
 
       return { company }
     },
@@ -30,6 +29,10 @@
       return {
         company: {},
       }
+    },
+    async fetch() {
+      // Clearing the company search query in the store
+      await this.SET_COMPANY_SEARCH_QUERY('')
     },
     head() {
       return {
@@ -43,7 +46,9 @@
         ],
       }
     },
-    methods: {},
+    methods: {
+      ...mapActions('company', ['SET_COMPANY_SEARCH_QUERY']),
+    },
   }
 </script>
 

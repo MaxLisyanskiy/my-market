@@ -10,7 +10,7 @@
       :page-count="Math.ceil(pagen.total / countProducts)"
       :click-handler="handleClickPagination"
     />
-    <CatalogProductsNotFound v-if="products.length <= 0" />
+    <CatalogProductsNotFound v-if="products.length <= 0" :search-query="$route.query.q" />
   </section>
 </template>
 
