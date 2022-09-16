@@ -1,11 +1,11 @@
 <template>
   <section id="About" class="company content-row active">
-    <div class="wrapper">
+    <div class="company__wrapper">
       <div class="wrapper-sidebar sidebar">
         <ul class="sidebar-list">
-          <li class="sidebar-link"><a href="#">Описание</a></li>
+          <li class="sidebar-link"><a>Описание</a></li>
           <li class="sidebar-link"><a>Производственные мощности</a></li>
-          <li class="sidebar-link"><a href="#certificates">Контроль качества</a></li>
+          <li class="sidebar-link"><a>Контроль качества</a></li>
           <li class="sidebar-link"><a>Сертификаты</a></li>
           <li class="sidebar-link"><a>Руководство компании</a></li>
           <li class="sidebar-link"><a>Услуги и поддержка</a></li>
@@ -34,7 +34,7 @@
           регионы. Работаем ответственно и оперативно. Находим индивидуальный подход к каждому клиенту.
         </span>
 
-        <div id="certificates" class="certificates">
+        <div class="certificates">
           <span class="certificates-title">Сертификаты</span>
           <div class="certificates-row">
             <div class="certificates-block"></div>
@@ -45,6 +45,7 @@
             <div class="certificates-block"></div>
           </div>
         </div>
+
         <div class="management">
           <span class="management-title">Руководство компании</span>
           <div class="management-row">
