@@ -1,5 +1,5 @@
 <template>
-  <header class="header sticky">
+  <header class="header sticky" :class="{ hidden: $route.name === 'company-id-products' || 'company-id-about' }">
     <div class="header-row">
       <div class="header-block header-block__back">
         <HeaderBackSvg class="header-back__img" />
@@ -148,3 +148,11 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .hidden {
+    @media (max-width: 670px) {
+      display: none;
+    }
+  }
+</style>
