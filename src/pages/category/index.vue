@@ -1,40 +1,28 @@
 <template>
-  <section class="applyied">
-    <CatalogFilter />
-    <div class="categories">
-      <CatalogProducts :products="products" />
+  <section class="all-categories">
+    <h1 class="all-categories__title">Все категории</h1>
+    <div class="all-categories__list">
+      <nuxt-link
+        v-for="category in categories"
+        :key="`${category + category.id}`"
+        :to="`/category/${category.id}`"
+        class="all-categories__item"
+      >
+        {{ category.name }}
+      </nuxt-link>
     </div>
-    <AppPagination
-      v-if="pagen.total > countProducts"
-      :initial-page="pagen.page"
-      :page-count="Math.ceil(pagen.total / countProducts)"
-      :click-handler="handleClickPagination"
-    />
   </section>
 </template>
 
 <script>
-  import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
-  import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
-
-  import AppPagination from '~/components/UI/AppPagination.vue'
+  import { mapState } from 'vuex'
 
   export default {
-    name: 'CategoryPage',
-    components: { CatalogFilter, CatalogProducts, AppPagination },
-    layout: 'catalog',
+    name: 'CategoryMainPage',
+    layout: 'default',
 
-    async asyncData({ app, query }) {
-      // Get all products
-      const { products, pagen } = await app.$productService.getProducts(query.p ?? 1, 20, null)
-      return { products, pagen }
-    },
     data() {
-      return {
-        products: [],
-        pagen: [],
-        countProducts: 20,
-      }
+      return {}
     },
     head() {
       return {
@@ -48,19 +36,19 @@
         ],
       }
     },
+    computed: {
+      ...mapState('categories', ['categories']),
+    },
+    created() {
+      this.isTheDeskOrMob()
+    },
     methods: {
-      /**
-       * Get category products with configs after change page in pagination
-       * @param {number} pageNum page number in pagination
-       * @returns {object} Object with field products, pages
-       */
-      async handleClickPagination(pageNum) {
-        const { products, pagen } = await this.$productService.getProducts(pageNum, this.countProducts, null)
-
-        this.products = products
-        this.pagen = pagen
-
-        this.$router.push(`${this.$route.path}?p=${pageNum}`)
+      isTheDeskOrMob() {
+        if (process.browser) {
+          if (window.innerWidth > 670) {
+            this.$router.push('/')
+          }
+        }
       },
     },
   }

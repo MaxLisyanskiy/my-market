@@ -1,19 +1,16 @@
 <template>
   <ul class="categories-sidebar__menu">
-    <li
-      v-for="category in categories"
-      :key="`${category + category.id}`"
-      class="categories-sidebar__link"
-    >
-      <NuxtLink :to="`/category/${category.id}`">
+    <li v-for="category in categories" :key="`${category + category.id}`" class="categories-sidebar__link">
+      <nuxt-link :to="`/category/${category.id}`">
         {{ category.name }}
-      </NuxtLink>
+      </nuxt-link>
     </li>
   </ul>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+
   export default {
     name: 'CatalogSidebarMenu',
 

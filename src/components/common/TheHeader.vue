@@ -1,5 +1,5 @@
 <template>
-  <header class="header sticky" :class="{ hidden: $route.name === 'company-id-products' || 'company-id-about' }">
+  <header class="header sticky" :class="{ hidden: isCompanyPages }">
     <div class="header-row">
       <div class="header-block header-block__back">
         <HeaderBackSvg class="header-back__img" />
@@ -83,6 +83,14 @@
     components: { LogoSvg, SearchIconSvg, HeaderBackSvg },
     computed: {
       ...mapState('search', ['searchInput']),
+
+      isCompanyPages() {
+        if (this.$route.name === 'company-id-products' || this.$route.name === 'company-id-about') {
+          return true
+        }
+
+        return false
+      },
     },
     mounted: () => {
       const searchInput = document.querySelector('.header-search__input')
