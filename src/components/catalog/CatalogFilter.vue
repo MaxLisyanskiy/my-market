@@ -1,7 +1,7 @@
 <template>
   <div class="applyied-block">
     <div v-if="showApplyiedResult" class="applyied-result">
-      <span class="hidden">
+      <span v-show="false">
         <button class="applyied-btn active">
           <span class="applyied-btn__text">Товары</span>
         </button>
@@ -15,7 +15,7 @@
         {{ getDeclensionWordProduct }}</span
       >
     </div>
-    <div class="categories-applyied">
+    <div v-if="false" class="categories-applyied">
       <!-- <button class="categories-applyied__btn">Опция #1</button>
       <button class="categories-applyied__btn active">Опция #2</button>
       <button class="categories-applyied__btn">Опция #3</button>
@@ -155,9 +155,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .hidden {
-    opacity: 0;
-  }
-</style>

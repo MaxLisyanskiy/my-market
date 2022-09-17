@@ -5,11 +5,17 @@
     border-radius: 10px;
     box-shadow: 0 0 2px rgba(204, 204, 204, 0.6);
     box-sizing: border-box;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
   &-result {
-    padding: 10px 15px 10.5px 15px;
-    border-bottom: 1px solid #e5e0e0;
+    padding: 18px 15px;;
+    // border-bottom: 1px solid #e5e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   &-btn {
@@ -45,8 +51,6 @@
     line-height: 16.41px;
     font-family: 'Roboto';
     color: #262626;
-    margin: 8px 0 0 0;
-    float: right;
 
     &__orange {
       background: linear-gradient(#f00b1d 0, #ff5833 100%);

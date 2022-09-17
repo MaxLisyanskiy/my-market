@@ -1,6 +1,7 @@
 <template>
   <section class="applyied">
     <CatalogFilter />
+    <CatalogMobText :what-is-page="'search'" :products="products" />
     <div v-if="products.length > 0" class="categories">
       <CatalogProducts :products="products" />
     </div>
@@ -18,6 +19,7 @@
   import { mapState, mapMutations } from 'vuex'
 
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
+  import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
   import CatalogProductsNotFound from '~/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
@@ -25,7 +27,7 @@
 
   export default {
     name: 'SearchPage',
-    components: { CatalogFilter, CatalogProducts, CatalogProductsNotFound, AppPagination },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts, CatalogProductsNotFound, AppPagination },
     layout: 'catalog',
 
     async asyncData({ store, query, app }) {
