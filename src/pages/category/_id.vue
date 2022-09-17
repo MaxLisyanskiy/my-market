@@ -1,6 +1,7 @@
 <template>
   <section class="applyied">
-    <CatalogFilter />
+    <CatalogFilter v-if="false" />
+    <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
       <CatalogProducts :products="products" />
     </div>
@@ -17,13 +18,14 @@
   import { mapMutations } from 'vuex'
 
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
+  import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
   import AppPagination from '~/components/UI/AppPagination.vue'
 
   export default {
     name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogProducts, AppPagination },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts, AppPagination },
     layout: 'catalog',
 
     async asyncData({ app, store, params, query, error }) {

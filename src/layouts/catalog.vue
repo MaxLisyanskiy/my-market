@@ -3,7 +3,7 @@
     <TheHeader />
     <TheBreadcrumbs v-show="showBreadcrumbs" />
     <main :class="{ mainWrapper: !showBreadcrumbs }">
-      <article class="wrapper">
+      <article class="categories-wrapper">
         <CatalogSidebar />
         <Nuxt />
       </article>

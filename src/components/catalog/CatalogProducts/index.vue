@@ -8,11 +8,13 @@
         class="product"
       >
         <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product__img" />
-        <span class="product-title">{{ product.name }}</span>
-        <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
-        <span class="product-order"
-          >Мин. заказ: <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span></span
-        >
+        <div class="product__wrapper">
+          <span class="product-title">{{ product.name }}</span>
+          <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
+          <span class="product-order"
+            >Мин. заказ: <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span></span
+          >
+        </div>
       </nuxt-link>
     </template>
 
