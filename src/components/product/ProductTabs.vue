@@ -8,23 +8,26 @@
     </ul>
 
     <div v-show="tabIndex === 0" class="tabs-block description">
-      <span class="tabs-block__title">Базовая информация</span>
       <div class="tabs-table__row">
+        <span class="tabs-block__title tabs-block__title-one">Базовая информация</span>
         <div class="tabs-table__block">
           <div v-for="(spec, index) in productSpecsLeft" :key="index" class="tabs-table__wrapp">
             <div class="tabs-table__left">{{ spec.key }}:</div>
             <div class="tabs-table__right">{{ spec.value }}</div>
           </div>
         </div>
-        <div v-if="productSpecsRight.length > 0" class="tabs-table__block">
+        <div v-if="productSpecsRight.length > 0" class="tabs-table__block tabs-table__block-two">
           <div v-for="(spec, index) in productSpecsRight" :key="index" class="tabs-table__wrapp">
             <div class="tabs-table__left">{{ spec.key }}:</div>
             <div class="tabs-table__right">{{ spec.value }}</div>
           </div>
         </div>
       </div>
-      <span class="tabs-block__title">Описание товара</span>
-      <span class="tabs-block__text">{{ product.description }}</span>
+
+      <div class="tabs-block__description">
+        <span class="tabs-block__title">Описание <span class="tabs-block__desktop">товара</span></span>
+        <span class="tabs-block__text">{{ product.description }}</span>
+      </div>
     </div>
 
     <div v-show="tabIndex === 1" class="tabs-block feedback">

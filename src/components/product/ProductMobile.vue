@@ -1,10 +1,31 @@
 <template>
-  <section class="product-right">
-    <div class="product-owner product-owner__desktop">
+  <article class="product-mobile">
+    <!-- <div class="rectangle-from rectangle-from__mobile">
+        <span class="rectangle-from__text">Отправка из:</span>
+        <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#a)">
+            <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF" />
+            <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB" />
+            <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B" />
+          </g>
+          <defs>
+            <clipPath id="a">
+              <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z" />
+            </clipPath>
+          </defs>
+        </svg>
+        <span class="rectangle-from__location">РСО-А, г. Владикавказ</span>
+      </div> -->
+    <div class="product-owner product-owner__mobile">
+      <img v-lazy="company.img" :alt="company.name" class="product-owner__img" />
       <nuxt-link :to="`/company/${company.id}/products`" class="product-owner__title">{{ company.name }}</nuxt-link>
-
-      <!-- TODO -->
-      <!-- <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- <svg
+        class="product-owner__flag rectangle-from__flag"
+        width="20"
+        height="14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <g clip-path="url(#a)">
           <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF" />
           <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB" />
@@ -27,11 +48,7 @@
         <span class="product-chat__text">Написать в чат</span>
       </button>
     </div>
-
-    <!-- <div class="schedule">
-      <span class="schedule__text">График цен</span>
-    </div> -->
-  </section>
+  </article>
 </template>
 
 <script>
@@ -39,7 +56,7 @@
   import BtnMessageSvg from '@/assets/img/icons/svg/btn-message.svg?inline'
 
   export default {
-    name: 'ProductRight',
+    name: 'ProductMobile',
     components: { BtnCallSvg, BtnMessageSvg },
     props: {
       company: {

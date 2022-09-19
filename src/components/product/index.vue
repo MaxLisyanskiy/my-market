@@ -10,6 +10,8 @@
       </div>
     </article>
 
+    <ProductMobile :company="company" />
+
     <article class="product-description">
       <ProductTabs :product="product" />
       <ProductSimilar v-if="company.name" :company="company" />
@@ -22,13 +24,14 @@
   import ProductImages from './ProductImages.vue'
   import ProductCenter from './ProductCenter.vue'
   import ProductRight from './ProductRight.vue'
+  import ProductMobile from './ProductMobile.vue'
   import ProductTabs from './ProductTabs.vue'
   import ProductSimilar from './ProductSimilar.vue'
   //   import ProductWatched from './ProductWatched.vue'
 
   export default {
     name: 'Product',
-    components: { ProductImages, ProductCenter, ProductRight, ProductTabs, ProductSimilar },
+    components: { ProductImages, ProductCenter, ProductRight, ProductMobile, ProductTabs, ProductSimilar },
     props: {
       product: {
         type: Object,

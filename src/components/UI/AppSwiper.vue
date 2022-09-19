@@ -11,7 +11,11 @@
         <img :src="img.url" :alt="`SwipperImg${index}`" class="product-slider__img" />
       </div>
     </div>
-    <div v-if="swiperConfig.isPagination" id="swiperPagination" class="swiper-pagination"></div>
+    <div
+      v-if="swiperConfig.pagination.isPagination"
+      id="swiperPagination"
+      :class="swiperConfig.pagination.paginationClass ?? 'swiper-pagination'"
+    ></div>
     <div id="btnPrev" :class="swiperConfig.btnPrevClass"></div>
     <div id="btnNext" :class="swiperConfig.btnNextClass"></div>
   </div>
@@ -59,10 +63,8 @@
           prevEl: '#btnPrev',
           nextEl: '#btnNext',
         },
-        pagination: {
-          el: '#swiperPagination',
-          clickable: 'true',
-        },
+        pagination: this.swiperConfig.pagination,
+        breakpoints: this.swiperConfig.breakpoints,
         // *********** TODO *************//
         // on: {
         //   resize() {
@@ -100,6 +102,9 @@
   }
   .swiper-slide.active {
     border: 1px solid #f00b1d;
+    @media (max-width: 870px) {
+      border: none;
+    }
   }
   .product-slider__img {
     width: 100%;

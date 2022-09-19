@@ -65,7 +65,11 @@
           autoplay: {
             delay: 5000,
           },
-          isPagination: true,
+          pagination: {
+            isPagination: true,
+            el: '#swiperPagination',
+            clickable: 'true',
+          },
           btnPrevClass: 'swiper-button-prev',
           btnNextClass: 'swiper-button-next',
           addColorForActiveSlide: false,
