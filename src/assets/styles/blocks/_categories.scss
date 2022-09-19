@@ -313,6 +313,10 @@
       box-sizing: border-box;
       padding: 4px 0 4px 10px;
 
+      & a {
+        color: #262626;
+      }
+
       &:hover {
         color: #ff5833;
       }

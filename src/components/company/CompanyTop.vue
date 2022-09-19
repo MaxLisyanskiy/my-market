@@ -7,7 +7,13 @@
       </div>
       <div class="banner-info">
         <div class="banner-info__left">
-          <img v-lazy="company.logo" alt="company-logo" class="banner-info__logo" />
+          <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+          <img
+            v-else
+            src="@/assets/img/icons/company-not-found-img.svg"
+            alt="company-not-found-img"
+            class="banner-info__logo"
+          />
           <div class="banner-info__text">
             <span class="banner-info__title">{{ company.name }}</span>
             <span class="banner-info__description">
@@ -66,7 +72,7 @@
     <!-- Banner Mob -->
     <section class="banner-mob">
       <div class="banner-mob-top">
-        <button class="banner-mob-top__back">
+        <button class="banner-mob-top__back" @click="$router.go(-1)">
           <CompanyHeaderBackSvg />
         </button>
         <form type="search" class="banner-mob-top__form" @submit.prevent="handleSearchCompanyProducts">
@@ -84,7 +90,13 @@
       </div>
       <div class="banner-mob-info">
         <div class="banner-mob-info__wrapp">
-          <img v-lazy="company.logo" alt="logo" class="banner-mob-info__img" />
+          <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-mob-info__img" />
+          <img
+            v-else
+            src="@/assets/img/icons/company-not-found-img.svg"
+            alt="company-not-found-img"
+            class="banner-mob-info__img"
+          />
           <div class="banner-mob-info__text">
             <span class="banner-info__title">{{ company.name }}</span>
             <div class="banner-info__description">

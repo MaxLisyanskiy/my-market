@@ -145,7 +145,18 @@
        * Submit to search page if valid query
        */
       handleSearch() {
+        const searchBlock = document.querySelector('.search-block')
+        const headerModal = document.querySelector('.header-modal')
+        const headerBack = document.querySelector('.header-block__back')
+        const headerLogo = document.querySelector('.header-block__logo')
+        const body = document.querySelector('body')
+
         if (this.searchInput.trim() !== '') {
+          searchBlock.classList.remove('active')
+          headerModal.classList.remove('active')
+          headerBack.classList.remove('active')
+          headerLogo.style.display = 'block'
+          body.classList.remove('lock')
           this.UPDATE_SEARCH_QUERY(this.searchInput)
           this.$router.push({
             path: '/search/',
