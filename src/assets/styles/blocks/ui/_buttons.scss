@@ -85,12 +85,33 @@
     width: 204px;
     bottom: 10px;
     position: absolute;
-    & path {
+    @media (max-width: 870px) {
+      position: relative;
+      bottom: -3px;
+	  margin-left:10px;
+    }
+    @media (max-width: 670px) {
+      width: 50%;
     }
   }
   &__call {
     width: 204px;
     bottom: 55px;
     position: absolute;
+    @media (max-width: 870px) {
+      position: relative;
+	  bottom:-3px;
+    }
+  }
+  &__chat,
+  &__call {
+    @media (max-width: 670px) {
+      width: 170px;
+      position: relative;
+    }
+	@media(max-width:390px){
+		width:48%;
+		font-size:12px;
+	}
   }
 }

@@ -31,13 +31,30 @@
           wrapperClass: 'product-slider',
           slidesPerView: 5,
           loop: false,
-          // direction: this.getDirection(),
           direction: 'horizontal',
           autoplay: false,
-          isPagination: false,
+          pagination: {
+            isPagination: true,
+            el: '.product-swiper__pagination',
+            paginationClass: 'product-swiper__pagination',
+            type: 'fraction',
+          },
           btnPrevClass: 'product-swiper__button-prev',
           btnNextClass: 'product-swiper__button-next',
           addColorForActiveSlide: true,
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              loop: true,
+              spaceBetween: 0,
+            },
+            870: {
+              slidesPerView: 3,
+            },
+            992: {
+              slidesPerView: 5,
+            },
+          },
         },
       }
     },
@@ -71,14 +88,6 @@
     },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
-
-      // getDirection() {
-      //   if (process.browser) {
-      //     const direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal'
-
-      //     return direction
-      //   }
-      // },
     },
   }
 </script>
