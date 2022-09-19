@@ -17,7 +17,13 @@
         <span class="rectangle-from__location">РСО-А, г. Владикавказ</span>
       </div> -->
     <div class="product-owner product-owner__mobile">
-      <img v-lazy="company.img" :alt="company.name" class="product-owner__img" />
+      <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="product-owner__img" />
+      <img
+        v-else
+        src="@/assets/img/icons/company-not-found-img.svg"
+        alt="company-not-found-img"
+        class="product-owner__img"
+      />
       <nuxt-link :to="`/company/${company.id}/products`" class="product-owner__title">{{ company.name }}</nuxt-link>
       <!-- <svg
         class="product-owner__flag rectangle-from__flag"

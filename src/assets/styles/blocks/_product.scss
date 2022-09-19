@@ -50,7 +50,6 @@
 .product-mobile {
   display: none;
   width: 100%;
-  margin-top: 150px;
   @media (max-width: 870px) {
     display: block;
   }
@@ -157,6 +156,7 @@
     background: #fff;
     margin: 0;
     border-radius: 0;
+    height: auto;
   }
 }
 
@@ -192,6 +192,8 @@
     grid-template-columns: repeat(5, 1fr);
     width: 100%;
     overflow: scroll;
+    border-bottom: 10px solid #f7f5f5;
+    padding: 12px 0;
   }
 }
 .product-block {
@@ -389,6 +391,7 @@
 
 .product-right {
   @media (max-width: 870px) {
+    opacity: 0;
     z-index: -1;
     position: absolute;
   }
