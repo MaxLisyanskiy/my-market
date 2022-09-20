@@ -15,7 +15,7 @@ const pwa = {
     short_name: 'VALE.SU',
     description,
     lang: 'ru',
-    start_url: '/profile',
+    start_url: '/',
   },
   workbox: {
     enabled: false,
