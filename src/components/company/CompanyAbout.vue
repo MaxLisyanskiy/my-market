@@ -3,38 +3,44 @@
     <div class="company__wrapper">
       <div class="wrapper-sidebar sidebar">
         <ul class="sidebar-list">
-          <li class="sidebar-link"><a>Описание</a></li>
-          <li class="sidebar-link"><a>Производственные мощности</a></li>
-          <li class="sidebar-link"><a>Контроль качества</a></li>
-          <li class="sidebar-link"><a>Сертификаты</a></li>
-          <li class="sidebar-link"><a>Руководство компании</a></li>
-          <li class="sidebar-link"><a>Услуги и поддержка</a></li>
+          <li
+            v-for="link in links"
+            :key="link.name"
+            class="sidebar-link"
+            :class="{ active: activeLink === link.goTo }"
+            @click="scrollTo(link.goTo)"
+          >
+            <a>{{ link.name }}</a>
+          </li>
         </ul>
       </div>
 
       <div class="company-description">
-        <span class="company-description__title">Описание</span>
-        <AppSwiper v-if="company.images.length > 1" :swiper-config="swiperConfig" :images="company.images" />
+        <div ref="description">
+          <span class="company-description__title">Описание</span>
 
-        <span class="company-description__text">
-          Предприятие ООО «Тамбовконсерв» осуществляет производство металлических крышек для консервирования
-          премиум-класса СКО 1-82 и СКО 1-58 под зарегистрированным брендом «Тамбовчанка» с 2005 года. Несмотря на
-          большую конкуренцию, предприятие постоянно увеличивает объемы производства. Благодаря тому, что качество,
-          внешний вид, а также современная упаковка и тара отвечают требованиям даже самых взыскательных клиентов.
-          Продукция ООО «Тамбовконсерв» — это гарантия высокого качества, которое обеспечивается применением только
-          сертифицированных материалов и непрерывным контролем инженеров на всех этапах производства.
-        </span>
-        <span class="company-description__text"
-          >За долгие годы работы на предприятии сформировался высококвалифицированный коллектив, а это является
-          показателем стабильности предприятия.
-        </span>
-        <span class="company-description__text"
-          >Наше предприятие — надежный партнер и предлагает Вам свое сотрудничество по поставкам производимых им
-          товаров. Отгрузка товара может осуществляться как самовывозом со склада, так и нашим транспортом в различные
-          регионы. Работаем ответственно и оперативно. Находим индивидуальный подход к каждому клиенту.
-        </span>
+          <AppSwiper v-if="company.images.length > 1" :swiper-config="swiperConfig" :images="company.images" />
 
-        <div class="certificates">
+          <span class="company-description__text">
+            Предприятие ООО «Тамбовконсерв» осуществляет производство металлических крышек для консервирования
+            премиум-класса СКО 1-82 и СКО 1-58 под зарегистрированным брендом «Тамбовчанка» с 2005 года. Несмотря на
+            большую конкуренцию, предприятие постоянно увеличивает объемы производства. Благодаря тому, что качество,
+            внешний вид, а также современная упаковка и тара отвечают требованиям даже самых взыскательных клиентов.
+            Продукция ООО «Тамбовконсерв» — это гарантия высокого качества, которое обеспечивается применением только
+            сертифицированных материалов и непрерывным контролем инженеров на всех этапах производства.
+          </span>
+          <span class="company-description__text"
+            >За долгие годы работы на предприятии сформировался высококвалифицированный коллектив, а это является
+            показателем стабильности предприятия.
+          </span>
+          <span class="company-description__text"
+            >Наше предприятие — надежный партнер и предлагает Вам свое сотрудничество по поставкам производимых им
+            товаров. Отгрузка товара может осуществляться как самовывозом со склада, так и нашим транспортом в различные
+            регионы. Работаем ответственно и оперативно. Находим индивидуальный подход к каждому клиенту.
+          </span>
+        </div>
+
+        <div ref="certificates" class="certificates">
           <span class="certificates-title">Сертификаты</span>
           <div class="certificates-row">
             <div class="certificates-block"></div>
@@ -46,7 +52,7 @@
           </div>
         </div>
 
-        <div class="management">
+        <div ref="companyManagement" class="management">
           <span class="management-title">Руководство компании</span>
           <div class="management-row">
             <div class="management-block">
@@ -92,7 +98,28 @@
         default: () => {},
       },
     },
+    data() {
+      return {
+        activeLink: 'description',
+        links: [
+          { name: 'Описание', goTo: 'description' },
+          // { name: 'Производственные мощности', goTo: 'productionCapacity' },
+          // { name: 'Контроль качества', goTo: 'qualityControl' },
+          { name: 'Сертификаты', goTo: 'certificates' },
+          { name: 'Руководство компании', goTo: 'companyManagement' },
+          // { name: 'Услуги и поддержка', goTo: 'servicesAndSupport' },
+        ],
+      }
+    },
+    methods: {
+      scrollTo(refName) {
+        const element = this.$refs[refName]
+        const top = element.offsetTop
+
+        this.activeLink = refName
+
+        window.scrollTo(300, top - 90)
+      },
+    },
   }
 </script>
-
-<style lang="scss" scoped></style>
