@@ -35,6 +35,7 @@
               placeholder="Искать в этом магазине..."
               class="banner-search__input"
               :value="companySearchInput"
+              inputmode="search"
               @input="handleUpdateCompanySearchInput"
             />
             <button type="submit" class="banner-search__btn">Поиск</button>
@@ -84,6 +85,7 @@
             placeholder="Искать в этом магазине..."
             class="banner-mob-top__input"
             :value="companySearchInput"
+            inputmode="search"
             @input="handleUpdateCompanySearchInput"
           />
         </form>
