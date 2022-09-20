@@ -2,7 +2,7 @@
   <div class="content">
     <TheHeader />
     <TheBreadcrumbs v-show="showBreadcrumbs" />
-    <main :class="{ mainWrapper: !showBreadcrumbs }">
+    <main>
       <Nuxt />
     </main>
     <TheFooter />

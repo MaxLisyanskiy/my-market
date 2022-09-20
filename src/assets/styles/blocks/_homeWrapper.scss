@@ -3,9 +3,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 0px;
-  @media (max-width: 1220px) {
-    margin-top: 9px;
+  margin-top: 90px;
+  @media (max-width: 670px) {
+    margin-top: 65px;
   }
   &-slider {
     width: 936px;

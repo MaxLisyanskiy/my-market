@@ -786,6 +786,7 @@
       }
 
       &:last-child {
+        border-radius: 0 0 10px 10px;
         @media (max-width: 870px) {
           border-radius: 5px;
         }
@@ -1118,15 +1119,5 @@
     line-height: 19px;
     display: flex;
     color: #262626;
-  }
-}
-/* Временно */
-@media (max-width: 870px) {
-  .breadcrumb {
-    display: none;
-  }
- 
-  .wrapper {
-    margin-top: 0;
   }
 }
