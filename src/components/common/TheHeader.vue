@@ -19,6 +19,7 @@
             placeholder="Я ищу..."
             class="header-search__input"
             :value="searchInput"
+            inputmode="search"
             @input="handleUpdateSearchInput"
           />
           <button type="submit" class="header-search__btn">Поиск</button>
