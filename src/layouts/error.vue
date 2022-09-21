@@ -13,7 +13,6 @@
 </template>
 
 <script>
-  import { Fragment } from 'vue-fragment'
   import TheHeader from '../components/common/TheHeader.vue'
 
   import Error404 from '../components/error/Error404.vue'
@@ -27,7 +26,7 @@
       Error404,
       Error500,
     },
-    layout: 'customErrorLayout',
+    layout: 'customLayout',
     props: {
       error: {
         type: Object,
