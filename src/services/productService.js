@@ -6,7 +6,7 @@ export default ($axios, error) => {
      * @param {number} page page number of products list (use for pagination)
      * @param {number} count number of products to display
      * @param {string} query query in the routing
-     * @returns {object} Object with field products, count, pages
+     * @returns {array} Array with field products, count, pages
      */
     getProducts: async (page = 1, count = 20, query = null) => {
       const config = {

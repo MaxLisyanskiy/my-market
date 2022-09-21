@@ -15,7 +15,7 @@
     <article class="product-description">
       <ProductTabs :product="product" />
       <ProductSimilar v-if="company.name" :company="company" />
-      <!-- <ProductWatched :company="company" /> -->
+      <ProductWatched :watched-products="watchedProducts" />
     </article>
   </div>
 </template>
@@ -27,11 +27,19 @@
   import ProductMobile from './ProductMobile.vue'
   import ProductTabs from './ProductTabs.vue'
   import ProductSimilar from './ProductSimilar.vue'
-  //   import ProductWatched from './ProductWatched.vue'
+  import ProductWatched from './ProductWatched.vue'
 
   export default {
     name: 'Product',
-    components: { ProductImages, ProductCenter, ProductRight, ProductMobile, ProductTabs, ProductSimilar },
+    components: {
+      ProductImages,
+      ProductCenter,
+      ProductRight,
+      ProductMobile,
+      ProductTabs,
+      ProductSimilar,
+      ProductWatched,
+    },
     props: {
       product: {
         type: Object,
@@ -44,6 +52,10 @@
       swiperConfig: {
         type: Object,
         default: () => {},
+      },
+      watchedProducts: {
+        type: Array,
+        default: () => [],
       },
     },
   }

@@ -1,5 +1,5 @@
 <template>
-  <Product :product="product" :company="company" :swiper-config="swiperConfig" />
+  <Product :product="product" :company="company" :swiper-config="swiperConfig" :watched-products="filteredProducts" />
 </template>
 
 <script>
@@ -15,17 +15,24 @@
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
+      // Get product by ID
       const { product, company } = await app.$productService.getProductById(params.id)
 
+      // Get category by ID
       const get = await store.getters['categories/GET_CATEGORY_BY_ID']
       const category = await get(product.category_id)
 
-      return { product, company, category }
+      // Get all products
+      const { products } = await app.$productService.getProducts(1, 100, null)
+
+      return { product, company, category, products }
     },
     data() {
       return {
         product: {},
         company: {},
+        products: [],
+        filteredProducts: [],
         swiperConfig: {
           mainClass: 'product-swiper',
           wrapperClass: 'product-slider',
@@ -86,8 +93,36 @@
         ],
       }
     },
+    mounted() {
+      // Get and set id in local-storage's item 'watchedProducts'
+      if (localStorage.getItem('watchedProducts')) {
+        const products = new Set(JSON.parse(localStorage.getItem('watchedProducts')))
+        this.filteredWatchedProducts(products)
+        if (!products.has(this.product.id)) {
+          products.add(this.product.id)
+          localStorage.setItem('watchedProducts', JSON.stringify([...products]))
+        }
+      } else {
+        localStorage.setItem('watchedProducts', JSON.stringify([this.product.id]))
+      }
+    },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
+
+      /**
+       * Filtering products by ids in local-storage
+       * @param {array} idsArray array with ids in local-storage
+       */
+      filteredWatchedProducts(idsArray) {
+        const watchedProductsArray = []
+        this.products.map(product => {
+          if (idsArray.has(product.id)) {
+            return watchedProductsArray.push(product)
+          }
+          return false
+        })
+        this.filteredProducts = watchedProductsArray
+      },
     },
   }
 </script>
