@@ -15,5 +15,9 @@
 @import './blocks/_error.scss';
 @import './blocks/_all-categories.scss';
 
+//auth
+@import './blocks/auth/login.scss';
+
 //ui
 @import './blocks/ui/_buttons.scss';
+@import './blocks/ui/_validate.scss';

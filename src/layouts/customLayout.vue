@@ -6,6 +6,6 @@
 
 <script>
   export default {
-    name: 'CustomErrorLayout',
+    name: 'CustomLayout',
   }
 </script>

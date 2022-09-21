@@ -33,7 +33,12 @@ export default {
   css: ['~/assets/styles/main.scss', 'swiper/swiper-bundle.min.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/axios.js' }, { src: '~/plugins/vue-lazy-load.js' }, { src: '~/plugins/router.js' }],
+  plugins: [
+    { src: '~/plugins/axios.js' }, 
+    { src: '~/plugins/vue-lazy-load.js' }, 
+    { src: '~/plugins/router.js' },
+    { src: '~/plugins/vee-validate.js' },
+  ],
 
   // Customize the progress-bar color
   loading: { color: '#f00b1d' },
