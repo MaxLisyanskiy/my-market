@@ -92,6 +92,30 @@
         </div>
 
         <div v-if="products.length > 0" class="company-products__row">
+          <nuxt-link v-if="showAddProduct" to="/product/add/" class="product product-add">
+            <svg
+              class="product-add__img"
+              xmlns="http://www.w3.org/2000/svg"
+              width="70"
+              height="70"
+              viewBox="0 0 17 18"
+              fill="none"
+            >
+              <rect x="0.707153" y="8.29297" width="16" height="1.5" rx="0.75" fill="#656565" />
+              <rect
+                x="7.7782"
+                y="16.7783"
+                width="16"
+                height="1.5"
+                rx="0.75"
+                transform="rotate(-90 7.7782 16.7783)"
+                fill="#656565"
+              />
+            </svg>
+            <div class="product-wrapper">
+              <span class="product-title">Добавить товар</span>
+            </div>
+          </nuxt-link>
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
             <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-img" />
             <div class="product-wrapper">
@@ -157,6 +181,14 @@
 
         return arr.filter(item => item.countProducts !== 0)
       },
+
+      showAddProduct() {
+        if (this.$auth.user.isAdmin === 1 || this.$auth.user.company_id === this.company.id) {
+          return true
+        }
+
+        return false
+      },
     },
   }
 </script>
@@ -177,6 +209,19 @@
     height: fit-content;
     @media (max-width: 768px) {
       display: none;
+    }
+  }
+
+  .product-add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #e1e1e1;
+    border-radius: 16px;
+    &__img {
+      width: 100%;
+      height: 100px;
     }
   }
 </style>

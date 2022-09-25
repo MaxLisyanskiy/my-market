@@ -9,7 +9,7 @@ export default ({ app: { router, store } }) => {
   })
 
   // Check router-path and changed breadcrumbs
-  const routerArray = ['category-id', 'product-id']
+  const routerArray = ['category-id', 'product-id', 'product-id-edit', 'product-add']
   router.afterEach((to, from) => {
     if (to.name && routerArray.includes(to.name)) {
       store.commit('breadcrumbs/SET_SHOW_BREADCRUMBS', true)

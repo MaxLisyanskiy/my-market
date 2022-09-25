@@ -20,6 +20,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/yandex-metrika": "^1.4.0",
     "core-js": "^3.19.3",
+    "element-ui": "^2.15.6",
     "nuxt": "^2.15.8",
     "swiper": "^6.8.4",
     "vee-validate": "3",
