@@ -38,6 +38,7 @@ export default {
     { src: '~/plugins/vue-lazy-load.js' }, 
     { src: '~/plugins/router.js' },
     { src: '~/plugins/vee-validate.js' },
+    { src: '~/plugins/elementUI.js' },
   ],
 
   // Customize the progress-bar color
