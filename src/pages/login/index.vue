@@ -9,6 +9,8 @@
     name: 'LoginPage',
     components: { AuthLogin },
     layout: 'customLayout',
+    middleware: 'auth',
+
     data() {
       return {
         mainError: '',

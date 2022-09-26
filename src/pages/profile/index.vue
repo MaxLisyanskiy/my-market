@@ -7,7 +7,7 @@
   export default {
     name: 'ProfilePage',
     layout: 'default',
-    // middleware: 'auth',
+    middleware: 'auth',
 
     head() {
       return {
