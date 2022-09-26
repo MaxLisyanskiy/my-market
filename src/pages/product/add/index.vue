@@ -1,17 +1,19 @@
 <template>
-  <!-- <Product :product="product" :company="company" :swiper-config="swiperConfig" :watched-products="filteredProducts" /> -->
-  <h1>Добавление товара</h1>
+  <ProductEditor />
 </template>
 
 <script>
   import { mapMutations } from 'vuex'
 
+  import ProductEditor from '@/components/product/ProductEditor.vue'
+
   export default {
-    name: 'ProductIdPage',
-    components: {},
+    name: 'ProductIdEditPage',
+    components: { ProductEditor },
     layout: 'default',
-    data() {
-      return {}
+    async asyncData({ app, store, params }) {
+      // Get all categoris
+      await store.dispatch('categories/GET_CATEGORIES')
     },
     fetch() {
       // Set links and name for breadcrumbs
@@ -19,7 +21,7 @@
         breadcrumbsLinks: [
           { name: 'Главная', path: '/' },
           {
-            name: 'Добавление товара',
+            name: 'Добавить товар',
             path: `/product/add/`,
           },
         ],
@@ -27,8 +29,14 @@
     },
     head() {
       return {
-        title: `Добавление товара | VALE.SU`,
-        meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+        title: `Добавить товар | VALE.SU`,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: `Добавить товар | VALE.SU`,
+          },
+        ],
       }
     },
     methods: {
@@ -36,11 +44,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .product-id-page__title {
-    text-align: center;
-    width: 100%;
-    font-size: 30px;
-  }
-</style>

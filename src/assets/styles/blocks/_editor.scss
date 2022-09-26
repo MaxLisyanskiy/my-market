@@ -64,6 +64,42 @@
         grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
       }
     }
+
+    &-item {
+      padding: 8px 0;
+      border: 1px solid #dbdee1;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+      margin-right: 10px;
+      &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #dbdee1;
+        padding: 0 12px 8px;
+      }
+      &__input {
+        width: 105px;
+      }
+      &__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* border-bottom: 1px solid #dbdee1; */
+        padding: 8px 12px 0;
+        & input {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &-imgs {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-wrap: wrap;
   }
 
   &-file {
@@ -83,6 +119,7 @@
 
   &-spec {
     &__add-btn {
+      margin-top: 20px;
       width: fit-content;
       display: flex;
       align-items: center;
@@ -149,5 +186,18 @@
         width: 100%;
       }
     }
+  }
+
+  & .el-upload-list__item {
+    width: 68px;
+    height: 68px;
+  }
+
+  & .el-upload {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

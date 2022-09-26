@@ -29,7 +29,7 @@
             this.$auth.setUser(data.data.user)
           })
           .then(() => {
-            this.$router.push('/profile/')
+            this.$router.push(`/company/${this.$auth.user.company_id}/products/`)
           })
           .catch(({ response }) => {
             if (response.status === 401) {

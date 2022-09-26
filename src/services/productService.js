@@ -43,5 +43,44 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Update product
+     *
+     * @param {number} id product id
+     * @param {object} body payload
+     * @returns {object} Object with field products, count, pages
+     */
+    updateProduct: async (id, body) => {
+      return await $axios
+        .post(`/products/${id}`, body)
+        .then(res => {
+          console.log(res)
+          return res
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
+
+    /**
+     * Add product
+     *
+     * @param {object} body payload
+     * @returns {object} Object with field products, count, pages
+     */
+    addProduct: async body => {
+      return await $axios
+        .post(`/products`, body)
+        .then(res => {
+          if (res.data.status !== 'success') {
+            return [false, 'Произошла ошибка, попробуйте позже']
+          }
+          return [true]
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }

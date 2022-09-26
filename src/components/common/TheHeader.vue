@@ -62,7 +62,7 @@
       </div>
       <div class="header-block header-block__btn">
         <div class="header-btn header-sign">
-          <nuxt-link :to="$auth.loggedIn ? '/profile/' : '/login/'">
+          <nuxt-link :to="$auth.loggedIn ? `/company/${$auth.user.company_id}/products/` : '/login/'">
             <img src="@/assets/img/icons/signIn.svg" alt="signIn-icons" />
             <span class="header-sign__text">{{ $auth.loggedIn ? 'Профиль' : 'Войти' }}</span>
           </nuxt-link>
