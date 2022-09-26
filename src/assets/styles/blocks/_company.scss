@@ -1,4 +1,5 @@
 .companyWrapper {
+  margin-top: -20px;
   padding-top: 70px;
   @media (max-width: 670px) {
     padding-top: 0px;
@@ -25,8 +26,14 @@
   background: #fff;
   border-radius: 10px;
   width: 22%;
+  max-width: 244px;
+  min-width: 244px;
   @media (max-width: 991px) {
     width: 30%;
+  }
+  @media (max-width: 870px) {
+    max-width: inherit;
+    min-width: auto;
   }
   @media (max-width: 768px) {
     display: none;
@@ -67,15 +74,34 @@
     background-color: #0a8745;
   }
 }
+.company .similar-info {
+  @media (max-width: 992px) {
+    display: block;
+  }
+  & .product-owner__address {
+    @media (max-width: 992px) {
+      display: inline;
+    }
+  }
+  & .product-owner__title {
+    @media (max-width: 992px) {
+      margin-left: 0;
+    }
+  }
+}
 .company .products-sidebar {
   position: sticky;
   top: 90px;
   width: 30%;
-  @media (max-width: 991px) {
+  max-width: 244px;
+  min-width: 244px;
+  @media (max-width: 992px) {
     width: 40%;
+    min-width: 200px;
   }
   @media (max-width: 850px) {
     width: 30%;
+    max-width: inherit;
   }
   @media (max-width: 768px) {
     display: none;
@@ -139,9 +165,11 @@
   margin-left: 20px;
   padding: 15px 0 0 0;
   box-sizing: border-box;
+  overflow: hidden;
   @media (max-width: 991px) {
     width: 70%;
   }
+
   @media (max-width: 768px) {
     width: 100%;
     margin: 0;
@@ -172,6 +200,7 @@
   margin-left: 20px;
   padding: 20px 0 0 0;
   box-sizing: border-box;
+  width: 936px;
   @media (max-width: 768px) {
     margin-left: 0;
     background: none;
@@ -245,6 +274,7 @@
     }
     & .product {
       margin: 0 10px 17px;
+      max-width: 209px;
       &:hover {
         & .product-title {
           color: #f00b1d;
@@ -266,6 +296,12 @@
       &-img {
         width: 100%;
         height: 209px;
+        @media (max-width: 992px) {
+          height: 186px;
+        }
+        @media (max-width: 870px) {
+          height: 150px;
+        }
         @media (max-width: 768px) {
           height: 180px;
         }
@@ -513,6 +549,7 @@
     justify-content: space-between;
     height: 117px;
     padding: 10px 20px;
+    margin-top: 20px;
     background: #0a8745;
     box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.6);
 
@@ -541,7 +578,7 @@
     }
 
     &__input {
-      background: hsla(0,0%,100%,.2);
+      background: hsla(0, 0%, 100%, 0.2);
       border: 0;
       border-radius: 50px;
       font-size: 14px;
@@ -595,8 +632,8 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 14px;
-      color: #FFFFFF;
-      background: linear-gradient(88.41deg, #6BBC38 0%, #7BD941 100%);
+      color: #ffffff;
+      background: linear-gradient(88.41deg, #6bbc38 0%, #7bd941 100%);
       border-radius: 5px;
     }
 
@@ -697,7 +734,6 @@
     }
   }
 }
-
 
 // SWIPPER
 .company .swiper-horizontal > .swiper-pagination-bullets,
