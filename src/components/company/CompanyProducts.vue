@@ -118,7 +118,7 @@
           </nuxt-link>
 
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
-            <nuxt-link :to="`/product/${product.id}/edit/`" class="edit-product">
+            <nuxt-link v-if="showAddProduct" :to="`/product/${product.id}/edit/`" class="edit-product">
               <PencilEditProductSvg />
             </nuxt-link>
             <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-img" />
