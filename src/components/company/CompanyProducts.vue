@@ -116,7 +116,11 @@
               <span class="product-title">Добавить товар</span>
             </div>
           </nuxt-link>
+
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
+            <nuxt-link :to="`/product/${product.id}/edit/`" class="edit-product">
+              <PencilEditProductSvg />
+            </nuxt-link>
             <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-img" />
             <div class="product-wrapper">
               <span class="product-title">{{ product.name }}</span>
@@ -147,10 +151,17 @@
   import BtnCallSvg from '@/assets/img/icons/svg/btn-call.svg?inline'
   import BtnMessageSvg from '@/assets/img/icons/svg/btn-message.svg?inline'
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
+  import PencilEditProductSvg from '@/assets/img/icons/svg/pencil-edit-product.svg?inline'
 
   export default {
     name: 'CompanyProducts',
-    components: { CatalogProductsNotFound, BtnCallSvg, BtnMessageSvg, CompanyProductsFilterMobSvg },
+    components: {
+      CatalogProductsNotFound,
+      BtnCallSvg,
+      BtnMessageSvg,
+      CompanyProductsFilterMobSvg,
+      PencilEditProductSvg,
+    },
     props: {
       products: {
         type: Array,
@@ -183,7 +194,7 @@
       },
 
       showAddProduct() {
-        if (this.$auth.user.isAdmin === 1 || this.$auth.user.company_id === this.company.id) {
+        if (this.$auth.user && this.$auth.user.company_id === this.company.id) {
           return true
         }
 
@@ -194,6 +205,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .product {
+    position: relative;
+  }
   .productsNotFound {
     width: 100%;
   }
@@ -222,6 +236,24 @@
     &__img {
       width: 100%;
       height: 100px;
+    }
+  }
+
+  .edit-product {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    background: #e5e0e0;
+    padding: 7px;
+    border-radius: 50%;
+    &:hover {
+      border: 1px solid red;
+    }
+
+    & svg {
+      width: 30px;
+      height: 30px;
     }
   }
 </style>
