@@ -62,10 +62,15 @@
       </div>
       <div class="header-block header-block__btn">
         <div class="header-btn header-sign">
-          <nuxt-link :to="$auth.loggedIn ? `/company/${$auth.user.company_id}/products/` : '/login/'">
+          <div v-if="!$auth.loggedIn" @click="handleShowModalAuth">
             <img src="@/assets/img/icons/signIn.svg" alt="signIn-icons" />
-            <span class="header-sign__text">{{ $auth.loggedIn ? 'Профиль' : 'Войти' }}</span>
+            <span class="header-sign__text">Войти</span>
+          </div>
+          <nuxt-link v-else :to="`/company/${$auth.user.company_id}/products/`">
+            <img src="@/assets/img/icons/signIn.svg" alt="signIn-icons" />
+            <span class="header-sign__text">Профиль</span>
           </nuxt-link>
+          <AppModalAuth />
         </div>
       </div>
     </div>
@@ -79,9 +84,16 @@
   import SearchIconSvg from '@/assets/img/icons/svg/search-icon.svg?inline'
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
 
+  import AppModalAuth from '@/components/UI/AppModalAuth.vue'
+
   export default {
     name: 'TheHeader',
-    components: { LogoSvg, SearchIconSvg, HeaderBackSvg },
+    components: { LogoSvg, SearchIconSvg, HeaderBackSvg, AppModalAuth },
+    data() {
+      return {
+        isAddNewSpecVisible: true,
+      }
+    },
     computed: {
       ...mapState('search', ['searchInput']),
 
@@ -134,6 +146,8 @@
     },
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_INPUT', 'UPDATE_SEARCH_QUERY']),
+      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
+
       /**
        * Update search input in the store and in the input
        *
@@ -142,9 +156,8 @@
       handleUpdateSearchInput(e) {
         this.UPDATE_SEARCH_INPUT(e.target.value)
       },
-      /**
-       * Submit to search page if valid query
-       */
+
+      // Submit to search page if valid query
       handleSearch() {
         const searchBlock = document.querySelector('.search-block')
         const headerModal = document.querySelector('.header-modal')
@@ -164,6 +177,11 @@
             query: { q: this.searchInput },
           })
         }
+      },
+
+      // Open modal auth
+      handleShowModalAuth() {
+        this.SET_SHOW_MODAL_AUTH(true)
       },
     },
   }

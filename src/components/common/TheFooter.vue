@@ -19,14 +19,15 @@
         </li>
 
         <li class="menu-link">
-          <nuxt-link v-if="isLoggedIn" to="/profile/">
+          <a v-if="!$auth.loggedIn" href="#" @click.prevent="handleShowModalAuth">
+            <ProfileSvg class="menu-link__icon" />
+            <span class="menu-link__text">Войти</span>
+          </a>
+          <nuxt-link v-else :to="`/company/${$auth.user.company_id}/products/`">
             <ProfileSvg class="menu-link__icon" />
             <span class="menu-link__text">Профиль</span>
           </nuxt-link>
-          <nuxt-link v-else to="/login/">
-            <ProfileSvg class="menu-link__icon" />
-            <span class="menu-link__text">Войти</span>
-          </nuxt-link>
+          <AppModalAuth />
         </li>
       </ul>
     </div>
@@ -34,16 +35,28 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
+
   import HomeSvg from '@/assets/img/icons/svg/home.svg?inline'
   import AllCategoriesSvg from '@/assets/img/icons/svg/all-categories.svg?inline'
   import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
 
+  import AppModalAuth from '@/components/UI/AppModalAuth.vue'
+
   export default {
     name: 'TheFooter',
-    components: { HomeSvg, AllCategoriesSvg, ProfileSvg },
+    components: { HomeSvg, AllCategoriesSvg, ProfileSvg, AppModalAuth },
     computed: {
       isLoggedIn() {
         return this.$auth.loggedIn
+      },
+    },
+    methods: {
+      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
+
+      // Open modal auth
+      handleShowModalAuth() {
+        this.SET_SHOW_MODAL_AUTH(true)
       },
     },
   }

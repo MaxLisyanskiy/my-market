@@ -12,13 +12,14 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
-    
+
     &_last {
       margin-bottom: 20px;
     }
   }
 
   &__main-error {
+    display: block;
     color: #f00b1d;
     font-size: 18px;
     font-weight: 400;

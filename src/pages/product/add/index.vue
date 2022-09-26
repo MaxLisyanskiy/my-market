@@ -11,6 +11,8 @@
     name: 'ProductIdEditPage',
     components: { ProductEditor },
     layout: 'default',
+    middleware: 'auth',
+
     async asyncData({ app, store, params }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')

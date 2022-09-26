@@ -1,15 +1,9 @@
 <template>
-  <section class="login-page">
-    <nuxt-link to="/">
-      <LoginTitleSvg class="login-page__title" />
-    </nuxt-link>
+  <div class="modal" :class="{ active: showModalAuth }" @click="handleCloseModalAuth">
+    <div class="modal-dialog" role="dialog" aria-labelledby="modalHeader" @click.stop>
+      <h3 id="modalHeader" class="modal-dialog__login">Вход</h3>
 
-    <div class="login-page__wrapp">
-      <div class="login-page-left"></div>
-      <validation-observer ref="observer" tag="form" class="login-page-right" @submit.prevent="login">
-        <h1 class="login-page-right__title">Вход</h1>
-
-        <!-- email -->
+      <validation-observer ref="observer" tag="form" @submit.prevent="login">
         <validation-provider ref="login" rules="login" tag="div" class="validate">
           <input
             v-model="authData.login"
@@ -17,7 +11,7 @@
             inputmode="email"
             placeholder="E-mail"
             autocomplete="on"
-            class="login-page-right__input"
+            class="modal-dialog__input"
             :class="{ validate__input: login_error }"
             @input="
               main_error = ''
@@ -28,7 +22,6 @@
           <span v-if="login_error" class="validate__error"> {{ login_error }} </span>
         </validation-provider>
 
-        <!-- password -->
         <validation-provider ref="password" rules="password" tag="div" class="validate">
           <input
             v-model="authData.password"
@@ -36,7 +29,7 @@
             inputmode="text"
             placeholder="Пароль"
             autocomplete="on"
-            class="login-page-right__input"
+            class="modal-dialog__input"
             :class="{ validate__input: password_error }"
             @input="
               main_error = ''
@@ -47,26 +40,21 @@
           <span v-if="password_error" class="validate__error validate__error_last">{{ password_error }}</span>
         </validation-provider>
 
-        <nuxt-link to="/forget/" class="login-page-right__forget"> Забыли пароль? </nuxt-link>
-        <button type="submit" class="login-page-right__btn">Войти</button>
-        <span v-if="mainError" class="validate__main-error">{{ mainError }}</span>
+        <nuxt-link to="/forget/" class="modal-dialog__forgot"> Забыли пароль? </nuxt-link>
+        <button type="submit" class="modal-dialog__btn">Войти</button>
+        <span v-if="main_error" class="validate__main-error">{{ main_error }}</span>
       </validation-observer>
+
+      <a href="#" class="modal-dialog__register">Зарегистрировать компанию</a>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
-  import LoginTitleSvg from '@/assets/img/icons/login-title.svg?inline'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
-    name: 'AuthLogin',
-    components: { LoginTitleSvg },
-    props: {
-      mainError: {
-        type: String,
-        default: '',
-      },
-    },
+    name: 'AppModalAuth',
     data() {
       return {
         authData: {
@@ -78,8 +66,34 @@
         password_error: '',
       }
     },
-
+    computed: {
+      ...mapState('modal-auth', ['showModalAuth']),
+    },
+    mounted() {
+      window.addEventListener('keydown', this.escCloseModal)
+    },
+    destroy() {
+      window.removeEventListener('keydown', this.escCloseModal)
+    },
     methods: {
+      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
+
+      // Close a modal auth
+      handleCloseModalAuth() {
+        this.main_error = ''
+        this.login_error = ''
+        this.password_error = ''
+
+        this.SET_SHOW_MODAL_AUTH(false)
+      },
+
+      // Close a modal on pressing the Esc key
+      escCloseModal(e) {
+        if (this.showModalAuth && e.key === 'Escape') {
+          this.handleCloseModalAuth()
+        }
+      },
+
       validateLogin() {
         this.login_error = ''
         this.authData.login = this.authData.login.replace(/\s/g, '')
@@ -133,7 +147,22 @@
           password: this.authData.password,
         }
 
-        this.$emit('login', body)
+        this.$auth
+          .loginWith('local', { data: body })
+          .then(async () => {
+            const { data } = await this.$auth.fetchUser(body)
+            this.$auth.setUser(data.data.user)
+          })
+          .then(() => {
+            this.handleCloseModalAuth()
+            this.$router.push(`/company/${this.$auth.user.company_id}/products/`)
+          })
+          .catch(({ response }) => {
+            if (response.status === 401) {
+              return (this.main_error = 'Неверный логин или пароль')
+            }
+            this.main_error = 'Что-то пошло не так :('
+          })
       },
     },
   }
