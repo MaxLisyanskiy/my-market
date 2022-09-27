@@ -19,7 +19,9 @@
         class="products-mob"
       >
         <div class="products-mob__row">
-          <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="products-mob__img" />
+          <div class="products-mob__img">
+            <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+          </div>
           <span class="products-mob__title">{{ product.name }}</span>
           <span class="products-mob__price">от ₽{{ product.min_price.price }}/шт.</span>
           <span class="products-mob__description products-mob__desktop">
@@ -41,7 +43,9 @@
         :to="`/product/${product.id}`"
         class="products-max"
       >
-        <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="products-max__img" />
+        <div class="products-max__img">
+          <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+        </div>
         <span class="products-max__title">{{ product.name }}</span>
         <span class="products-max__price">от ₽{{ product.min_price.price }}/шт.</span>
         <span class="products-max__description products-max__desktop">

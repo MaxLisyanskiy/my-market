@@ -179,6 +179,7 @@
       display: none;
     }
   }
+
   &-max {
     z-index: 1;
     width: 155px;
@@ -189,11 +190,19 @@
     background: #ffffff;
     margin: 15px 0 0 15px;
     border: 0;
+    &:hover {
+      .products-max__img {
+        & img {
+          transform: scale(1.2);
+        }
+      }
+    }
     @media (max-width: 768px) {
       width: 33%;
       display: flex;
       justify-content: center;
     }
+
     &__row {
       max-width: 110px;
       width: 110px;
@@ -252,13 +261,20 @@
     }
 
     &__img {
-      width: 155px;
-      height: 155px;
-      background-size: 100%;
-      z-index: 2;
-      position: relative;
-      @media (max-width: 768px) {
-        width: 100%;
+      display: inline-block;
+      overflow: hidden;
+
+      & img {
+        transition: 1s;
+        display: block;
+        width: 155px;
+        height: 155px;
+        background-size: 100%;
+        z-index: 2;
+        position: relative;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
     }
   }
@@ -267,20 +283,18 @@
     min-width: 145px;
     margin: 15px 0 0 15px;
     position: relative;
+    &:hover {
+      .products-mob__img {
+        & img {
+          transform: scale(1.2);
+        }
+      }
+    }
     @media (max-width: 480px) {
       min-width: 110px;
       margin: 0px 5px;
     }
-    &__img {
-      width: 100%;
-      height: 120px;
-      position: relative;
-      top: 0;
-      z-index: 2;
-      @media (max-width: 480px) {
-        height: 110px;
-      }
-    }
+
     &__title,
     &__price,
     &__description,
@@ -314,7 +328,25 @@
         display: none;
       }
     }
+    &__img {
+      display: inline-block;
+      overflow: hidden;
+
+      & img {
+        transition: 1s;
+        display: block;
+        width: 100%;
+        height: 120px;
+        position: relative;
+        top: 0;
+        z-index: 2;
+        @media (max-width: 480px) {
+          height: 110px;
+        }
+      }
+    }
   }
+
   &-min {
     border-right: 1px solid #e5e0e0;
     width: 25%;

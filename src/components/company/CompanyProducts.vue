@@ -121,7 +121,9 @@
             <nuxt-link v-if="showAddProduct" :to="`/product/${product.id}/edit/`" class="edit-product">
               <PencilEditProductSvg />
             </nuxt-link>
-            <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-img" />
+            <div class="product-img">
+              <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+            </div>
             <div class="product-wrapper">
               <span class="product-title">{{ product.name }}</span>
               <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
@@ -247,6 +249,7 @@
     background: #e5e0e0;
     padding: 7px;
     border-radius: 50%;
+    z-index: 999;
     &:hover {
       border: 1px solid red;
     }
