@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div :scroll="handleScroll" class="company__top">
     <!-- Banner Desktop -->
     <section class="banner">
       <div class="banner-bg">
         <img src="@/assets/img/company-bg_one.png" alt="banner-bg" class="banner-bg__img" />
       </div>
+
       <div class="banner-info">
         <div class="banner-info__left">
           <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
@@ -15,14 +16,12 @@
             class="banner-info__logo"
           />
           <div class="banner-info__text">
-            <span class="banner-info__title">{{ company.name }}</span>
+            <h1 class="banner-info__title">{{ company.name }}</h1>
             <span class="banner-info__description">
               <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
                 <span>{{ company.phone }}</span>
               </a>
               <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
-                <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
                 <span>{{ company.email }}</span>
               </a>
             </span>
@@ -42,30 +41,41 @@
           </form>
         </div>
       </div>
-      <div class="banner-tabs">
-        <div class="banner-tabs__list">
+
+      <div id="bannerTabs" class="banner-tabs">
+        <div class="banner-tabs-list">
           <nuxt-link
             v-show="false"
             :to="`/company/${company.id}`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
             Главная
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
             Товары
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'About' }"
           >
             О компании
           </nuxt-link>
+        </div>
+        <div class="banner-tabs-connection">
+          <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
+            <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
+            <span>Позвонить</span>
+          </a>
+          <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
+            <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
+            <span> Написать в чат</span>
+          </a>
         </div>
       </div>
     </section>
@@ -103,11 +113,11 @@
             <span class="banner-info__title">{{ company.name }}</span>
             <div class="banner-info__description">
               <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
+                <img src="@/assets/img/icons/company-tel-mob.svg" alt="company-tel" />
                 <span>{{ company.phone }}</span>
               </a>
               <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
-                <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
+                <img src="@/assets/img/icons/company-mail-mob.svg" alt="company-mail" />
                 <span>{{ company.email }}</span>
               </a>
             </div>
@@ -120,29 +130,76 @@
       </div>
       <div class="banner-mob-end"></div>
       <div class="banner-tabs">
-        <div class="banner-tabs__list">
+        <div class="banner-tabs-list">
           <nuxt-link
             v-show="false"
             :to="`/company/${company.id}`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
             Главная
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
             Товары
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
-            class="banner-tabs__link"
+            class="banner-tabs-list__link"
             :class="{ active: activeTab === 'About' }"
           >
             О компании
           </nuxt-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner Fixed -->
+    <section class="banner-fixed" :class="{ active: !scrolledToTabs }">
+      <div class="banner-tabs">
+        <div class="banner-tabs__wrapp">
+          <div class="banner-tabs-company">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" />
+            <img v-else src="@/assets/img/icons/company-not-found-img.svg" alt="company-not-found-img" />
+            <h3>{{ company.name }}</h3>
+          </div>
+          <div class="banner-tabs-list">
+            <nuxt-link
+              v-show="false"
+              :to="`/company/${company.id}`"
+              class="banner-tabs-list__link"
+              :class="{ active: activeTab === 'Main' }"
+            >
+              Главная
+            </nuxt-link>
+            <nuxt-link
+              :to="`/company/${company.id}/products`"
+              class="banner-tabs-list__link"
+              :class="{ active: activeTab === 'Products' }"
+            >
+              Товары
+            </nuxt-link>
+            <nuxt-link
+              :to="`/company/${company.id}/about/`"
+              class="banner-tabs-list__link"
+              :class="{ active: activeTab === 'About' }"
+            >
+              О компании
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="banner-tabs-connection">
+          <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
+            <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
+            <span>Позвонить</span>
+          </a>
+          <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
+            <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
+            <span> Написать в чат</span>
+          </a>
         </div>
       </div>
     </section>
@@ -168,8 +225,19 @@
         default: 'Main',
       },
     },
+    data() {
+      return {
+        scrolledToTabs: true,
+      }
+    },
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll)
+    },
+    destroyed() {
+      window.removeEventListener('scroll', this.handleScroll)
     },
     methods: {
       ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
@@ -199,6 +267,14 @@
             path: `/company/${this.company.id}/products`,
           })
         }
+      },
+
+      handleScroll() {
+        const obj = document.querySelector('#bannerTabs')
+        const { top } = obj.getBoundingClientRect()
+        const height = document.documentElement.clientHeight
+        this.scrolledToTabs = top < height && top > 0
+        console.log(this.scrolledToTabs)
       },
     },
   }
