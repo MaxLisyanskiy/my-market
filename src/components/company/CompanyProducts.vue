@@ -6,62 +6,9 @@
           <span class="products-sidebar__title">Категории</span>
           <ul class="products-sidebar__list">
             <li v-for="(category, index) in categoriesProducts" :key="index" class="products-sidebar__link">
-              <a>{{ category.name }}({{ category.countProducts }})</a>
+              <a>{{ category.name }} ({{ category.countProducts }})</a>
             </li>
           </ul>
-        </div>
-        <div class="similar-info product-owner">
-          <span class="product-owner__title">{{ company.name }}</span>
-          <!-- <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#a)">
-              <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF"></path>
-              <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB"></path>
-              <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B"></path>
-            </g>
-            <defs>
-              <clipPath id="a">
-                <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z"></path>
-              </clipPath>
-            </defs>
-          </svg>
-          <span class="product-owner__address">РСО-А, г. Владикавказ</span> -->
-          <div class="similar-info-btns">
-            <a :href="`tel:${company.phone}`" class="btn-call similar-info-btns__call">
-              <BtnCallSvg class="btn-call__img" />
-              <span class="product-call__text">Позвонить</span>
-            </a>
-            <a :href="`mailto:${company.email}`" class="btn-chat similar-info-btns__chat">
-              <BtnMessageSvg class="btn-chat__img" />
-              <span class="product-chat__text">Написать в чат</span>
-            </a>
-          </div>
-        </div>
-      </aside>
-
-      <aside v-if="products.length <= 0" class="similar-info product-owner aside-not-found">
-        <span class="product-owner__title">{{ company.name }}</span>
-        <!-- <svg class="rectangle-from__flag" width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#a)">
-              <path d="M.375.125h19.25v13.75H.375V.125Z" fill="#2A2FAF"></path>
-              <path d="M.375.125h19.25v4.469H.375V.125Z" fill="#FBFBFB"></path>
-              <path d="M.375 9.406h19.25v4.469H.375V9.406Z" fill="#E92B2B"></path>
-            </g>
-            <defs>
-              <clipPath id="a">
-                <path fill="#fff" transform="translate(.375 .125)" d="M0 0h19.25v13.75H0z"></path>
-              </clipPath>
-            </defs>
-          </svg>
-          <span class="product-owner__address">РСО-А, г. Владикавказ</span> -->
-        <div class="similar-info-btns">
-          <a :href="`tel:${company.phone}`" class="btn-call similar-info-btns__call">
-            <BtnCallSvg class="btn-call__img" />
-            <span class="product-call__text">Позвонить</span>
-          </a>
-          <a :href="`mailto:${company.email}`" class="btn-chat similar-info-btns__chat">
-            <BtnMessageSvg class="btn-chat__img" />
-            <span class="product-chat__text">Написать в чат</span>
-          </a>
         </div>
       </aside>
 
@@ -118,9 +65,9 @@
           </nuxt-link>
 
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
-            <nuxt-link v-if="showAddProduct" :to="`/product/${product.id}/edit/`" class="edit-product">
+            <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
               <PencilEditProductSvg />
-            </nuxt-link>
+            </div>
             <div class="product-img">
               <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
             </div>
@@ -150,8 +97,6 @@
 
   import CatalogProductsNotFound from '@/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
-  import BtnCallSvg from '@/assets/img/icons/svg/btn-call.svg?inline'
-  import BtnMessageSvg from '@/assets/img/icons/svg/btn-message.svg?inline'
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
   import PencilEditProductSvg from '@/assets/img/icons/svg/pencil-edit-product.svg?inline'
 
@@ -159,8 +104,6 @@
     name: 'CompanyProducts',
     components: {
       CatalogProductsNotFound,
-      BtnCallSvg,
-      BtnMessageSvg,
       CompanyProductsFilterMobSvg,
       PencilEditProductSvg,
     },
@@ -212,6 +155,7 @@
   }
   .productsNotFound {
     width: 100%;
+    margin: 0;
   }
   .company-products__not-found {
     margin-top: 15px !important;
@@ -249,7 +193,7 @@
     background: #e5e0e0;
     padding: 7px;
     border-radius: 50%;
-    z-index: 999;
+    z-index: 2;
     &:hover {
       border: 1px solid red;
     }
