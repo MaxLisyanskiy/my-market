@@ -5,18 +5,24 @@
         <div class="products-sidebar__wrapp">
           <span class="products-sidebar__title">Категории</span>
           <ul class="products-sidebar__list">
-            <li v-for="(category, index) in categoriesProducts" :key="index" class="products-sidebar__link">
+            <li
+              v-for="(category, index) in categoriesProducts"
+              :key="index"
+              class="products-sidebar__link"
+              :class="{ active: categoriesProducts.length <= 1 || activeCategoryId === category.id }"
+              @click="handleChooseCategory(category.id)"
+            >
               <a>{{ category.name }} ({{ category.countProducts }})</a>
             </li>
           </ul>
         </div>
       </aside>
 
-      <div class="company-products" :class="{ productsNotFound: products.length <= 0 }">
+      <div class="company-products" :class="{ productsNotFound: filteredProducts.length <= 0 }">
         <div class="company-products__top">
           <div class="company-products__top_desk">
             <span class="company-products__title">Все товары</span>
-            <span class="company-products__text">Количество товаров: {{ products.length }}</span>
+            <span class="company-products__text">Количество товаров: {{ filteredProducts.length }}</span>
             <div v-if="products.length > 0" class="categories-select company-products__select">
               <img src="@/assets/img/icons/svg/select.svg" alt="" class="categories-select__img" />
               <select>
@@ -38,7 +44,7 @@
           </div>
         </div>
 
-        <div v-if="products.length > 0" class="company-products__row">
+        <div v-if="filteredProducts.length > 0" class="company-products__row">
           <nuxt-link v-if="showAddProduct" to="/product/add/" class="product product-add">
             <svg
               class="product-add__img"
@@ -64,7 +70,12 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
+          <nuxt-link
+            v-for="product in filteredProducts"
+            :key="product.id"
+            :to="`/product/${product.id}`"
+            class="product"
+          >
             <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
               <PencilEditProductSvg />
             </div>
@@ -83,7 +94,7 @@
         </div>
 
         <CatalogProductsNotFound
-          v-if="products.length <= 0"
+          v-if="filteredProducts.length <= 0"
           :search-query="$route.query.q"
           class="company-products__not-found"
         />
@@ -117,25 +128,40 @@
         default: () => {},
       },
     },
+    data() {
+      return {
+        activeCategoryId: null,
+      }
+    },
     computed: {
       ...mapState('categories', ['categories']),
 
       categoriesProducts() {
-        const arr = JSON.parse(JSON.stringify(this.categories))
+        const categoriesArr = JSON.parse(JSON.stringify(this.categories))
 
-        for (const category of arr) {
+        for (const category of categoriesArr) {
           category.countProducts = 0
         }
 
         for (const product of this.products) {
-          for (const category of arr) {
+          for (const category of categoriesArr) {
             if (product.category_id === category.id) {
               category.countProducts++
             }
           }
         }
 
-        return arr.filter(item => item.countProducts !== 0)
+        return categoriesArr.filter(item => item.countProducts !== 0)
+      },
+
+      filteredProducts() {
+        const productsArr = JSON.parse(JSON.stringify(this.products))
+
+        if (this.activeCategoryId) {
+          return productsArr.filter(item => item.category_id === this.activeCategoryId)
+        }
+
+        return productsArr
       },
 
       showAddProduct() {
@@ -144,6 +170,23 @@
         }
 
         return false
+      },
+
+      categoriesProductsClass() {
+        if (this.categoriesProducts.length < 1) {
+          return true
+        }
+
+        return false
+      },
+    },
+    methods: {
+      /**
+       * Set id for activeCategoryId
+       * @param {number} id category id
+       */
+      handleChooseCategory(id) {
+        this.activeCategoryId = id
       },
     },
   }
