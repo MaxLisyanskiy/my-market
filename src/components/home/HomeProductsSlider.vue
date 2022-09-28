@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <div class="products-right mobile">
+    <vue-custom-scrollbar class="products-right mobile" @ps-scroll-y="scrollHanle">
       <nuxt-link
         v-for="product in category.products"
         :key="product.id"
@@ -34,9 +34,9 @@
           </span>
         </div>
       </nuxt-link>
-    </div>
+    </vue-custom-scrollbar>
 
-    <div class="products-right desktop">
+    <vue-custom-scrollbar class="products-right desktop" @ps-scroll-x="scrollHanle">
       <nuxt-link
         v-for="product in category.products"
         :key="product.id"
@@ -57,7 +57,7 @@
           <span class="products-max__pcs">от {{ product.min_price.amount }} шт.</span>
         </span>
       </nuxt-link>
-    </div>
+    </vue-custom-scrollbar>
   </section>
 </template>
 
@@ -73,5 +73,19 @@
         default: () => {},
       },
     },
+    // data() {
+    //   return {
+    //     settings: {
+    //       suppressScrollY: false,
+    //       suppressScrollX: false,
+    //       wheelPropagation: true,
+    //     },
+    //   }
+    // },
+    // methods: {
+    //   scrollHanle(evt) {
+    //     console.log(evt)
+    //   },
+    // },
   }
 </script>
