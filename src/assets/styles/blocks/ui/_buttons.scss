@@ -18,7 +18,7 @@
   }
 
   &-call {
-    background: linear-gradient(#6bbc38 0%, #7bd941 100%);
+    background: linear-gradient(88.41deg, #6bbc38 0%, #7bd941 100%);
     width: 120px;
     height: 35px;
 
@@ -29,7 +29,7 @@
     }
 
     &:hover {
-      background: linear-gradient(#66b335 0%, #75ce3e 100%);
+      background: linear-gradient(88.41deg, #66b335 0%, #75ce3e 100%);
     }
   }
 
@@ -88,7 +88,7 @@
     @media (max-width: 870px) {
       position: relative;
       bottom: -3px;
-	  margin-left:10px;
+      margin-left: 10px;
     }
     @media (max-width: 670px) {
       width: 50%;
@@ -100,7 +100,7 @@
     position: absolute;
     @media (max-width: 870px) {
       position: relative;
-	  bottom:-3px;
+      bottom: -3px;
     }
   }
   &__chat,
@@ -109,9 +109,9 @@
       width: 170px;
       position: relative;
     }
-	@media(max-width:390px){
-		width:48%;
-		font-size:12px;
-	}
+    @media (max-width: 390px) {
+      width: 48%;
+      font-size: 12px;
+    }
   }
 }

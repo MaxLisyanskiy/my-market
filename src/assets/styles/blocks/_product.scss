@@ -97,6 +97,9 @@
     padding-top: 0;
   }
   @media (max-width: 670px) {
+    padding-top: 0;
+  }
+  @media (max-width: 600px) {
     padding-top: 50px;
   }
   &-left {
@@ -307,7 +310,6 @@
   }
   @media (max-width: 670px) {
     margin-top: 6px;
-    margin-bottom: 3px;
   }
 }
 
@@ -321,11 +323,11 @@
     background: linear-gradient(#f00b1d 0, #ff5833 100%);
     margin-left: 9px;
     position: relative;
-    margin-top: -2px;
     @media (max-width: 870px) {
       width: 26px;
       height: 26px;
-      margin-left: 4px;
+      margin-left: 15px;
+      margin-top: -2px;
     }
     &__img {
       width: 30px;
@@ -340,12 +342,15 @@
   &-block {
     display: flex;
     align-items: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     @media (max-width: 870px) {
-      margin-bottom: 8px;
+      margin-bottom: 14px;
     }
     &:first-child {
-      margin-bottom: 6px;
+      margin-bottom: 10px;
+      @media (max-width: 670px) {
+        margin-bottom: 6px;
+      }
     }
     &:last-child {
       display: block;
@@ -356,10 +361,12 @@
     &__value {
       line-height: 19.36px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
       color: #666666;
-      @media (max-width: 380px) {
+      @media (max-width: 480px) {
         font-size: 12px;
+        line-height: 14.06px;
       }
     }
 
@@ -745,7 +752,7 @@
           top: 29px;
         }
         @media (max-width: 670px) {
-          top: -30px;
+          top: -34px;
           position: relative;
         }
       }
@@ -804,7 +811,7 @@
       }
 
       @media (max-width: 870px) {
-        margin-top: -15px;
+        margin-top: -26px;
         width: 100%;
       }
       @media (max-width: 670px) {
@@ -832,7 +839,8 @@
       display: flex;
       width: 448px;
       height: auto;
-      min-height: 39px;
+      min-height: 40px;
+      height: auto;
       overflow: hidden;
       border: 1px solid #e0e0e0;
       @media (max-width: 1250px) {
@@ -867,10 +875,14 @@
     &__right {
       width: 100%;
       max-width: 224px;
-      padding: 5px 10px;
+      padding: 10px 15px 15px 15px;
       box-sizing: border-box;
       word-wrap: break-word;
       min-width: 150px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #000000;
       @media (max-width: 870px) {
         padding: 0 0 0 13px;
         display: flex;
@@ -882,7 +894,7 @@
 
     &__left {
       background: #f2f0f0;
-      font-weight: 500;
+      color: #1a1a1a;
       @media (max-width: 870px) {
         font-weight: 400;
         font-size: 12px;
@@ -894,6 +906,9 @@
         border-radius: 5px;
         word-break: break-word;
         padding: 10px 13px 10px 13px;
+      }
+      @media (max-width: 360px) {
+        min-width: 45%;
       }
     }
 
@@ -910,6 +925,9 @@
         word-break: break-word;
         padding: 10px 13px 10px 13px;
       }
+      @media (max-width: 360px) {
+        min-width: 55%;
+      }
     }
   }
 }
@@ -918,8 +936,14 @@
   margin-left: 20px;
   width: 224px;
   height: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media (max-width: 1220px) {
     width: 24%;
+  }
+  @media (max-width: 1100px) {
+    margin-left: auto;
   }
   @media (max-width: 992px) {
     width: 100%;
@@ -946,6 +970,9 @@
     box-sizing: border-box;
     overflow: hidden;
     overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     @media (max-width: 1220px) {
       display: flex;
       padding-top: 20px;
@@ -1127,6 +1154,8 @@
 
 .watched {
   max-width: 956px;
+  width: 100%;
+  min-width: 956px;
   height: 297px;
   margin-top: 20px;
   background: #ffffff;
@@ -1134,11 +1163,18 @@
   border-radius: 10px;
   padding: 13px 20px 0 20px;
   box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media (max-width: 1220px) {
     max-width: 100%;
   }
+  @media (max-width: 992px) {
+    width: 100%;
+    min-width: 100%;
+  }
   @media (max-width: 870px) {
-    margin-top: -10px;
+    margin-top: 0;
     border-radius: 0;
   }
 
@@ -1152,8 +1188,22 @@
   &-row {
     display: flex;
     margin-top: 11px;
+    overflow-y: hidden;
     overflow-x: scroll;
-
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    overflow: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+    &::-moz-scrollbar {
+      width: 0px;
+      height: 0px;
+    }
+    &::-webkit-scrollbar {
+      width: 0;
+    }
     & .product {
       width: 172px;
       min-width: 172px;

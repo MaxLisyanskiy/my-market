@@ -34,11 +34,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/axios.js' }, 
-    { src: '~/plugins/vue-lazy-load.js' }, 
+    { src: '~/plugins/axios.js' },
+    { src: '~/plugins/vue-lazy-load.js' },
     { src: '~/plugins/router.js' },
     { src: '~/plugins/vee-validate.js' },
     { src: '~/plugins/elementUI.js' },
+    { src: '~/plugins/vue-custom-scrollbar.js' },
   ],
 
   // Customize the progress-bar color
