@@ -1,7 +1,7 @@
 <template>
   <section id="About" class="company content-row active">
     <div class="company__wrapper">
-      <div class="wrapper-sidebar sidebar">
+      <div class="wrapper-sidebar sidebar" :class="{ fixed: !scrolled }">
         <ul class="sidebar-list">
           <li
             v-for="link in links"
@@ -97,6 +97,10 @@
         type: Object,
         default: () => {},
       },
+      scrolled: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
@@ -118,7 +122,9 @@
 
         this.activeLink = refName
 
-        window.scrollTo(300, top - 90)
+        const indent = !this.scrolled ? 107 : 90
+
+        window.scrollTo(300, top - indent)
       },
     },
   }

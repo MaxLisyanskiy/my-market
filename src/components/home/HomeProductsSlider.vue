@@ -11,7 +11,7 @@
       </button>
     </div>
 
-    <vue-custom-scrollbar class="products-right mobile" @ps-scroll-y="scrollHanle">
+    <vue-custom-scrollbar class="products-right mobile">
       <nuxt-link
         v-for="product in category.products"
         :key="product.id"
@@ -36,7 +36,7 @@
       </nuxt-link>
     </vue-custom-scrollbar>
 
-    <vue-custom-scrollbar class="products-right desktop" @ps-scroll-x="scrollHanle">
+    <vue-custom-scrollbar class="products-right desktop">
       <nuxt-link
         v-for="product in category.products"
         :key="product.id"

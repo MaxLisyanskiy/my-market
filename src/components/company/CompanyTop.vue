@@ -1,5 +1,5 @@
 <template>
-  <div :scroll="handleScroll" class="company__top">
+  <div :scroll="handleScroll">
     <!-- Banner Desktop -->
     <section class="banner">
       <div class="banner-bg">
@@ -274,7 +274,8 @@
         const { top } = obj.getBoundingClientRect()
         const height = document.documentElement.clientHeight
         this.scrolledToTabs = top < height && top > 0
-        console.log(this.scrolledToTabs)
+
+        this.$emit('scrolled', this.scrolledToTabs)
       },
     },
   }
