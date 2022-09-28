@@ -17,11 +17,6 @@
   &__wrapper {
     display: flex;
   }
-
-  &__top {
-    display: inline-block;
-    width: 100%;
-  }
 }
 .company .sidebar {
   padding: 0;
@@ -33,6 +28,8 @@
   width: 22%;
   max-width: 244px;
   min-width: 244px;
+  box-shadow: 0px 0px 2px rgba(204, 204, 204, 0.6);
+
   @media (max-width: 991px) {
     width: 30%;
   }
@@ -42,6 +39,10 @@
   }
   @media (max-width: 768px) {
     display: none;
+  }
+
+  &.fixed {
+    top: 126px;
   }
 }
 .company .sidebar-list {
@@ -117,6 +118,7 @@
     background: #fff;
     border-radius: 10px;
     padding: 14px 20px 17px;
+    box-shadow: 0px 0px 2px rgba(204, 204, 204, 0.6);
   }
   &__title {
     font-weight: 500;
@@ -172,8 +174,10 @@
   background: #ffffff;
   margin-left: 20px;
   padding: 15px 0 0 0;
-  box-sizing: border-box;
   overflow: hidden;
+  box-shadow: 0px 0px 2px rgb(204 204 204 / 60%);
+  border-radius: 10px;
+
   @media (max-width: 991px) {
     width: 70%;
   }
@@ -362,7 +366,6 @@
 
 .banner {
   @extend %container;
-  height: 380px;
   margin-top: 20px;
   position: relative;
   @media (max-width: 670px) {
@@ -764,7 +767,7 @@
   animation: fadeIn 250ms ease-in-out;
   &.active {
     display: block;
-    @media (max-width: 768px) {
+    @media (max-width: 670px) {
       display: none;
     }
   }

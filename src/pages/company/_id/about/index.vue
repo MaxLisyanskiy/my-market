@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
-    <CompanyTop :company="company" :active-tab="'About'" />
-    <CompanyAbout :company="company" :swiper-config="swiperConfig" />
+    <CompanyTop :company="company" :active-tab="'About'" @scrolled="scrolled" />
+    <CompanyAbout :company="company" :swiper-config="swiperConfig" :scrolled="scrolledData" />
   </article>
 </template>
 
@@ -25,6 +25,7 @@
     data() {
       return {
         company: {},
+        scrolledData: true,
         swiperConfig: {
           mainClass: 'wrapper-slider',
           wrapperClass: '',
@@ -63,6 +64,14 @@
     },
     methods: {
       ...mapActions('company', ['SET_COMPANY_SEARCH_QUERY']),
+
+      /**
+       * Set scrolledData for CompanyAbout
+       * @param {boolean} bool scroll value
+       */
+      scrolled(bool) {
+        this.scrolledData = bool
+      },
     },
   }
 </script>
