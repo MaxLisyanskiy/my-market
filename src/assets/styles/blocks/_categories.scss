@@ -158,8 +158,9 @@
   }
 
   & .gallery {
-    padding: 8px;
+    padding: 8px 14px;
     display: grid;
+    grid-column-gap: 14px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     @media (max-width: 1100px) {
@@ -171,6 +172,7 @@
     @media (max-width: 600px) {
       grid-template-columns: repeat(3, 1fr);
       padding: 0;
+      grid-column-gap: 0;
     }
     @media (max-width: 450px) {
       grid-template-columns: repeat(2, 1fr);
@@ -179,15 +181,21 @@
 
   & .gallery .product {
     height: 300px;
+    max-height: 300px;
+    min-height: 300px;
     position: relative;
-    padding: 7px 7px 10px;
     margin-bottom: 20px;
     transition: color 0.5s;
-    @media (max-width: 991px) {
-      height: 270px;
+    background: #fff;
+    @media (max-width: 992px) {
+      height: 262px;
+      max-height: 262px;
+      min-height: 262px;
     }
-    @media (max-width: 600px) {
-      height: 230px;
+    @media (max-width: 799px) {
+      height: 262px;
+      max-height: 262px;
+      min-height: 262px;
       padding: 0;
       margin: 0 5px 10px;
       border: 0;
@@ -202,8 +210,28 @@
         }
       }
     }
+    &-swither {
+      height: 216px;
+      overflow: hidden;
+      position: relative;
+      @media (max-width: 992px) {
+        height: 180px;
+      }
+      &__img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        -webkit-transform: translate(-50%, -50%) scale(1);
+        -ms-transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1);
+        transition: transform 1.25s cubic-bezier(0.165, 0.84, 0.44, 1),
+          -webkit-transform 1.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+    }
 
     &__wrapper {
+      padding: 0 10px;
       @media (max-width: 600px) {
         height: inherit;
         padding: 7px 9px;
@@ -257,6 +285,11 @@
       display: block;
       position: absolute;
       bottom: 21px;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       @media (max-width: 600px) {
         bottom: 30px;
       }
@@ -271,6 +304,11 @@
       display: block;
       position: absolute;
       bottom: 3px;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       @media (max-width: 600px) {
         bottom: 10px;
       }
