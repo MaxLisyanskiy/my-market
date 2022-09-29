@@ -7,9 +7,13 @@
         :to="`/product/${product.id}`"
         class="product"
       >
-        <div class="product__img">
+        <!-- <div class="product__img">
           <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+        </div> -->
+        <div class="product-swither">
+          <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-swither__img" />
         </div>
+
         <div class="product__wrapper">
           <span class="product-title">{{ product.name }}</span>
           <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>

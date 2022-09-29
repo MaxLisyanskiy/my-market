@@ -79,8 +79,11 @@
             <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
               <PencilEditProductSvg />
             </div>
-            <div class="product-img">
+            <!-- <div class="product-img">
               <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+            </div> -->
+            <div class="product-swither">
+              <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-swither__img" />
             </div>
             <div class="product-wrapper">
               <span class="product-title">{{ product.name }}</span>
