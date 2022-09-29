@@ -1,7 +1,7 @@
 <template>
   <section class="watched">
     <span class="watched-title">Вы смотрели ранее</span>
-    <div class="watched-row">
+    <vue-custom-scrollbar class="watched-row" tagname="div">
       <nuxt-link
         v-for="product in watchedProducts"
         :key="`${product.name + product.id}`"
@@ -12,7 +12,7 @@
         <span class="product-title">{{ product.name }}</span>
         <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
       </nuxt-link>
-    </div>
+    </vue-custom-scrollbar>
   </section>
 </template>
 

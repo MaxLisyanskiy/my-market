@@ -15,7 +15,7 @@
     <article class="product-description">
       <ProductTabs :product="product" />
       <ProductSimilar v-if="company.name" :company="company" />
-      <ProductWatched :watched-products="watchedProducts" />
+      <ProductWatched v-if="watchedProducts.length > 0" :watched-products="watchedProducts" />
     </article>
   </div>
 </template>
