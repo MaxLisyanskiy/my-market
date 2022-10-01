@@ -76,13 +76,29 @@
             :to="`/product/${product.id}`"
             class="product"
           >
-            <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
-              <PencilEditProductSvg />
+            <div class="product-wrapper">
+              <div class="product-gallery">
+                <div class="product-gallery__link">
+                  <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
+                    <PencilEditProductSvg />
+                  </div>
+                  <div class="product-switcher">
+                    <div class="product-switcher__imgs">
+                      <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+                    </div>
+                  </div>
+                </div>
+                <div class="product-text">
+                  <span class="product-title">{{ product.name }}</span>
+                  <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
+                  <span class="product-order"
+                    >Мин. заказ: <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span></span
+                  >
+                </div>
+              </div>
             </div>
-            <!-- <div class="product-img">
-              <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
-            </div> -->
-            <div class="product-swither">
+
+            <!-- <div class="product-swither">
               <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-swither__img" />
             </div>
             <div class="product-wrapper">
@@ -92,7 +108,7 @@
                 Мин. заказ:
                 <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span>
               </span>
-            </div>
+            </div> -->
           </nuxt-link>
         </div>
 

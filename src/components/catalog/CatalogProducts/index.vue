@@ -7,19 +7,23 @@
         :to="`/product/${product.id}`"
         class="product"
       >
-        <!-- <div class="product__img">
-          <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
-        </div> -->
-        <div class="product-swither">
-          <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-swither__img" />
-        </div>
-
-        <div class="product__wrapper">
-          <span class="product-title">{{ product.name }}</span>
-          <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
-          <span class="product-order"
-            >Мин. заказ: <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span></span
-          >
+        <div class="product-wrapper">
+          <div class="product-gallery">
+            <div class="product-gallery__link">
+              <div class="product-switcher">
+                <div class="product-switcher__imgs">
+                  <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
+                </div>
+              </div>
+            </div>
+            <div class="product-text">
+              <span class="product-title">{{ product.name }}</span>
+              <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
+              <span class="product-order"
+                >Мин. заказ: <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span></span
+              >
+            </div>
+          </div>
         </div>
       </nuxt-link>
     </template>
