@@ -41,10 +41,10 @@
     }
     &.active {
       display: flex;
-	  @media(max-width:670px){
-		left:0;
-		position:fixed;
-	  }
+      @media (max-width: 670px) {
+        left: 0;
+        position: fixed;
+      }
     }
     & .search-block {
     }
@@ -70,6 +70,7 @@
       }
       &.active {
         display: block;
+        cursor: pointer;
       }
     }
     &__logo {
@@ -170,7 +171,7 @@
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
-        font-family: "Roboto";
+        font-family: 'Roboto';
         line-height: 16.41px;
         color: #adb0b3;
       }
@@ -230,7 +231,6 @@
   left: 200px;
   top: 69px;
   overflow: hidden;
-  overflow-y: scroll;
   box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.6);
   border-radius: 0px 0px 10px 10px;
   box-shadow: -2px 1px 2px rgba(0, 0, 0, 0.15), 2px 1px 2px rgba(0, 0, 0, 0.15);
@@ -249,7 +249,6 @@
     display: block;
     border: 0;
     box-shadow: none;
-    overflow: scroll;
     height: 100vh;
     left: 0;
     top: 10px;
@@ -275,17 +274,17 @@
       height: 30px;
       padding-left: 20px;
       box-sizing: border-box;
-	  @media(max-width:670px){
-		height:50.5px;
-	  }
+      @media (max-width: 670px) {
+        height: 50.5px;
+      }
     }
   }
   &__list {
     width: 100%;
-	margin-top:-10px;
+    margin-top: -10px;
     @media (max-width: 670px) {
       padding-bottom: 300px;
-	  margin-top:0;
+      margin-top: 0;
     }
   }
 
