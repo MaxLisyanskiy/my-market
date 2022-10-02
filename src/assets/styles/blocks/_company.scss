@@ -783,8 +783,10 @@
   }
 
   &-info {
-    position: absolute;
-    top: 66px;
+    // position: absolute;
+    // top: 66px;
+    margin-top: -51px;
+    margin-bottom: 27px;
     width: 100%;
 
     &__wrapp {
@@ -844,9 +846,9 @@
     border-radius: 0;
   }
 
-  &-end {
-    height: 103px;
-  }
+  // &-end {
+  //   height: 103px;
+  // }
 }
 
 .banner-fixed {

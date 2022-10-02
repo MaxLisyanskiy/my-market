@@ -65,8 +65,8 @@
                 fill="#656565"
               />
             </svg>
-            <div class="product-wrapper">
-              <span class="product-title">Добавить товар</span>
+            <div>
+              <span class="product-add__title">Добавить товар</span>
             </div>
           </nuxt-link>
 
@@ -97,18 +97,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- <div class="product-swither">
-              <img v-lazy="product?.images?.[0]?.url" :alt="product.name" class="product-swither__img" />
-            </div>
-            <div class="product-wrapper">
-              <span class="product-title">{{ product.name }}</span>
-              <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
-              <span class="product-order">
-                Мин. заказ:
-                <span class="product-order__pcs">{{ product.min_price.amount }} шт.</span>
-              </span>
-            </div> -->
           </nuxt-link>
         </div>
 
@@ -241,9 +229,20 @@
     justify-content: center;
     background: #e1e1e1;
     border-radius: 16px;
+    &:hover {
+      & .product-add__title {
+        color: #f00b1d;
+      }
+    }
     &__img {
       width: 100%;
       height: 100px;
+    }
+    &__title {
+      margin-top: 10px;
+      display: block;
+      font-weight: 500;
+      color: #404040;
     }
   }
 
