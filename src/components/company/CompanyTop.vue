@@ -128,7 +128,6 @@
           </div>
         </div>
       </div>
-      <div class="banner-mob-end"></div>
       <div class="banner-tabs">
         <div class="banner-tabs-list">
           <nuxt-link
