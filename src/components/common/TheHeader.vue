@@ -105,6 +105,21 @@
         return false
       },
     },
+    watch: {
+      $route() {
+        const header = document.querySelector('.header')
+        const headerModal = document.querySelector('.header-modal')
+        const headerBack = document.querySelector('.header-block__back')
+        const headerLogo = document.querySelector('.header-block__logo')
+        const body = document.querySelector('body')
+
+        header.classList.remove('header-modal__sticky')
+        headerModal.classList.remove('active')
+        headerBack.classList.remove('active')
+        headerLogo.style.display = 'block'
+        body.classList.remove('lock')
+      },
+    },
     mounted: () => {
       const searchInput = document.querySelector('.header-search__input')
       const searchBlock = document.querySelector('.search-block')
