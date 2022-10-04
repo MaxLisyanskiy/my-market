@@ -63,10 +63,13 @@
       ...mapState('search', ['searchQuery']),
     },
     watch: {
-      searchQuery(newCount, oldCount) {
-        if (oldCount !== newCount) {
-          this.handleLoadProducts()
-        }
+      // searchQuery(newCount, oldCount) {
+      //   if (oldCount !== newCount) {
+      //     this.handleLoadProducts()
+      //   }
+      // },
+      '$route.query.q'() {
+        this.$router.app.refresh()
       },
     },
     methods: {

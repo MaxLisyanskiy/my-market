@@ -236,7 +236,7 @@
           _method: 'PATCH',
           id: this.productId,
           ...this.dataForm,
-          images: this.form.images.map(image => image.raw),
+          images: this.dataForm.images.map(image => image.raw),
         })
         const result = await this.$productService.updateProduct(this.productId, body)
 
@@ -255,7 +255,7 @@
       async upload() {
         const body = RequestUtils.toFormData({
           ...this.dataForm,
-          images: this.form.images.map(image => image.raw),
+          images: this.dataForm.images.map(image => image.raw),
         })
 
         const result = await this.$productService.addProduct(body)
