@@ -19,7 +19,7 @@
     async asyncData({ app, store, params, query }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 20, query?.q)
+      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 100, query?.q)
 
       // Check query in the routing and set query in store
       await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
@@ -51,10 +51,13 @@
       ...mapState('company', ['companySearchQuery']),
     },
     watch: {
-      companySearchQuery(newCount, oldCount) {
-        if (oldCount !== newCount) {
-          this.handleLoadCompanyProducts()
-        }
+      // companySearchQuery(newCount, oldCount) {
+      //   if (oldCount !== newCount) {
+      //     this.handleLoadCompanyProducts()
+      //   }
+      // },
+      '$route.query.q'() {
+        this.$router.app.refresh()
       },
     },
     methods: {
