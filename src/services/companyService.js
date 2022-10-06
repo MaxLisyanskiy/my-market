@@ -26,7 +26,7 @@ export default ($axios, error) => {
      * @param {string} query query in the routing
      * @returns {object} Object with field products, count, pages
      */
-    getCompanyProducts: async (id, page = 1, count = 20, query = null) => {
+    getCompanyProducts: async (id, page = 1, count = 20, query = null, categoryId = null) => {
       const config = {
         params: {
           page: Number(page),
@@ -36,7 +36,10 @@ export default ($axios, error) => {
       if (query) {
         config.params.name = query
       }
-      
+      if (categoryId) {
+        config.params.category_id = categoryId
+      }
+
       return await $axios
         .get(`/companies/${id}/products`, config)
         .then(({ data }) => {

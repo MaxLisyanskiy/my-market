@@ -19,8 +19,9 @@
     async asyncData({ app, store, params, query }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products } = await app.$companyService.getCompanyProducts(params.id, 1, 100, query?.q)
+      const { products, categories } = await app.$companyService.getCompanyProducts(params.id, 1, 100, query?.q, null)
 
+      console.log(categories)
       // Check query in the routing and set query in store
       await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
 

@@ -19,11 +19,10 @@
   &.active {
     display: flex;
   }
+
   &-dialog {
     width: 350px;
     max-width: 350px;
-    min-height: 300px;
-    max-height: 100%;
     padding: 16px 25px 22px 25px;
     background-color: #fff;
     box-shadow: 0px 0px 2px rgba(204, 204, 204, 0.6);
@@ -33,17 +32,43 @@
     color: white;
     font-weight: 300;
     margin: 0 auto;
+    cursor: default;
     @media (max-width: 380px) {
       max-width: 92%;
       width: 92%;
     }
-    &__login {
+
+    // TODO
+    &__todo {
+      display: block;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #000;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    &__title {
+      display: block;
       font-weight: 500;
       font-size: 24px;
       line-height: 28px;
-      display: flex;
-      justify-content: center;
-      color: #000000;
+      text-align: center;
+      color: #404040;
+    }
+    &__subtitle {
+      text-align: left;
+      margin-top: 9px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #404040;
+
+      & span {
+        font-weight: 600;
+      }
     }
     &__input {
       width: 300px;
@@ -55,23 +80,27 @@
       font-weight: 500;
       font-size: 16px;
       line-height: 19px;
-      color: #737373;
+      color: #000000;
       @media (max-width: 380px) {
         width: 100%;
       }
     }
     &__forgot {
+      display: block;
+      width: 110px;
+      margin-top: 9px;
+      margin-left: 8px;
       font-weight: 500;
       font-size: 14px;
       line-height: 16px;
       color: #737373;
-      display: block;
-      margin-top: 9px;
-      margin-left: 8px;
       border-bottom: 1px solid #737373;
-      width: 110px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+      }
     }
-
     &__btn {
       width: 300px;
       height: 45px;
@@ -91,7 +120,7 @@
         width: 100%;
       }
     }
-    &__register {
+    &__link {
       margin-top: 17px;
       font-weight: 500;
       font-size: 14px;
@@ -100,6 +129,34 @@
       align-items: center;
       color: #595959;
       justify-content: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+      }
+    }
+
+    &-code {
+      margin-top: 11px;
+      display: flex;
+      justify-content: space-between;
+
+      & input {
+        width: 45px;
+        height: 45px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #000;
+        background: #e7e7e7;
+        border-radius: 10px;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
     }
   }
 }
