@@ -1,5 +1,7 @@
 <template>
   <header class="header sticky" :class="{ hidden: isCompanyPages }">
+    <AppModalAuth />
+
     <div class="header-row">
       <div class="header-block header-block__back">
         <HeaderBackSvg class="header-back__img" />
@@ -70,7 +72,6 @@
             <img src="@/assets/img/icons/signIn.svg" alt="signIn-icons" />
             <span class="header-sign__text">Профиль</span>
           </nuxt-link>
-          <AppModalAuth />
         </div>
       </div>
     </div>
@@ -84,7 +85,7 @@
   import SearchIconSvg from '@/assets/img/icons/svg/search-icon.svg?inline'
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
 
-  import AppModalAuth from '@/components/UI/AppModalAuth.vue'
+  import AppModalAuth from '@/components/UI/AppModalAuth/index'
 
   export default {
     name: 'TheHeader',

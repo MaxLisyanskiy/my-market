@@ -27,7 +27,6 @@
             <ProfileSvg class="menu-link__icon" />
             <span class="menu-link__text">Профиль</span>
           </nuxt-link>
-          <AppModalAuth />
         </li>
       </ul>
     </div>
@@ -41,11 +40,9 @@
   import AllCategoriesSvg from '@/assets/img/icons/svg/all-categories.svg?inline'
   import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
 
-  import AppModalAuth from '@/components/UI/AppModalAuth.vue'
-
   export default {
     name: 'TheFooter',
-    components: { HomeSvg, AllCategoriesSvg, ProfileSvg, AppModalAuth },
+    components: { HomeSvg, AllCategoriesSvg, ProfileSvg },
     computed: {
       isLoggedIn() {
         return this.$auth.loggedIn

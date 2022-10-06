@@ -1,11 +1,11 @@
 import { extend } from 'vee-validate'
 
-const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const emailRegexp =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 // validation rules
 extend('email', {
-  validate(value)
-  {
+  validate(value) {
     if (emailRegexp.test(value)) return true
     return 'Введите корректную почту'
   },
@@ -13,8 +13,7 @@ extend('email', {
 })
 
 extend('password', {
-  validate(value)
-  {
+  validate(value) {
     if (value.length >= 8) return true
     return 'Пароль должен содержать не менее 8 символов'
   },
@@ -22,8 +21,7 @@ extend('password', {
 })
 
 extend('repeatPassword', {
-  validate(value, [password])
-  {
+  validate(value, [password]) {
     if (value === password) return true
     return 'Пароли не совпадают'
   },
@@ -31,8 +29,7 @@ extend('repeatPassword', {
 })
 
 extend('inn', {
-  validate(value)
-  {
+  validate(value) {
     if (/^\d{12}$/.test(value)) return true
     return 'ИНН должен содержать 12 цифр'
   },
@@ -40,8 +37,7 @@ extend('inn', {
 })
 
 extend('phone', {
-  validate(value)
-  {
+  validate(value) {
     if (/^\d{11}$/.test(value.replace(/\D/g, ''))) return true
     return 'Телефон должен содержать 11 цифр'
   },
@@ -49,8 +45,7 @@ extend('phone', {
 })
 
 extend('login', {
-  validate(value)
-  {
+  validate(value) {
     if (emailRegexp.test(value)) return true
     if (/^\d{11}$/.test(value.replace(/\D/g, ''))) return true
     return 'Введите корректный номер телефона или почту'
@@ -59,8 +54,7 @@ extend('login', {
 })
 
 extend('notEmpty', {
-  validate(value, args)
-  {
+  validate(value, args) {
     if (value.length) return true
     return `Поле "${args.field}" не должно быть пустым`
   },
@@ -69,8 +63,7 @@ extend('notEmpty', {
 })
 
 extend('required', {
-  validate(value)
-  {
+  validate(value) {
     if (value.length) return true
     return 'Обязательное поле'
   },
@@ -78,10 +71,8 @@ extend('required', {
 })
 
 extend('min', {
-  validate(value, args)
-  {
+  validate(value, args) {
     return value.length >= args.length
   },
   params: ['length'],
 })
-
