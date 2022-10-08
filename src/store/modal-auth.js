@@ -2,7 +2,7 @@
 export const state = () => {
   return {
     showModalAuth: false,
-    windowToShow: 'reset-code',
+    windowToShow: 'login',
   }
 }
 

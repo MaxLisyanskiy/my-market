@@ -40,6 +40,7 @@ export default {
     { src: '~/plugins/vee-validate.js' },
     { src: '~/plugins/elementUI.js' },
     { src: '~/plugins/vue-custom-scrollbar.js' },
+    { src: '~/plugins/vue-otp-input.js' },
   ],
 
   // Customize the progress-bar color
