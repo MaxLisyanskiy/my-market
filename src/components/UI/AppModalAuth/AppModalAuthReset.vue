@@ -29,13 +29,13 @@
         <span v-if="main_error" class="validate__main-error">{{ main_error }}</span>
       </validation-observer>
 
-      <p class="modal-dialog__link" @click.stop="SET_WINDOW_TO_SHOW('login')">Назад</p>
+      <p class="modal-dialog__link" @click.stop="handleGoBack('login')">Назад</p>
     </template>
 
     <template v-else-if="windowToShow === 'reset-code'">
       <h3 id="modalHeader" class="modal-dialog__title">Сброс пароля</h3>
       <p id="modalDesc" class="modal-dialog__subtitle">
-        На почту <span>{{ email }}</span> отправлено письмо с 6-значным кодом. Введите его в поле ниже
+        На почту <span>{{ email }}</span> отправлено письмо с 4-значным кодом. Введите его в поле ниже
       </p>
 
       <form @submit.prevent="handleResetCode">
@@ -88,7 +88,7 @@
               main_error = ''
             "
           />
-          <input
+          <!-- <input
             ref="fifth"
             v-model="code[4]"
             type="number"
@@ -111,7 +111,7 @@
               code_error = ''
               main_error = ''
             "
-          />
+          /> -->
         </div>
         <span v-if="code_error" class="validate__error"> {{ code_error }} </span>
 
@@ -119,7 +119,11 @@
         <span v-if="main_error" class="validate__main-error">{{ main_error }}</span>
       </form>
 
-      <p class="modal-dialog__link" @click.stop="SET_WINDOW_TO_SHOW('reset')">Назад</p>
+      <button v-if="codeHasExpired" class="btn-repeat-code" @click.stop="handleResendCode">
+        Отправить код повторно
+      </button>
+
+      <p class="modal-dialog__link" @click.stop="handleGoBack('reset')">Назад</p>
     </template>
 
     <template v-else-if="windowToShow === 'reset-new-password'">
@@ -188,9 +192,10 @@
         email_error: '',
 
         // code
-        code: ['', '', '', '', '', ''],
+        code: ['', '', '', ''],
         verificationCode: '',
         code_error: '',
+        codeHasExpired: false,
 
         // new-password
         token: '',
@@ -205,12 +210,12 @@
     },
     watch: {
       code(newValue, oldValue) {
-        const codeId = ['first', 'second', 'third', 'forth', 'fifth', 'six']
+        const codeId = ['first', 'second', 'third', 'forth']
 
         let tempValue = ''
 
         for (let i = 0; i < newValue.length; i++) {
-          if (i === 6) {
+          if (i === 4) {
             break
           }
           if (newValue[i]) {
@@ -222,7 +227,7 @@
         let location = 0
 
         for (let i = 0; i < newValue.length; i++) {
-          if (m[i] && i < 6) {
+          if (m[i] && i < 4) {
             location++
             newValue[i] = m[i]
           } else {
@@ -233,11 +238,11 @@
 
         if (location < 1) {
           location = 1
-        } else if (location === 6) {
-          location = 6
+        } else if (location === 4) {
+          location = 4
         }
 
-        const elemFocus = location === 6 ? codeId[location - 1] : codeId[location]
+        const elemFocus = location === 4 ? codeId[location - 1] : codeId[location]
         this.$refs[elemFocus].focus()
 
         this.verificationCode = newValue.join('')
@@ -245,6 +250,17 @@
     },
     methods: {
       ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH', 'SET_WINDOW_TO_SHOW']),
+
+      handleClearAllFields() {
+        this.main_error = ''
+        this.email_error = ''
+        this.code_error = ''
+        this.codeHasExpired = false
+      },
+      handleGoBack(path) {
+        this.handleClearAllFields()
+        this.SET_WINDOW_TO_SHOW(path)
+      },
 
       /** EMAIL */
       validateEmail() {
@@ -287,24 +303,36 @@
             this.main_error = 'Что-то пошло не так :('
           })
       },
+      handleResendCode() {
+        this.$authService.postPasswordForgot({ email: this.email })
+        this.handleClearAllFields()
+      },
 
       /** CODE */
       handleResetCode() {
         this.main_error = ''
 
-        if (this.verificationCode.length < 6) {
-          this.code_error = 'Код должен содержать 6 цифр'
+        if (this.verificationCode.length < 4) {
+          this.code_error = 'Код должен содержать 4 цифр'
           return false
         }
 
+        const config = {
+          email: this.email,
+          code: this.verificationCode,
+        }
+
         this.$authService
-          .postPasswordEnterCode({ code: this.verificationCode })
+          .postPasswordEnterCode(config)
           .then(({ status, token }) => {
+            console.log(status)
+
             if (status === 'success') {
               this.token = token
               this.SET_WINDOW_TO_SHOW('reset-new-password')
             } else {
-              this.main_error = 'Что-то пошло не так :('
+              this.main_error = 'Срок действия кода истек'
+              this.codeHasExpired = true
             }
           })
           .catch(({ response }) => {
@@ -353,6 +381,7 @@
         }
 
         const config = {
+          email: this.email,
           token: this.token,
           password: this.password,
           password_confirm: this.passwordRepeat,
@@ -363,6 +392,11 @@
           .then(({ status }) => {
             if (status === 'success') {
               this.SET_WINDOW_TO_SHOW('login')
+              this.$notify({
+                title: '',
+                message: 'Пароль был успешно обновлён!',
+                type: 'success',
+              })
             } else {
               this.main_error = 'Что-то пошло не так :('
             }
@@ -377,3 +411,15 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .btn-repeat-code {
+    display: block;
+    padding: 8px 16px;
+    margin: 15px auto 0;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 88, 51, 0.9);
+    border-radius: 8px;
+  }
+</style>
