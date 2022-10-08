@@ -19,10 +19,10 @@
         </li>
 
         <li class="menu-link">
-          <a v-if="!$auth.loggedIn" href="#" @click.prevent="handleShowModalAuth">
+          <nuxt-link v-if="!$auth.loggedIn" :to="'/login/'">
             <ProfileSvg class="menu-link__icon" />
             <span class="menu-link__text">Войти</span>
-          </a>
+          </nuxt-link>
           <nuxt-link v-else :to="`/company/${$auth.user.company_id}/products/`">
             <ProfileSvg class="menu-link__icon" />
             <span class="menu-link__text">Профиль</span>
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
-
   import HomeSvg from '@/assets/img/icons/svg/home.svg?inline'
   import AllCategoriesSvg from '@/assets/img/icons/svg/all-categories.svg?inline'
   import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
@@ -48,14 +46,7 @@
         return this.$auth.loggedIn
       },
     },
-    methods: {
-      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
-
-      // Open modal auth
-      handleShowModalAuth() {
-        this.SET_SHOW_MODAL_AUTH(true)
-      },
-    },
+    methods: {},
   }
 </script>
 
