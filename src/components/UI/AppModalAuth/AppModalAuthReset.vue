@@ -39,80 +39,17 @@
       </p>
 
       <form @submit.prevent="handleResetCode">
-        <div class="modal-dialog-code">
-          <input
-            ref="first"
-            v-model="code[0]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[0].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          />
-          <input
-            ref="second"
-            v-model="code[1]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[1].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          />
-          <input
-            ref="third"
-            v-model="code[2]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[2].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          />
-          <input
-            ref="forth"
-            v-model="code[3]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[3].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          />
-          <!-- <input
-            ref="fifth"
-            v-model="code[4]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[4].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          />
-          <input
-            ref="six"
-            v-model="code[5]"
-            type="number"
-            inputmode="number"
-            autocomplete="on"
-            :class="{ validate__input: code[5].trim() === '' && code_error }"
-            @input="
-              code_error = ''
-              main_error = ''
-            "
-          /> -->
-        </div>
+        <v-otp-input
+          ref="otpInput"
+          separator=""
+          class="modal-dialog-code"
+          :num-inputs="4"
+          :should-auto-focus="false"
+          :is-input-num="true"
+          input-type="number"
+          @on-change="handleOnChange"
+        />
+
         <span v-if="code_error" class="validate__error"> {{ code_error }} </span>
 
         <button type="submit" class="modal-dialog__btn">Продолжить</button>
@@ -192,7 +129,6 @@
         email_error: '',
 
         // code
-        code: ['', '', '', ''],
         verificationCode: '',
         code_error: '',
         codeHasExpired: false,
@@ -207,46 +143,6 @@
     },
     computed: {
       ...mapState('modal-auth', ['windowToShow']),
-    },
-    watch: {
-      code(newValue, oldValue) {
-        const codeId = ['first', 'second', 'third', 'forth']
-
-        let tempValue = ''
-
-        for (let i = 0; i < newValue.length; i++) {
-          if (i === 4) {
-            break
-          }
-          if (newValue[i]) {
-            tempValue = tempValue + newValue[i]
-          }
-        }
-
-        const m = tempValue.split('')
-        let location = 0
-
-        for (let i = 0; i < newValue.length; i++) {
-          if (m[i] && i < 4) {
-            location++
-            newValue[i] = m[i]
-          } else {
-            newValue[i] = ''
-            break
-          }
-        }
-
-        if (location < 1) {
-          location = 1
-        } else if (location === 4) {
-          location = 4
-        }
-
-        const elemFocus = location === 4 ? codeId[location - 1] : codeId[location]
-        this.$refs[elemFocus].focus()
-
-        this.verificationCode = newValue.join('')
-      },
     },
     methods: {
       ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH', 'SET_WINDOW_TO_SHOW']),
@@ -313,7 +209,7 @@
         this.main_error = ''
 
         if (this.verificationCode.length < 4) {
-          this.code_error = 'Код должен содержать 4 цифр'
+          this.code_error = 'Код должен содержать 4 цифры'
           return false
         }
 
@@ -325,8 +221,6 @@
         this.$authService
           .postPasswordEnterCode(config)
           .then(({ status, token }) => {
-            console.log(status)
-
             if (status === 'success') {
               this.token = token
               this.SET_WINDOW_TO_SHOW('reset-new-password')
@@ -341,6 +235,9 @@
             }
             this.main_error = 'Что-то пошло не так :('
           })
+      },
+      handleOnChange(value) {
+        this.verificationCode = value
       },
 
       /** NEW-PASSWORD */
@@ -412,7 +309,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .btn-repeat-code {
     display: block;
     padding: 8px 16px;
