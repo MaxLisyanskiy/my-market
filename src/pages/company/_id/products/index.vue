@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Products'" />
-    <CompanyProducts :products="products" :company="company" />
+    <CompanyProducts :products="products" :company="company" :categories="categories" />
   </article>
 </template>
 
@@ -19,19 +19,25 @@
     async asyncData({ app, store, params, query }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products, categories } = await app.$companyService.getCompanyProducts(params.id, 1, 100, query?.q, null)
+      const { products, categories } = await app.$companyService.getCompanyProducts(
+        params.id,
+        1,
+        20,
+        query?.q,
+        query?.category
+      )
 
-      console.log(categories)
       // Check query in the routing and set query in store
       await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
 
-      return { company, products }
+      return { company, products, categories }
     },
 
     data() {
       return {
         company: {},
         products: [],
+        categories: [],
         pagen: [],
         countProducts: 20,
       }
@@ -52,30 +58,8 @@
       ...mapState('company', ['companySearchQuery']),
     },
     watch: {
-      // companySearchQuery(newCount, oldCount) {
-      //   if (oldCount !== newCount) {
-      //     this.handleLoadCompanyProducts()
-      //   }
-      // },
-      '$route.query.q'() {
+      '$route.query'() {
         this.$router.app.refresh()
-      },
-    },
-    methods: {
-      /**
-       * Get company products by query when change search input
-       * @returns {object} Object with field products, pages
-       */
-      async handleLoadCompanyProducts() {
-        const { products } = await this.$companyService.getCompanyProducts(
-          this.$route.params.id,
-          1,
-          this.countProducts,
-          this.companySearchQuery
-        )
-
-        this.products = products
-        // this.pagen = pagen
       },
     },
   }

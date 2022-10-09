@@ -6,23 +6,23 @@
           <span class="products-sidebar__title">Категории</span>
           <ul class="products-sidebar__list">
             <li
-              v-for="(category, index) in categoriesProducts"
+              v-for="(category, index) in productsCategories"
               :key="index"
               class="products-sidebar__link"
-              :class="{ active: categoriesProducts.length <= 1 || activeCategoryId === category.id }"
-              @click="handleChooseCategory(category.id)"
+              :class="{ active: activeCategory.id === category.id }"
+              @click="handleChooseCategory(category)"
             >
-              <a>{{ category.name }} ({{ category.countProducts }})</a>
+              <a>{{ category.name }} ({{ category.products_count }})</a>
             </li>
           </ul>
         </div>
       </aside>
 
-      <div class="company-products" :class="{ productsNotFound: filteredProducts.length <= 0 }">
+      <div class="company-products" :class="{ productsNotFound: products.length <= 0 }">
         <div class="company-products__top">
           <div class="company-products__top_desk">
-            <span class="company-products__title">Все товары</span>
-            <span class="company-products__text">Количество товаров: {{ filteredProducts.length }}</span>
+            <span class="company-products__title">{{ activeCategory.name }}</span>
+            <span class="company-products__text">Количество товаров: {{ products.length }}</span>
             <div v-if="products.length > 0" class="categories-select company-products__select">
               <img src="@/assets/img/icons/svg/select.svg" alt="" class="categories-select__img" />
               <select>
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div v-if="filteredProducts.length > 0" class="company-products__row">
+        <div v-if="products.length > 0" class="company-products__row">
           <nuxt-link v-if="showAddProduct" to="/product/add/" class="product product-add">
             <svg
               class="product-add__img"
@@ -70,12 +70,7 @@
             </div>
           </nuxt-link>
 
-          <nuxt-link
-            v-for="product in filteredProducts"
-            :key="product.id"
-            :to="`/product/${product.id}`"
-            class="product"
-          >
+          <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
             <div class="product-wrapper">
               <div class="product-gallery">
                 <div class="product-gallery__link">
@@ -101,7 +96,7 @@
         </div>
 
         <CatalogProductsNotFound
-          v-if="filteredProducts.length <= 0"
+          v-if="products.length <= 0"
           :search-query="$route.query.q"
           class="company-products__not-found"
         />
@@ -111,8 +106,6 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   import CatalogProductsNotFound from '@/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
@@ -134,43 +127,22 @@
         type: Object,
         default: () => {},
       },
+      categories: {
+        type: Array,
+        default: () => [],
+      },
     },
     data() {
       return {
-        activeCategoryId: null,
+        productsCategories: [],
+        activeCategory: {
+          id: null,
+          name: null,
+          products_count: null,
+        },
       }
     },
     computed: {
-      ...mapState('categories', ['categories']),
-
-      categoriesProducts() {
-        const categoriesArr = JSON.parse(JSON.stringify(this.categories))
-
-        for (const category of categoriesArr) {
-          category.countProducts = 0
-        }
-
-        for (const product of this.products) {
-          for (const category of categoriesArr) {
-            if (product.category_id === category.id) {
-              category.countProducts++
-            }
-          }
-        }
-
-        return categoriesArr.filter(item => item.countProducts !== 0)
-      },
-
-      filteredProducts() {
-        const productsArr = JSON.parse(JSON.stringify(this.products))
-
-        if (this.activeCategoryId) {
-          return productsArr.filter(item => item.category_id === this.activeCategoryId)
-        }
-
-        return productsArr
-      },
-
       showAddProduct() {
         if (this.$auth.user && this.$auth.user.company_id === this.company.id) {
           return true
@@ -178,22 +150,44 @@
 
         return false
       },
+    },
+    mounted() {
+      if (this.products.length <= 0) {
+        return (this.activeCategory = {
+          id: null,
+          name: 'Все товары',
+          products_count: 0,
+        })
+      }
 
-      categoriesProductsClass() {
-        if (this.categoriesProducts.length < 1) {
-          return true
-        }
-
-        return false
-      },
+      if (this.$route.query.category) {
+        const cloneCategories = JSON.parse(JSON.stringify(this.categories))
+        this.activeCategory = cloneCategories.filter(item => +item.id === +this.$route.query.category)[0]
+        this.productsCategories = this.categories
+      } else {
+        this.setCategories()
+      }
     },
     methods: {
       /**
-       * Set id for activeCategoryId
-       * @param {number} id category id
+       * Set active category
+       * @param {object} category category object
        */
-      handleChooseCategory(id) {
-        this.activeCategoryId = id
+      handleChooseCategory(category) {
+        this.activeCategory = category
+        this.$router.push({
+          path: this.$route.path,
+          query: { ...this.$route.query, category: category.id },
+        })
+      },
+      setCategories() {
+        if (this.categories.length <= 2) {
+          this.productsCategories.push(this.categories[1])
+          this.activeCategory = this.categories[1]
+        } else {
+          this.productsCategories = this.categories
+          this.activeCategory = this.categories[0]
+        }
       },
     },
   }
