@@ -257,7 +257,7 @@
         if (this.companySearchInput.trim() !== '') {
           this.UPDATE_COMPANY_SEARCH_QUERY(this.companySearchInput)
           this.$router.push({
-            path: `/company/${this.company.id}/products`,
+            path: this.$route.path,
             query: { q: this.companySearchInput },
           })
         } else if (this.companySearchInput !== this.companySearchQuery) {
