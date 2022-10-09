@@ -22,7 +22,6 @@
     name: 'ErrorLayout',
     components: {
       TheHeader,
-      // Fragment,
       Error404,
       Error500,
     },
