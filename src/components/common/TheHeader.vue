@@ -144,6 +144,7 @@
     </div>
 
     <div ref="backgroundPlate" class="backgroundPlate"></div>
+    <AppModalAuth />
   </header>
 </template>
 
@@ -156,9 +157,11 @@
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
   import HeaderFilterSvg from '@/assets/img/icons/svg/header-filter.svg?inline'
 
+  import AppModalAuth from '@/components/UI/AppModalAuth/index'
+
   export default {
     name: 'TheHeader',
-    components: { LogoSvg, SearchIconSvg, SearchIconLoopSvg, HeaderBackSvg, HeaderFilterSvg },
+    components: { LogoSvg, SearchIconSvg, SearchIconLoopSvg, HeaderBackSvg, HeaderFilterSvg, AppModalAuth },
     data() {
       return {
         searchBlockDesk: false,

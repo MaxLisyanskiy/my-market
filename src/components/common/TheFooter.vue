@@ -30,8 +30,6 @@
         </li>
       </ul>
     </div>
-
-    <AppModalAuth />
   </footer>
 </template>
 
@@ -40,11 +38,9 @@
   import AllCategoriesSvg from '@/assets/img/icons/svg/all-categories.svg?inline'
   import ProfileSvg from '@/assets/img/icons/svg/profile.svg?inline'
 
-  import AppModalAuth from '@/components/UI/AppModalAuth/index'
-
   export default {
     name: 'TheFooter',
-    components: { HomeSvg, AllCategoriesSvg, ProfileSvg, AppModalAuth },
+    components: { HomeSvg, AllCategoriesSvg, ProfileSvg },
     computed: {
       isLoggedIn() {
         return this.$auth.loggedIn

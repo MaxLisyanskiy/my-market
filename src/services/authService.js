@@ -7,8 +7,8 @@ export default ($axios, error) => {
      * @returns {object} Object with field company
      */
     postPasswordForgot: async email => {
-      return await $axios.post('/password/forgot', email).then(response => {
-        return response
+      return await $axios.post('/password/forgot', email).then(({ data }) => {
+        return data
       })
     },
 

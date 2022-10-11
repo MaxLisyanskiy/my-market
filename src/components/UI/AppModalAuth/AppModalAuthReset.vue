@@ -48,6 +48,7 @@
           :is-input-num="true"
           input-type="number"
           @on-change="handleOnChange"
+          @on-complete="handleOnComplete"
         />
 
         <span v-if="code_error" class="validate__error"> {{ code_error }} </span>
@@ -56,7 +57,7 @@
         <span v-if="main_error" class="validate__main-error">{{ main_error }}</span>
       </form>
 
-      <button v-if="codeHasExpired" class="btn-repeat-code" @click.stop="handleResendCode">
+      <button v-if="codeHasExpired" class="btn-repeat-code" @click.stop="handleResendCodeRepeat">
         Отправить код повторно
       </button>
 
@@ -108,9 +109,11 @@
           </span>
         </validation-provider>
 
-        <button type="submit" class="modal-dialog__btn">Сохранить</button>
+        <button v-if="!codeHasExpired" type="submit" class="modal-dialog__btn">Сохранить</button>
         <span v-if="main_error" class="validate__main-error">{{ main_error }}</span>
       </validation-observer>
+
+      <p v-if="codeHasExpired" class="btn-repeat-code" @click="handleGoBack('reset')">Вернуться назад</p>
     </template>
   </div>
 </template>
@@ -186,7 +189,7 @@
         this.$authService
           .postPasswordForgot({ email: this.email })
           .then(({ status }) => {
-            if (status === 200) {
+            if (status === 'success') {
               this.SET_WINDOW_TO_SHOW('reset-code')
             } else {
               this.main_error = 'Что-то пошло не так :('
@@ -194,17 +197,23 @@
           })
           .catch(({ response }) => {
             if (response.status === 404) {
-              return (this.main_error = 'Неверный логин или пароль')
+              return (this.main_error = 'Введенная почта не зарегистрирована')
             }
             this.main_error = 'Что-то пошло не так :('
           })
       },
-      handleResendCode() {
+      handleResendCodeRepeat() {
         this.$authService.postPasswordForgot({ email: this.email })
         this.handleClearAllFields()
       },
 
       /** CODE */
+      handleOnChange(value) {
+        this.verificationCode = value
+      },
+      handleOnComplete(value) {
+        this.verificationCode = value
+      },
       handleResetCode() {
         this.main_error = ''
 
@@ -235,9 +244,6 @@
             }
             this.main_error = 'Что-то пошло не так :('
           })
-      },
-      handleOnChange(value) {
-        this.verificationCode = value
       },
 
       /** NEW-PASSWORD */
@@ -299,8 +305,9 @@
             }
           })
           .catch(({ response }) => {
-            if (response.status === 400) {
-              return (this.main_error = 'Введён неверный код')
+            if (response.status === 404) {
+              this.codeHasExpired = true
+              return (this.main_error = 'Срок действия кода истек')
             }
             this.main_error = 'Что-то пошло не так :('
           })
@@ -312,11 +319,13 @@
 <style lang="scss">
   .btn-repeat-code {
     display: block;
+    width: fit-content;
     padding: 8px 16px;
     margin: 15px auto 0;
     font-weight: 700;
     color: #fff;
     background: rgba(255, 88, 51, 0.9);
     border-radius: 8px;
+    cursor: pointer;
   }
 </style>
