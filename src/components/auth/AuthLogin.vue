@@ -1,14 +1,15 @@
 <template>
-  <section class="login-page">
-    <nuxt-link to="/">
-      <LoginTitleSvg class="login-page__title" />
-    </nuxt-link>
+  <section class="auth">
+    <div class="auth-head">
+      <nuxt-link to="/">
+        <LoginTitleSvg />
+      </nuxt-link>
+      <span>/</span>
+      <h1 class="auth-head__title">Вход</h1>
+    </div>
 
-    <div class="login-page__wrapp">
-      <div class="login-page-left"></div>
-      <validation-observer ref="observer" tag="form" class="login-page-right" @submit.prevent="login">
-        <h1 class="login-page-right__title">Вход</h1>
-
+    <div class="auth__wrapp">
+      <validation-observer ref="observer" tag="form" class="auth-form" @submit.prevent="login">
         <!-- email -->
         <validation-provider ref="login" rules="login" tag="div" class="validate">
           <input
@@ -17,7 +18,7 @@
             inputmode="email"
             placeholder="E-mail"
             autocomplete="on"
-            class="login-page-right__input"
+            class="auth-form__input"
             :class="{ validate__input: login_error }"
             @input="
               main_error = ''
@@ -36,7 +37,7 @@
             inputmode="text"
             placeholder="Пароль"
             autocomplete="on"
-            class="login-page-right__input"
+            class="auth-form__input"
             :class="{ validate__input: password_error }"
             @input="
               main_error = ''
@@ -47,9 +48,10 @@
           <span v-if="password_error" class="validate__error validate__error_last">{{ password_error }}</span>
         </validation-provider>
 
-        <nuxt-link to="/forget/" class="login-page-right__forget"> Забыли пароль? </nuxt-link>
-        <button type="submit" class="login-page-right__btn">Войти</button>
+        <nuxt-link to="/forget/" class="auth-form__forget"> Забыли пароль? </nuxt-link>
+        <button type="submit" class="auth-form__btn">Войти</button>
         <span v-if="mainError" class="validate__main-error">{{ mainError }}</span>
+        <nuxt-link to="/signup/" class="auth-form__link"> Зарегистрировать компанию </nuxt-link>
       </validation-observer>
     </div>
   </section>
@@ -78,7 +80,6 @@
         password_error: '',
       }
     },
-
     methods: {
       validateLogin() {
         this.login_error = ''

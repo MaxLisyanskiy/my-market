@@ -26,15 +26,12 @@
       window.removeEventListener('keydown', this.escCloseModal)
     },
     methods: {
-      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
+      ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH', 'SET_WINDOW_TO_SHOW']),
 
       // Close a modal auth
       handleCloseModalAuth() {
-        this.main_error = ''
-        this.login_error = ''
-        this.password_error = ''
-
         this.SET_SHOW_MODAL_AUTH(false)
+        this.SET_WINDOW_TO_SHOW('login')
       },
 
       // Close a modal on pressing the Esc key
