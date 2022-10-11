@@ -102,7 +102,6 @@
     methods: {
       async submit() {
         const isValid = await this.$refs.observer.validate()
-        console.log(isValid)
       },
     },
   }

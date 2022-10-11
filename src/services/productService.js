@@ -55,7 +55,6 @@ export default ($axios, error) => {
       return await $axios
         .post(`/products/${id}`, body)
         .then(res => {
-          console.log(res)
           return res
         })
         .catch(() => {
