@@ -83,7 +83,10 @@
     <!-- Banner Mob -->
     <section class="banner-mob">
       <div class="banner-mob-top">
-        <button class="banner-mob-top__back" @click="$router.go(-1)">
+        <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
+          <LogoWhiteSvg />
+        </nuxt-link>
+        <button v-else class="banner-mob-top__back" @click="$router.go(-1)">
           <CompanyHeaderBackSvg />
         </button>
         <form type="search" class="banner-mob-top__form" @submit.prevent="handleSearchCompanyProducts">
@@ -210,10 +213,11 @@
 
   import CompanyHeaderBackSvg from '@/assets/img/icons/svg/company-header-back.svg?inline'
   import CompanyHeaderSearchSvg from '@/assets/img/icons/svg/company-header-search.svg?inline'
+  import LogoWhiteSvg from '@/assets/img/icons/svg/logo-white.svg?inline'
 
   export default {
     name: 'CompanyTop',
-    components: { CompanyHeaderBackSvg, CompanyHeaderSearchSvg },
+    components: { CompanyHeaderBackSvg, CompanyHeaderSearchSvg, LogoWhiteSvg },
     props: {
       company: {
         type: Object,
@@ -231,6 +235,7 @@
     },
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
+      ...mapState('global', ['firstPageVisit']),
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll)
@@ -280,4 +285,12 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .header-mob-logo {
+    & svg {
+      margin-top: 8px;
+      width: 60.31px;
+      height: 18.67px;
+    }
+  }
+</style>
