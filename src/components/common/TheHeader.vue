@@ -45,7 +45,11 @@
     </div>
 
     <div v-if="showMobileHeader === 'product'" class="header-product sticky">
-      <div class="header-block header-product__back" :class="{ hide: searchProductInput }" @click="$router.go(-1)">
+      <div
+        class="header-block header-product__back"
+        :class="{ hide: searchProductInput, dontShow: firstPageVisit }"
+        @click="$router.go(-1)"
+      >
         <HeaderBackSvg class="header-back__img" />
       </div>
       <div
@@ -82,7 +86,10 @@
 
     <div v-else-if="showMobileHeader === 'category'" class="header header-categories sticky">
       <div class="header-categories__top">
-        <div class="header-block header-categories__back" @click="$router.go(-1)">
+        <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
+          <LogoSvg />
+        </nuxt-link>
+        <div v-else class="header-block header-categories__back" @click="$router.go(-1)">
           <HeaderBackSvg class="header-back__img" />
         </div>
 
@@ -172,6 +179,7 @@
     },
     computed: {
       ...mapState('search', ['searchInput']),
+      ...mapState('global', ['firstPageVisit']),
 
       isCompanyPages() {
         if (this.$route.name === 'company-id-products' || this.$route.name === 'company-id-about') {
@@ -288,5 +296,20 @@
 
   .opacity0 {
     opacity: 0;
+  }
+
+  .header-mob-logo {
+    display: flex;
+    align-items: center;
+    & svg {
+      margin-top: -2px;
+      width: 60.31px;
+      height: 18.67px;
+    }
+  }
+
+  .dontShow {
+    opacity: 0;
+    cursor: default;
   }
 </style>
