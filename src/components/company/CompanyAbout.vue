@@ -24,42 +24,8 @@
           <span class="company-description__text"> {{ company.description }} </span>
         </div>
 
-        <div ref="certificates" class="certificates">
-          <span class="certificates-title">Сертификаты</span>
-          <div class="certificates-row">
-            <div class="certificates-block"></div>
-            <div class="certificates-block"></div>
-            <div class="certificates-block"></div>
-            <div class="certificates-block"></div>
-            <div class="certificates-block"></div>
-            <div class="certificates-block"></div>
-          </div>
-        </div>
-
-        <div ref="companyManagement" class="management">
-          <span class="management-title">Руководство компании</span>
-          <div class="management-row">
-            <div class="management-block">
-              <img src="@/assets/img/img-not_found.jpg" alt="" class="management-block__img" />
-              <span class="management-block__title">Владимир Анатольевич Манаенков</span>
-              <span class="management-block__description">Генеральный директор</span>
-            </div>
-            <div class="management-block">
-              <img src="@/assets/img/img-not_found.jpg" alt="" class="management-block__img" />
-              <span class="management-block__title">Владимир Анатольевич Манаенков</span>
-              <span class="management-block__description">Генеральный директор</span>
-            </div>
-            <div class="management-block">
-              <img src="@/assets/img/img-not_found.jpg" alt="" class="management-block__img" />
-              <span class="management-block__title">Владимир Анатольевич Манаенков</span>
-              <span class="management-block__description">Генеральный директор</span>
-            </div>
-            <div class="management-block">
-              <img src="@/assets/img/img-not_found.jpg" alt="" class="management-block__img" />
-              <span class="management-block__title">Владимир Анатольевич Манаенков</span>
-              <span class="management-block__description">Генеральный директор</span>
-            </div>
-          </div>
+        <div ref="requisites" class="company-requisites">
+          <span class="company-requisites__title">Реквизиты</span>
         </div>
       </div>
     </div>
@@ -91,11 +57,7 @@
         activeLink: 'description',
         links: [
           { name: 'Описание', goTo: 'description' },
-          // { name: 'Производственные мощности', goTo: 'productionCapacity' },
-          // { name: 'Контроль качества', goTo: 'qualityControl' },
-          { name: 'Сертификаты', goTo: 'certificates' },
-          { name: 'Руководство компании', goTo: 'companyManagement' },
-          // { name: 'Услуги и поддержка', goTo: 'servicesAndSupport' },
+          { name: 'Реквизиты', goTo: 'requisites' },
         ],
       }
     },
