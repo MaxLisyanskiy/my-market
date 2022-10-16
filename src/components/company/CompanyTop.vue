@@ -68,14 +68,20 @@
           </nuxt-link>
         </div>
         <div class="banner-tabs-connection">
-          <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
-            <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
-            <span>Позвонить</span>
-          </a>
-          <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
-            <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-            <span> Написать в чат</span>
-          </a>
+          <template v-if="!isCompanyOwner">
+            <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
+              <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
+              <span>Позвонить</span>
+            </a>
+            <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
+              <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
+              <span> Написать в чат</span>
+            </a>
+          </template>
+          <div v-else class="banner-tabs-connection__tel">
+            <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
+            <span>Настройки</span>
+          </div>
         </div>
       </div>
     </section>
@@ -194,14 +200,20 @@
           </div>
         </div>
         <div class="banner-tabs-connection">
-          <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
-            <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
-            <span>Позвонить</span>
-          </a>
-          <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
-            <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-            <span> Написать в чат</span>
-          </a>
+          <template v-if="!isCompanyOwner">
+            <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
+              <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
+              <span>Позвонить</span>
+            </a>
+            <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
+              <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
+              <span> Написать в чат</span>
+            </a>
+          </template>
+          <div v-else class="banner-tabs-connection__tel">
+            <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
+            <span>Настройки</span>
+          </div>
         </div>
       </div>
     </section>
@@ -236,6 +248,13 @@
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
+
+      isCompanyOwner() {
+        if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
+          return true
+        }
+        return false
+      },
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll)
