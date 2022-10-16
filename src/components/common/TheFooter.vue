@@ -19,7 +19,14 @@
         </li>
 
         <li class="menu-link">
-          <nuxt-link v-if="!$auth.loggedIn" :to="'/login/'">
+          <nuxt-link
+            v-if="!$auth.loggedIn"
+            :to="'/login/'"
+            :class="{
+              'nuxt-link-exact-active nuxt-link-active':
+                $route.name === 'login' || $route.name === 'forget' || $route.name === 'signup',
+            }"
+          >
             <ProfileSvg class="menu-link__icon" />
             <span class="menu-link__text">Войти</span>
           </nuxt-link>
