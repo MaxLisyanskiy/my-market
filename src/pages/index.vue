@@ -37,34 +37,26 @@
         images: [
           {
             id: 1,
-            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+            assets: true,
+            url: 'slider/main-banner.png',
           },
           {
             id: 2,
-            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+            assets: true,
+            url: 'slider/main-banner.png',
           },
           {
             id: 3,
-            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
-          },
-          {
-            id: 4,
-            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
-          },
-          {
-            id: 5,
-            url: 'https://test-api.factories-market.com/images/2vdQmNuIwInTq7lNsEPyG8ra999QFUGoycGAs3Gu.webp',
+            assets: true,
+            url: 'slider/main-banner.png',
           },
         ],
         swiperConfig: {
-          mainClass: 'wrapper-slider company-slider',
+          mainClass: 'wrapper-slider',
           wrapperClass: '',
           slidesPerView: 1,
           loop: true,
           direction: 'horizontal',
-          autoplay: {
-            delay: 5000,
-          },
           pagination: {
             isPagination: true,
             el: '#swiperPagination',
