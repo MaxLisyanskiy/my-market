@@ -66,10 +66,9 @@ body {
   }
   &-slider {
     width: 936px;
-    height: 320px;
+    height: 350px;
     border-radius: 10px;
     margin-left: 20px;
-    box-shadow: 0 0 2px rgba(204, 204, 204, 0.6);
 
     &:hover .swiper-button-next,
     &:hover .swiper-button-prev {
@@ -84,10 +83,8 @@ body {
     @media (max-width: 670px) {
       width: 100%;
       margin: 0;
-      height: 220px;
-    }
-    @media (max-width: 480px) {
-      height: 170px;
+      min-height: auto;
+      height: auto;
     }
   }
 }

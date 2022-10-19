@@ -8,7 +8,13 @@
         :class="{ active: swiperConfig.addColorForActiveSlide && index === activeSlideIndex }"
         @click="handleImgSelected(index)"
       >
-        <img :src="img.url" :alt="`SwipperImg${index}`" class="product-slider__img" />
+        <img
+          v-if="img.assets"
+          :src="require(`~/assets/img/${img.url}`)"
+          :alt="`SwipperImg${index}`"
+          class="slider__img"
+        />
+        <img v-else :src="img.url" :alt="`SwipperImg${index}`" class="slider__img" />
       </div>
     </div>
     <div
@@ -65,21 +71,9 @@
         },
         pagination: this.swiperConfig.pagination,
         breakpoints: this.swiperConfig.breakpoints,
-        // *********** TODO *************//
-        // on: {
-        //   resize() {
-        //     swiper.changeDirection(this.getDirection)
-        //   },
-        // },
       })
     },
     methods: {
-      // getDirection() {
-      //   if (process.browser) {
-      //     const direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal'
-      //     return direction
-      //   }
-      // },
       handleImgSelected(index) {
         if (this.activeSlideIndex === index) return false
 
@@ -106,8 +100,9 @@
       border: none;
     }
   }
-  .product-slider__img {
+  .slider__img {
     width: 100%;
     height: inherit;
+    object-fit: cover;
   }
 </style>
