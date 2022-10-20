@@ -16,7 +16,7 @@ const pwa = {
     description,
     lang: 'ru',
     start_url: '/',
-    mpbileAppIOS: true,
+    mobileAppIOS: true,
   },
   workbox: {
     enabled: false,
