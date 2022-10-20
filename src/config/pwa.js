@@ -8,11 +8,11 @@ const description =
 const pwa = {
   icon: {
     source: '/static/',
-    // fileName: 'icon_pwa.png',
-    fileName: 'vale-pwa-svg.svg',
+    fileName: 'vale_pwa.png',
+    // fileName: 'vale-pwa-svg.svg',
     sizes: [64, 120, 144, 152, 192, 384, 512],
-    type: 'image/svg+xml',
-    purpose: 'any',
+    // type: 'image/svg+xml',
+    // purpose: 'any',
   },
   manifest: {
     name: title,
