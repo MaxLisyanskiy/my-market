@@ -11,12 +11,12 @@ const pwa = {
     sizes: [64, 120, 144, 152, 192, 384, 512],
   },
   manifest: {
-    name: title,
+    // name: title,
     short_name: 'VALE.SU',
     description,
     lang: 'ru',
     start_url: '/',
-    mpbileAppIOS: true,
+    mobileAppIOS: true,
   },
   workbox: {
     enabled: false,
