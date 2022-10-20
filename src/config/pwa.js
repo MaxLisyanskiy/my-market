@@ -7,7 +7,7 @@ const description =
 const pwa = {
   icon: {
     source: '/static/',
-    fileName: 'logo_v.png',
+    fileName: 'icon_pwa.png',
     sizes: [64, 120, 144, 152, 192, 384, 512],
   },
   manifest: {
@@ -16,6 +16,7 @@ const pwa = {
     description,
     lang: 'ru',
     start_url: '/',
+    mpbileAppIOS: true,
   },
   workbox: {
     enabled: false,
