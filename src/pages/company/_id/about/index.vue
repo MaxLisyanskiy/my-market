@@ -27,22 +27,45 @@
         company: {},
         scrolledData: true,
         swiperConfig: {
-          mainClass: 'wrapper-slider',
+          mainClass: 'wrapper-slider company-slider',
           wrapperClass: '',
-          slidesPerView: 1,
+          slidesPerView: 2,
           loop: true,
           direction: 'horizontal',
           autoplay: {
             delay: 5000,
           },
+          // pagination: {
+          //   isPagination: true,
+          //   el: '#swiperPagination',
+          //   clickable: 'true',
+          // },
           pagination: {
             isPagination: true,
-            el: '#swiperPagination',
-            clickable: 'true',
+            el: '.company-swiper__pagination',
+            paginationClass: 'company-swiper__pagination',
+            type: 'fraction',
           },
           btnPrevClass: 'swiper-button-prev',
           btnNextClass: 'swiper-button-next',
           addColorForActiveSlide: false,
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              loop: true,
+            },
+            670: {
+              slidesPerView: 6,
+            },
+            900: {
+              slidesPerView: 6,
+              loop: false,
+            },
+            1200: {
+              slidesPerView: 4,
+              loop: false,
+            },
+          },
         },
       }
     },

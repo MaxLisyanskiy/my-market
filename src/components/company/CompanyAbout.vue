@@ -1,5 +1,10 @@
 <template>
   <section id="About" class="company content-row active">
+    <div class="banner-about">
+      <a href="#" class="banner-about__link active">Описание</a>
+      <a href="#" class="banner-about__link">Реквизиты</a>
+    </div>
+
     <div class="company__wrapper">
       <div class="wrapper-sidebar sidebar" :class="{ fixed: !scrolled }">
         <ul class="sidebar-list">
@@ -22,10 +27,33 @@
           <AppSwiper v-if="company.images.length > 1" :swiper-config="swiperConfig" :images="company.images" />
 
           <span class="company-description__text"> {{ company.description }} </span>
+          <span class="company-description__read">Показать полностью</span>
         </div>
 
         <div ref="requisites" class="company-requisites">
-          <span class="company-requisites__title">Реквизиты</span>
+          <h3 class="company-requisites__title">Реквизиты</h3>
+          <div class="table">
+            <div class="table-block">
+              <div class="table-block__left">Lorem ipsum dolo</div>
+              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            </div>
+            <div class="table-block">
+              <div class="table-block__left">Lorem ipsum dolo</div>
+              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            </div>
+            <div class="table-block">
+              <div class="table-block__left">Lorem ipsum dolo</div>
+              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            </div>
+            <div class="table-block">
+              <div class="table-block__left">Lorem ipsum</div>
+              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            </div>
+            <div class="table-block">
+              <div class="table-block__left">Lorem ipsum dolo</div>
+              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
