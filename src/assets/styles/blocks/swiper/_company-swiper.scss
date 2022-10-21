@@ -1,4 +1,3 @@
-// SWIPPER
 .company .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom,
@@ -17,8 +16,94 @@
   background: #d9d9d9 !important;
 }
 .company .swiper-button-prev:after {
-  content: url(../img/icons/company-slider__left.svg);
+  content: url('../img/icons/company-slider__left.svg');
+  z-index: 1;
 }
 .company .swiper-button-next:after {
-  content: url(../img/icons/company-slider__right.svg);
+  content: url('../img/icons/company-slider__right.svg');
+  z-index: 1;
+}
+
+.company {
+  & .swiper-button-prev,
+  & .swiper-button-next {
+    height: 238px;
+    top: 52px;
+    width: 43px;
+    opacity: 1;
+    z-index: 1;
+
+    @media (max-width: 991px) {
+      top: 54px;
+      height: 200px;
+    }
+    @media (max-width: 670px) {
+      height: 210px;
+      top: 48px;
+      display: none;
+    }
+  }
+}
+.company-swiper__pagination {
+  display: none;
+  width: 34px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  position: absolute;
+  color: #ffffff;
+  z-index: 1;
+  margin-left: -44px;
+  left: 100%;
+  bottom: 10px !important;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 670px) {
+    display: flex;
+  }
+}
+.company .slider-text {
+  text-align: center;
+}
+.company .wrapper-slider {
+  width: auto;
+  height: 238px;
+  margin: 15px 40px 0 40px;
+  box-shadow: none;
+  border-radius: 0;
+  @media (max-width: 991px) {
+    height: 200px;
+  }
+  @media (max-width: 670px) {
+    height: 209px;
+    margin: 10px 10px 0 10px;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  & .swiper-pagination {
+    display: none;
+  }
+}
+
+.company .swiper-slide {
+  max-width: 420px !important;
+  width: 420px !important;
+  overflow: hidden;
+  margin: 0 4px;
+  position: relative;
+  background: green;
+  @media (max-width: 1200px) {
+    max-width: 48%;
+    width: 48% !important;
+    margin: 0 1%;
+  }
+  @media (max-width: 670px) {
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 0;
+  }
 }

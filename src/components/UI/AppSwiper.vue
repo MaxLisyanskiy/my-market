@@ -87,7 +87,7 @@
 <style lang="scss" scoped>
   .swiper {
     overflow: hidden !important;
-    position: relative;
+    // position: relative;
   }
   .swiper-pagination,
   .swiper-button-prev,
