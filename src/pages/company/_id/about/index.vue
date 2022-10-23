@@ -27,19 +27,11 @@
         company: {},
         scrolledData: true,
         swiperConfig: {
-          mainClass: 'wrapper-slider company-slider',
-          wrapperClass: '',
+          mainClass: 'company-swiper',
+          wrapperClass: 'company-slider',
           slidesPerView: 2,
-          loop: true,
+          spaceBetween: 10,
           direction: 'horizontal',
-          autoplay: {
-            delay: 5000,
-          },
-          // pagination: {
-          //   isPagination: true,
-          //   el: '#swiperPagination',
-          //   clickable: 'true',
-          // },
           pagination: {
             isPagination: true,
             el: '.company-swiper__pagination',
@@ -53,17 +45,11 @@
             320: {
               slidesPerView: 1,
               loop: true,
+              spaceBetween: 0,
             },
             670: {
-              slidesPerView: 6,
-            },
-            900: {
-              slidesPerView: 6,
-              loop: false,
-            },
-            1200: {
-              slidesPerView: 4,
-              loop: false,
+              slidesPerView: 2,
+              spaceBetween: 10,
             },
           },
         },

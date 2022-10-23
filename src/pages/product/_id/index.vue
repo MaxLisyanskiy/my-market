@@ -36,7 +36,7 @@
         swiperConfig: {
           mainClass: 'product-swiper',
           wrapperClass: 'product-slider',
-          slidesPerView: 5,
+          spaceBetween: 9,
           loop: false,
           direction: 'horizontal',
           autoplay: false,
@@ -54,6 +54,9 @@
               slidesPerView: 1,
               loop: true,
               spaceBetween: 0,
+            },
+            670: {
+              loop: false,
             },
             870: {
               slidesPerView: 3,

@@ -64,7 +64,7 @@
         loop: this.swiperConfig.loop,
         direction: this.swiperConfig.direction,
         autoplay: this.swiperConfig.autoplay,
-        // slideActiveClass: this.swiperConfig.addColorForActiveSlide ? 'swiper-slide-active' : '',
+        spaceBetween: this.swiperConfig.spaceBetween,
         navigation: {
           prevEl: '#btnPrev',
           nextEl: '#btnNext',
