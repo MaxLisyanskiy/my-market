@@ -65,7 +65,7 @@
 
     &__title {
       font-size: 20px;
-      line-height: 23.44px;
+      line-height: 23px;
       font-weight: 500;
       color: #262626;
       z-index: 2;
@@ -108,7 +108,7 @@
     }
 
     &__text {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 14px;
       line-height: 16.41px;
       color: #ffffff;
@@ -188,7 +188,7 @@
     height: auto;
     position: relative;
     background: #ffffff;
-    margin: 15px 0 0 15px;
+    margin: 15px 0 9px 15px;
     border: 0;
     &:hover {
       .products-max__img {

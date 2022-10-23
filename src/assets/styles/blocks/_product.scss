@@ -36,6 +36,7 @@
   }
 }
 
+
 .card .product {
   padding-top: 20px;
   display: flex;
@@ -1040,6 +1041,9 @@
   @media (max-width: 870px) {
     margin-top: 0;
     border-radius: 0;
+  }
+  @media(max-width:670px){
+	padding:7px 20px 0 20px;
   }
 
   &-title {

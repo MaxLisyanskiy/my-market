@@ -55,9 +55,9 @@ body {
         align-items: center;
         margin-right: 15px;
         color: #262626;
-        cursor: pointer;
         justify-content: center;
         background: none;
+        cursor: pointer;
         @media (max-width: 370px) {
           margin-left: 20px;
           margin-right: 0;
@@ -134,10 +134,12 @@ body {
     &-img {
       width: 14px;
       height: 24.26px;
+      cursor: pointer;
     }
   }
   &__logo {
     display: block;
+    cursor: pointer;
     &.hide {
       display: none;
     }
@@ -238,6 +240,7 @@ body {
       }
       &-img {
         margin: 5px 0 0 0;
+        cursor: pointer;
       }
     }
   }
@@ -269,8 +272,6 @@ body {
       cursor: pointer;
       &.hide {
         display: none;
-      }
-      &__img {
       }
     }
     &__product {
@@ -497,6 +498,7 @@ body {
       display: flex;
       position: absolute;
       right: 0;
+      cursor: pointer;
     }
   }
 
@@ -589,6 +591,9 @@ body {
       font-weight: 500;
       font-size: 15px;
       color: #ffffff;
+	  line-height:22px;
+	  margin-right:2px;
+      cursor: pointer;
       @media (max-width: 600px) {
         display: none;
       }

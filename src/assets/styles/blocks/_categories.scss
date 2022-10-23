@@ -230,6 +230,8 @@
       &__link {
         position: relative;
         display: block;
+        max-height: 209px;
+        max-width: 209px;
       }
     }
 
@@ -238,6 +240,7 @@
       width: 100%;
       padding-top: 100%;
       overflow: hidden;
+	  border-radius:10px;
       &_imgs {
         position: absolute;
         top: 0;
@@ -248,7 +251,7 @@
         border-radius: 10px 10px 0 0;
       }
       &__imgs > img {
-        border-radius: 10px;
+        border-radius: 0;
         -webkit-text-size-adjust: 100%;
         direction: ltr;
         margin: 0;
