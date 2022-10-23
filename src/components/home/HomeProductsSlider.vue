@@ -5,7 +5,7 @@
       <span class="products-left__title">{{ category.name }}</span>
       <button class="products-btn">
         <nuxt-link :to="`/category/${category.id}`">
-          <span class="products-btn__text">Смотреть<span class="desktop">всё</span></span>
+          <span class="products-btn__text">Смотреть<span class="desktop">все</span></span>
           <HomeProductsSliderArrowSvg class="products-btn__img" />
         </nuxt-link>
       </button>
