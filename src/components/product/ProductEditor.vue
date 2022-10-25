@@ -91,6 +91,8 @@
           >
             <i class="el-icon-plus"></i>
           </el-upload>
+
+          <!-- <input ref="file" type="file" @change="handleImagesChange()" /> -->
         </div>
         <span v-if="errors.images" class="validate__error"> {{ errors.images }} </span>
       </div>
@@ -168,8 +170,6 @@
 
   import PlusSvg from '@/assets/img/icons/plus.svg?inline'
 
-  import { RequestUtils } from '@/utils/RequestUtils'
-
   export default {
     name: 'ProductEditor',
     components: { PlusSvg },
@@ -232,33 +232,11 @@
       },
 
       async update() {
-        const body = RequestUtils.toFormData({
+        const body = {
           _method: 'PATCH',
-          id: this.productId,
           ...this.dataForm,
-          images: this.dataForm.images.map(image => image.raw),
-        })
+        }
         const result = await this.$productService.updateProduct(this.productId, body)
-
-        // if (result[0]) {
-        //   this.$notify({
-        //     title: '',
-        //     message: 'Продукт был успешно обновлён!',
-        //     type: 'success',
-        //   })
-        //   this.$router.push('/profile')
-        // } else {
-        //   console.error('Что-то пошло не так при обновлении продукта')
-        // }
-      },
-
-      async upload() {
-        const body = RequestUtils.toFormData({
-          ...this.dataForm,
-          images: this.dataForm.images.map(image => image.raw),
-        })
-
-        const result = await this.$productService.addProduct(body)
 
         if (result[0]) {
           this.$notify({
@@ -270,7 +248,26 @@
         } else {
           this.$notify({
             title: '',
-            message: 'Что-то пошло не так при обновлении продукта',
+            message: 'Что-то пошло не так при добавлении продукта',
+            type: 'error',
+          })
+        }
+      },
+
+      async upload() {
+        const result = await this.$productService.addProduct(this.dataForm)
+
+        if (result[0]) {
+          this.$notify({
+            title: '',
+            message: 'Продукт был успешно добавлен!',
+            type: 'success',
+          })
+          this.$router.push(`/company/${this.$auth.user.company_id}/products/`)
+        } else {
+          this.$notify({
+            title: '',
+            message: 'Что-то пошло не так при добавлении продукта',
             type: 'error',
           })
         }
@@ -287,8 +284,26 @@
         return !hasErrors
       },
 
-      handleImagesChange(file) {
-        this.dataForm.images.push(file)
+      async handleImagesChange(files) {
+        const formData = new FormData()
+        formData.append('images[]', files.raw)
+
+        await this.$axios
+          .post('/images', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(({ data }) => {
+            this.dataForm.images.push(...data)
+          })
+          .catch(() => {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при добавлении фотографии',
+              type: 'error',
+            })
+          })
       },
 
       handleImagesRemove(imageIndex) {

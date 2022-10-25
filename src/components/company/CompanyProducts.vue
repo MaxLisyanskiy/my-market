@@ -111,7 +111,11 @@
             <div class="product-wrapper">
               <div class="product-gallery">
                 <div class="product-gallery__link">
-                  <div v-if="showAddProduct" class="edit-product" @click="$router.push(`/product/${product.id}/edit/`)">
+                  <div
+                    v-if="showAddProduct"
+                    class="edit-product"
+                    @click.stop="e => handleGoToEditProduct(e, product.id)"
+                  >
                     <PencilEditProductSvg />
                   </div>
                   <div class="product-switcher">
@@ -225,6 +229,12 @@
           this.productsCategories = this.categories
           this.activeCategory = this.categories[0]
         }
+      },
+
+      handleGoToEditProduct(e, id) {
+        e.preventDefault()
+
+        this.$router.push(`/product/${id}/edit/`)
       },
     },
   }
