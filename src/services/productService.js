@@ -55,7 +55,10 @@ export default ($axios, error) => {
       return await $axios
         .post(`/products/${id}`, body)
         .then(res => {
-          return res
+          if (res.data.status !== 'success') {
+            return [false, 'Произошла ошибка, попробуйте позже']
+          }
+          return [true]
         })
         .catch(() => {
           return error({ statusCode: 500 })
