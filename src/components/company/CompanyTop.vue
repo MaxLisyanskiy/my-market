@@ -78,10 +78,15 @@
               <span> Написать в чат</span>
             </a>
           </template>
-          <div v-else class="banner-tabs-connection__tel">
+          <nuxt-link
+            v-else
+            :to="`/company/${company.id}/settings/`"
+            class="banner-tabs-connection__tel"
+            :class="{ active: activeTab === 'Settings' }"
+          >
             <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
             <span>Настройки</span>
-          </div>
+          </nuxt-link>
         </div>
       </div>
     </section>
@@ -210,10 +215,15 @@
               <span> Написать в чат</span>
             </a>
           </template>
-          <div v-else class="banner-tabs-connection__tel">
+          <nuxt-link
+            v-else
+            :to="`/company/${company.id}/settings/`"
+            class="banner-tabs-connection__tel"
+            :class="{ active: activeTab === 'Settings' }"
+          >
             <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
             <span>Настройки</span>
-          </div>
+          </nuxt-link>
         </div>
       </div>
     </section>
