@@ -7,7 +7,7 @@ const description =
 
 const pwa = {
   icon: {
-    source: '/static/pwa-icons/',
+    source: '/static/',
     fileName: 'pwa-icon.png',
     // fileName: 'vale-pwa-svg.svg',
     sizes: [64, 120, 144, 152, 192, 384, 512],
