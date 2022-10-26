@@ -70,14 +70,22 @@
         <h2 class="editor-form__title">Изображения</h2>
         <div class="editor-imgs">
           <div class="el-upload-list el-upload-list--picture-card">
-            <li v-for="(image, imageIndex) of dataForm.images" :key="imageIndex" class="el-upload-list__item is-ready">
-              <div class="prod-add-title__img-thumb" @click="handleImagesRemove(imageIndex)">
-                <img :src="image.url" class="el-upload-list__item-thumbnail" />
-                <span class="el-upload-list__item-actions">
-                  <span class="el-upload-list__item-delete"><i class="el-icon-delete"></i></span>
-                </span>
-              </div>
-            </li>
+            <draggable v-model="dataForm.images">
+              <transition-group>
+                <li
+                  v-for="(image, imageIndex) of dataForm.images"
+                  :key="image.id"
+                  class="el-upload-list__item is-ready"
+                >
+                  <div class="prod-add-title__img-thumb" @click="handleImagesRemove(imageIndex)">
+                    <img :src="image.url" class="el-upload-list__item-thumbnail" />
+                    <span class="el-upload-list__item-actions">
+                      <span class="el-upload-list__item-delete"><i class="el-icon-delete"></i></span>
+                    </span>
+                  </div>
+                </li>
+              </transition-group>
+            </draggable>
           </div>
           <el-upload
             ref="images"
@@ -91,8 +99,6 @@
           >
             <i class="el-icon-plus"></i>
           </el-upload>
-
-          <!-- <input ref="file" type="file" @change="handleImagesChange()" /> -->
         </div>
         <span v-if="errors.images" class="validate__error"> {{ errors.images }} </span>
       </div>
@@ -168,11 +174,13 @@
 <script>
   import { mapState } from 'vuex'
 
+  import draggable from 'vuedraggable'
+
   import PlusSvg from '@/assets/img/icons/plus.svg?inline'
 
   export default {
     name: 'ProductEditor',
-    components: { PlusSvg },
+    components: { PlusSvg, draggable },
     props: {
       form: {
         type: Object,
