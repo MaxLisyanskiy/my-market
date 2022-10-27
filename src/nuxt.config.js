@@ -1,8 +1,13 @@
+import head from './config/head'
+import pwa from './config/pwa'
+import sitemap from './config/sitemap'
+import robots from './config/robots'
+
 export default {
   // Указываем порт, на котором будет работать приложение.
   server: {
-    port: process.env.PORT,
-    host: 'localhost',
+    host: process.env.APP_HOST || '0.0.0.0',
+    port: process.env.APP_PORT || 3000,
   },
 
   // Передаём на фронт данные из .env. Эти переменные будет доступны через process.env.[...].
@@ -13,29 +18,7 @@ export default {
   },
 
   // Глобальные настройки секции Head. Можно прописать общие мета-теги, атрибуты и прочее.
-  head: {
-    htmlAttrs: { lang: 'ru' },
-    title: 'Оптовый интернет магазин VALE.SU',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'format-detection', content: 'telephone=no' },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
-      },
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        as: 'style',
-        rel: 'stylesheet preload prefetch',
-        href: '/fonts/fonts.css',
-      },
-    ],
-  },
+  head,
 
   // Включаем автоматическое подключение компонентов.
   components: true,
@@ -47,19 +30,31 @@ export default {
   router: { prefetchLinks: false },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@/assets/styles/main.scss'],
+  css: ['~/assets/styles/main.scss', 'swiper/swiper-bundle.min.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/axios.js' },
+    { src: '~/plugins/vue-lazy-load.js' },
+    { src: '~/plugins/router.js' },
+    { src: '~/plugins/vee-validate.js' },
+    { src: '~/plugins/elementUI.js' },
+    { src: '~/plugins/vue-custom-scrollbar.js' },
+    { src: '~/plugins/vue-otp-input.js' },
+  ],
 
   // Customize the progress-bar color
-  loading: { color: '#3B8070' },
-  // Отключаем индикацию загрузки страниц.
-  // loading: false,
-  // loadingIndicator: false,
+  loading: { color: '#f00b1d' },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    '@nuxtjs/yandex-metrika',
+    '@nuxtjs/auth-next',
+  ],
 
   // Отключаем генерацию создания файла .eslintcache
   eslint: {
@@ -69,29 +64,12 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.API_URL,
-    https: true,
+    https: process.env.NODE_ENV === 'production',
     credentials: true,
   },
 
   // PWA options
-  pwa: {
-    icon: {
-      source: '/static/',
-      fileName: 'logo_v.png',
-      sizes: [64, 120, 144, 152, 192, 384, 512],
-    },
-    manifest: {
-      name: 'Оптовый интернет магазин VALE.SU',
-      short_name: 'VALE.SU',
-      description:
-        'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
-      lang: 'ru',
-      start_url: '/profile',
-    },
-    workbox: {
-      enabled: false,
-    },
-  },
+  pwa,
 
   // Vue settings
   vue: {
@@ -101,12 +79,57 @@ export default {
     },
   },
 
+  // @nuxtjs/auth-next
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'data.access_token',
+          global: true,
+          type: 'Bearer ',
+          maxAge: 60 * 60 * 24 * 30, // token lifetime in Number of seconds. Default is 30 min. Now is 30 days
+        },
+        user: {
+          property: 'data.user',
+          autoFetch: false,
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          logout: { url: '/logout', method: 'post' },
+          user: { url: '/profile', method: 'get' },
+        },
+      },
+    },
+  },
+
+  /**
+   ****** SEO *******
+   */
+
+  // sitemap.xml settings
+  sitemap,
+
+  // robot.txt settings
+  robots,
+
+  // Yandex Metrika settings
+  // https://www.npmjs.com/package/@nuxtjs/yandex-metrika
+  yandexMetrika: {
+    id: process.env.YANDEX_METRIKA_ID,
+    webvisor: true,
+  },
+
+  /**
+   ****** Build *******
+   */
+
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa', '@nuxtjs/svg'],
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true, // Просим стили вырезать в отдельные файлы. Иначе css будет inline.
+    // transpile: ['vue-awesome-swiper'],
     devtools: process.env.NODE_ENV !== 'production',
   },
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/eslint-module'],
 }

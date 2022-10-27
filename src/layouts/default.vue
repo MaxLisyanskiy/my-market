@@ -1,38 +1,52 @@
 <template>
-  <main class="content">
+  <div class="content">
     <TheHeader />
-    <Nuxt />
+    <TheBreadcrumbs v-show="showBreadcrumbs" />
+    <main>
+      <Nuxt />
+    </main>
     <TheFooter />
-  </main>
+  </div>
 </template>
 
 <script>
-  import TheHeader from '../components/layouts/TheHeader.vue'
-  import TheFooter from '~/components/layouts/TheFooter.vue'
+  import { mapState, mapActions } from 'vuex'
+
+  import TheHeader from '../components/common/TheHeader.vue'
+  import TheBreadcrumbs from '../components/common/TheBreadcrumbs.vue'
+  import TheFooter from '../components/common/TheFooter.vue'
 
   export default {
+    name: 'DefaultLayout',
     components: {
       TheHeader,
+      TheBreadcrumbs,
       TheFooter,
     },
-    // head() {
-    //   return {
-    //     // Установка rel="canonical" на всех страницах шаблона.
-    //     link: [
-    //       {
-    //         rel: 'canonical',
-    //         href: `${process.env.baseUrl}${this.$route.path}`,
-    //       },
-    //     ],
-    //     // Пример установки общих мета-тегов на страницах.
-    //     meta: [
-    //       {
-    //         hid: 'og:url',
-    //         property: 'og:url',
-    //         content: `${process.env.baseUrl}${this.$route.path}`,
-    //       },
-    //     ],
-    //   }
-    // },
+    async fetch() {
+      await this.SET_SEARCH_QUERY('')
+    },
+
+    head() {
+      const canonical = `${process.env.ORIGIN_URL}${this.$route.path.toLowerCase().replace(/\/$/, '')}`
+      return {
+        link: [{ rel: 'canonical', href: canonical }],
+      }
+    },
+    computed: {
+      ...mapState('breadcrumbs', ['showBreadcrumbs']),
+    },
+    watch: {
+      // Observing the query in the routing. If empty, then clear the input
+      $route() {
+        const query = this.$router.history.current.query
+        if (query && !Object.prototype.hasOwnProperty.call(query, 'q')) {
+          this.SET_SEARCH_QUERY('')
+        }
+      },
+    },
+    methods: {
+      ...mapActions('search', ['SET_SEARCH_QUERY']),
+    },
   }
 </script>

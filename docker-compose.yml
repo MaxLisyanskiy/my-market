@@ -12,7 +12,7 @@ services:
     ports:
       - '${APP_PORT-3000}:3000'
 #    volumes:
-#      - ${APP_DIR-./nuxt}:/var/www
+#      - ${APP_DIR-./src}:/var/www
 
 networks:
   default:

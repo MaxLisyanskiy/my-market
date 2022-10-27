@@ -14,7 +14,7 @@ stages:
 #before_script:
 #  - apk update
 #  - apk add openssh
-#  - cd nuxt && yarn install && cd ..
+#  - cd src && yarn install && cd ..
 
 #cache:
 #  key: $CI_PROJECT_ID
@@ -40,7 +40,7 @@ test-fe-stage:
   script:
     - echo "Run tests"
     - pwd
-    - cd nuxt
+    - cd src
     - yarn install
     - yarn test
 
@@ -63,7 +63,7 @@ deploy-fe-stage:      # This job runs in the deploy stage.
     TARGET_PATH_NEW: /var/www/stage.new
     TARGET_PATH_OLD: /var/www/stage.old
     ENV_FILE_SRC: /var/www/bak/.env
-    NUXT_ENV_FILE_SRC: /var/www/bak/nuxt/.env
+    NUXT_ENV_FILE_SRC: /var/www/bak/src/.env
     NUXT_ENV_STAGE: $NUXT_ENV_STAGE
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment:
@@ -88,12 +88,12 @@ deploy-fe-stage:      # This job runs in the deploy stage.
     - ssh target "bash -c 'mkdir -p $TARGET_PATH'"
     - ssh target "bash -c 'sudo rm -rf $TARGET_PATH_OLD'"
     - ssh target "bash -c 'sudo rm -rf $TARGET_PATH_NEW'"
-    - echo "$NUXT_ENV_STAGE" > nuxt/.env
-    - echo "$NUXT_ENV_STAGE" > nuxt/.env.production
+    - echo "$NUXT_ENV_STAGE" > src/.env
+    - echo "$NUXT_ENV_STAGE" > src/.env.production
     - scp -r "$(pwd)" target:$TARGET_PATH_NEW
     #- ssh target "bash -c 'cp $ENV_FILE_SRC $TARGET_PATH_NEW/.env'"    
-    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/nuxt/.env'"    
-    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/nuxt/.env.production'"    
+    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/src/.env'"    
+    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/src/.env.production'"    
     - echo "Building Docker image"
     - ssh target "bash -c 'cd $TARGET_PATH_NEW; sudo docker build -t marketplace-stage .'"    
     - ssh target "bash -c 'sudo docker stop \$(sudo docker ps -a -q --filter name=marketplace-stage --format="{{.ID}}"); exit 0'"
@@ -122,7 +122,7 @@ test-fe-prod:
   script:
     - echo "Run tests"
     - pwd
-    - cd nuxt
+    - cd src
     - yarn install
     - yarn test
 
@@ -141,9 +141,9 @@ deploy-fe-prod:      # This job runs in the deploy stage.
 #    key: $CI_PROJECT_ID
 #    policy: pull-push
 #    paths:
-#      - /nuxt/.yarn
-#      - '/nuxt/node_modules'
-#      - 'nuxt/packages/*/node_modules'
+#      - /src/.yarn
+#      - '/src/node_modules'
+#      - 'src/packages/*/node_modules'
   variables:
     SSH_HOST_PROD: $SSH_HOST_PROD
     SSH_USER_PROD: $SSH_USER_PROD
@@ -152,7 +152,7 @@ deploy-fe-prod:      # This job runs in the deploy stage.
     TARGET_PATH_NEW: /var/www/front.new
     TARGET_PATH_OLD: /var/www/front.old
     #ENV_FILE_SRC: /var/www/bak/.env
-    #NUXT_ENV_FILE_SRC: /var/www/bak/nuxt/.env
+    #NUXT_ENV_FILE_SRC: /var/www/bak/src/.env
     NUXT_ENV_PRODUCTION: $NUXT_ENV_PRODUCTION
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment:
@@ -178,12 +178,12 @@ deploy-fe-prod:      # This job runs in the deploy stage.
     - ssh target "bash -c 'mkdir -p $TARGET_PATH'"
     - ssh target "bash -c 'sudo rm -rf $TARGET_PATH_OLD'"
     - ssh target "bash -c 'sudo rm -rf $TARGET_PATH_NEW'"
-    - echo "$NUXT_ENV_PRODUCTION" > nuxt/.env
-    - echo "$NUXT_ENV_PRODUCTION" > nuxt/.env.production
+    - echo "$NUXT_ENV_PRODUCTION" > src/.env
+    - echo "$NUXT_ENV_PRODUCTION" > src/.env.production
     - scp -r "$(pwd)" target:$TARGET_PATH_NEW
     #- ssh target "bash -c 'cp $ENV_FILE_SRC $TARGET_PATH_NEW/.env'"    
-    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/nuxt/.env'"    
-    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/nuxt/.env.production'"    
+    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/src/.env'"    
+    #- ssh target "bash -c 'cp $NUXT_ENV_FILE_SRC $TARGET_PATH_NEW/src/.env.production'"    
     - echo "Building Docker image"
     - ssh target "bash -c 'cd $TARGET_PATH_NEW; sudo docker build -t marketplace-prod .'"    
     - ssh target "bash -c 'sudo docker stop \$(sudo docker ps -a -q --filter name=marketplace-prod --format="{{.ID}}"); exit 0'"

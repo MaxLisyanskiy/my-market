@@ -1,0 +1,42 @@
+.company-settings {
+  padding: 0 20px 15px;
+
+  &__title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: #0a8745;
+  }
+
+  &-form {
+    margin-top: 11px;
+    display: flex;
+
+    &__left {
+        width: 50%;
+        margin-right: 25px;
+    }
+
+    &__right {
+        width: 50%;
+        margin-left: 25px;
+    }
+
+    &__btn {
+        float: right;
+        max-width: 244px;
+        width: 100%;
+        margin-top: 30px;
+        padding: 13px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #ffffff;
+        background: linear-gradient(88.41deg, #6BBC38 0%, #7BD941 100%);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+  }
+}

@@ -7,7 +7,7 @@ RUN apk add --no-cache git
 WORKDIR /var/www
 #VOLUME /var/www
 
-COPY ./nuxt /var/www
+COPY ./src /var/www
 
 RUN yarn && yarn run build
 #CMD yarn && yarn run build && yarn run start

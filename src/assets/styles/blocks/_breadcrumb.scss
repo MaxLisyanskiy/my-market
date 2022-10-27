@@ -1,0 +1,39 @@
+.breadcrumb {
+  @extend %container;
+  padding-top: 90px;
+  padding-bottom: 18px;
+  @media (max-width: 600px) {
+    display: none;
+  }
+
+  &-list {
+    display: flex;
+    width: 100%;
+    margin: -2px 0 0 -7px;
+  }
+
+  &-link {
+    color: #808080;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.06px;
+    padding: 0 2px;
+    cursor: pointer;
+
+    & a {
+      color: #808080;
+    }
+
+    &:nth-child(1):before {
+      content: '';
+      width: 0;
+      height: 0;
+    }
+
+    &:before {
+      content: '/';
+      color: #808080;
+      margin-right: 4px;
+    }
+  }
+}
