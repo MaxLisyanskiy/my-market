@@ -1,7 +1,7 @@
 <template>
   <section class="company company-settings__content-row content-row">
     <div class="company-settings__header">
-      <HeaderBackSvg class="company-settings__header-back" />
+      <HeaderBackSvg class="company-settings__header-back" @click="handleGoBack" />
       <span class="company-settings__header-text">Настройки</span>
     </div>
 
@@ -55,12 +55,20 @@
 
             <div class="company-settings-form__right">
               <!-- Старый пароль -->
-              <validation-provider v-slot="{ errors }" ref="" rules="" tag="div" class="validate" mode="lazy">
-                <label class="company-settings__label" for="email">Старый пароль</label>
+              <validation-provider
+                v-slot="{ errors }"
+                ref="password"
+                rules="password"
+                tag="div"
+                class="validate"
+                mode="lazy"
+              >
+                <label class="company-settings__label" for="password">Старый пароль</label>
                 <input
-                  v-model="inn"
+                  v-model="password"
                   type="password"
-                  inputmode="number"
+                  inputmode="password"
+                  placeholder="Введите старый пароль"
                   autocomplete="on"
                   class="company-settings__input"
                   :class="{ validate__input: errors[0] }"
@@ -69,13 +77,20 @@
               </validation-provider>
 
               <!-- Новый пароль -->
-
-              <validation-provider v-slot="{ errors }" ref="" rules="" tag="div" class="validate" mode="lazy">
-                <label class="company-settings__label" for="email">Новый пароль</label>
+              <validation-provider
+                v-slot="{ errors }"
+                ref="password"
+                rules="password"
+                tag="div"
+                class="validate"
+                mode="lazy"
+              >
+                <label class="company-settings__label" for="newPassword">Новый пароль</label>
                 <input
-                  v-model="inn"
+                  v-model="newPassword"
                   type="password"
-                  inputmode="number"
+                  inputmode="password"
+                  placeholder="Введите новый пароль"
                   autocomplete="on"
                   class="company-settings__input"
                   :class="{ validate__input: errors[0] }"
@@ -85,11 +100,12 @@
 
               <!-- Подтверждение пароля -->
               <validation-provider v-slot="{ errors }" ref="" rules="" tag="div" class="validate" mode="lazy">
-                <label class="company-settings__label" for="email">Подтверждение нового пароля</label>
+                <label class="company-settings__label" for="newPasswordRepeat">Подтверждение нового пароля</label>
                 <input
-                  v-model="inn"
+                  v-model="newPasswordRepeat"
                   type="password"
-                  inputmode="number"
+                  inputmode="password"
+                  placeholder="Повторите новый пароль"
                   autocomplete="on"
                   class="company-settings__input"
                   :class="{ validate__input: errors[0] }"
@@ -105,8 +121,8 @@
       </div>
     </div>
     <div class="company-settings__block">
-      <button type="submit" class="company-settings__block-saved">Сохранить</button>
-      <button type="submit" class="company-settings__block-exit">Выйти</button>
+      <button type="submit" class="company-settings__block-saved" disabled>Сохранить</button>
+      <button type="button" class="company-settings__block-exit" @click="handleLogout">Выйти</button>
     </div>
   </section>
 </template>
@@ -115,16 +131,12 @@
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
 
   export default {
-    components: { HeaderBackSvg },
     name: 'CompanySettings',
+    components: { HeaderBackSvg },
     props: {
-      company: {
-        type: Object,
-        default: () => {},
-      },
-      swiperConfig: {
-        type: Object,
-        default: () => {},
+      mainError: {
+        type: String,
+        default: '',
       },
       scrolled: {
         type: Boolean,
@@ -135,8 +147,30 @@
       return {
         activeLink: 'auth-data',
         links: [{ name: 'Данные авторизации', goTo: 'auth-data' }],
+        email: '',
+        phone: '',
+        password: '',
+        newPassword: '',
+        newPasswordRepeat: '',
       }
     },
-    methods: {},
+    methods: {
+      async handleLogout(e) {
+        e.preventDefault()
+        await this.$auth.logout()
+        this.$notify({
+          title: '',
+          message: 'Вы успешно вышли из аккаунта!',
+          type: 'success',
+        })
+      },
+      handleGoBack() {
+        const newRoute = this.$route.path.replace('settings', 'products')
+        this.$router.push(newRoute)
+      },
+      async submit() {
+        const isValid = await this.$refs.observer.validate()
+      },
+    },
   }
 </script>
