@@ -1,11 +1,9 @@
 <template>
   <section class="product-left">
-    <img
-      v-lazy="mainImg"
-      :alt="product.name"
-      class="product-left__img"
-      :class="{ showMainMobImg: product.images.length === 1 }"
-    />
+    <div class="product-left__img" :class="{ showMainMobImg: product.images.length === 1 }">
+      <img v-lazy="mainImg" :alt="product.name" />
+    </div>
+
     <AppSwiper
       v-if="product.images.length > 1"
       :swiper-config="swiperConfig"
@@ -56,7 +54,7 @@
 <style lang="scss" scoped>
   .showMainMobImg {
     @media (max-width: 870px) {
-      display: block !important;
+      display: flex !important;
       height: 390px;
       max-width: 100vw;
       width: 100%;
