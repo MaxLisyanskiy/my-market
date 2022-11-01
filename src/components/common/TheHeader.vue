@@ -23,11 +23,6 @@
             />
             <button type="submit" class="header-search__btn">Поиск</button>
           </form>
-          <!-- <div class="header-main__list header-desktop__list" :class="{ active: searchBlockDesk }">
-            <a href="#" class="header-main__link">Банки</a>
-            <a href="#" class="header-main__link">Бутылки</a>
-            <a href="#" class="header-main__link">Бутылка</a>
-          </div> -->
         </div>
         <div class="header-block header-block__btn">
           <div class="header-btn header-sign">
@@ -182,7 +177,11 @@
       ...mapState('global', ['firstPageVisit']),
 
       isCompanyPages() {
-        if (this.$route.name === 'company-id-products' || this.$route.name === 'company-id-about') {
+        if (
+          this.$route.name === 'company-id-products' ||
+          this.$route.name === 'company-id-about' ||
+          this.$route.name === 'company-id-settings'
+        ) {
           return true
         }
         return false

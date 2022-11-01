@@ -92,7 +92,7 @@
     </section>
 
     <!-- Banner Mob -->
-    <section class="banner-mob">
+    <section v-show="!isComapnySettings" class="banner-mob">
       <div class="banner-mob-top">
         <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
           <LogoWhiteSvg />
@@ -261,6 +261,13 @@
 
       isCompanyOwner() {
         if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
+          return true
+        }
+        return false
+      },
+
+      isComapnySettings() {
+        if (this.$route.name === 'company-id-settings') {
           return true
         }
         return false
