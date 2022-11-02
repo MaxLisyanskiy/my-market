@@ -101,8 +101,9 @@
     }
   }
   .slider__img {
-    width: 100%;
-    height: inherit;
+    // width: 100%;
+    // height: inherit;
     object-fit: cover;
+    max-width: 100%;
   }
 </style>
