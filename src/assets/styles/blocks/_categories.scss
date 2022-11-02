@@ -183,6 +183,7 @@
   }
   & .gallery .product {
     width: 100%;
+	max-width:209px;
     height: auto;
     max-height: 400px;
     min-height: auto;
@@ -240,7 +241,7 @@
       width: 100%;
       padding-top: 100%;
       overflow: hidden;
-	  border-radius:10px;
+      border-radius: 10px;
       &_imgs {
         position: absolute;
         top: 0;
@@ -357,8 +358,8 @@
 
     &__menu {
       border-top: 1px solid #e5e0e0;
-      padding-top: 7px;
-      margin-top: 13px;
+      padding-top: 3px;
+      margin-top: 7px;
     }
 
     &__link {
@@ -370,10 +371,13 @@
       height: auto;
       align-items: center;
       display: flex;
-      margin-left: -8px;
+      margin-left: -10px;
       box-sizing: border-box;
       padding: 4px 0 4px 10px;
-
+      width: 224px;
+      @media (max-width: 992px) {
+        width: 112%;
+      }
       & a {
         color: #262626;
       }

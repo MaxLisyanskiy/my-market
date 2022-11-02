@@ -5,7 +5,7 @@
     </div>
 
     <AppSwiper
-      v-if="product.images.length > 1"
+      v-if="product.images.length > 0"
       :swiper-config="swiperConfig"
       :images="product.images"
       :click-handler="handleSetMainImg"

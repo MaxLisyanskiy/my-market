@@ -19,7 +19,7 @@
         class="products-mob"
       >
         <div class="products-mob__row">
-          <div class="products-mob__block">
+          <div class="products-mob__content">
             <div class="products-mob__img">
               <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
             </div>
@@ -27,14 +27,11 @@
           </div>
           <div class="products-mob__text">
             <span class="products-mob__price">от ₽{{ product.min_price.price }}/шт.</span>
-            <span class="products-mob__description products-mob__desktop">
-              Мин. заказ:
-              <span class="products-mob__pcs">{{ product.min_price.amount }} шт.</span>
-            </span>
-            <span class="products-mob__description products-mob__mobile">
-              Заказ
-              <span class="products-mob__pcs">от {{ product.min_price.amount }} шт.</span>
-            </span>
+            <div class="products-mob__block">
+              <span class="products-mob__description products-mob__desktop">Мин. заказ:</span>
+              <span class="products-mob__description products-mob__mobile">Заказ:</span>
+              <span class="products-mob__pcs products-mob__mobile">от {{ product.min_price.amount }} шт.</span>
+            </div>
           </div>
         </div>
       </nuxt-link>
@@ -54,14 +51,11 @@
           <span class="products-max__title">{{ product.name }}</span>
           <div class="products-max__content">
             <span class="products-max__price">от ₽{{ product.min_price.price }}/шт.</span>
-            <span class="products-max__description products-max__desktop">
-              Мин. заказ:
+            <div class="products-max__block">
+              <span class="products-max__description products-max__desktop">Мин. заказ:</span>
+              <span class="products-max__description products-max__mobile">Заказ:</span>
               <span class="products-max__pcs">{{ product.min_price.amount }} шт.</span>
-            </span>
-            <span class="products-max__description products-max__mobile">
-              Заказ
-              <span class="products-max__pcs">от {{ product.min_price.amount }} шт.</span>
-            </span>
+            </div>
           </div>
         </div>
       </nuxt-link>
