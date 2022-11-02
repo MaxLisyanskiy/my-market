@@ -45,13 +45,10 @@
   align-items: center;
   transition: all 200ms linear;
   & img {
-    width: auto;
-    height: inherit;
+    // width: auto;
+    // height: inherit;
+    // max-width: 100%;
   }
-  // &-active {
-  //   transform: scale(1);
-  //   background: #fc0;
-  // }
   &:first-child {
     margin-left: 0;
   }
