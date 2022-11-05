@@ -18,7 +18,7 @@
       </vue-custom-scrollbar>
       <div class="product-rectangle">
         <div v-for="item in product.specs" :key="item.id" class="rectangle-block">
-          <span class="rectangle-block__text">{{ item.key }}:</span>
+          <span class="rectangle-block__text">{{ item.key }}</span>
           <span class="rectangle-block__value">{{ item.value }}</span>
         </div>
       </div>

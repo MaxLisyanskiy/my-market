@@ -113,10 +113,20 @@
                 <div class="product-gallery__link">
                   <div
                     v-if="showAddProduct"
-                    class="edit-product"
-                    @click.stop="e => handleGoToEditProduct(e, product.id)"
+                    class="product-combobox__dots"
+                    :class="{ active: activeDots === product.id }"
+                    @click.stop="e => handleSetActiveDots(e, product.id)"
                   >
-                    <PencilEditProductSvg />
+                    <DotsCompanyProductsSvg />
+                  </div>
+                  <div class="product-combobox" :class="{ active: activeDots === product.id }">
+                    <button
+                      class="product-combobox__btn product-combobox__edit"
+                      @click.stop="e => handleGoToEditProduct(e, product.id)"
+                    >
+                      Изменить
+                    </button>
+                    <button class="product-combobox__btn" @click.stop="e => e.preventDefault()">Удалить</button>
                   </div>
                   <div class="product-switcher">
                     <div class="product-switcher__imgs">
@@ -150,14 +160,14 @@
   import CatalogProductsNotFound from '@/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
-  import PencilEditProductSvg from '@/assets/img/icons/svg/pencil-edit-product.svg?inline'
+  import DotsCompanyProductsSvg from '@/assets/img/icons/svg/dots-company-products.svg?inline'
 
   export default {
     name: 'CompanyProducts',
     components: {
       CatalogProductsNotFound,
       CompanyProductsFilterMobSvg,
-      PencilEditProductSvg,
+      DotsCompanyProductsSvg,
     },
     props: {
       products: {
@@ -175,6 +185,7 @@
     },
     data() {
       return {
+        activeDots: null,
         productsCategories: [],
         activeCategory: {
           id: null,
@@ -231,6 +242,11 @@
         }
       },
 
+      handleSetActiveDots(e, id) {
+        e.preventDefault()
+        this.activeDots = this.activeDots === id ? null : id
+      },
+
       handleGoToEditProduct(e, id) {
         e.preventDefault()
 
@@ -263,22 +279,64 @@
     }
   }
 
-  .edit-product {
+  .product-combobox {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    background: #e5e0e0;
-    padding: 7px;
-    border-radius: 50%;
-    z-index: 2;
-    &:hover {
-      border: 1px solid red;
+    top: 50px;
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px;
+    transition: all 0.3s ease;
+    @media (max-width: 768px) {
+      top: 48px;
+    }
+    &.active {
+      display: flex;
     }
 
-    & svg {
-      width: 30px;
-      height: 30px;
+    &__dots {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      display: flex;
+      padding: 6.5px 15.5px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      @media (max-width: 768px) {
+        top: 6px;
+        right: 6px;
+        padding: 8px 16px;
+      }
+      &.active {
+        background: rgba(64, 64, 64, 0.9);
+      }
+      &:hover {
+        background: rgba(64, 64, 64, 0.9);
+      }
+      & svg {
+        width: 4px;
+        height: 20px;
+      }
+    }
+
+    &__btn {
+      background: rgba(64, 64, 64, 0.9);
+      border-radius: 5px;
+      height: 32px;
+      font-weight: 500;
+      font-size: 14px;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      &:hover {
+        font-weight: 600;
+      }
+    }
+
+    &__edit {
+      margin-bottom: 6px;
     }
   }
 </style>

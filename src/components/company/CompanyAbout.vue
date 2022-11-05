@@ -26,7 +26,8 @@
 
           <AppSwiper v-if="company.images.length > 1" :swiper-config="swiperConfig" :images="company.images" />
 
-          <span class="company-description__text"> {{ company.description }} </span>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div class="company-description__text" v-html="company.description"></div>
           <span class="company-description__read">Показать полностью</span>
         </div>
 

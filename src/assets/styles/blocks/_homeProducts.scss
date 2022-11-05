@@ -154,7 +154,6 @@
       background: #fff;
       height: auto;
       padding: 0 0 10px;
-      align-items: center;
     }
     @media (max-width: 670px) {
       width: 100%;
@@ -190,6 +189,7 @@
     background: #ffffff;
     margin: 15px 0 9px 15px;
     border: 0;
+    display: flex;
     &:hover {
       .products-max__img {
         & img {
@@ -204,9 +204,12 @@
     }
 
     &__row {
-      max-width: 110px;
-      width: 110px;
-      min-width: 110px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    &__content {
+      margin-top: auto;
     }
     &__title,
     &__price,
@@ -216,14 +219,18 @@
       line-height: 16.41px;
       font-weight: 400;
       color: #404040;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
       @media (max-width: 768px) {
         float: left;
       }
     }
 
     &__title {
-      margin-top: 8px;
-      display: block;
+	  margin:8px 0 5px 0;
     }
 
     &__price {
@@ -231,12 +238,13 @@
       font-weight: 600;
       font-size: 16px;
       color: #262626;
-      display: block;
     }
-
+    &__block {
+      display: flex;
+    }
     &__description {
       color: #999999;
-
+      width: 60%;
       &:first-letter {
         text-transform: uppercase;
         display: inline-block;
@@ -249,32 +257,28 @@
     }
     &__mobile {
       display: none;
-      @media (max-width: 768px) {
-        display: flex;
-      }
     }
 
     &__pcs {
+      width: 60%;
       @media (max-width: 768px) {
         margin-left: 3px;
       }
     }
 
     &__img {
-      display: inline-block;
+      height: 155px;
+      width: 155px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
 
       & img {
         transition: 1s;
-        display: block;
-        width: 155px;
-        height: 155px;
-        background-size: 100%;
+        max-width: 100%;
+        max-height: 100%;
         z-index: 2;
-        position: relative;
-        @media (max-width: 768px) {
-          width: 100%;
-        }
       }
     }
   }
@@ -294,7 +298,14 @@
       min-width: 110px;
       margin: 0px 5px;
     }
-
+    &__row {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    &__text {
+      margin-top: auto;
+    }
     &__title,
     &__price,
     &__description,
@@ -303,46 +314,67 @@
       line-height: 16px;
       display: inline-block;
       color: #404040;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
       @media (max-width: 480px) {
         font-size: 12px;
-        line-height: 4px;
+        line-height: 14px;
       }
       @media (max-width: 480px) {
         font-size: 10px;
       }
     }
+    &__title {
+      @media (max-width: 768px) {
+        line-height: 14px;
+        margin-bottom: 2px;
+        max-width: 112px;
+      }
+    }
     &__price {
-      display: block;
-      font-weight: 500;
+      font-weight: 600;
       color: #262626;
     }
     &__description {
       color: #999999;
+      width: 30%;
     }
     &__pcs {
       margin-left: 3px;
       color: #404040;
+      width: 70%;
+    }
+    &__block {
+      display: flex;
     }
     &__desktop {
       @media (max-width: 670px) {
         display: none;
       }
     }
+    &__mobile {
+      @media (max-width: 670px) {
+        display: -webkit-box;
+      }
+    }
     &__img {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
+      height: 120px;
+      @media (max-width: 480px) {
+        height: 110px;
+      }
 
       & img {
         transition: 1s;
-        display: block;
-        width: 100%;
-        height: 120px;
-        position: relative;
-        top: 0;
         z-index: 2;
-        @media (max-width: 480px) {
-          height: 110px;
-        }
+        max-width: 100%;
+        max-height: 100%;
       }
     }
   }

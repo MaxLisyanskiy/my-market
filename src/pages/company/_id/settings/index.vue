@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Settings'" @scrolled="scrolled" />
-    <CompanySettings :company="company" :swiper-config="swiperConfig" :scrolled="scrolledData" />
+    <CompanySettings :company="company" :scrolled="scrolledData" />
   </article>
 </template>
 
@@ -15,6 +15,7 @@
     name: 'ComapnyIdAboutPage',
     components: { CompanyTop, CompanySettings },
     layout: 'default',
+    middleware: 'auth',
 
     async asyncData({ app, params }) {
       // const { product, company } = await app.$productService.getProductById(params.id)
@@ -26,33 +27,6 @@
       return {
         company: {},
         scrolledData: true,
-        swiperConfig: {
-          mainClass: 'company-swiper',
-          wrapperClass: 'company-slider',
-          slidesPerView: 2,
-          spaceBetween: 10,
-          direction: 'horizontal',
-          pagination: {
-            isPagination: true,
-            el: '.company-swiper__pagination',
-            paginationClass: 'company-swiper__pagination',
-            type: 'fraction',
-          },
-          btnPrevClass: 'swiper-button-prev',
-          btnNextClass: 'swiper-button-next',
-          addColorForActiveSlide: false,
-          breakpoints: {
-            320: {
-              slidesPerView: 1,
-              loop: true,
-              spaceBetween: 0,
-            },
-            670: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-          },
-        },
       }
     },
     async fetch() {
@@ -61,7 +35,7 @@
     },
     head() {
       return {
-        title: `${this.company.name} | VALE.SU`,
+        title: `${this.company.name} - Настройки | VALE.SU`,
         meta: [
           {
             hid: 'description',

@@ -32,7 +32,7 @@
     margin-left: -10px;
     box-sizing: border-box;
     padding: 4px 0 4px 10px;
-    margin-bottom: 4px;
+    margin-bottom: -2px;
     &:hover {
       color: #ffffff;
     }
