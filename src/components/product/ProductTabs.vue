@@ -83,7 +83,7 @@
     created() {
       if (this.product.specs.length > 5) {
         this.productSpecsLeft = this.product.specs.slice(0, 5)
-        this.productSpecsRight = this.product.specs.slice(0, 5)
+        this.productSpecsRight = this.product.specs.slice(5)
       } else {
         this.productSpecsLeft = this.product.specs
       }
