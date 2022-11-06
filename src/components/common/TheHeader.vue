@@ -271,7 +271,7 @@
 
 <style lang="scss" scoped>
   .hidden {
-    @media (max-width: 670px) {
+    @media (max-width: 768px) {
       display: none;
     }
   }

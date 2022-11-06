@@ -1,7 +1,7 @@
 // GENERAL DOCUMENT STYLES
-html {
-  height: 100%;
-}
+// html {
+//   height: 100%;
+// }
 
 img {
   text-indent: -10000px;
@@ -16,6 +16,9 @@ body {
   overflow-x: hidden;
   height: 100%;
   background: #f7f5f5;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   &.lock {
     overflow: hidden;
   }
