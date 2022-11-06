@@ -116,6 +116,7 @@
                     class="product-combobox__dots"
                     :class="{ active: activeDots === product.id }"
                     @click.stop="e => handleSetActiveDots(e, product.id)"
+                    @touchend.stop="e => handleSetActiveDots(e, product.id)"
                   >
                     <DotsCompanyProductsSvg />
                   </div>
@@ -126,7 +127,9 @@
                     >
                       Изменить
                     </button>
-                    <button class="product-combobox__btn" @click.stop="e => e.preventDefault()">Удалить</button>
+                    <button class="product-combobox__btn" @click.stop="e => handleDeleteProduct(e, product.id)">
+                      Удалить
+                    </button>
                   </div>
                   <div class="product-switcher">
                     <div class="product-switcher__imgs">
@@ -251,6 +254,12 @@
         e.preventDefault()
 
         this.$router.push(`/product/${id}/edit/`)
+      },
+
+      handleDeleteProduct(e, id) {
+        e.preventDefault()
+
+        this.$emit('delete', id)
       },
     },
   }
