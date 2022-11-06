@@ -1,5 +1,5 @@
 <template>
-  <AuthSignup :main-error="mainError" @login="login" />
+  <AuthSignup :main-error="mainError" @login="register" />
 </template>
 
 <script>
@@ -22,7 +22,7 @@
       }
     },
     methods: {
-      login(body) {
+      register(body) {
         this.$auth
           .loginWith('local', { data: body })
           .then(async () => {
