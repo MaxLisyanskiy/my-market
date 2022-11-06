@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Products'" />
-    <CompanyProducts :products="products" :company="company" :categories="categories" />
+    <CompanyProducts :products="products" :company="company" :categories="categories" @delete="deleteProduct" />
   </article>
 </template>
 
@@ -85,6 +85,38 @@
     watch: {
       '$route.query'() {
         this.$router.app.refresh()
+      },
+    },
+    methods: {
+      async deleteProduct(id) {
+        const result = await this.$productService.deleteProduct(id)
+
+        if (result[0]) {
+          this.handleLoadCompanyProducts()
+          this.$notify({
+            title: '',
+            message: 'Продукт был успешно удален!',
+            type: 'success',
+          })
+        } else {
+          this.$notify({
+            title: '',
+            message: 'Что-то пошло не так при удаление продукта',
+            type: 'error',
+          })
+        }
+      },
+
+      async handleLoadCompanyProducts() {
+        const { products, categories } = await this.$companyService.getCompanyProducts(
+          this.$route.params.id,
+          1,
+          20,
+          this.$route.query?.q,
+          this.$route.query?.category
+        )
+        this.products = products
+        this.categories = categories
       },
     },
   }

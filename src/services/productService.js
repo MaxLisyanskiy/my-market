@@ -84,5 +84,25 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Delete product
+     *
+     * @param {number} id payload
+     * @returns {object} Object with field products, count, pages
+     */
+    deleteProduct: async id => {
+      return await $axios
+        .delete(`/products/${id}`)
+        .then(res => {
+          if (res.data.status !== 'success') {
+            return [false, 'Произошла ошибка, попробуйте позже']
+          }
+          return [true]
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }
