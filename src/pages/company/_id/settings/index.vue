@@ -1,6 +1,6 @@
 <template>
   <article class="companyWrapper">
-    <CompanyTop :company="company" :active-tab="'Settings'" @scrolled="scrolled" />
+    <CompanyTop :company="company" :active-tab="'Settings'" @scrolled="scrolled" @updateCompany="handleUpdateCompany" />
     <CompanySettings :company="company" :scrolled="scrolledData" />
   </article>
 </template>
@@ -54,6 +54,11 @@
        */
       scrolled(bool) {
         this.scrolledData = bool
+      },
+
+      async handleUpdateCompany() {
+        const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
+        this.company = company
       },
     },
   }

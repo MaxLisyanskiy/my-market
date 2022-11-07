@@ -26,10 +26,100 @@
               <a :href="`mailto:${company.email}`" class="banner-info__btns_write"> Написать </a>
             </div>
             <div v-else class="banner-info__btns">
-              <button class="banner-info__btns_edit">Редактировать профиль</button>
+              <button class="banner-info__btns_edit" @click="() => (showCompanyEditor = true)">
+                Редактировать профиль
+              </button>
             </div>
           </div>
         </div>
+
+        <validation-observer
+          ref="observer"
+          tag="form"
+          class="banner-info-edit"
+          :class="{ show: showCompanyEditor, error: companyNameError || companyPhoneError || companyEmailError }"
+          @submit.prevent="handleEditCompanyProfile"
+        >
+          <div class="banner-info-edit__wrapp">
+            <!-- <label for="ava">
+              <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+              <img
+                v-else
+                src="@/assets/img/icons/company-not-found-img.svg"
+                alt="company-not-found-img"
+                class="banner-info__logo"
+              />
+            </label>
+            <input type="file" id="ava" name="ava" class="" /> -->
+
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-info__logo"
+            />
+
+            <div class="banner-info-edit__fields">
+              <validation-provider
+                ref="required"
+                rules="required"
+                tag="div"
+                class="validate banner-info-edit__validate-name"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyName"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="on"
+                  placeholder="Введите название компании"
+                  class="banner-info-edit__input-name"
+                  :class="{ error: companyNameError }"
+                  @input="companyNameError = ''"
+                  @change="validateCompanyName"
+                />
+                <span class="validate__error"> {{ companyNameError }} </span>
+              </validation-provider>
+              <validation-provider
+                ref="phone"
+                rules="phone"
+                tag="div"
+                class="validate banner-info-edit__validate"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyPhone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="on"
+                  placeholder="Введите номер телефона компании"
+                  class="banner-info-edit__input banner-info-edit__input_first"
+                  :class="{ error: companyPhoneError }"
+                  @input="companyPhoneError = ''"
+                  @change="validateCompanyPhone"
+                />
+                <span class="validate__error"> {{ companyPhoneError }} </span>
+              </validation-provider>
+              <validation-provider ref="email" rules="email" tag="div" class="validate" mode="lazy">
+                <input
+                  v-model="companyEmail"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="on"
+                  placeholder="Введите e-mail компании"
+                  class="banner-info-edit__input"
+                  :class="{ error: companyEmailError }"
+                  @input="companyEmailError = ''"
+                  @change="validateCompanyEmail"
+                />
+                <span class="validate__error"> {{ companyEmailError }} </span>
+              </validation-provider>
+            </div>
+          </div>
+          <button type="submit" class="banner-info-edit__submitBtn">Сохранить изменения</button>
+        </validation-observer>
+
         <div class="banner-info-right">
           <form type="search" class="banner-search" @submit.prevent="handleSearchCompanyProducts">
             <input
@@ -154,33 +244,112 @@
         </template>
       </div>
       <div class="banner-mob-info">
-        <div class="banner-mob-info__wrapp">
-          <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-mob-info__img" />
-          <img
-            v-else
-            src="@/assets/img/icons/company-not-found-img.svg"
-            alt="company-not-found-img"
-            class="banner-mob-info__img"
-          />
-          <div class="banner-mob-info__text">
-            <span class="banner-info__title">{{ company.name }}</span>
-            <div class="banner-info__description">
-              <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                <span>{{ company.phone }}</span>
-              </a>
-              <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
-                <span>{{ company.email }}</span>
-              </a>
+        <template v-if="!showCompanyEditor">
+          <div class="banner-mob-info__wrapp">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-mob-info__img" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-mob-info__img"
+            />
+            <div class="banner-mob-info__text">
+              <span class="banner-info__title">{{ company.name }}</span>
+              <div class="banner-info__description">
+                <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
+                  <span>{{ company.phone }}</span>
+                </a>
+                <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
+                  <span>{{ company.email }}</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-        <div v-if="!isCompanyOwner" class="banner-mob-info__btns">
-          <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
-          <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
-        </div>
-        <div v-else class="banner-mob-info__btns">
-          <button class="banner-mob-info__edit">Редактировать профиль</button>
-        </div>
+          <div v-if="!isCompanyOwner" class="banner-mob-info__btns">
+            <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
+            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
+          </div>
+          <div v-else class="banner-mob-info__btns">
+            <button class="banner-mob-info__edit" @click="() => (showCompanyEditor = true)">
+              Редактировать профиль
+            </button>
+          </div>
+        </template>
+        <validation-observer
+          ref="observer"
+          tag="form"
+          class="banner-info-edit-mob"
+          :class="{ show: showCompanyEditor }"
+          @submit.prevent="handleEditCompanyProfile"
+        >
+          <div class="banner-info-edit__wrapp">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-info__logo"
+            />
+
+            <div class="banner-info-edit__fields">
+              <validation-provider
+                ref="required"
+                rules="required"
+                tag="div"
+                class="validate banner-info-edit__validate-name"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyName"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="on"
+                  placeholder="Введите название компании"
+                  class="banner-info-edit__input-name"
+                  :class="{ error: companyNameError }"
+                  @input="companyNameError = ''"
+                  @change="validateCompanyName"
+                />
+                <span class="validate__error"> {{ companyNameError }} </span>
+              </validation-provider>
+              <validation-provider
+                ref="phone"
+                rules="phone"
+                tag="div"
+                class="validate banner-info-edit__validate"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyPhone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="on"
+                  placeholder="Введите номер телефона компании"
+                  class="banner-info-edit__input banner-info-edit__input_first"
+                  :class="{ error: companyPhoneError }"
+                  @input="companyPhoneError = ''"
+                  @change="validateCompanyPhone"
+                />
+                <span class="validate__error"> {{ companyPhoneError }} </span>
+              </validation-provider>
+              <validation-provider ref="email" rules="email" tag="div" class="validate" mode="lazy">
+                <input
+                  v-model="companyEmail"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="on"
+                  placeholder="Введите e-mail компании"
+                  class="banner-info-edit__input"
+                  :class="{ error: companyEmailError }"
+                  @input="companyEmailError = ''"
+                  @change="validateCompanyEmail"
+                />
+                <span class="validate__error"> {{ companyEmailError }} </span>
+              </validation-provider>
+            </div>
+          </div>
+          <button type="submit" class="banner-info-edit__submitBtn">Сохранить изменения</button>
+        </validation-observer>
       </div>
       <div class="banner-tabs">
         <div class="banner-tabs-list">
@@ -303,6 +472,15 @@
       return {
         scrolledToTabs: true,
         showSearchInput: false,
+        showCompanyEditor: false,
+
+        companyName: '',
+        companyPhone: '',
+        companyEmail: '',
+
+        companyNameError: '',
+        companyPhoneError: '',
+        companyEmailError: '',
       }
     },
     computed: {
@@ -324,6 +502,10 @@
       },
     },
     mounted() {
+      this.companyName = this.company.name || ''
+      this.companyPhone = this.company.phone || ''
+      this.companyEmail = this.company.email || ''
+
       window.addEventListener('scroll', this.handleScroll)
     },
     destroyed() {
@@ -366,6 +548,78 @@
         this.scrolledToTabs = top < height && top > 0
 
         this.$emit('scrolled', this.scrolledToTabs)
+      },
+
+      validateCompanyName() {
+        this.companyNameError = ''
+
+        if (this.companyName.length === 0) {
+          this.companyNameError = 'Обязательное поле'
+        }
+      },
+
+      validateCompanyPhone() {
+        this.companyPhoneError = ''
+
+        if (this.companyPhone.length === 0) {
+          this.companyPhoneError = 'Обязательное поле'
+        } else if (
+          // eslint-disable-next-line
+          !/^[0-9]{11}$/.test(this.companyPhone.replace(/\D/g, ''))
+        ) {
+          this.companyPhoneError = 'Телефон должен содержать 11 цифр'
+        }
+      },
+
+      validateCompanyEmail() {
+        this.companyEmailError = ''
+
+        if (this.companyEmail.length === 0) {
+          this.companyEmailError = 'Обязательное поле'
+        } else if (
+          // eslint-disable-next-line
+          !/^[A-z0-9\-\.\_]+@[A-z\-\.\_]+$/.test(this.companyEmail)
+        ) {
+          this.companyEmailError = 'Введите корректную почту'
+        }
+      },
+
+      async handleEditCompanyProfile() {
+        this.validateCompanyName()
+        this.validateCompanyPhone()
+        this.validateCompanyEmail()
+
+        const form = {
+          name: this.companyName,
+          phone: this.companyPhone,
+          email: this.companyEmail,
+        }
+
+        if (!this.companyNameError && !this.companyPhoneError && !this.companyEmailError) {
+          const body = {
+            _method: 'PATCH',
+            name: this.companyName,
+            phone: this.companyPhone,
+            email: this.companyEmail,
+          }
+          const result = await this.$companyService.updateCompany(body)
+
+          if (result[0]) {
+            this.$notify({
+              title: '',
+              message: 'Данные о компании были успешно изменены!',
+              type: 'success',
+            })
+            this.$emit('updateCompany')
+            this.showCompanyEditor = false
+          } else {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при изменение данных о компании',
+              type: 'error',
+            })
+          }
+        }
       },
     },
   }
