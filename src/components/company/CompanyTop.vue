@@ -86,7 +86,7 @@
 
     <!-- Banner Mob -->
     <section v-show="!isComapnySettings" class="banner-mob">
-      <div class="banner-mob-top" :class="{ owner: isCompanyOwner }">
+      <div class="banner-mob-top" :class="{ owner: isCompanyOwner, search: showSearchInput }">
         <template v-if="!isCompanyOwner">
           <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
             <LogoSvg />
@@ -110,16 +110,37 @@
         </template>
         <template v-else>
           <div class="banner-mob-top__left">
-            <button v-if="!firstPageVisit" class="banner-mob-top__back" @click="$router.go(-1)">
+            <button v-if="!firstPageVisit && !showSearchInput" class="banner-mob-top__back" @click="$router.go(-1)">
+              <CompanyHeaderBackSvg />
+            </button>
+            <button v-else-if="showSearchInput" class="banner-mob-top__back" @click="() => (showSearchInput = false)">
               <CompanyHeaderBackSvg />
             </button>
           </div>
-          <nuxt-link to="/" class="header-mob-logo banner-mob-top__logo">
+          <nuxt-link v-show="!showSearchInput" to="/" class="header-mob-logo banner-mob-top__logo">
             <LogoSvg />
           </nuxt-link>
-          <div class="banner-mob-top__right">
+          <form
+            type="search"
+            class="banner-mob-top__form owner"
+            :class="{ active: showSearchInput }"
+            @submit.prevent="handleSearchCompanyProducts"
+          >
+            <button type="submit" class="banner-mob-top__search-btn">
+              <CompanyHeaderSearchSvg />
+            </button>
+            <input
+              type="text"
+              placeholder="Искать в этом магазине..."
+              class="banner-mob-top__input"
+              :value="companySearchInput"
+              inputmode="search"
+              @input="handleUpdateCompanySearchInput"
+            />
+          </form>
+          <div v-show="!showSearchInput" class="banner-mob-top__right">
             <div class="banner-mob-top__right_btns">
-              <button class="banner-mob-top__right_search">
+              <button class="banner-mob-top__right_search" @click="() => (showSearchInput = true)">
                 <img src="@/assets/img/icons/svg/company/company-owner-search.svg" alt="company-owner-search" />
               </button>
               <nuxt-link to="/product/add/" class="banner-mob-top__right_plus">
@@ -281,6 +302,7 @@
     data() {
       return {
         scrolledToTabs: true,
+        showSearchInput: false,
       }
     },
     computed: {
