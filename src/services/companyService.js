@@ -49,5 +49,25 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Update companies information
+     *
+     * @param {object} body companies information
+     * @returns {object} Object with field products, count, pages
+     */
+    updateCompany: async body => {
+      return await $axios
+        .post(`/companies`, body)
+        .then(res => {
+          if (res.data.status !== 'success') {
+            return [false, 'Произошла ошибка, попробуйте позже']
+          }
+          return [true]
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }

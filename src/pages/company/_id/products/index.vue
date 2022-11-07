@@ -1,6 +1,6 @@
 <template>
   <article class="companyWrapper">
-    <CompanyTop :company="company" :active-tab="'Products'" />
+    <CompanyTop :company="company" :active-tab="'Products'" @updateCompany="handleUpdateCompany" />
     <CompanyProducts :products="products" :company="company" :categories="categories" @delete="deleteProduct" />
   </article>
 </template>
@@ -117,6 +117,11 @@
         )
         this.products = products
         this.categories = categories
+      },
+
+      async handleUpdateCompany() {
+        const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
+        this.company = company
       },
     },
   }
