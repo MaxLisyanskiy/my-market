@@ -68,9 +68,9 @@
 </template>
 
 <script>
-  import PaginationLeftSvg from '@/assets/img/icons/svg/pagination-left.svg?inline'
-  import PaginationRightSvg from '@/assets/img/icons/svg/pagination-right.svg?inline'
-  import PaginationDotsSvg from '@/assets/img/icons/svg/pagination-dots.svg?inline'
+  import PaginationLeftSvg from '@/assets/img/icons/pagination/pagination-left.svg?inline'
+  import PaginationRightSvg from '@/assets/img/icons/pagination/pagination-right.svg?inline'
+  import PaginationDotsSvg from '@/assets/img/icons/pagination/pagination-dots.svg?inline'
 
   export default {
     name: 'AppPagination',
@@ -295,8 +295,8 @@
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
-        /* line-height: 17px; */
         color: #ffffff;
+        cursor: default;
       }
 
       &_disabled {
@@ -308,12 +308,28 @@
       margin-right: 1.5px;
       padding: 3px 6px;
       cursor: pointer;
+      &.disabled {
+        cursor: default;
+        & svg {
+          & path {
+            fill: #999999;
+          }
+        }
+      }
     }
 
     &__last-arrow {
       margin-left: 1.5px;
       padding: 3px 6px;
       cursor: pointer;
+      &.disabled {
+        cursor: default;
+        & svg {
+          & path {
+            fill: #999999;
+          }
+        }
+      }
     }
   }
 </style>

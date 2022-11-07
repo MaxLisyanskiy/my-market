@@ -114,11 +114,10 @@
               <CompanyHeaderBackSvg />
             </button>
           </div>
-
+          <nuxt-link to="/" class="header-mob-logo banner-mob-top__logo">
+            <LogoSvg />
+          </nuxt-link>
           <div class="banner-mob-top__right">
-            <nuxt-link to="/" class="header-mob-logo">
-              <LogoSvg />
-            </nuxt-link>
             <div class="banner-mob-top__right_btns">
               <button class="banner-mob-top__right_search">
                 <img src="@/assets/img/icons/svg/company/company-owner-search.svg" alt="company-owner-search" />
@@ -127,7 +126,7 @@
                 <img src="@/assets/img/icons/svg/company/company-owner-plus.svg" alt="company-owner-plus" />
               </nuxt-link>
               <nuxt-link :to="`/company/${company.id}/settings/`">
-                <img src="@/assets/img/icons/svg/company/company-owner-settings.svg" alt="company-owner-settings" />
+                <CompanyOwnerSettingsSvg />
               </nuxt-link>
             </div>
           </div>
@@ -256,6 +255,8 @@
   import CompanyAddProductPlusSvg from '@/assets/img/icons/svg/company/company-add-product-plus.svg?inline'
   import CompanySettingsSvg from '@/assets/img/icons/svg/company/company-settings.svg?inline'
 
+  import CompanyOwnerSettingsSvg from '@/assets/img/icons/svg/company/company-owner-settings.svg?inline'
+
   export default {
     name: 'CompanyTop',
     components: {
@@ -265,6 +266,7 @@
       CompanyArrowDownSvg,
       CompanyAddProductPlusSvg,
       CompanySettingsSvg,
+      CompanyOwnerSettingsSvg,
     },
     props: {
       company: {

@@ -54,7 +54,7 @@
                     class="product-combobox__dots"
                     :class="{ active: activeDots === product.id }"
                     @click.stop="e => handleSetActiveDots(e, product.id)"
-                    @touchend.stop="e => handleSetActiveDots(e, product.id)"
+                    @touchstart.stop="e => handleSetActiveDots(e, product.id)"
                   >
                     <DotsCompanyProductsSvg />
                   </div>
