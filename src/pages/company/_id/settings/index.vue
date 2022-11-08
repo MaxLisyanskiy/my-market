@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Settings'" @scrolled="scrolled" @updateCompany="handleUpdateCompany" />
-    <CompanySettings :company="company" :scrolled="scrolledData" />
+    <CompanySettings :company="company" :scrolled="scrolledData" @updateProfile="updateProfile" />
   </article>
 </template>
 
@@ -59,6 +59,25 @@
       async handleUpdateCompany() {
         const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
         this.company = company
+      },
+
+      async updateProfile(body) {
+        const result = await this.$axios.patch('/profile', body)
+
+        if (result[0]) {
+          this.$notify({
+            title: '',
+            message: 'Данные профиля были успешно изменены!',
+            type: 'success',
+          })
+          this.$router.push(`/company/${this.$route.params.id}/products/`)
+        } else {
+          this.$notify({
+            title: '',
+            message: 'Что-то пошло не так при изменение данных профиля',
+            type: 'error',
+          })
+        }
       },
     },
   }
