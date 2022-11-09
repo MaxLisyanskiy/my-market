@@ -49,10 +49,10 @@
         <BtnCallSvg class="btn-call__img" />
         <span class="product-call__text">Позвонить</span>
       </a>
-      <button class="btn-chat product-owner__chat">
+      <a :href="`mailto:${company.email}`" class="btn-chat product-owner__chat">
         <BtnMessageSvg class="btn-chat__img" />
         <span class="product-chat__text">Написать в чат</span>
-      </button>
+      </a>
     </div>
   </article>
 </template>

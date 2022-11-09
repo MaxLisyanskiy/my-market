@@ -45,68 +45,6 @@
         </div>
 
         <div v-if="products.length > 0" class="company-products__row">
-          <!-- <nuxt-link v-if="showAddProduct" to="/product/add/" class="product product-add">
-            <svg
-              class="product-add__img"
-              xmlns="http://www.w3.org/2000/svg"
-              width="70"
-              height="70"
-              viewBox="0 0 17 18"
-              fill="none"
-            >
-              <rect x="0.707153" y="8.29297" width="16" height="1.5" rx="0.75" fill="#656565" />
-              <rect
-                x="7.7782"
-                y="16.7783"
-                width="16"
-                height="1.5"
-                rx="0.75"
-                transform="rotate(-90 7.7782 16.7783)"
-                fill="#656565"
-              />
-            </svg>
-            <div>
-              <span class="product-add__title">Добавить товар</span>
-            </div>
-          </nuxt-link> -->
-          <nuxt-link v-if="showAddProduct" to="/product/add/" class="product">
-            <div class="product-wrapper">
-              <div class="product-gallery">
-                <div class="product-gallery__link">
-                  <div class="product-switcher">
-                    <div class="product-switcher__imgs">
-                      <img class="product-img product-add__img" src="@/assets/img/add-skeleton.png" />
-                      <div class="product-add__block">
-                        <svg
-                          class="product-add__img"
-                          width="48"
-                          height="48"
-                          viewBox="0 0 48 48"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M26 14C26 12.8954 25.1046 12 24 12C22.8954 12 22 12.8954 22 14V22H14C12.8954 22 12 22.8954 12 24C12 25.1046 12.8954 26 14 26H22V34C22 35.1046 22.8954 36 24 36C25.1046 36 26 35.1046 26 34V26H34C35.1046 26 36 25.1046 36 24C36 22.8954 35.1046 22 34 22H26V14ZM12 2H36C41.5228 2 46 6.47715 46 12V36C46 41.5228 41.5228 46 36 46H12C6.47715 46 2 41.5228 2 36V12C2 6.47715 6.47715 2 12 2Z"
-                            stroke="#999999"
-                            stroke-width="4"
-                            stroke-linecap="round"
-                          />
-                        </svg>
-                        <span class="product-add__text">Добавить товар</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-text">
-                  <span class="product-add__rectangle"></span>
-                  <span class="product-add__rectangle"></span>
-                  <span class="product-add__rectangle"></span>
-                  <span class="product-add__rectangle"></span>
-                </div>
-              </div>
-            </div>
-          </nuxt-link>
-
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
             <div class="product-wrapper">
               <div class="product-gallery">
@@ -116,6 +54,7 @@
                     class="product-combobox__dots"
                     :class="{ active: activeDots === product.id }"
                     @click.stop="e => handleSetActiveDots(e, product.id)"
+                    @touchstart.stop="e => handleSetActiveDots(e, product.id)"
                   >
                     <DotsCompanyProductsSvg />
                   </div>
@@ -126,7 +65,9 @@
                     >
                       Изменить
                     </button>
-                    <button class="product-combobox__btn" @click.stop="e => e.preventDefault()">Удалить</button>
+                    <button class="product-combobox__btn" @click.stop="e => handleDeleteProduct(e, product.id)">
+                      Удалить
+                    </button>
                   </div>
                   <div class="product-switcher">
                     <div class="product-switcher__imgs">
@@ -251,6 +192,12 @@
         e.preventDefault()
 
         this.$router.push(`/product/${id}/edit/`)
+      },
+
+      handleDeleteProduct(e, id) {
+        e.preventDefault()
+
+        this.$emit('delete', id)
       },
     },
   }

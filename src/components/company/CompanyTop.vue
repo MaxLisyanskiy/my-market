@@ -2,12 +2,8 @@
   <div :scroll="handleScroll">
     <!-- Banner Desktop -->
     <section class="banner">
-      <div class="banner-bg">
-        <img src="@/assets/img/company-bg_one.png" alt="banner-bg" class="banner-bg__img" />
-      </div>
-
       <div class="banner-info">
-        <div class="banner-info__left">
+        <div class="banner-info-left">
           <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
           <img
             v-else
@@ -17,17 +13,114 @@
           />
           <div class="banner-info__text">
             <h1 class="banner-info__title">{{ company.name }}</h1>
-            <span class="banner-info__description">
+            <div class="banner-info__description">
               <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
                 <span>{{ company.phone }}</span>
               </a>
               <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
                 <span>{{ company.email }}</span>
               </a>
-            </span>
+            </div>
+            <div v-if="!isCompanyOwner" class="banner-info__btns">
+              <a :href="`tel:${company.phone}`" class="banner-info__btns_call"> Позвонить </a>
+              <a :href="`mailto:${company.email}`" class="banner-info__btns_write"> Написать </a>
+            </div>
+            <div v-else class="banner-info__btns">
+              <button class="banner-info__btns_edit" @click="() => (showCompanyEditor = true)">
+                Редактировать профиль
+              </button>
+            </div>
           </div>
         </div>
-        <div class="banner-info__right">
+
+        <validation-observer
+          ref="observer"
+          tag="form"
+          class="banner-info-edit"
+          :class="{ show: showCompanyEditor, error: companyNameError || companyPhoneError || companyEmailError }"
+          @submit.prevent="handleEditCompanyProfile"
+        >
+          <div class="banner-info-edit__wrapp">
+            <!-- <label for="ava">
+              <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+              <img
+                v-else
+                src="@/assets/img/icons/company-not-found-img.svg"
+                alt="company-not-found-img"
+                class="banner-info__logo"
+              />
+            </label>
+            <input type="file" id="ava" name="ava" class="" /> -->
+
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-info__logo"
+            />
+
+            <div class="banner-info-edit__fields">
+              <validation-provider
+                ref="required"
+                rules="required"
+                tag="div"
+                class="validate banner-info-edit__validate-name"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyName"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="on"
+                  placeholder="Введите название компании"
+                  class="banner-info-edit__input-name"
+                  :class="{ error: companyNameError }"
+                  @input="companyNameError = ''"
+                  @change="validateCompanyName"
+                />
+                <span class="validate__error"> {{ companyNameError }} </span>
+              </validation-provider>
+              <validation-provider
+                ref="phone"
+                rules="phone"
+                tag="div"
+                class="validate banner-info-edit__validate"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyPhone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="on"
+                  placeholder="Введите номер телефона компании"
+                  class="banner-info-edit__input banner-info-edit__input_first"
+                  :class="{ error: companyPhoneError }"
+                  @input="companyPhoneError = ''"
+                  @change="validateCompanyPhone"
+                />
+                <span class="validate__error"> {{ companyPhoneError }} </span>
+              </validation-provider>
+              <validation-provider ref="email" rules="email" tag="div" class="validate" mode="lazy">
+                <input
+                  v-model="companyEmail"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="on"
+                  placeholder="Введите e-mail компании"
+                  class="banner-info-edit__input"
+                  :class="{ error: companyEmailError }"
+                  @input="companyEmailError = ''"
+                  @change="validateCompanyEmail"
+                />
+                <span class="validate__error"> {{ companyEmailError }} </span>
+              </validation-provider>
+            </div>
+          </div>
+          <button type="submit" class="banner-info-edit__submitBtn">Сохранить изменения</button>
+        </validation-observer>
+
+        <div class="banner-info-right">
           <form type="search" class="banner-search" @submit.prevent="handleSearchCompanyProducts">
             <input
               type="text"
@@ -39,6 +132,17 @@
             />
             <button type="submit" class="banner-search__btn">Поиск</button>
           </form>
+
+          <div v-if="isCompanyOwner" class="banner-info-right__btns">
+            <nuxt-link to="/product/add/" class="banner-info-right__add">
+              <CompanyAddProductPlusSvg />
+              <span>Добавить товар</span>
+            </nuxt-link>
+            <nuxt-link :to="`/company/${company.id}/settings/`" class="banner-info-right__settings">
+              <CompanySettingsSvg />
+              <span>Настройки</span>
+            </nuxt-link>
+          </div>
         </div>
       </div>
 
@@ -50,42 +154,21 @@
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
-            Главная
+            Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
-            Товары
+            Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'About' }"
           >
-            О компании
-          </nuxt-link>
-        </div>
-        <div class="banner-tabs-connection">
-          <template v-if="!isCompanyOwner">
-            <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
-              <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
-              <span>Позвонить</span>
-            </a>
-            <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
-              <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-              <span> Написать в чат</span>
-            </a>
-          </template>
-          <nuxt-link
-            v-else
-            :to="`/company/${company.id}/settings/`"
-            class="banner-tabs-connection__tel"
-            :class="{ active: activeTab === 'Settings' }"
-          >
-            <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
-            <span>Настройки</span>
+            О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
           </nuxt-link>
         </div>
       </div>
@@ -93,54 +176,180 @@
 
     <!-- Banner Mob -->
     <section v-show="!isComapnySettings" class="banner-mob">
-      <div class="banner-mob-top">
-        <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
-          <LogoWhiteSvg />
-        </nuxt-link>
-        <button v-else class="banner-mob-top__back" @click="$router.go(-1)">
-          <CompanyHeaderBackSvg />
-        </button>
-        <form type="search" class="banner-mob-top__form" @submit.prevent="handleSearchCompanyProducts">
-          <button type="submit" class="banner-mob-top__search-btn">
-            <CompanyHeaderSearchSvg />
+      <div class="banner-mob-top" :class="{ owner: isCompanyOwner, search: showSearchInput }">
+        <template v-if="!isCompanyOwner">
+          <nuxt-link v-if="firstPageVisit" to="/" class="header-mob-logo">
+            <LogoSvg />
+          </nuxt-link>
+          <button v-else class="banner-mob-top__back" @click="$router.go(-1)">
+            <CompanyHeaderBackSvg />
           </button>
-          <input
-            type="text"
-            placeholder="Искать в этом магазине..."
-            class="banner-mob-top__input"
-            :value="companySearchInput"
-            inputmode="search"
-            @input="handleUpdateCompanySearchInput"
-          />
-        </form>
-      </div>
-      <div class="banner-mob-info">
-        <div class="banner-mob-info__wrapp">
-          <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-mob-info__img" />
-          <img
-            v-else
-            src="@/assets/img/icons/company-not-found-img.svg"
-            alt="company-not-found-img"
-            class="banner-mob-info__img"
-          />
-          <div class="banner-mob-info__text">
-            <span class="banner-info__title">{{ company.name }}</span>
-            <div class="banner-info__description">
-              <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                <img src="@/assets/img/icons/company-tel-mob.svg" alt="company-tel" />
-                <span>{{ company.phone }}</span>
-              </a>
-              <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
-                <img src="@/assets/img/icons/company-mail-mob.svg" alt="company-mail" />
-                <span>{{ company.email }}</span>
-              </a>
-            </div>
-            <div class="banner-mob-info__btns">
-              <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
-              <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
+          <form type="search" class="banner-mob-top__form" @submit.prevent="handleSearchCompanyProducts">
+            <button type="submit" class="banner-mob-top__search-btn">
+              <CompanyHeaderSearchSvg />
+            </button>
+            <input
+              type="text"
+              placeholder="Искать в этом магазине..."
+              class="banner-mob-top__input"
+              :value="companySearchInput"
+              inputmode="search"
+              @input="handleUpdateCompanySearchInput"
+            />
+          </form>
+        </template>
+        <template v-else>
+          <div class="banner-mob-top__left">
+            <button v-if="!firstPageVisit && !showSearchInput" class="banner-mob-top__back" @click="$router.go(-1)">
+              <CompanyHeaderBackSvg />
+            </button>
+            <button v-else-if="showSearchInput" class="banner-mob-top__back" @click="() => (showSearchInput = false)">
+              <CompanyHeaderBackSvg />
+            </button>
+          </div>
+          <nuxt-link v-show="!showSearchInput" to="/" class="header-mob-logo banner-mob-top__logo">
+            <LogoSvg />
+          </nuxt-link>
+          <form
+            type="search"
+            class="banner-mob-top__form owner"
+            :class="{ active: showSearchInput }"
+            @submit.prevent="handleSearchCompanyProducts"
+          >
+            <button type="submit" class="banner-mob-top__search-btn">
+              <CompanyHeaderSearchSvg />
+            </button>
+            <input
+              type="text"
+              placeholder="Искать в этом магазине..."
+              class="banner-mob-top__input"
+              :value="companySearchInput"
+              inputmode="search"
+              @input="handleUpdateCompanySearchInput"
+            />
+          </form>
+          <div v-show="!showSearchInput" class="banner-mob-top__right">
+            <div class="banner-mob-top__right_btns">
+              <button class="banner-mob-top__right_search" @click="() => (showSearchInput = true)">
+                <img src="@/assets/img/icons/svg/company/company-owner-search.svg" alt="company-owner-search" />
+              </button>
+              <nuxt-link to="/product/add/" class="banner-mob-top__right_plus">
+                <img src="@/assets/img/icons/svg/company/company-owner-plus.svg" alt="company-owner-plus" />
+              </nuxt-link>
+              <nuxt-link :to="`/company/${company.id}/settings/`">
+                <CompanyOwnerSettingsSvg />
+              </nuxt-link>
             </div>
           </div>
-        </div>
+        </template>
+      </div>
+      <div class="banner-mob-info">
+        <template v-if="!showCompanyEditor">
+          <div class="banner-mob-info__wrapp">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-mob-info__img" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-mob-info__img"
+            />
+            <div class="banner-mob-info__text">
+              <span class="banner-info__title">{{ company.name }}</span>
+              <div class="banner-info__description">
+                <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
+                  <span>{{ company.phone }}</span>
+                </a>
+                <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
+                  <span>{{ company.email }}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div v-if="!isCompanyOwner" class="banner-mob-info__btns">
+            <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
+            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
+          </div>
+          <div v-else class="banner-mob-info__btns">
+            <button class="banner-mob-info__edit" @click="() => (showCompanyEditor = true)">
+              Редактировать профиль
+            </button>
+          </div>
+        </template>
+        <validation-observer
+          ref="observer"
+          tag="form"
+          class="banner-info-edit-mob"
+          :class="{ show: showCompanyEditor }"
+          @submit.prevent="handleEditCompanyProfile"
+        >
+          <div class="banner-info-edit__wrapp">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <img
+              v-else
+              src="@/assets/img/icons/company-not-found-img.svg"
+              alt="company-not-found-img"
+              class="banner-info__logo"
+            />
+
+            <div class="banner-info-edit__fields">
+              <validation-provider
+                ref="required"
+                rules="required"
+                tag="div"
+                class="validate banner-info-edit__validate-name"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyName"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="on"
+                  placeholder="Введите название компании"
+                  class="banner-info-edit__input-name"
+                  :class="{ error: companyNameError }"
+                  @input="companyNameError = ''"
+                  @change="validateCompanyName"
+                />
+                <span class="validate__error"> {{ companyNameError }} </span>
+              </validation-provider>
+              <validation-provider
+                ref="phone"
+                rules="phone"
+                tag="div"
+                class="validate banner-info-edit__validate"
+                mode="lazy"
+              >
+                <input
+                  v-model="companyPhone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="on"
+                  placeholder="Введите номер телефона компании"
+                  class="banner-info-edit__input banner-info-edit__input_first"
+                  :class="{ error: companyPhoneError }"
+                  @input="companyPhoneError = ''"
+                  @change="validateCompanyPhone"
+                />
+                <span class="validate__error"> {{ companyPhoneError }} </span>
+              </validation-provider>
+              <validation-provider ref="email" rules="email" tag="div" class="validate" mode="lazy">
+                <input
+                  v-model="companyEmail"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="on"
+                  placeholder="Введите e-mail компании"
+                  class="banner-info-edit__input"
+                  :class="{ error: companyEmailError }"
+                  @input="companyEmailError = ''"
+                  @change="validateCompanyEmail"
+                />
+                <span class="validate__error"> {{ companyEmailError }} </span>
+              </validation-provider>
+            </div>
+          </div>
+          <button type="submit" class="banner-info-edit__submitBtn">Сохранить изменения</button>
+        </validation-observer>
       </div>
       <div class="banner-tabs">
         <div class="banner-tabs-list">
@@ -186,21 +395,21 @@
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Main' }"
             >
-              Главная
+              Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/products`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Products' }"
             >
-              Товары
+              Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/about/`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'About' }"
             >
-              О компании
+              О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
             </nuxt-link>
           </div>
         </div>
@@ -215,13 +424,8 @@
               <span> Написать в чат</span>
             </a>
           </template>
-          <nuxt-link
-            v-else
-            :to="`/company/${company.id}/settings/`"
-            class="banner-tabs-connection__tel"
-            :class="{ active: activeTab === 'Settings' }"
-          >
-            <img src="@/assets/img/icons/company-settings.svg" alt="company-settings" />
+          <nuxt-link v-else :to="`/company/${company.id}/settings/`" class="banner-tabs-connection__settings">
+            <CompanySettingsSvg />
             <span>Настройки</span>
           </nuxt-link>
         </div>
@@ -233,13 +437,27 @@
 <script>
   import { mapState, mapMutations } from 'vuex'
 
-  import CompanyHeaderBackSvg from '@/assets/img/icons/svg/company-header-back.svg?inline'
-  import CompanyHeaderSearchSvg from '@/assets/img/icons/svg/company-header-search.svg?inline'
-  import LogoWhiteSvg from '@/assets/img/icons/svg/logo-white.svg?inline'
+  import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
+  import CompanyArrowDownSvg from '@/assets/img/icons/company-arrow-down.svg?inline'
+
+  import CompanyHeaderBackSvg from '@/assets/img/icons/svg/company/company-header-back.svg?inline'
+  import CompanyHeaderSearchSvg from '@/assets/img/icons/svg/company/company-header-search.svg?inline'
+  import CompanyAddProductPlusSvg from '@/assets/img/icons/svg/company/company-add-product-plus.svg?inline'
+  import CompanySettingsSvg from '@/assets/img/icons/svg/company/company-settings.svg?inline'
+
+  import CompanyOwnerSettingsSvg from '@/assets/img/icons/svg/company/company-owner-settings.svg?inline'
 
   export default {
     name: 'CompanyTop',
-    components: { CompanyHeaderBackSvg, CompanyHeaderSearchSvg, LogoWhiteSvg },
+    components: {
+      LogoSvg,
+      CompanyHeaderBackSvg,
+      CompanyHeaderSearchSvg,
+      CompanyArrowDownSvg,
+      CompanyAddProductPlusSvg,
+      CompanySettingsSvg,
+      CompanyOwnerSettingsSvg,
+    },
     props: {
       company: {
         type: Object,
@@ -253,6 +471,16 @@
     data() {
       return {
         scrolledToTabs: true,
+        showSearchInput: false,
+        showCompanyEditor: false,
+
+        companyName: '',
+        companyPhone: '',
+        companyEmail: '',
+
+        companyNameError: '',
+        companyPhoneError: '',
+        companyEmailError: '',
       }
     },
     computed: {
@@ -274,6 +502,10 @@
       },
     },
     mounted() {
+      this.companyName = this.company.name || ''
+      this.companyPhone = this.company.phone || ''
+      this.companyEmail = this.company.email || ''
+
       window.addEventListener('scroll', this.handleScroll)
     },
     destroyed() {
@@ -316,6 +548,78 @@
         this.scrolledToTabs = top < height && top > 0
 
         this.$emit('scrolled', this.scrolledToTabs)
+      },
+
+      validateCompanyName() {
+        this.companyNameError = ''
+
+        if (this.companyName.length === 0) {
+          this.companyNameError = 'Обязательное поле'
+        }
+      },
+
+      validateCompanyPhone() {
+        this.companyPhoneError = ''
+
+        if (this.companyPhone.length === 0) {
+          this.companyPhoneError = 'Обязательное поле'
+        } else if (
+          // eslint-disable-next-line
+          !/^[0-9]{11}$/.test(this.companyPhone.replace(/\D/g, ''))
+        ) {
+          this.companyPhoneError = 'Телефон должен содержать 11 цифр'
+        }
+      },
+
+      validateCompanyEmail() {
+        this.companyEmailError = ''
+
+        if (this.companyEmail.length === 0) {
+          this.companyEmailError = 'Обязательное поле'
+        } else if (
+          // eslint-disable-next-line
+          !/^[A-z0-9\-\.\_]+@[A-z\-\.\_]+$/.test(this.companyEmail)
+        ) {
+          this.companyEmailError = 'Введите корректную почту'
+        }
+      },
+
+      async handleEditCompanyProfile() {
+        this.validateCompanyName()
+        this.validateCompanyPhone()
+        this.validateCompanyEmail()
+
+        const form = {
+          name: this.companyName,
+          phone: this.companyPhone,
+          email: this.companyEmail,
+        }
+
+        if (!this.companyNameError && !this.companyPhoneError && !this.companyEmailError) {
+          const body = {
+            _method: 'PATCH',
+            name: this.companyName,
+            phone: this.companyPhone,
+            email: this.companyEmail,
+          }
+          const result = await this.$companyService.updateCompany(body)
+
+          if (result[0]) {
+            this.$notify({
+              title: '',
+              message: 'Данные о компании были успешно изменены!',
+              type: 'success',
+            })
+            this.$emit('updateCompany')
+            this.showCompanyEditor = false
+          } else {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при изменение данных о компании',
+              type: 'error',
+            })
+          }
+        }
       },
     },
   }

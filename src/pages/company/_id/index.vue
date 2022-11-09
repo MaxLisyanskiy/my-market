@@ -1,6 +1,6 @@
 <template>
   <article class="companyWrapper">
-    <CompanyTop :company="company" :active-tab="'Main'" />
+    <CompanyTop :company="company" :active-tab="'Main'" @updateCompany="handleUpdateCompany" />
     <CompanyMain :company="company" />
   </article>
 </template>
@@ -45,6 +45,11 @@
     },
     methods: {
       ...mapActions('company', ['SET_COMPANY_SEARCH_QUERY']),
+
+      async handleUpdateCompany() {
+        const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
+        this.company = company
+      },
     },
   }
 </script>
