@@ -78,24 +78,34 @@
         <div class="header-product__loupe" :class="{ hide: searchProductInput }" @click="handleShowSearchInput(true)">
           <SearchIconLoopSvg class="header-product__loupe-img" />
         </div>
-        <div :class="{ active: shareMobLink }" @click="shareShowMob" class="header-product__share">
+        <div class="header-product__share" :class="{ active: shareMobLink }" @click="shareShowMob">
           <HeaderShareSvg class="header-product__share-icon" />
         </div>
       </div>
 
       <div :class="{ active: shareMob }" class="header-share__block">
-        <div class="header-product__copy">
+        <div class="header-product__copy" @click="handleCopyURL">
           <CopyShareSvg class="header-product__copy-icon" />
           <span class="header-product__copy-text">Коп. ссылку</span>
         </div>
-        <div class="header-product__social">
-          <TelegramSvg class="header-product__social-icon" />
-        </div>
-        <div class="header-product__social">
-          <WhatsappSvg class="header-product__social-icon" />
-        </div>
+        <a
+          :href="`https://t.me/share/url?url=${locationHref}&text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="header-product__social">
+            <TelegramSvg class="header-product__social-icon" />
+          </div>
+        </a>
+        <a
+          :href="`https://api.whatsapp.com/send?text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="header-product__social">
+            <WhatsappSvg class="header-product__social-icon" />
+          </div>
+        </a>
         <div class="header-product__close">
-          <CloseShareSvg @click="shareHideMob" class="header-product__close-icon" />
+          <CloseShareSvg class="header-product__close-icon" @click="shareHideMob" />
         </div>
       </div>
     </div>
@@ -212,6 +222,9 @@
         headerProductMob: true,
         searchProductInput: false,
         isAddNewSpecVisible: true,
+
+        locationHref: '',
+        product: '',
       }
     },
     computed: {
@@ -239,6 +252,12 @@
       },
     },
     mounted() {
+      this.locationHref = window.location.href
+
+      if (this.$route.name === 'product-id') {
+        this.handleGetProductById(this.$route.params.id)
+      }
+
       document.addEventListener('click', this.onClick)
     },
     destroyed() {
@@ -317,6 +336,24 @@
       // Open modal auth
       handleShowModalAuth() {
         this.SET_SHOW_MODAL_AUTH(true)
+      },
+
+      async handleGetProductById(id) {
+        const { product, company } = await this.$nuxt.$productService.getProductById(id)
+
+        this.product = product
+      },
+
+      handleCopyURL() {
+        navigator.clipboard.writeText(window.location.href)
+
+        this.$notify({
+          title: '',
+          message: 'Ссылка на товар успешно скопирована',
+          type: 'success',
+        })
+
+        this.shareHideMob()
       },
     },
   }

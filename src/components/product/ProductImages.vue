@@ -3,24 +3,34 @@
     <div class="product-left__img" :class="{ showMainMobImg: product.images.length === 1 }">
       <img v-lazy="mainImg" :alt="product.name" />
 
-      <div :class="{ active: shareDesktopLink }" @click="shareShowDesktop" class="product-left__share">
+      <div class="product-left__share" :class="{ active: shareDesktopLink }" @click="shareShowDesktop">
         <a class="product-left__share-link">
           <ShareSvg class="product-left__share-img" />
         </a>
       </div>
 
       <div :class="{ active: shareDesktop }" class="product-share">
-        <div class="product-share__copy">
+        <div class="product-share__copy" @click="handleCopyURL">
           <CopyShareSvg class="product-share__copy-icon" />
           <span class="product-share__copy-text">Коп. ссылку</span>
         </div>
-        <div class="product-share__social">
-          <TelegramDesktopSvg class="product-share__social-icon" />
-        </div>
-        <div class="product-share__social">
-          <WhatsappDesktopSvg class="product-share__social-icon" />
-        </div>
-        <div @click="shareHideDesktop" class="product-share__close">
+        <a
+          :href="`https://t.me/share/url?url=${locationHref}&text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="product-share__social">
+            <TelegramDesktopSvg class="product-share__social-icon" />
+          </div>
+        </a>
+        <a
+          :href="`https://api.whatsapp.com/send?text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="product-share__social">
+            <WhatsappDesktopSvg class="product-share__social-icon" />
+          </div>
+        </a>
+        <div class="product-share__close" @click="shareHideDesktop">
           <CloseShareDesktopSvg class="product-share__close-icon" />
         </div>
       </div>
@@ -33,7 +43,7 @@
       :click-handler="handleSetMainImg"
     />
 
-    <div :class="{ active: shareDesktopLink }" @click="shareShowDesktop" class="product-left__share">
+    <div class="product-left__share" :class="{ active: shareDesktopLink }" @click="shareShowDesktop">
       <a class="product-left__share-link">
         <ShareSvg class="product-left__share-img" />
       </a>
@@ -50,7 +60,7 @@
       <div class="product-share__social">
         <WhatsappDesktopSvg class="product-share__social-icon" />
       </div>
-      <div @click="shareHideDesktop" class="product-share__close">
+      <div class="product-share__close" @click="shareHideDesktop">
         <CloseShareDesktopSvg class="product-share__close-icon" />
       </div>
     </div>
@@ -90,12 +100,16 @@
         indexImg: 0,
         shareDesktop: false,
         shareDesktopLink: true,
+        locationHref: '',
       }
     },
     computed: {
       mainImg() {
         return this.product?.images?.[this.indexImg]?.url
       },
+    },
+    mounted() {
+      this.locationHref = window.location.href
     },
     methods: {
       /**
@@ -112,6 +126,15 @@
       shareHideDesktop() {
         this.shareDesktop = false
         this.shareDesktopLink = true
+      },
+      handleCopyURL() {
+        navigator.clipboard.writeText(window.location.href)
+        this.$notify({
+          title: '',
+          message: 'Ссылка на товар успешно скопирована',
+          type: 'success',
+        })
+        this.shareHideDesktop()
       },
     },
   }
