@@ -1,12 +1,12 @@
 <template>
-  <AuthSignup :main-error="mainError" @login="register" />
+  <AuthSignup :main-error="mainError" @register="register" />
 </template>
 
 <script>
   import AuthSignup from '@/components/auth/AuthSignup.vue'
 
   export default {
-    name: 'LoginPage',
+    name: 'RegisterPage',
     components: { AuthSignup },
     layout: 'customLayout',
 
@@ -23,21 +23,9 @@
     },
     methods: {
       register(body) {
-        this.$auth
-          .loginWith('local', { data: body })
-          .then(async () => {
-            const { data } = await this.$auth.fetchUser(body)
-            this.$auth.setUser(data.data.user)
-          })
-          .then(() => {
-            this.$router.push(`/company/${this.$auth.user.company_id}/products/`)
-          })
-          .catch(({ response }) => {
-            if (response.status === 401) {
-              return (this.mainError = 'Неверный логин или пароль')
-            }
-            this.mainError = 'Что-то пошло не так :('
-          })
+        this.$authService.signup(body)
+        // .then()
+        // .catch()
       },
     },
   }

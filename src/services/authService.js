@@ -35,5 +35,17 @@ export default ($axios, error) => {
         return data
       })
     },
+
+    /**
+     * Signup
+     *
+     * @param {object} body company id
+     * @returns {object} Object with field status and token
+     */
+    signup: async body => {
+      return await $axios.post('/signup', body).then(({ data }) => {
+        return data
+      })
+    },
   }
 }

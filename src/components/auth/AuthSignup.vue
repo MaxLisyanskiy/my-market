@@ -68,7 +68,7 @@
           <span class="validate__error validate__error_last"> {{ errors[0] }} </span>
         </validation-provider>
 
-        <button type="submit" class="auth-form__btn disabled">Подать заявку</button>
+        <button type="submit" class="auth-form__btn">Подать заявку</button>
         <span v-if="mainError" class="validate__main-error">{{ mainError }}</span>
         <nuxt-link to="/login/" class="auth-form__link"> Назад </nuxt-link>
       </validation-observer>
@@ -102,6 +102,17 @@
     methods: {
       async submit() {
         const isValid = await this.$refs.observer.validate()
+
+        const body = {
+          name: this.name,
+          inn: this.inn,
+          email: this.email,
+          phone: this.phone,
+        }
+
+        if (isValid) {
+          this.$emit('register', body)
+        }
       },
     },
   }
