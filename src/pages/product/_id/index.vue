@@ -11,6 +11,7 @@
     name: 'ProductIdPage',
     components: { Product },
     layout: 'default',
+
     async asyncData({ app, store, params }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
