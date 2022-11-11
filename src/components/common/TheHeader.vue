@@ -78,7 +78,7 @@
         <div class="header-product__loupe" :class="{ hide: searchProductInput }" @click="handleShowSearchInput(true)">
           <SearchIconLoopSvg class="header-product__loupe-img" />
         </div>
-        <div class="header-product__share" :class="{ active: shareMobLink }" @click="shareShowMob">
+        <div class="header-product__share" :class="{ active: shareMobLink }" @click="handleShareMob">
           <HeaderShareSvg class="header-product__share-icon" />
         </div>
       </div>
@@ -354,6 +354,24 @@
         })
 
         this.shareHideMob()
+      },
+
+      handleShareMob() {
+        if (navigator.share) {
+          navigator.share({
+            title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            text: 'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
+            url: window.location.href,
+          })
+          // .then(function () {
+          //   console.log('Shareing successfull')
+          // })
+          // .catch(function () {
+          //   console.log('Sharing failed')
+          // })
+        } else {
+          this.shareShowMob()
+        }
       },
     },
   }
