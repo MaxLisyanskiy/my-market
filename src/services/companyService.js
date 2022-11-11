@@ -4,11 +4,12 @@ export default ($axios, error) => {
      * Get company by id
      *
      * @param {number} id company id
+     * @param {boolean} include add include
      * @returns {object} Object with field company
      */
-    getCompanyById: async id => {
+    getCompanyById: async (id, include = null) => {
       return await $axios
-        .get(`/companies/${id}`)
+        .get(`/companies/${id}${include ? '?include=requisites' : ''}`)
         .then(({ data }) => {
           return { ...data.data }
         })

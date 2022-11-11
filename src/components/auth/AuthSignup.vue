@@ -68,8 +68,24 @@
           <span class="validate__error validate__error_last"> {{ errors[0] }} </span>
         </validation-provider>
 
+        <!-- Пароль -->
+        <validation-provider v-slot="{ errors }" ref="password" rules="password" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="password"
+            type="password"
+            inputmode="text"
+            placeholder="Пароль"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+          />
+          <span class="validate__error validate__error_last"> {{ errors[0] }} </span>
+        </validation-provider>
+
         <button type="submit" class="auth-form__btn">Подать заявку</button>
-        <span v-if="mainError" class="validate__main-error">{{ mainError }}</span>
+        <div v-if="mainError.length > 0" class="validate__main-error validate__main-error_array">
+          <p v-for="errorText in mainError" :key="errorText">{{ errorText }}</p>
+        </div>
         <nuxt-link to="/login/" class="auth-form__link"> Назад </nuxt-link>
       </validation-observer>
     </div>
@@ -85,8 +101,8 @@
     components: { LoginTitleSvg, AuthRegisterSvg },
     props: {
       mainError: {
-        type: String,
-        default: '',
+        type: Array,
+        default: () => [],
       },
     },
     data() {
@@ -95,8 +111,7 @@
         inn: '',
         email: '',
         phone: '',
-
-        main_error: '',
+        password: '',
       }
     },
     methods: {
@@ -108,6 +123,7 @@
           inn: this.inn,
           email: this.email,
           phone: this.phone,
+          password: this.password,
         }
 
         if (isValid) {
@@ -117,10 +133,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .disabled {
-    background: #afadad;
-    cursor: not-allowed;
-  }
-</style>

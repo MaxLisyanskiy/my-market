@@ -30,8 +30,8 @@ extend('repeatPassword', {
 
 extend('inn', {
   validate(value) {
-    if (/^\d{12}$/.test(value)) return true
-    return 'ИНН должен содержать 12 цифр'
+    if (/^\d{10}$/.test(value)) return true
+    return 'ИНН должен содержать 10 цифр'
   },
   computesRequired: true,
 })
