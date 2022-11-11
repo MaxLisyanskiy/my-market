@@ -17,7 +17,6 @@
     layout: 'default',
 
     async asyncData({ app, params }) {
-      // const { product, company } = await app.$productService.getProductById(params.id)
       const { company } = await app.$companyService.getCompanyById(params.id)
 
       return { company }
