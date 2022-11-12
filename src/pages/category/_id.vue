@@ -4,13 +4,14 @@
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
       <CatalogProducts :products="products" />
+      <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
-    <AppPagination
+    <!-- <AppPagination
       v-if="pagen.total > countProducts"
       :initial-page="pagen.page"
       :page-count="Math.ceil(pagen.total / countProducts)"
       :click-handler="handleClickPagination"
-    />
+    /> -->
   </section>
 </template>
 
@@ -21,11 +22,11 @@
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
-  import AppPagination from '~/components/UI/AppPagination.vue'
+  // import AppPagination from '~/components/UI/AppPagination.vue'
 
   export default {
     name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts, AppPagination },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts },
     layout: 'catalog',
 
     async asyncData({ app, store, params, query, error }) {
@@ -76,6 +77,14 @@
         ],
       }
     },
+    computed: {
+      showInfiniteLoading() {
+        if (this.products.length >= 20 && this.pagen.total > this.products.length) {
+          return true
+        }
+        return false
+      },
+    },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
 
@@ -95,6 +104,24 @@
         this.pagen = pagen
 
         this.$router.push(`${this.$route.path}?p=${pageNum}`)
+      },
+
+      infiniteHandler($state) {
+        this.$categoryService
+          .getProductsCategory(this.$route.params.id, this.pagen.page + 1, this.countProducts)
+          .then(({ products, pagen }) => {
+            if (products.length) {
+              this.products.push(...products)
+              this.pagen = pagen
+              if (pagen.total > this.products.length) {
+                $state.complete()
+              } else {
+                $state.loaded()
+              }
+            } else {
+              $state.complete()
+            }
+          })
       },
     },
   }

@@ -2,6 +2,7 @@
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'Products'" @updateCompany="handleUpdateCompany" />
     <CompanyProducts :products="products" :company="company" :categories="categories" @delete="deleteProduct" />
+    <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
   </article>
 </template>
 
@@ -19,7 +20,7 @@
     async asyncData({ app, store, params, query }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products, categories } = await app.$companyService.getCompanyProducts(
+      const { products, pagen, categories } = await app.$companyService.getCompanyProducts(
         params.id,
         1,
         20,
@@ -30,7 +31,7 @@
       // Check query in the routing and set query in store
       await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
 
-      return { company, products, categories }
+      return { company, products, pagen, categories }
     },
 
     data() {
@@ -101,6 +102,13 @@
     },
     computed: {
       ...mapState('company', ['companySearchQuery']),
+
+      showInfiniteLoading() {
+        if (this.products.length >= 20 && this.pagen.total > this.products.length) {
+          return true
+        }
+        return false
+      },
     },
     watch: {
       '$route.query'() {
@@ -142,6 +150,24 @@
       async handleUpdateCompany() {
         const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
         this.company = company
+      },
+
+      infiniteHandler($state) {
+        this.$companyService
+          .getCompanyProducts(this.$route.params.id, this.pagen.page + 1, this.countProducts)
+          .then(({ products, pagen }) => {
+            if (products.length) {
+              this.products.push(...products)
+              this.pagen = pagen
+              if (pagen.total > this.products.length) {
+                $state.complete()
+              } else {
+                $state.loaded()
+              }
+            } else {
+              $state.complete()
+            }
+          })
       },
     },
   }
