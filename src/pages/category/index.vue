@@ -26,12 +26,58 @@
     },
     head() {
       return {
-        title: `Все категории | VALE.SU`,
+        title: `Все Категории | VALE.SU`,
         meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Все категории | VALE.SU`,
+          },
           {
             hid: 'description',
             name: 'description',
-            content: `Все категории`,
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Все категории | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
           },
         ],
       }

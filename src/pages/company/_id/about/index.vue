@@ -65,7 +65,7 @@
           {
             hid: 'title',
             name: 'title',
-            content: `${this.company.name} | Товары`,
+            content: `${this.company.name} | Описание | VALE.SU `,
           },
           {
             hid: 'description',
@@ -75,7 +75,7 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `${this.company.name} | Товары`,
+            content: `${this.company.name} | Описание`,
           },
           {
             hid: 'og:site_name',

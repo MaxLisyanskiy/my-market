@@ -34,9 +34,55 @@
         title: `Добавить товар | VALE.SU`,
         meta: [
           {
+            hid: 'title',
+            name: 'title',
+            title: `Добавить товар | VALE.SU`,
+          },
+          {
             hid: 'description',
             name: 'description',
-            content: `Добавить товар | VALE.SU`,
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            title: `Добавить товар | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            title: `Добавить товар | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
           },
         ],
       }

@@ -33,7 +33,58 @@
     head() {
       return {
         title: `Сброс пароля | VALE.SU`,
-        meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+        meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            title: `Сброс пароля | VALE.SU`,
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: `гарантируем качество товара и организовываем доставку`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            title: `Сброс пароля | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `гарантируем качество товара и организовываем доставку`,
+          },
+          {
+            hid: 'og:image',
+            name: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            title: `Сброс пароля | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `гарантируем качество товара и организовываем доставку`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+        ],
       }
     },
     methods: {

@@ -18,7 +18,54 @@
     head() {
       return {
         title: `Регистрация | VALE.SU`,
-        meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+        meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Регистрация | VALE.SU`,
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Регистрация | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: `Регистрация | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+        ],
       }
     },
     methods: {
