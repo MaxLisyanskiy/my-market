@@ -3,7 +3,7 @@
 const title = 'Оптовый интернет магазин VALE.SU'
 const description =
   'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU'
-const image = ''
+const image = `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
 
 const meta = [
   { charset: 'utf-8' },

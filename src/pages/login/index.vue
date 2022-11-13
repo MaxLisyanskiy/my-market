@@ -19,7 +19,58 @@
     head() {
       return {
         title: `Вход в аккаунт | VALE.SU`,
-        meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+        meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Вход в аккаунт | VALE.SU`,
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Вход в аккаунт | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:image',
+            name: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+        ],
       }
     },
     methods: {

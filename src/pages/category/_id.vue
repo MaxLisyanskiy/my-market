@@ -51,6 +51,7 @@
         products: [],
         pagen: [],
         countProducts: 20,
+        image: '',
       }
     },
     fetch() {
@@ -67,12 +68,58 @@
     },
     head() {
       return {
-        title: `${this.category?.name} | VALE.SU`,
+        title: `Категория | ${this.category.name}`,
         meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Категория | ${this.category.name}`,
+          },
           {
             hid: 'description',
             name: 'description',
-            content: `${this.category?.name} по ценам от заводов России. Низкие цены доставка в регионы. Гарантия качества.`,
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Категория | ${this.category.name}`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
           },
         ],
       }

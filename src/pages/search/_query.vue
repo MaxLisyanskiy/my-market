@@ -52,9 +52,54 @@
         title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
         meta: [
           {
+            hid: 'title',
+            name: 'title',
+            title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
+          },
+          {
             hid: 'description',
             name: 'description',
             content: `${this.searchQuery ?? 'Товары не найдены'}`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `${this.searchQuery ?? 'Товары не найдены'}`,
+          },
+          {
+            hid: 'og:image',
+            name: 'og:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `${this.searchQuery ?? 'Товары не найдены'}`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ``,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
           },
         ],
       }
