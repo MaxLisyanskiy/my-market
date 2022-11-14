@@ -21,7 +21,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: `гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
           },
           {
             hid: 'og:title',
@@ -36,12 +36,7 @@
           {
             hid: 'og:description',
             name: 'og:description',
-            content: `гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
-          },
-          {
-            hid: 'og:image',
-            name: 'og:image',
-            content: ``,
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
           },
           {
             hid: 'twitter:title',
@@ -51,12 +46,7 @@
           {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: `гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
           },
           {
             hid: 'twitter:card',

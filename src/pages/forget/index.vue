@@ -42,7 +42,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: `гарантируем качество товара и организовываем доставку`,
+            content: `Мы гарантируем качество товара и организовываем доставку`,
           },
           {
             hid: 'og:title',
@@ -57,12 +57,7 @@
           {
             hid: 'og:description',
             name: 'og:description',
-            content: `гарантируем качество товара и организовываем доставку`,
-          },
-          {
-            hid: 'og:image',
-            name: 'og:image',
-            content: ``,
+            content: `Мы гарантируем качество товара и организовываем доставку`,
           },
           {
             hid: 'twitter:title',
@@ -72,12 +67,7 @@
           {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: `гарантируем качество товара и организовываем доставку`,
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
+            content: `Мы гарантируем качество товара и организовываем доставку`,
           },
           {
             hid: 'twitter:card',

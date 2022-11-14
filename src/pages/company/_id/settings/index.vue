@@ -65,7 +65,9 @@
           {
             hid: 'og:image',
             name: 'og:image',
-            content: `${this.company.logo?.url}`,
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
           },
           {
             hid: 'twitter:title',
@@ -73,14 +75,16 @@
             content: 'Оптовый интернет магазин VALE.SU',
           },
           {
-            hid: 'twitter:descriptio',
-            name: 'twitter:descriptio',
+            hid: 'twitter:description',
+            name: 'twitter:description',
             content: `${this.company.description}`,
           },
           {
             hid: 'twitter:image',
             name: 'twitter:image',
-            content: `${this.company.logo?.url}`,
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
           },
           {
             hid: 'twitter:card',

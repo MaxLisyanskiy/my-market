@@ -60,12 +60,12 @@
     },
     head() {
       return {
-        title: `${this.company.name} | VALE.SU`,
+        title: `${this.company.name} - О компании | VALE.SU`,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `${this.company.name} | Описание | VALE.SU `,
+            content: `${this.company.name} - О компании | VALE.SU`,
           },
           {
             hid: 'description',
@@ -75,7 +75,7 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `${this.company.name} | Описание`,
+            content: `${this.company.name} - О компании | VALE.SU`,
           },
           {
             hid: 'og:site_name',
@@ -90,7 +90,31 @@
           {
             hid: 'og:image',
             name: 'og:image',
-            content: `${this.company.logo?.url}`,
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: `${this.company.name} - О компании | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `${this.company.description}`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
           },
         ],
       }

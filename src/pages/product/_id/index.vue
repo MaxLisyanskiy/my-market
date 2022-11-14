@@ -86,12 +86,12 @@
     },
     head() {
       return {
-        title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+        title: `${this.product.name} | VALE.SU`,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            content: `${this.product.name} | VALE.SU`,
           },
           {
             hid: 'description',
@@ -101,7 +101,7 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            content: `${this.product.name} | VALE.SU`,
           },
           {
             hid: 'og:site_name',
@@ -122,7 +122,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            title: `${this.product.name} | VALE.SU`,
           },
           {
             hid: 'twitter:description',

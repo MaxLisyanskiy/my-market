@@ -59,12 +59,6 @@
             content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
           },
           {
-            hid: 'og:image',
-            itemprop: 'image',
-            property: 'og:image',
-            content: ``,
-          },
-          {
             hid: 'twitter:title',
             name: 'twitter:title',
             title: `Добавить товар | VALE.SU`,
@@ -78,11 +72,6 @@
             hid: 'twitter:card',
             name: 'twitter:card',
             content: 'summary',
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
           },
         ],
       }

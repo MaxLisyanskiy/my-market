@@ -77,11 +77,6 @@
             content: `${this.searchQuery ?? 'Товары не найдены'}`,
           },
           {
-            hid: 'og:image',
-            name: 'og:image',
-            content: ``,
-          },
-          {
             hid: 'twitter:title',
             name: 'twitter:title',
             title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
@@ -90,11 +85,6 @@
             hid: 'twitter:description',
             name: 'twitter:description',
             content: `${this.searchQuery ?? 'Товары не найдены'}`,
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
           },
           {
             hid: 'twitter:card',
