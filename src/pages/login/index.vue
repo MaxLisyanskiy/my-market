@@ -46,11 +46,6 @@
             content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
           },
           {
-            hid: 'og:image',
-            name: 'og:image',
-            content: ``,
-          },
-          {
             hid: 'twitter:title',
             name: 'twitter:title',
             content: 'Оптовый интернет магазин VALE.SU',
@@ -59,11 +54,6 @@
             hid: 'twitter:description',
             name: 'twitter:description',
             content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
           },
           {
             hid: 'twitter:card',

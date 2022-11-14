@@ -64,20 +64,9 @@
             content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
           },
           {
-            hid: 'og:image',
-            itemprop: 'image',
-            property: 'og:image',
-            content: ``,
-          },
-          {
             hid: 'twitter:card',
             name: 'twitter:card',
             content: 'summary',
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: ``,
           },
         ],
       }

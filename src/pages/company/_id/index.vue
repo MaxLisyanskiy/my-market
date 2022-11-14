@@ -38,7 +38,7 @@
           {
             hid: 'title',
             name: 'title',
-            content: `${this.company.name} | Товары`,
+            content: `${this.company.name} | VALE.SU`,
           },
           {
             hid: 'description',
@@ -48,7 +48,7 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `${this.company.name} | Товары`,
+            content: `${this.company.name} | VALE.SU`,
           },
           {
             hid: 'og:site_name',
@@ -63,7 +63,9 @@
           {
             hid: 'og:image',
             name: 'og:image',
-            content: `${this.company.logo?.url}`,
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
           },
           {
             hid: 'twitter:title',
@@ -78,7 +80,9 @@
           {
             hid: 'twitter:image',
             name: 'twitter:image',
-            content: `${this.company.logo?.url}`,
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
           },
           {
             hid: 'twitter:card',
