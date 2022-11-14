@@ -154,21 +154,21 @@
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
-            Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
+            Главная 
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
-            Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
+            Товары 
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'About' }"
           >
-            О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
+            О компании
           </nuxt-link>
         </div>
       </div>
@@ -395,21 +395,21 @@
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Main' }"
             >
-              Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
+              Главная 
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/products`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Products' }"
             >
-              Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
+              Товары 
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/about/`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'About' }"
             >
-              О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
+              О компании 
             </nuxt-link>
           </div>
         </div>
@@ -438,7 +438,6 @@
   import { mapState, mapMutations } from 'vuex'
 
   import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
-  import CompanyArrowDownSvg from '@/assets/img/icons/company-arrow-down.svg?inline'
 
   import CompanyHeaderBackSvg from '@/assets/img/icons/svg/company/company-header-back.svg?inline'
   import CompanyHeaderSearchSvg from '@/assets/img/icons/svg/company/company-header-search.svg?inline'
@@ -453,7 +452,6 @@
       LogoSvg,
       CompanyHeaderBackSvg,
       CompanyHeaderSearchSvg,
-      CompanyArrowDownSvg,
       CompanyAddProductPlusSvg,
       CompanySettingsSvg,
       CompanyOwnerSettingsSvg,
