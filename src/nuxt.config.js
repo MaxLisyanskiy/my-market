@@ -41,6 +41,7 @@ export default {
     { src: '~/plugins/elementUI.js' },
     { src: '~/plugins/vue-custom-scrollbar.js' },
     { src: '~/plugins/vue-otp-input.js' },
+    { src: '~/plugins/vue-infinite-loading.js' },
   ],
 
   // Customize the progress-bar color

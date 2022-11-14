@@ -36,9 +36,58 @@
         title: `${this.company.name} | VALE.SU`,
         meta: [
           {
+            hid: 'title',
+            name: 'title',
+            content: `${this.company.name} | VALE.SU`,
+          },
+          {
             hid: 'description',
             name: 'description',
-            content: `${this.company.name}  - низкие цены, гарантия качества`,
+            content: `${this.company.description}`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `${this.company.name} | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `${this.company.description}`,
+          },
+          {
+            hid: 'og:image',
+            name: 'og:image',
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `${this.company.description}`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: `${
+              this.company.logo?.url ? this.company.logo.url : `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+            }`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
           },
         ],
       }

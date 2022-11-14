@@ -4,13 +4,14 @@
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
       <CatalogProducts :products="products" />
+      <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
-    <AppPagination
+    <!-- <AppPagination
       v-if="pagen.total > countProducts"
       :initial-page="pagen.page"
       :page-count="Math.ceil(pagen.total / countProducts)"
       :click-handler="handleClickPagination"
-    />
+    /> -->
   </section>
 </template>
 
@@ -21,11 +22,11 @@
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
-  import AppPagination from '~/components/UI/AppPagination.vue'
+  // import AppPagination from '~/components/UI/AppPagination.vue'
 
   export default {
     name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts, AppPagination },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts },
     layout: 'catalog',
 
     async asyncData({ app, store, params, query, error }) {
@@ -50,6 +51,7 @@
         products: [],
         pagen: [],
         countProducts: 20,
+        image: '',
       }
     },
     fetch() {
@@ -66,15 +68,58 @@
     },
     head() {
       return {
-        title: `${this.category?.name} | VALE.SU`,
+        title: `Категория | ${this.category.name}`,
         meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Категория | ${this.category.name}`,
+          },
           {
             hid: 'description',
             name: 'description',
-            content: `${this.category?.name} по ценам от заводов России. Низкие цены доставка в регионы. Гарантия качества.`,
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Категория | ${this.category.name}`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: `Категория | ${this.category.name}`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
           },
         ],
       }
+    },
+    computed: {
+      showInfiniteLoading() {
+        if (this.products.length >= 20 && this.pagen.total > this.products.length) {
+          return true
+        }
+        return false
+      },
     },
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
@@ -95,6 +140,24 @@
         this.pagen = pagen
 
         this.$router.push(`${this.$route.path}?p=${pageNum}`)
+      },
+
+      infiniteHandler($state) {
+        this.$categoryService
+          .getProductsCategory(this.$route.params.id, this.pagen.page + 1, this.countProducts)
+          .then(({ products, pagen }) => {
+            if (products.length) {
+              this.products.push(...products)
+              this.pagen = pagen
+              if (pagen.total > this.products.length) {
+                $state.complete()
+              } else {
+                $state.loaded()
+              }
+            } else {
+              $state.complete()
+            }
+          })
       },
     },
   }

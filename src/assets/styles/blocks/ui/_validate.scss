@@ -15,9 +15,9 @@
 
     &_last {
       margin-bottom: 20px;
-	  @media(max-width:768px){
-		margin-bottom:0;
-	  }
+      @media (max-width: 768px) {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -29,5 +29,11 @@
     line-height: 19px;
     margin-top: 15px;
     text-align: center;
+
+    &_array {
+      & p {
+        margin-bottom: 5px;
+      }
+    }
   }
 }

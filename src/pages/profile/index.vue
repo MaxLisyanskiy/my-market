@@ -11,8 +11,49 @@
 
     head() {
       return {
-        title: 'Профиль компании | VALE.SU',
-        meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }],
+        title: `Профиль компании | VALE.SU`,
+        meta: [
+          {
+            hid: 'title',
+            name: 'title',
+            content: `Профиль компании | VALE.SU`,
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `Профиль компании | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            content: `Профиль компании | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Мы гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+        ],
       }
     },
   }

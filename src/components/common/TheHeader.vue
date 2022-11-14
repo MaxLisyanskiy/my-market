@@ -40,42 +40,73 @@
     </div>
 
     <div v-if="showMobileHeader === 'product'" class="header-product sticky">
-      <div
-        class="header-block header-product__back"
-        :class="{ hide: searchProductInput, dontShow: firstPageVisit }"
-        @click="$router.go(-1)"
-      >
-        <HeaderBackSvg class="header-back__img" />
+      <div :class="{ active: headerProductBlock }" class="header-product__block">
+        <div
+          class="header-block header-product__back"
+          :class="{ hide: searchProductInput, dontShow: firstPageVisit }"
+          @click="$router.go(-1)"
+        >
+          <HeaderBackSvg class="header-back__img" />
+        </div>
+        <div
+          class="header-block header-product__back-two"
+          :class="{ active: searchProductInput }"
+          @click="handleShowSearchInput(false)"
+        >
+          <HeaderBackSvg class="header-back__img" />
+        </div>
+        <div class="header-block header-block__search header-product__search" :class="{ active: searchProductInput }">
+          <button class="header-search__img" @click="handleSearch">
+            <SearchIconSvg />
+          </button>
+          <form type="search" class="header-search" @submit.prevent="handleSearch">
+            <input
+              type="text"
+              placeholder="Я ищу..."
+              class="header-search__input header-input__mobile"
+              :value="searchInput"
+              inputmode="search"
+              @input="handleUpdateSearchInput"
+            />
+          </form>
+        </div>
+        <div class="header-product__logo" :class="{ hide: searchProductInput }">
+          <nuxt-link to="/">
+            <LogoSvg class="header-logo" />
+          </nuxt-link>
+        </div>
+        <div class="header-product__loupe" :class="{ hide: searchProductInput }" @click="handleShowSearchInput(true)">
+          <SearchIconLoopSvg class="header-product__loupe-img" />
+        </div>
+        <div class="header-product__share" :class="{ active: shareMobLink }" @click="handleShareMob">
+          <HeaderShareSvg class="header-product__share-icon" />
+        </div>
       </div>
-      <div
-        class="header-block header-product__back-two"
-        :class="{ active: searchProductInput }"
-        @click="handleShowSearchInput(false)"
-      >
-        <HeaderBackSvg class="header-back__img" />
-      </div>
-      <div class="header-block header-block__search header-product__search" :class="{ active: searchProductInput }">
-        <button class="header-search__img" @click="handleSearch">
-          <SearchIconSvg />
-        </button>
-        <form type="search" class="header-search" @submit.prevent="handleSearch">
-          <input
-            type="text"
-            placeholder="Я ищу..."
-            class="header-search__input header-input__mobile"
-            :value="searchInput"
-            inputmode="search"
-            @input="handleUpdateSearchInput"
-          />
-        </form>
-      </div>
-      <div class="header-product__logo" :class="{ hide: searchProductInput }">
-        <nuxt-link to="/">
-          <LogoSvg class="header-logo" />
-        </nuxt-link>
-      </div>
-      <div class="header-product__loupe" :class="{ hide: searchProductInput }" @click="handleShowSearchInput(true)">
-        <SearchIconLoopSvg class="header-product__loupe-img" />
+
+      <div :class="{ active: shareMob }" class="header-share__block">
+        <div class="header-product__copy" @click="handleCopyURL">
+          <CopyShareSvg class="header-product__copy-icon" />
+          <span class="header-product__copy-text">Коп. ссылку</span>
+        </div>
+        <a
+          :href="`https://t.me/share/url?url=${locationHref}&text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="header-product__social">
+            <TelegramSvg class="header-product__social-icon" />
+          </div>
+        </a>
+        <a
+          :href="`https://api.whatsapp.com/send?text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          target="_blank"
+        >
+          <div class="header-product__social">
+            <WhatsappSvg class="header-product__social-icon" />
+          </div>
+        </a>
+        <div class="header-product__close">
+          <CloseShareSvg class="header-product__close-icon" @click="shareHideMob" />
+        </div>
       </div>
     </div>
 
@@ -154,6 +185,11 @@
   import { mapState, mapMutations } from 'vuex'
 
   import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
+  import HeaderShareSvg from '@/assets/img/icons/svg/header-share.svg?inline'
+  import CopyShareSvg from '@/assets/img/icons/svg/copy-share.svg?inline'
+  import TelegramSvg from '@/assets/img/icons/svg/telegram.svg?inline'
+  import WhatsappSvg from '@/assets/img/icons/svg/whatsapp.svg?inline'
+  import CloseShareSvg from '@/assets/img/icons/svg/close-share.svg?inline'
   import SearchIconSvg from '@/assets/img/icons/svg/search-icon.svg?inline'
   import SearchIconLoopSvg from '@/assets/img/icons/svg/search-icon-loop.svg?inline'
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
@@ -163,13 +199,32 @@
 
   export default {
     name: 'TheHeader',
-    components: { LogoSvg, SearchIconSvg, SearchIconLoopSvg, HeaderBackSvg, HeaderFilterSvg, AppModalAuth },
+    components: {
+      LogoSvg,
+      HeaderShareSvg,
+      CopyShareSvg,
+      TelegramSvg,
+      WhatsappSvg,
+      CloseShareSvg,
+      SearchIconLoopSvg,
+      SearchIconSvg,
+      HeaderBackSvg,
+      HeaderFilterSvg,
+      AppModalAuth,
+    },
     data() {
       return {
         searchBlockDesk: false,
         searchBlockMob: false,
+        headerProductBlock: true,
+        shareMob: false,
+        shareMobLink: true,
+        headerProductMob: true,
         searchProductInput: false,
         isAddNewSpecVisible: true,
+
+        locationHref: '',
+        product: '',
       }
     },
     computed: {
@@ -197,6 +252,12 @@
       },
     },
     mounted() {
+      this.locationHref = window.location.href
+
+      if (this.$route.name === 'product-id') {
+        this.handleGetProductById(this.$route.params.id)
+      }
+
       document.addEventListener('click', this.onClick)
     },
     destroyed() {
@@ -205,6 +266,17 @@
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_INPUT', 'UPDATE_SEARCH_QUERY']),
       ...mapMutations('modal-auth', ['SET_SHOW_MODAL_AUTH']),
+
+      shareShowMob() {
+        this.shareMob = true
+        this.shareMobLink = false
+        this.headerProductBlock = false
+      },
+      shareHideMob() {
+        this.shareMob = false
+        this.shareMobLink = true
+        this.headerProductBlock = true
+      },
 
       handleShowSearchBlockDesktop(value) {
         if (value === true) {
@@ -265,6 +337,42 @@
       handleShowModalAuth() {
         this.SET_SHOW_MODAL_AUTH(true)
       },
+
+      async handleGetProductById(id) {
+        const { product, company } = await this.$nuxt.$productService.getProductById(id)
+
+        this.product = product
+      },
+
+      handleCopyURL() {
+        navigator.clipboard.writeText(window.location.href)
+
+        this.$notify({
+          title: '',
+          message: 'Ссылка на товар успешно скопирована',
+          type: 'success',
+        })
+
+        this.shareHideMob()
+      },
+
+      handleShareMob() {
+        if (navigator.share) {
+          navigator.share({
+            title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            text: 'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
+            url: window.location.href,
+          })
+          // .then(function () {
+          //   console.log('Shareing successfull')
+          // })
+          // .catch(function () {
+          //   console.log('Sharing failed')
+          // })
+        } else {
+          this.shareShowMob()
+        }
+      },
     },
   }
 </script>
@@ -280,14 +388,17 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 4;
     bottom: 0;
     right: 0;
     width: 100%;
     height: 100vh;
-    z-index: 4;
     background: rgba(0, 0, 0, 0.1);
     -webkit-animation: fadeIn 250ms ease-in-out;
     animation: fadeIn 250ms ease-in-out;
+    @media (max-width: 670px) {
+      z-index: 999;
+    }
     &.active {
       display: block;
     }

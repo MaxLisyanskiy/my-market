@@ -38,6 +38,24 @@
       width: 92%;
     }
 
+    &.auth__wrapp {
+      padding: 0;
+      background: none;
+    }
+
+    & .auth-form {
+      padding: 25px;
+    }
+
+    & .auth-form__btn {
+      margin: 14px auto 0;
+    }
+
+    & .auth-form__link {
+      font-size: 12px;
+      line-height: 14px;
+    }
+
     // TODO
     &__todo {
       display: block;

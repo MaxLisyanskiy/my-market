@@ -62,9 +62,55 @@
         title: `Редактировать товар - ${this.product.name} | VALE.SU`,
         meta: [
           {
+            hid: 'title',
+            name: 'title',
+            title: `Редактировать товар - ${this.product.name} | VALE.SU`,
+          },
+          {
             hid: 'description',
             name: 'description',
-            content: `Редактировать товар - ${this.product.name} | VALE.SU`,
+            content: `Редактировать описание товара - ${this.product.description} | VALE.SU`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            title: `Редактировать товар - ${this.product.name} | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `Редактировать описание товара - ${this.product.description} | VALE.SU`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: `${this.product.images[0]?.url}`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            title: `Редактировать товар - ${this.product.name} | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `Редактировать описание товара - ${this.product.description} | VALE.SU`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: `${this.product.images[0]?.url}`,
           },
         ],
       }

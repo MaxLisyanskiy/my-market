@@ -11,6 +11,7 @@
     name: 'ProductIdPage',
     components: { Product },
     layout: 'default',
+
     async asyncData({ app, store, params }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
@@ -24,7 +25,6 @@
 
       // Get all products
       const { products } = await app.$productService.getProducts(1, 100, null)
-
       return { product, company, category, products }
     },
     data() {
@@ -89,9 +89,55 @@
         title: `${this.product.name} | VALE.SU`,
         meta: [
           {
+            hid: 'title',
+            name: 'title',
+            content: `${this.product.name} | VALE.SU`,
+          },
+          {
             hid: 'description',
             name: 'description',
-            content: `${this.product.name} - оптом от завода. По низким ценам с доставкой`,
+            content: `${this.product.description}`,
+          },
+          {
+            hid: 'og:title',
+            name: 'og:title',
+            content: `${this.product.name} | VALE.SU`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Оптовый интернет магазин VALE.SU',
+          },
+          {
+            hid: 'og:description',
+            name: 'og:description',
+            content: `${this.product.description}`,
+          },
+          {
+            hid: 'og:image',
+            itemprop: 'image',
+            property: 'og:image',
+            content: `${this.product.images[0]?.url}`,
+          },
+          {
+            hid: 'twitter:title',
+            name: 'twitter:title',
+            title: `${this.product.name} | VALE.SU`,
+          },
+          {
+            hid: 'twitter:description',
+            name: 'twitter:description',
+            content: `${this.product.description}`,
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary',
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: `${this.product.images[0]?.url}`,
           },
         ],
       }
