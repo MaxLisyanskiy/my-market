@@ -91,16 +91,16 @@
     bottom: 10px;
     position: absolute;
     font-weight: 500;
+    background: rgba(248, 50, 41, 0.15);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: #f83229;
+    &:after {
+      background: none;
+    }
     @media (max-width: 870px) {
       position: relative;
       bottom: -3px;
       margin-left: 10px;
-      background: rgba(248, 50, 41, 0.15);
-      -webkit-background-clip: unset;
-      -webkit-text-fill-color: #f83229;
-      &:after {
-        background: none;
-      }
     }
     @media (max-width: 670px) {
       width: 170px;
