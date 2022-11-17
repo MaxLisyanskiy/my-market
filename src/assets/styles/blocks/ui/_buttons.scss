@@ -80,10 +80,17 @@
   }
 }
 .product-owner {
+  &__chat,
+  &__call {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
   &__chat {
     width: 204px;
     bottom: 10px;
     position: absolute;
+    font-weight: 500;
     @media (max-width: 870px) {
       position: relative;
       bottom: -3px;
@@ -96,7 +103,12 @@
       }
     }
     @media (max-width: 670px) {
-      width: 50%;
+      width: 170px;
+      position: relative;
+    }
+    @media (max-width: 390px) {
+      width: 48%;
+      font-size: 12px;
     }
   }
   &__call {
@@ -107,12 +119,6 @@
       position: relative;
       bottom: -3px;
     }
-  }
-  &__chat,
-  &__call {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 16px;
     @media (max-width: 670px) {
       width: 170px;
       position: relative;
