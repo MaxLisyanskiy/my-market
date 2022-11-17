@@ -34,25 +34,9 @@
         <div ref="requisites" class="company-requisites">
           <h3 class="company-requisites__title">Реквизиты</h3>
           <div class="table">
-            <div class="table-block">
-              <div class="table-block__left">Lorem ipsum dolo</div>
-              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
-            </div>
-            <div class="table-block">
-              <div class="table-block__left">Lorem ipsum dolo</div>
-              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
-            </div>
-            <div class="table-block">
-              <div class="table-block__left">Lorem ipsum dolo</div>
-              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
-            </div>
-            <div class="table-block">
-              <div class="table-block__left">Lorem ipsum</div>
-              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
-            </div>
-            <div class="table-block">
-              <div class="table-block__left">Lorem ipsum dolo</div>
-              <div class="table-block__right">Lorem ipsum dolor, sit amet</div>
+            <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
+              <div class="table-block__left">{{ key }}</div>
+              <div class="table-block__right">{{ value }}</div>
             </div>
           </div>
         </div>
@@ -88,7 +72,16 @@
           { name: 'Описание', goTo: 'description' },
           { name: 'Реквизиты', goTo: 'requisites' },
         ],
+        requisites: null,
       }
+    },
+    mounted() {
+      const newR = this.company.requisites
+      delete newR.id
+
+      console.log(newR)
+
+      this.requisites = newR
     },
     methods: {
       scrollTo(refName) {
