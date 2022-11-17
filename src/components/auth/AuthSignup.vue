@@ -22,6 +22,8 @@
             autocomplete="on"
             class="auth-form__input"
             :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
           />
           <span class="validate__error"> {{ errors[0] }} </span>
         </validation-provider>
@@ -36,6 +38,8 @@
             autocomplete="on"
             class="auth-form__input"
             :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
           />
           <span class="validate__error"> {{ errors[0] }} </span>
         </validation-provider>
@@ -50,6 +54,8 @@
             autocomplete="on"
             class="auth-form__input"
             :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
           />
           <span class="validate__error"> {{ errors[0] }} </span>
         </validation-provider>
@@ -64,6 +70,8 @@
             autocomplete="on"
             class="auth-form__input"
             :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
           />
           <span class="validate__error validate__error_last"> {{ errors[0] }} </span>
         </validation-provider>
@@ -78,6 +86,8 @@
             autocomplete="on"
             class="auth-form__input"
             :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
           />
           <span class="validate__error validate__error_last"> {{ errors[0] }} </span>
         </validation-provider>
