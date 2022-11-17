@@ -83,7 +83,6 @@
       btnsFixed() {
         const element = document.querySelector('.product-mobile')
         const elementTwo = document.querySelector('.product-mobile__two')
-        console.log(element)
         const Visible = function (target) {
           // All element positions
           const targetPositionTop = window.pageYOffset + target.getBoundingClientRect().top
