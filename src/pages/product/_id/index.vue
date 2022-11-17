@@ -50,7 +50,7 @@
           btnNextClass: 'product-swiper__button-next',
           addColorForActiveSlide: true,
           breakpoints: {
-            320: {
+            0: {
               slidesPerView: 1,
               loop: true,
               spaceBetween: 0,
