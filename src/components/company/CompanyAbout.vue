@@ -31,11 +31,11 @@
           <span class="company-description__read">Показать полностью</span>
         </div>
 
-        <div ref="requisites" class="company-requisites">
+        <div v-if="requisites && requisites.length !== 0" ref="requisites" class="company-requisites">
           <h3 class="company-requisites__title">Реквизиты</h3>
           <div class="table">
             <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
-              <div class="table-block__left">{{ key }}</div>
+              <div class="table-block__left">{{ requisitesKey(key) }}</div>
               <div class="table-block__right">{{ value }}</div>
             </div>
           </div>
@@ -72,16 +72,16 @@
           { name: 'Описание', goTo: 'description' },
           { name: 'Реквизиты', goTo: 'requisites' },
         ],
-        requisites: null,
+        requisites: [],
       }
     },
     mounted() {
-      const newR = this.company.requisites
-      delete newR.id
+      if (this.company.requisites) {
+        const newR = this.company.requisites
+        delete newR.id
 
-      console.log(newR)
-
-      this.requisites = newR
+        this.requisites = newR
+      }
     },
     methods: {
       scrollTo(refName) {
@@ -93,6 +93,25 @@
         const indent = !this.scrolled ? 107 : 90
 
         window.scrollTo(300, top - indent)
+      },
+
+      requisitesKey(name) {
+        const keysForBack = ['company_name', 'legal_address', 'actual_address', 'inn', 'ogrn', 'kpp', 'ceo', 'director']
+        const newKeysName = [
+          'Название компании:',
+          'Юридический адрес:',
+          'Фактический адрес:',
+          'Инн:',
+          'ОГРН:',
+          'КПП:',
+          'Генеральный директор:',
+          'Директор:',
+        ]
+
+        if (keysForBack.includes(name)) {
+          return newKeysName[keysForBack.indexOf(name)]
+        }
+        return name
       },
     },
   }
