@@ -31,12 +31,44 @@
           <span class="company-description__read">Показать полностью</span>
         </div>
 
-        <div v-if="requisites && requisites.length !== 0" ref="requisites" class="company-requisites">
+        <div v-if="requisites.length !== 0 || company.inn" ref="requisites" class="company-requisites">
           <h3 class="company-requisites__title">Реквизиты</h3>
           <div class="table">
-            <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
+            <!-- <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
               <div class="table-block__left">{{ requisitesKey(key) }}</div>
               <div class="table-block__right">{{ value }}</div>
+            </div> -->
+            <div v-if="requisites.company_name" class="table-block">
+              <div class="table-block__left">Название компании:</div>
+              <div class="table-block__right">{{ requisites.company_name }}</div>
+            </div>
+            <div v-if="requisites.legal_address" class="table-block">
+              <div class="table-block__left">Юридический адрес:</div>
+              <div class="table-block__right">{{ requisites.legal_address }}</div>
+            </div>
+            <div v-if="requisites.actual_address" class="table-block">
+              <div class="table-block__left">Фактический адрес:</div>
+              <div class="table-block__right">{{ requisites.actual_address }}</div>
+            </div>
+            <div v-if="company.inn" class="table-block">
+              <div class="table-block__left">ИНН:</div>
+              <div class="table-block__right">{{ company.inn }}</div>
+            </div>
+            <div v-if="requisites.ogrn" class="table-block">
+              <div class="table-block__left">ОГРН:</div>
+              <div class="table-block__right">{{ requisites.ogrn }}</div>
+            </div>
+            <div v-if="requisites.kpp" class="table-block">
+              <div class="table-block__left">КПП:</div>
+              <div class="table-block__right">{{ requisites.kpp }}</div>
+            </div>
+            <div v-if="requisites.ceo" class="table-block">
+              <div class="table-block__left">Генеральный директор:</div>
+              <div class="table-block__right">{{ requisites.ceo }}</div>
+            </div>
+            <div v-if="requisites.director" class="table-block">
+              <div class="table-block__left">Директор:</div>
+              <div class="table-block__right">{{ requisites.director }}</div>
             </div>
           </div>
         </div>
@@ -77,10 +109,10 @@
     },
     mounted() {
       if (this.company.requisites) {
-        const newR = this.company.requisites
-        delete newR.id
+        // const newR = this.company.requisites
+        // delete newR.id
 
-        this.requisites = newR
+        this.requisites = this.company.requisites
       }
     },
     methods: {
@@ -101,7 +133,7 @@
           'Название компании:',
           'Юридический адрес:',
           'Фактический адрес:',
-          'Инн:',
+          'ИНН:',
           'ОГРН:',
           'КПП:',
           'Генеральный директор:',
