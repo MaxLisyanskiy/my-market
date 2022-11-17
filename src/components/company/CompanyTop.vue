@@ -154,14 +154,14 @@
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
-            Главная 
+            Главная
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
-            Товары 
+            Товары
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
@@ -267,7 +267,7 @@
           </div>
           <div v-if="!isCompanyOwner" class="banner-mob-info__btns">
             <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
-            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
+            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать</a>
           </div>
           <div v-else class="banner-mob-info__btns">
             <button class="banner-mob-info__edit" @click="() => (showCompanyEditor = true)">
@@ -395,21 +395,21 @@
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Main' }"
             >
-              Главная 
+              Главная
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/products`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Products' }"
             >
-              Товары 
+              Товары
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/about/`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'About' }"
             >
-              О компании 
+              О компании
             </nuxt-link>
           </div>
         </div>
@@ -421,7 +421,7 @@
             </a>
             <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
               <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-              <span> Написать в чат</span>
+              <span> Написать</span>
             </a>
           </template>
           <nuxt-link v-else :to="`/company/${company.id}/settings/`" class="banner-tabs-connection__settings">

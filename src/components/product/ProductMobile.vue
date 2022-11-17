@@ -50,7 +50,7 @@
           <span class="product-call__text">Позвонить</span>
         </a>
         <a :href="`mailto:${company.email}`" class="btn-chat product-owner__chat">
-          <span class="product-chat__text">Написать в чат</span>
+          <span class="product-chat__text">Написать</span>
         </a>
       </div>
     </article>
@@ -93,10 +93,7 @@
           // Get window position
           const windowPositionTop = window.pageYOffset
 
-          if (
-            targetPositionBottom > windowPositionTop &&
-            windowPositionTop < targetPositionTop + 40
-          ) {
+          if (targetPositionBottom > windowPositionTop && windowPositionTop < targetPositionTop + 40) {
             elementTwo.classList.remove('fixed')
           } else {
             // If the element is not visible, then run this code

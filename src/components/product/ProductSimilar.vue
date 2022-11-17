@@ -8,7 +8,7 @@
       </a>
       <a :href="`mailto:${company.email}`" class="btn-chat product-owner__chat">
         <BtnMessageSvg class="btn-chat__img" />
-        <span class="product-chat__text">Написать в чат</span>
+        <span class="product-chat__text">Написать</span>
       </a>
     </div>
   </aside>
