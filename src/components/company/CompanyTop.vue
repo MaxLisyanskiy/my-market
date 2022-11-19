@@ -41,23 +41,22 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
-            <!-- <label for="ava">
-              <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <label for="companyLogo" class="banner-info-edit__logo">
+              <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
               <img
                 v-else
                 src="@/assets/img/icons/company-not-found-img.svg"
                 alt="company-not-found-img"
                 class="banner-info__logo"
               />
+              <CompanyEditLogoSvg />
             </label>
-            <input type="file" id="ava" name="ava" class="" /> -->
-
-            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
-            <img
-              v-else
-              src="@/assets/img/icons/company-not-found-img.svg"
-              alt="company-not-found-img"
-              class="banner-info__logo"
+            <input
+              id="companyLogo"
+              type="file"
+              name="companyLogo"
+              class="banner-info-edit__logo-input"
+              @change="event => handleCompanyLogoChange(event.target.files)"
             />
 
             <div class="banner-info-edit__fields">
@@ -283,14 +282,23 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
-            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
-            <img
-              v-else
-              src="@/assets/img/icons/company-not-found-img.svg"
-              alt="company-not-found-img"
-              class="banner-info__logo"
+            <label for="companyLogo" class="banner-info-edit__logo">
+              <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
+              <img
+                v-else
+                src="@/assets/img/icons/company-not-found-img.svg"
+                alt="company-not-found-img"
+                class="banner-info__logo"
+              />
+              <CompanyEditLogoMobSvg />
+            </label>
+            <input
+              id="companyLogo"
+              type="file"
+              name="companyLogo"
+              class="banner-info-edit__logo-input"
+              @change="event => handleCompanyLogoChange(event.target.files)"
             />
-
             <div class="banner-info-edit__fields">
               <validation-provider
                 ref="required"
@@ -445,6 +453,8 @@
   import CompanySettingsSvg from '@/assets/img/icons/svg/company/company-settings.svg?inline'
 
   import CompanyOwnerSettingsSvg from '@/assets/img/icons/svg/company/company-owner-settings.svg?inline'
+  import CompanyEditLogoSvg from '@/assets/img/icons/svg/company/company-edit-logo.svg?inline'
+  import CompanyEditLogoMobSvg from '@/assets/img/icons/svg/company/company-edit-logo-mob.svg?inline'
 
   export default {
     name: 'CompanyTop',
@@ -455,6 +465,8 @@
       CompanyAddProductPlusSvg,
       CompanySettingsSvg,
       CompanyOwnerSettingsSvg,
+      CompanyEditLogoSvg,
+      CompanyEditLogoMobSvg,
     },
     props: {
       company: {
@@ -475,12 +487,14 @@
         companyName: '',
         companyPhone: '',
         companyEmail: '',
+        companyLogo: this.company.logo,
 
         companyNameError: '',
         companyPhoneError: '',
         companyEmailError: '',
       }
     },
+
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
@@ -499,6 +513,18 @@
         return false
       },
     },
+    watch: {
+      showCompanyEditor() {
+        if (this.showCompanyEditor === true) {
+          document.querySelector('body').style.overflowY = 'hidden'
+          document.getElementById('backgroundPlate').style.display = 'block'
+          document.getElementById('backgroundPlate').style.zIndex = '10'
+        } else {
+          document.querySelector('body').removeAttribute('style')
+          document.getElementById('backgroundPlate').removeAttribute('style')
+        }
+      },
+    },
     mounted() {
       this.companyName = this.company.name || ''
       this.companyPhone = this.company.phone || ''
@@ -509,6 +535,7 @@
     destroyed() {
       window.removeEventListener('scroll', this.handleScroll)
     },
+
     methods: {
       ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
 
@@ -546,6 +573,28 @@
         this.scrolledToTabs = top < height && top > 0
 
         this.$emit('scrolled', this.scrolledToTabs)
+      },
+
+      async handleCompanyLogoChange(file) {
+        const formData = new FormData()
+        formData.append('images[]', file[0])
+
+        await this.$axios
+          .post('/images', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(({ data }) => {
+            this.companyLogo = data[0]
+          })
+          .catch(() => {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при добавлении фотографии',
+              type: 'error',
+            })
+          })
       },
 
       validateCompanyName() {
@@ -587,18 +636,13 @@
         this.validateCompanyPhone()
         this.validateCompanyEmail()
 
-        const form = {
-          name: this.companyName,
-          phone: this.companyPhone,
-          email: this.companyEmail,
-        }
-
         if (!this.companyNameError && !this.companyPhoneError && !this.companyEmailError) {
           const body = {
             _method: 'PATCH',
             name: this.companyName,
             phone: this.companyPhone,
             email: this.companyEmail,
+            logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
           }
           const result = await this.$companyService.updateCompany(body)
 

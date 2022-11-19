@@ -175,8 +175,9 @@
         <div class="main-modal" :class="{ active: searchBlockMob }"></div>
       </div>
     </div>
-
-    <div ref="backgroundPlate" class="backgroundPlate"></div>
+    <client-only>
+      <div id="backgroundPlate" ref="backgroundPlate" class="backgroundPlate"></div>
+    </client-only>
     <AppModalAuth />
   </header>
 </template>
