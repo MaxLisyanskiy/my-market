@@ -6,106 +6,117 @@
     aria-describedby="modalDesc"
     @click.stop
   >
-    <AuthRegisterSvg />
+    <template v-if="!successfulRegistration">
+      <AuthRegisterSvg />
 
-    <validation-observer ref="observer" tag="form" class="auth-form signup__form" @submit.prevent="submit">
-      <!-- Название компании -->
-      <validation-provider v-slot="{ errors }" ref="required" rules="required" tag="div" class="validate" mode="lazy">
-        <input
-          v-model="name"
-          type="text"
-          inputmode="text"
-          placeholder="Название компании"
-          autocomplete="on"
-          class="auth-form__input"
-          :class="{ validate__input: errors[0] }"
-          onfocus="this.removeAttribute('readonly')"
-          readonly
-        />
-        <span class="validate__error"> {{ errors[0] }} </span>
-      </validation-provider>
+      <validation-observer ref="observer" tag="form" class="auth-form signup__form" @submit.prevent="submit">
+        <!-- Название компании -->
+        <validation-provider v-slot="{ errors }" ref="required" rules="required" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="name"
+            type="text"
+            inputmode="text"
+            placeholder="Название компании"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
+          />
+          <span class="validate__error"> {{ errors[0] }} </span>
+        </validation-provider>
 
-      <!-- ИНН -->
-      <validation-provider v-slot="{ errors }" ref="inn" rules="inn" tag="div" class="validate" mode="lazy">
-        <input
-          v-model="inn"
-          type="number"
-          inputmode="number"
-          placeholder="ИНН"
-          autocomplete="on"
-          class="auth-form__input"
-          :class="{ validate__input: errors[0] }"
-          onfocus="this.removeAttribute('readonly')"
-          readonly
-        />
-        <span class="validate__error"> {{ errors[0] }} </span>
-      </validation-provider>
+        <!-- ИНН -->
+        <validation-provider v-slot="{ errors }" ref="inn" rules="inn" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="inn"
+            type="number"
+            inputmode="number"
+            placeholder="ИНН"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
+          />
+          <span class="validate__error"> {{ errors[0] }} </span>
+        </validation-provider>
 
-      <!-- E-mail -->
-      <validation-provider v-slot="{ errors }" ref="email" rules="email" tag="div" class="validate" mode="lazy">
-        <input
-          v-model="email"
-          type="email"
-          inputmode="email"
-          placeholder="E-mail"
-          autocomplete="on"
-          class="auth-form__input"
-          :class="{ validate__input: errors[0] }"
-          onfocus="this.removeAttribute('readonly')"
-          readonly
-        />
-        <span class="validate__error"> {{ errors[0] }} </span>
-      </validation-provider>
+        <!-- E-mail -->
+        <validation-provider v-slot="{ errors }" ref="email" rules="email" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="email"
+            type="email"
+            inputmode="email"
+            placeholder="E-mail"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
+          />
+          <span class="validate__error"> {{ errors[0] }} </span>
+        </validation-provider>
 
-      <!-- Номер телефона -->
-      <validation-provider v-slot="{ errors }" ref="phone" rules="phone" tag="div" class="validate" mode="lazy">
-        <input
-          v-model="phone"
-          type="tel"
-          inputmode="tel"
-          placeholder="Номер телефона"
-          autocomplete="on"
-          class="auth-form__input"
-          :class="{ validate__input: errors[0] }"
-          onfocus="this.removeAttribute('readonly')"
-          readonly
-        />
-        <span class="validate__error"> {{ errors[0] }} </span>
-      </validation-provider>
+        <!-- Номер телефона -->
+        <validation-provider v-slot="{ errors }" ref="phone" rules="phone" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="Номер телефона"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
+          />
+          <span class="validate__error"> {{ errors[0] }} </span>
+        </validation-provider>
 
-      <!-- Пароль -->
-      <validation-provider v-slot="{ errors }" ref="password" rules="password" tag="div" class="validate" mode="lazy">
-        <input
-          v-model="password"
-          type="password"
-          inputmode="text"
-          placeholder="Пароль"
-          autocomplete="on"
-          class="auth-form__input"
-          :class="{ validate__input: errors[0] }"
-          onfocus="this.removeAttribute('readonly')"
-          readonly
-        />
-        <span class="validate__error"> {{ errors[0] }} </span>
-      </validation-provider>
+        <!-- Пароль -->
+        <validation-provider v-slot="{ errors }" ref="password" rules="password" tag="div" class="validate" mode="lazy">
+          <input
+            v-model="password"
+            type="password"
+            inputmode="text"
+            placeholder="Пароль"
+            autocomplete="on"
+            class="auth-form__input"
+            :class="{ validate__input: errors[0] }"
+            onfocus="this.removeAttribute('readonly')"
+            readonly
+          />
+          <span class="validate__error"> {{ errors[0] }} </span>
+        </validation-provider>
 
-      <button type="submit" class="auth-form__btn">Подать заявку</button>
-      <div v-if="mainError.length > 0" class="validate__main-error validate__main-error_array">
-        <p v-for="errorText in mainError" :key="errorText">{{ errorText }}</p>
+        <button type="submit" class="auth-form__btn">Подать заявку</button>
+        <div v-if="mainError.length > 0" class="validate__main-error validate__main-error_array">
+          <p v-for="errorText in mainError" :key="errorText">{{ errorText }}</p>
+        </div>
+        <p class="auth-form__link" @click.stop="SET_WINDOW_TO_SHOW('login')">Назад</p>
+      </validation-observer>
+    </template>
+
+    <template v-else>
+      <div class="auth-successful">
+        <SuccessfulRegistrationSvg />
+        <h2 class="auth-successful__title">Заявка принята</h2>
+        <p class="auth-successful__descr">Мы свяжемся с вами в ближайшее время</p>
       </div>
-      <p class="auth-form__link" @click.stop="SET_WINDOW_TO_SHOW('login')">Назад</p>
-    </validation-observer>
+    </template>
   </div>
 </template>
 
 <script>
   import { mapMutations } from 'vuex'
 
-  import AuthRegisterSvg from '@/assets/img/icons/auth-register.svg?inline'
+  import AuthRegisterSvg from '@/assets/img/icons/svg/auth/auth-register.svg?inline'
+  import SuccessfulRegistrationSvg from '@/assets/img/icons/svg/auth/successful-registration.svg?inline'
 
   export default {
     name: 'AppModalAuthRegister',
-    components: { AuthRegisterSvg },
+    components: { AuthRegisterSvg, SuccessfulRegistrationSvg },
     data() {
       return {
         name: '',
@@ -114,6 +125,8 @@
         phone: '',
         password: '',
         mainError: [],
+
+        successfulRegistration: false,
       }
     },
     methods: {
@@ -135,12 +148,7 @@
             .signup(body)
             .then(res => {
               if (res.status === 'success') {
-                this.SET_WINDOW_TO_SHOW('login')
-                this.$notify({
-                  title: '',
-                  message: 'Вы успешно зарегистрировались!',
-                  type: 'success',
-                })
+                this.successfulRegistration = true
               } else {
                 this.mainError = ['Что-то пошло не так :(']
               }

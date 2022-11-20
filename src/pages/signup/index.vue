@@ -1,5 +1,5 @@
 <template>
-  <AuthSignup :main-error="mainError" @register="register" />
+  <AuthSignup :main-error="mainError" :successful-registration="successfulRegistration" @register="register" />
 </template>
 
 <script>
@@ -13,6 +13,7 @@
     data() {
       return {
         mainError: [],
+        successfulRegistration: false,
       }
     },
     head() {
@@ -68,12 +69,7 @@
           .signup(body)
           .then(res => {
             if (res.status === 'success') {
-              this.$router.push('/login/')
-              this.$notify({
-                title: '',
-                message: 'Вы успешно зарегистрировались!',
-                type: 'success',
-              })
+              this.successfulRegistration = true
             } else {
               this.mainError = ['Что-то пошло не так :(']
             }

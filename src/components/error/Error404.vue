@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import Error404Svg from '@/assets/img/icons/svg/error-404.svg?inline'
+  import Error404Svg from '@/assets/img/icons/svg/error/error-404.svg?inline'
 
   export default {
     name: 'Error404',
