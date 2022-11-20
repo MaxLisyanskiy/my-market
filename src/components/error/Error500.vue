@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import Error500Svg from '@/assets/img/icons/svg/error-500.svg?inline'
+  import Error500Svg from '@/assets/img/icons/svg/error/error-500.svg?inline'
 
   export default {
     name: 'Error500',

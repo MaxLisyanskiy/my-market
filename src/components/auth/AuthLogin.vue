@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import LoginTitleSvg from '@/assets/img/icons/login-title.svg?inline'
+  import LoginTitleSvg from '@/assets/img/icons/svg/auth/login-title.svg?inline'
 
   export default {
     name: 'AuthLogin',
