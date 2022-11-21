@@ -585,8 +585,7 @@
     flex-wrap: wrap;
     margin: 0;
   }
-  &__desktop {
-  }
+
   &__mobile {
     display: none;
     @media (max-width: 870px) {
@@ -649,6 +648,7 @@
     width: 204px;
     height: 35px;
     left: 10px;
+    cursor: pointer;
     @media (max-width: 870px) {
       position: relative;
       width: 204px;

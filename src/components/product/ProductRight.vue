@@ -18,10 +18,18 @@
       </svg>
       <span class="product-owner__address">РСО-А, г. Владикавказ</span> -->
 
-      <a :href="`tel:${company.phone}`" class="btn-call product-owner__call">
+      <div v-if="!showPhone" class="btn-call product-owner__call" @click="() => (showPhone = true)">
         <BtnCallSvg class="btn-call__img" />
-        <span class="product-call__text">Позвонить</span>
+        <span class="product-call__text">Показать номер</span>
+      </div>
+      <a v-else-if="showPhone && company.phone" :href="`tel:${company.phone}`" class="btn-call product-owner__call">
+        <BtnCallSvg class="btn-call__img" />
+        <span class="product-call__text">{{ formattingPhone }}</span>
       </a>
+      <div v-else class="btn-call btn-call_empty product-owner__call">
+        <span class="product-call__text">Нет номера</span>
+      </div>
+
       <a :href="`mailto:${company.email}`" class="btn-chat product-owner__chat">
         <BtnMessageSvg class="btn-chat__img" />
         <span class="product-chat__text">Написать</span>
@@ -45,6 +53,20 @@
       company: {
         type: Object,
         default: () => {},
+      },
+    },
+    data() {
+      return {
+        showPhone: false,
+      }
+    },
+    computed: {
+      formattingPhone() {
+        const pattern = /(\+7|8)[\s(]?(\d{3})[\s)]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/g
+        if (this.company.phone) {
+          return this.company.phone.replace(pattern, '+7 ($2) $3-$4-$5')
+        }
+        return 'Нет номера'
       },
     },
   }
