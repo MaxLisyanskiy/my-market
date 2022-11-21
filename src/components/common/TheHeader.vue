@@ -23,6 +23,7 @@
             />
             <button type="submit" class="header-search__btn">Поиск</button>
           </form>
+          <div class="header-block__examples" :class="{ active: searchBlockDesk }"></div>
         </div>
         <div class="header-block header-block__btn">
           <div class="header-btn header-sign">
