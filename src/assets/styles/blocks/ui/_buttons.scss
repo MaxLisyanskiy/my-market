@@ -9,11 +9,19 @@
     box-sizing: border-box;
     font-size: 14px;
     position: relative;
-
     &__text {
       font-size: 14px;
       font-family: 'Roboto';
       font-weight: 500;
+    }
+
+    &_empty {
+      cursor: default;
+      color: #262626;
+      background: #ccc !important;
+      &:hover {
+        background: #ccc !important;
+      }
     }
   }
 
@@ -75,23 +83,38 @@
   left: 0;
   width: 154px;
   bottom: 0;
-  &__img {
-  }
-  &__text {
-  }
 }
+
 .product-owner {
+  &__chat,
+  &__call {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+  }
   &__chat {
     width: 204px;
     bottom: 10px;
     position: absolute;
+    font-weight: 500;
+    background: rgba(248, 50, 41, 0.15);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: #f83229;
+    &:after {
+      background: none;
+    }
     @media (max-width: 870px) {
       position: relative;
       bottom: -3px;
       margin-left: 10px;
     }
     @media (max-width: 670px) {
-      width: 50%;
+      width: 170px;
+      position: relative;
+    }
+    @media (max-width: 390px) {
+      width: 48%;
+      font-size: 12px;
     }
   }
   &__call {
@@ -102,9 +125,6 @@
       position: relative;
       bottom: -3px;
     }
-  }
-  &__chat,
-  &__call {
     @media (max-width: 670px) {
       width: 170px;
       position: relative;

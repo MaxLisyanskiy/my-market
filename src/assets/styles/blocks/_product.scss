@@ -34,6 +34,24 @@
   @media (max-width: 870px) {
     display: block;
   }
+  &__two {
+    display: none;
+    & .product-owner__mobile {
+      height: 100%;
+      box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.6);
+      margin-top: 0;
+      @media (min-width: 870px) {
+        display: none;
+      }
+    }
+  }
+  &.fixed {
+    position: fixed;
+    bottom: -1px;
+    display: flex;
+    z-index: 22;
+    height: 65px;
+  }
 }
 
 .card .product {
@@ -85,7 +103,6 @@
         @media (max-width: 600px) {
           display: none;
         }
-        
       }
       &__copy {
         width: 100px;
@@ -237,22 +254,18 @@
     width: 100%;
     background: #fff;
   }
-}
-
-.product-center__block {
-  width: fit-content;
-  height: 70px;
-  border-radius: 10px;
-  background: rgba(242, 240, 240, 1);
-  display: flex;
-  flex-direction: column;
-  margin-top: 15px;
-  @media (max-width: 870px) {
-    width: 100%;
-    background: #fff;
-    margin: 0;
-    border-radius: 0;
-    height: auto;
+  &__block {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    @media (max-width: 870px) {
+      width: 100%;
+      background: #fff;
+      margin: 0;
+      border-radius: 0;
+      height: auto;
+    }
   }
 }
 
@@ -293,6 +306,10 @@
 }
 .product-block__row {
   display: flex;
+  background: rgba(242, 240, 240, 1);
+  border-radius: 10px;
+  height: 70px;
+  width: fit-content;
   @media (max-width: 870px) {
     width: 100%;
     overflow-x: scroll;
@@ -312,16 +329,19 @@
     display: none;
     @media (max-width: 870px) {
       display: flex;
+      border: 0;
+      background: none;
     }
   }
 }
 .product-block {
+  width: 117.5px;
   height: 50px;
   display: flex;
   padding-left: 20px;
   flex-wrap: wrap;
   padding-top: 8px;
-  padding-left: 20px;
+  padding-left: 25px;
   margin-top: 10px;
   box-sizing: border-box;
   border-right: 1px solid #d9d9d9;
@@ -343,8 +363,8 @@
     display: block;
     width: 100%;
     font-weight: 700;
-    font-size: 18px;
-    line-height: 21.09px;
+    font-size: 20px;
+    line-height: 23px;
     color: #262626;
     @media (max-width: 992px) {
       font-size: 20px;
@@ -352,6 +372,7 @@
   }
   &__text {
     margin-top: -5px;
+    font-size: 12px;
     @media (max-width: 1200px) {
       margin-top: -5px;
       font-size: 11px;
@@ -446,7 +467,6 @@
       margin-bottom: 14px;
     }
     &:first-child {
-      margin-bottom: 10px;
       @media (max-width: 670px) {
         margin-bottom: 6px;
       }
@@ -565,8 +585,7 @@
     flex-wrap: wrap;
     margin: 0;
   }
-  &__desktop {
-  }
+
   &__mobile {
     display: none;
     @media (max-width: 870px) {
@@ -589,11 +608,11 @@
     }
   }
   &__title {
-    line-height: 16.41px;
+    line-height: 16px;
     display: block;
     font-family: 'Roboto';
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 3px;
     color: #262626;
     @media (max-width: 870px) {
@@ -629,6 +648,7 @@
     width: 204px;
     height: 35px;
     left: 10px;
+    cursor: pointer;
     @media (max-width: 870px) {
       position: relative;
       width: 204px;
@@ -771,9 +791,6 @@
         position: absolute;
         top: 84px;
         @media (max-width: 870px) {
-          top: 26px;
-        }
-        @media (max-width: 870px) {
           font-size: 14px;
           top: 29px;
         }
@@ -799,7 +816,6 @@
       font-size: 14px;
       line-height: 16px;
       color: #262626;
-      word-spacing: -2px;
       @media (max-width: 870px) {
         font-size: 12px;
         line-height: 14px;
@@ -840,12 +856,14 @@
       }
 
       @media (max-width: 870px) {
-        margin-top: -26px;
+        margin-top: -10px;
         width: 100%;
+        border: 0;
       }
       @media (max-width: 670px) {
         margin-right: 0;
         height: auto;
+        margin-top: -26px;
       }
       &:nth-child(1) {
         margin-right: 20px;
@@ -887,6 +905,9 @@
       }
       &:first-child {
         border-radius: 10px 10px 0 0px;
+        @media (max-width: 870px) {
+          border-radius: 10px;
+        }
       }
     }
 
@@ -1192,7 +1213,28 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 19px;
-    color: #262626;
+    color: #404040;
+    &__text {
+      margin: 8px 0 4px 0;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #404040;
+    }
+  }
+  &-pcs {
+    margin-top: auto;
+    &__text {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+      color: #262626;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+    }
   }
 
   &-row {
@@ -1204,6 +1246,8 @@
       min-width: 172px;
       height: auto;
       margin-right: 14px;
+      display: flex;
+      flex-direction: column;
       &:last-child {
         margin-right: 0;
       }

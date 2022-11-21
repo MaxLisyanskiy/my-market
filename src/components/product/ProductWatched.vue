@@ -11,8 +11,12 @@
         <div class="watched__img">
           <img v-lazy="product?.images?.[0]?.url" :alt="product.name" />
         </div>
-        <span class="watched__title">{{ product.name }}</span>
-        <span class="product-pcs">от ₽{{ product.min_price.price }}/шт.</span>
+        <div class="watched-title">
+          <span class="watched-title__text">{{ product.name }}</span>
+        </div>
+        <div class="watched-pcs">
+          <span class="watched-pcs__text">от ₽{{ product.min_price.price }}/шт.</span>
+        </div>
       </nuxt-link>
     </vue-custom-scrollbar>
   </section>

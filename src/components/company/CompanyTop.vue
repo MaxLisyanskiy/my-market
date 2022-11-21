@@ -41,23 +41,22 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
-            <!-- <label for="ava">
-              <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
+            <label for="companyLogo" class="banner-info-edit__logo">
+              <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
               <img
                 v-else
                 src="@/assets/img/icons/company-not-found-img.svg"
                 alt="company-not-found-img"
                 class="banner-info__logo"
               />
+              <CompanyEditLogoSvg />
             </label>
-            <input type="file" id="ava" name="ava" class="" /> -->
-
-            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
-            <img
-              v-else
-              src="@/assets/img/icons/company-not-found-img.svg"
-              alt="company-not-found-img"
-              class="banner-info__logo"
+            <input
+              id="companyLogo"
+              type="file"
+              name="companyLogo"
+              class="banner-info-edit__logo-input"
+              @change="event => handleCompanyLogoChange(event.target.files)"
             />
 
             <div class="banner-info-edit__fields">
@@ -154,21 +153,21 @@
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Main' }"
           >
-            Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
+            Главная
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/products`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'Products' }"
           >
-            Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
+            Товары
           </nuxt-link>
           <nuxt-link
             :to="`/company/${company.id}/about/`"
             class="banner-tabs-list__link"
             :class="{ active: activeTab === 'About' }"
           >
-            О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
+            О компании
           </nuxt-link>
         </div>
       </div>
@@ -267,7 +266,7 @@
           </div>
           <div v-if="!isCompanyOwner" class="banner-mob-info__btns">
             <a :href="`tel:${company.phone}`" class="banner-mob-info__call">Позвонить</a>
-            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать в чат</a>
+            <a :href="`mailto:${company.email}`" class="banner-mob-info__chat">Написать</a>
           </div>
           <div v-else class="banner-mob-info__btns">
             <button class="banner-mob-info__edit" @click="() => (showCompanyEditor = true)">
@@ -283,14 +282,23 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
-            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" class="banner-info__logo" />
-            <img
-              v-else
-              src="@/assets/img/icons/company-not-found-img.svg"
-              alt="company-not-found-img"
-              class="banner-info__logo"
+            <label for="companyLogo" class="banner-info-edit__logo">
+              <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
+              <img
+                v-else
+                src="@/assets/img/icons/company-not-found-img.svg"
+                alt="company-not-found-img"
+                class="banner-info__logo"
+              />
+              <CompanyEditLogoMobSvg />
+            </label>
+            <input
+              id="companyLogo"
+              type="file"
+              name="companyLogo"
+              class="banner-info-edit__logo-input"
+              @change="event => handleCompanyLogoChange(event.target.files)"
             />
-
             <div class="banner-info-edit__fields">
               <validation-provider
                 ref="required"
@@ -395,21 +403,21 @@
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Main' }"
             >
-              Главная <CompanyArrowDownSvg v-if="activeTab === 'Main'" />
+              Главная
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/products`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'Products' }"
             >
-              Товары <CompanyArrowDownSvg v-if="activeTab === 'Products'" />
+              Товары
             </nuxt-link>
             <nuxt-link
               :to="`/company/${company.id}/about/`"
               class="banner-tabs-list__link"
               :class="{ active: activeTab === 'About' }"
             >
-              О компании <CompanyArrowDownSvg v-if="activeTab === 'About'" />
+              О компании
             </nuxt-link>
           </div>
         </div>
@@ -421,7 +429,7 @@
             </a>
             <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
               <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-              <span> Написать в чат</span>
+              <span> Написать</span>
             </a>
           </template>
           <nuxt-link v-else :to="`/company/${company.id}/settings/`" class="banner-tabs-connection__settings">
@@ -438,7 +446,6 @@
   import { mapState, mapMutations } from 'vuex'
 
   import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
-  import CompanyArrowDownSvg from '@/assets/img/icons/company-arrow-down.svg?inline'
 
   import CompanyHeaderBackSvg from '@/assets/img/icons/svg/company/company-header-back.svg?inline'
   import CompanyHeaderSearchSvg from '@/assets/img/icons/svg/company/company-header-search.svg?inline'
@@ -446,6 +453,8 @@
   import CompanySettingsSvg from '@/assets/img/icons/svg/company/company-settings.svg?inline'
 
   import CompanyOwnerSettingsSvg from '@/assets/img/icons/svg/company/company-owner-settings.svg?inline'
+  import CompanyEditLogoSvg from '@/assets/img/icons/svg/company/company-edit-logo.svg?inline'
+  import CompanyEditLogoMobSvg from '@/assets/img/icons/svg/company/company-edit-logo-mob.svg?inline'
 
   export default {
     name: 'CompanyTop',
@@ -453,10 +462,11 @@
       LogoSvg,
       CompanyHeaderBackSvg,
       CompanyHeaderSearchSvg,
-      CompanyArrowDownSvg,
       CompanyAddProductPlusSvg,
       CompanySettingsSvg,
       CompanyOwnerSettingsSvg,
+      CompanyEditLogoSvg,
+      CompanyEditLogoMobSvg,
     },
     props: {
       company: {
@@ -477,12 +487,14 @@
         companyName: '',
         companyPhone: '',
         companyEmail: '',
+        companyLogo: this.company.logo,
 
         companyNameError: '',
         companyPhoneError: '',
         companyEmailError: '',
       }
     },
+
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
@@ -501,6 +513,18 @@
         return false
       },
     },
+    watch: {
+      showCompanyEditor() {
+        if (this.showCompanyEditor === true) {
+          document.querySelector('body').style.overflowY = 'hidden'
+          document.getElementById('backgroundPlate').style.display = 'block'
+          document.getElementById('backgroundPlate').style.zIndex = '10'
+        } else {
+          document.querySelector('body').removeAttribute('style')
+          document.getElementById('backgroundPlate').removeAttribute('style')
+        }
+      },
+    },
     mounted() {
       this.companyName = this.company.name || ''
       this.companyPhone = this.company.phone || ''
@@ -511,6 +535,7 @@
     destroyed() {
       window.removeEventListener('scroll', this.handleScroll)
     },
+
     methods: {
       ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
 
@@ -548,6 +573,28 @@
         this.scrolledToTabs = top < height && top > 0
 
         this.$emit('scrolled', this.scrolledToTabs)
+      },
+
+      async handleCompanyLogoChange(file) {
+        const formData = new FormData()
+        formData.append('images[]', file[0])
+
+        await this.$axios
+          .post('/images', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(({ data }) => {
+            this.companyLogo = data[0]
+          })
+          .catch(() => {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при добавлении фотографии',
+              type: 'error',
+            })
+          })
       },
 
       validateCompanyName() {
@@ -589,18 +636,13 @@
         this.validateCompanyPhone()
         this.validateCompanyEmail()
 
-        const form = {
-          name: this.companyName,
-          phone: this.companyPhone,
-          email: this.companyEmail,
-        }
-
         if (!this.companyNameError && !this.companyPhoneError && !this.companyEmailError) {
           const body = {
             _method: 'PATCH',
             name: this.companyName,
             phone: this.companyPhone,
             email: this.companyEmail,
+            logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
           }
           const result = await this.$companyService.updateCompany(body)
 

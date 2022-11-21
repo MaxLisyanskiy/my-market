@@ -17,7 +17,7 @@
     layout: 'default',
 
     async asyncData({ app, params }) {
-      const { company } = await app.$companyService.getCompanyById(params.id)
+      const { company } = await app.$companyService.getCompanyById(params.id, true)
 
       return { company }
     },
@@ -41,7 +41,7 @@
           btnNextClass: 'swiper-button-next',
           addColorForActiveSlide: false,
           breakpoints: {
-            320: {
+            0: {
               slidesPerView: 1,
               loop: true,
               spaceBetween: 0,

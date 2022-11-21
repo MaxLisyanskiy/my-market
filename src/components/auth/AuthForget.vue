@@ -127,10 +127,10 @@
 </template>
 
 <script>
-  import LoginTitleSvg from '@/assets/img/icons/login-title.svg?inline'
-  import ResetSvg from '@/assets/img/icons/svg/reset.svg?inline'
-  import ResetCodeSvg from '@/assets/img/icons/svg/reset-code.svg?inline'
-  import ResetNewPasswordSvg from '@/assets/img/icons/svg/reset-new-password.svg?inline'
+  import LoginTitleSvg from '@/assets/img/icons/svg/auth/login-title.svg?inline'
+  import ResetSvg from '@/assets/img/icons/svg/auth/reset.svg?inline'
+  import ResetCodeSvg from '@/assets/img/icons/svg/auth/reset-code.svg?inline'
+  import ResetNewPasswordSvg from '@/assets/img/icons/svg/auth/reset-new-password.svg?inline'
 
   export default {
     name: 'AuthForget',

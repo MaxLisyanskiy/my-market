@@ -68,9 +68,9 @@
 </template>
 
 <script>
-  import PaginationLeftSvg from '@/assets/img/icons/pagination/pagination-left.svg?inline'
-  import PaginationRightSvg from '@/assets/img/icons/pagination/pagination-right.svg?inline'
-  import PaginationDotsSvg from '@/assets/img/icons/pagination/pagination-dots.svg?inline'
+  import PaginationLeftSvg from '@/assets/img/icons/svg/pagination/pagination-left.svg?inline'
+  import PaginationRightSvg from '@/assets/img/icons/svg/pagination/pagination-right.svg?inline'
+  import PaginationDotsSvg from '@/assets/img/icons/svg/pagination/pagination-dots.svg?inline'
 
   export default {
     name: 'AppPagination',
