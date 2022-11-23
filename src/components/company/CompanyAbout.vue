@@ -58,12 +58,7 @@
           <span class="company-description__read">Показать полностью</span>
         </div>
 
-        <div
-          v-if="requisites.length !== 0 || company.inn"
-          ref="requisites"
-          class="company-requisites"
-          :class="{ show: showCompanyRequisites }"
-        >
+        <div ref="requisites" class="company-requisites" :class="{ show: showCompanyRequisites }">
           <div class="company-requisites__block">
             <h3 class="company-requisites__title">Реквизиты</h3>
             <div class="company-requisites__flex" v-if="isCompanyEdit">
@@ -95,42 +90,38 @@
             </div>
           </div>
 
-          <div class="table">
-            <!-- <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
-              <div class="table-block__left">{{ requisitesKey(key) }}</div>
-              <div class="table-block__right">{{ value }}</div>
-            </div> -->
-            <div v-if="requisites.company_name" class="table-block">
+          <div v-if="company.requisites || company.inn" class="table">
+            <div v-if="company.requisites?.company_name" class="table-block">
               <div class="table-block__left">Название компании:</div>
-              <div class="table-block__right">{{ requisites.company_name }}</div>
+              <div class="table-block__right">{{ company.requisites.company_name }}</div>
             </div>
-            <div v-if="requisites.legal_address" class="table-block">
+            <div v-if="company.requisites?.legal_address" class="table-block">
               <div class="table-block__left">Юридический адрес:</div>
-              <div class="table-block__right">{{ requisites.legal_address }}</div>
+              <div class="table-block__right">{{ company.requisites.legal_address }}</div>
             </div>
-            <div v-if="requisites.actual_address" class="table-block">
+            <div v-if="company.requisites?.actual_address" class="table-block">
               <div class="table-block__left">Фактический адрес:</div>
-              <div class="table-block__right">{{ requisites.actual_address }}</div>
+              <div class="table-block__right">{{ company.requisites.actual_address }}</div>
             </div>
             <div v-if="company.inn" class="table-block">
               <div class="table-block__left">ИНН:</div>
               <div class="table-block__right">{{ company.inn }}</div>
             </div>
-            <div v-if="requisites.ogrn" class="table-block">
+            <div v-if="company.requisites?.ogrn" class="table-block">
               <div class="table-block__left">ОГРН:</div>
-              <div class="table-block__right">{{ requisites.ogrn }}</div>
+              <div class="table-block__right">{{ company.requisites.ogrn }}</div>
             </div>
-            <div v-if="requisites.kpp" class="table-block">
+            <div v-if="company.requisites?.kpp" class="table-block">
               <div class="table-block__left">КПП:</div>
-              <div class="table-block__right">{{ requisites.kpp }}</div>
+              <div class="table-block__right">{{ company.requisites.kpp }}</div>
             </div>
-            <div v-if="requisites.ceo" class="table-block">
+            <div v-if="company.requisites?.ceo" class="table-block">
               <div class="table-block__left">Генеральный директор:</div>
-              <div class="table-block__right">{{ requisites.ceo }}</div>
+              <div class="table-block__right">{{ company.requisites.ceo }}</div>
             </div>
-            <div v-if="requisites.director" class="table-block">
+            <div v-if="company.requisites?.director" class="table-block">
               <div class="table-block__left">Директор:</div>
-              <div class="table-block__right">{{ requisites.director }}</div>
+              <div class="table-block__right">{{ company.requisites.director }}</div>
             </div>
           </div>
         </div>
@@ -144,7 +135,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState } from 'vuex'
 
   import AppSwiper from '~/components/UI/AppSwiper.vue'
   import CompanyEditSvg from '@/assets/img/icons/svg/edit.svg?inline'
@@ -168,6 +159,16 @@
     },
     data() {
       return {
+        activeLink: 'description',
+        links: [
+          { name: 'Описание', goTo: 'description' },
+          { name: 'Реквизиты', goTo: 'requisites' },
+        ],
+
+        // Пример переменной для сокращения
+        // showCompanyDescriptionEditor: false,
+
+        // Сократить
         redactCompanyDescription: true,
         showCompanyDescription: false,
         hideCompanyDescription: false,
@@ -178,22 +179,24 @@
         saveCompanyRequisites: false,
         showCompanyBlock: false,
         hideCompanyBlock: false,
-        activeLink: 'description',
-        links: [
-          { name: 'Описание', goTo: 'description' },
-          { name: 'Реквизиты', goTo: 'requisites' },
-        ],
-        requisites: [],
+
+        // Пример объекта для редактирования
+        companyInfo: {},
       }
     },
     mounted() {
-      if (this.company.requisites) {
-        // const newR = this.company.requisites
-        // delete newR.id
-
-        this.requisites = this.company.requisites
+      // Пример для добавления значений в объект в data
+      this.companyInfo = {
+        // description,
+        company_name: this.company.company_name ?? '',
+        inn: this.company.inn ?? '',
+        // ...
       }
+
+      // console.log(this.company)
     },
+
+    // Переместить
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
@@ -205,6 +208,8 @@
         return false
       },
     },
+
+    // Переместить
     watch: {
       showCompanyBlock() {
         if (this.showCompanyBlock === true) {
@@ -230,6 +235,8 @@
         }
       },
     },
+
+    // Переместить
     hideCompanyBlock() {
       if (this.hideCompanyBlock === true) {
         this.showCompanyBlock = false
@@ -243,6 +250,7 @@
         this.showCompanyBlock = true
       }
     },
+
     methods: {
       scrollTo(refName) {
         const element = this.$refs[refName]
