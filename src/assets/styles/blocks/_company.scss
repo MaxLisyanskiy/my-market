@@ -1086,7 +1086,7 @@
         font-weight: 700;
         font-size: 14px;
         line-height: 16px;
-        color: #ffffff;
+        color: #404040;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -1114,12 +1114,6 @@
         &.active {
           background: #ff5833;
           color: #ffffff;
-
-          @media (max-width: 768px) {
-            background: rgba(255, 88, 51, 0.1);
-            color: #404040;
-          }
-
           & svg {
             margin-left: 3px;
             margin-top: 2px;
