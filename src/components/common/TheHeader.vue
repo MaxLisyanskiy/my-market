@@ -385,26 +385,6 @@
       display: none;
     }
   }
-  .backgroundPlate {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.1);
-    -webkit-animation: fadeIn 250ms ease-in-out;
-    animation: fadeIn 250ms ease-in-out;
-    @media (max-width: 670px) {
-      z-index: 999;
-    }
-    &.active {
-      display: block;
-    }
-  }
 
   .opacity0 {
     opacity: 0;
