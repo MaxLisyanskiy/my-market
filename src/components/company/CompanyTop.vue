@@ -15,7 +15,7 @@
             <h1 class="banner-info__title">{{ company.name }}</h1>
             <div class="banner-info__description">
               <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                <span>{{ company.phone }}</span>
+                <span>{{ formattingPhone }}</span>
               </a>
               <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
                 <span>{{ company.email }}</span>
@@ -256,7 +256,7 @@
               <span class="banner-info__title">{{ company.name }}</span>
               <div class="banner-info__description">
                 <a :href="`tel:${company.phone}`" class="banner-info__description_tel">
-                  <span>{{ company.phone }}</span>
+                  <span>{{ formattingPhone }}</span>
                 </a>
                 <a :href="`mailto:${company.email}`" class="banner-info__description_mail">
                   <span>{{ company.email }}</span>
@@ -499,6 +499,14 @@
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
 
+      formattingPhone() {
+        const pattern = /(\+7|8)[\s(]?(\d{3})[\s)]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/g
+        if (this.companyPhone) {
+          return this.companyPhone.replace(pattern, '+7 ($2) $3-$4-$5')
+        }
+        return 'Нет номера'
+      },
+
       isCompanyOwner() {
         if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
           return true
@@ -517,11 +525,10 @@
       showCompanyEditor() {
         if (this.showCompanyEditor === true) {
           document.querySelector('body').style.overflowY = 'hidden'
-          document.getElementById('backgroundPlate').style.display = 'block'
-          document.getElementById('backgroundPlate').style.zIndex = '10'
+          document.querySelector('.backgroundPlate').classList.add('active')
         } else {
           document.querySelector('body').removeAttribute('style')
-          document.getElementById('backgroundPlate').removeAttribute('style')
+          document.querySelector('.backgroundPlate').classList.remove('active')
         }
       },
     },
