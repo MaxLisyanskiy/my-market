@@ -7,11 +7,8 @@
             <LogoSvg class="header-main__logo-img" />
           </nuxt-link>
         </div>
-        <div
-          class="header-block header-block__search header-main__search"
-          :class="{ active: searchBlockDesk }"
-          @click="handleShowSearchBlockDesktop(true)"
-        >
+        <div class="header-block header-block__search header-main__search" :class="{ active: searchBlockDesk }">
+          <!-- @click="handleShowSearchBlockDesktop(true)" -->
           <form type="search" class="header-search" @submit.prevent="handleSearch">
             <input
               type="text"
