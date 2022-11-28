@@ -78,7 +78,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+            content: ``,
           },
           {
             hid: 'og:title',
@@ -93,7 +93,7 @@
           {
             hid: 'og:description',
             name: 'og:description',
-            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+            content: ``,
           },
           {
             hid: 'twitter:title',
@@ -103,7 +103,7 @@
           {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: `Мы предлагаем цены от производителей. Покупай выгодно с VALE.SU`,
+            content: ``,
           },
           {
             hid: 'twitter:card',
