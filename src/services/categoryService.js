@@ -1,6 +1,22 @@
 export default ($axios, error) => {
   return {
     /**
+     * Get all categories
+     *
+     * @param {boolean} empty boolean value
+     * @returns {object} Object with field products, pages
+     */
+    getCategories: async empty => {
+      return await $axios
+        .get(`/categories?empty=${empty}`)
+        .then(({ data }) => {
+          return data.data
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
+    /**
      * Get products of a category with some configs
      *
      * @param {number} id Router params id.

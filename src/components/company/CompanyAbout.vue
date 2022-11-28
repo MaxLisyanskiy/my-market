@@ -21,8 +21,35 @@
       </div>
 
       <div class="company-description">
-        <div ref="description">
+        <div :class="{ show: showCompanyDescription }" class="company-description__block" ref="description">
           <span class="company-description__title">Описание</span>
+          <div class="company-description__flex" v-if="isCompanyEdit">
+            <div
+              v-if="redactCompanyDescription"
+              @click="() => ((showCompanyBlock = true), (showCompanyDescription = true))"
+              class="company-edit"
+            >
+              <div class="company-edit__icon">
+                <CompanyEditSvg class="company-edit__icon-img" />
+              </div>
+              <span class="company-edit__text">Редактировать</span>
+            </div>
+            <div
+              v-if="saveCompanyDescription"
+              class="company-save"
+              @click="() => ((showCompanyBlock = false), (showCompanyDescription = false))"
+            >
+              <span class="company-save__text">Сохранить</span>
+            </div>
+
+            <div
+              v-if="saveCompanyDescription"
+              class="company-cancel"
+              @click="() => ((showCompanyBlock = false), (showCompanyDescription = false))"
+            >
+              <span>x</span>
+            </div>
+          </div>
 
           <AppSwiper v-if="company.images.length > 1" :swiper-config="swiperConfig" :images="company.images" />
 
@@ -31,58 +58,91 @@
           <span class="company-description__read">Показать полностью</span>
         </div>
 
-        <div v-if="requisites.length !== 0 || company.inn" ref="requisites" class="company-requisites">
-          <h3 class="company-requisites__title">Реквизиты</h3>
-          <div class="table">
-            <!-- <div v-for="(value, key, index) in requisites" :key="index" class="table-block">
-              <div class="table-block__left">{{ requisitesKey(key) }}</div>
-              <div class="table-block__right">{{ value }}</div>
-            </div> -->
-            <div v-if="requisites.company_name" class="table-block">
+        <div ref="requisites" class="company-requisites" :class="{ show: showCompanyRequisites }">
+          <div class="company-requisites__block">
+            <h3 class="company-requisites__title">Реквизиты</h3>
+            <div class="company-requisites__flex" v-if="isCompanyEdit">
+              <div
+                v-if="redactCompanyRequisites"
+                @click="() => ((showCompanyBlock = true), (showCompanyRequisites = true))"
+                class="company-edit"
+              >
+                <div class="company-edit__icon">
+                  <CompanyEditSvg class="company-edit__icon-img" />
+                </div>
+                <span class="company-edit__text">Редактировать</span>
+              </div>
+              <div
+                v-if="saveCompanyRequisites"
+                class="company-save"
+                @click="() => ((showCompanyBlock = false), (showCompanyRequisites = false))"
+              >
+                <span class="company-save__text">Сохранить</span>
+              </div>
+
+              <div
+                v-if="saveCompanyRequisites"
+                class="company-cancel"
+                @click="() => ((showCompanyBlock = false), (showCompanyRequisites = false))"
+              >
+                <span>x</span>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="company.requisites || company.inn" class="table">
+            <div v-if="company.requisites?.company_name" class="table-block">
               <div class="table-block__left">Название компании:</div>
-              <div class="table-block__right">{{ requisites.company_name }}</div>
+              <div class="table-block__right">{{ company.requisites.company_name }}</div>
             </div>
-            <div v-if="requisites.legal_address" class="table-block">
+            <div v-if="company.requisites?.legal_address" class="table-block">
               <div class="table-block__left">Юридический адрес:</div>
-              <div class="table-block__right">{{ requisites.legal_address }}</div>
+              <div class="table-block__right">{{ company.requisites.legal_address }}</div>
             </div>
-            <div v-if="requisites.actual_address" class="table-block">
+            <div v-if="company.requisites?.actual_address" class="table-block">
               <div class="table-block__left">Фактический адрес:</div>
-              <div class="table-block__right">{{ requisites.actual_address }}</div>
+              <div class="table-block__right">{{ company.requisites.actual_address }}</div>
             </div>
             <div v-if="company.inn" class="table-block">
               <div class="table-block__left">ИНН:</div>
               <div class="table-block__right">{{ company.inn }}</div>
             </div>
-            <div v-if="requisites.ogrn" class="table-block">
+            <div v-if="company.requisites?.ogrn" class="table-block">
               <div class="table-block__left">ОГРН:</div>
-              <div class="table-block__right">{{ requisites.ogrn }}</div>
+              <div class="table-block__right">{{ company.requisites.ogrn }}</div>
             </div>
-            <div v-if="requisites.kpp" class="table-block">
+            <div v-if="company.requisites?.kpp" class="table-block">
               <div class="table-block__left">КПП:</div>
-              <div class="table-block__right">{{ requisites.kpp }}</div>
+              <div class="table-block__right">{{ company.requisites.kpp }}</div>
             </div>
-            <div v-if="requisites.ceo" class="table-block">
+            <div v-if="company.requisites?.ceo" class="table-block">
               <div class="table-block__left">Генеральный директор:</div>
-              <div class="table-block__right">{{ requisites.ceo }}</div>
+              <div class="table-block__right">{{ company.requisites.ceo }}</div>
             </div>
-            <div v-if="requisites.director" class="table-block">
+            <div v-if="company.requisites?.director" class="table-block">
               <div class="table-block__left">Директор:</div>
-              <div class="table-block__right">{{ requisites.director }}</div>
+              <div class="table-block__right">{{ company.requisites.director }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <client-only>
+      <div id="backgroundPlate" class="backgroundPlateTwo"></div>
+    </client-only>
   </section>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   import AppSwiper from '~/components/UI/AppSwiper.vue'
+  import CompanyEditSvg from '@/assets/img/icons/svg/edit.svg?inline'
 
   export default {
     name: 'CompanyAbout',
-    components: { AppSwiper },
+    components: { AppSwiper, CompanyEditSvg },
     props: {
       company: {
         type: Object,
@@ -104,17 +164,93 @@
           { name: 'Описание', goTo: 'description' },
           { name: 'Реквизиты', goTo: 'requisites' },
         ],
-        requisites: [],
+
+        // Пример переменной для сокращения
+        // showCompanyDescriptionEditor: false,
+
+        // Сократить
+        redactCompanyDescription: true,
+        showCompanyDescription: false,
+        hideCompanyDescription: false,
+        saveCompanyDescription: false,
+        redactCompanyRequisites: true,
+        showCompanyRequisites: false,
+        hideCompanyRequisites: false,
+        saveCompanyRequisites: false,
+        showCompanyBlock: false,
+        hideCompanyBlock: false,
+
+        // Пример объекта для редактирования
+        companyInfo: {},
       }
     },
     mounted() {
-      if (this.company.requisites) {
-        // const newR = this.company.requisites
-        // delete newR.id
+      // Пример для добавления значений в объект в data
+      this.companyInfo = {
+        // description,
+        company_name: this.company.company_name ?? '',
+        inn: this.company.inn ?? '',
+        // ...
+      }
 
-        this.requisites = this.company.requisites
+      // console.log(this.company)
+    },
+
+    // Переместить
+    computed: {
+      ...mapState('company', ['companySearchInput', 'companySearchQuery']),
+      ...mapState('global', ['firstPageVisit']),
+
+      isCompanyEdit() {
+        if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
+          return true
+        }
+        return false
+      },
+    },
+
+    // Переместить
+    watch: {
+      showCompanyBlock() {
+        if (this.showCompanyBlock === true) {
+          this.hideCompanyBlock = false
+          document.querySelector('body').style.overflowY = 'hidden'
+          document.querySelector('.backgroundPlateTwo').classList.add('active')
+          if (this.showCompanyDescription === true) {
+            this.saveCompanyDescription = true
+            this.redactCompanyDescription = false
+          } else if (this.showCompanyRequisites === true) {
+            this.saveCompanyRequisites = true
+            this.redactCompanyRequisites = false
+          }
+        } else {
+          document.querySelector('body').removeAttribute('style')
+          document.querySelector('.backgroundPlateTwo').classList.remove('active')
+          if (this.showCompanyDescription === false) {
+            this.saveCompanyDescription = false
+            this.redactCompanyDescription = true
+            this.saveCompanyRequisites = false
+            this.redactCompanyRequisites = true
+          }
+        }
+      },
+    },
+
+    // Переместить
+    hideCompanyBlock() {
+      if (this.hideCompanyBlock === true) {
+        this.showCompanyBlock = false
+        this.showCompanyDescription = false
+        this.showCompanyRequisites = false
+        if (this.showCompanyDescription === false) {
+          alert('HideDescription')
+        }
+      } else {
+        this.hideCompanyBlock = false
+        this.showCompanyBlock = true
       }
     },
+
     methods: {
       scrollTo(refName) {
         const element = this.$refs[refName]

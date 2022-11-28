@@ -31,7 +31,7 @@
     align-items: center;
   }
   .not-found__wrapper {
-    margin-top: 26px;
+    margin-top: 28px;
     text-align: center;
   }
   .not-found__title {
@@ -40,9 +40,10 @@
     color: #262626;
   }
   .not-found__subtitle {
-    margin-top: 5px;
     font-weight: 400;
     font-size: 14px;
     color: #808080;
+    line-height: 16px;
+    margin-top: 10px;
   }
 </style>

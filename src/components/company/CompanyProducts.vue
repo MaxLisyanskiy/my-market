@@ -86,14 +86,13 @@
             </div>
           </nuxt-link>
         </div>
-
-        <CatalogProductsNotFound
-          v-if="products.length <= 0"
-          :search-query="$route.query.q"
-          class="company-products__not-found"
-        />
       </div>
     </div>
+    <CatalogProductsNotFound
+      v-if="products.length <= 0"
+      :search-query="$route.query.q"
+      class="company-products__not-found"
+    />
   </section>
 </template>
 
@@ -210,11 +209,11 @@
   .productsNotFound {
     width: 100%;
     margin: 0;
+    display: none;
   }
   .company-products__not-found {
     margin-top: 15px !important;
-    padding: 30px;
-    border-top: 1px solid #e5e0e0;
+    padding: 15px 30px;
   }
   .aside-not-found {
     margin-top: 0px;
