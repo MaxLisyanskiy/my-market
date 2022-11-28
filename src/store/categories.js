@@ -20,9 +20,9 @@ export const mutations = {
 export const actions = {
   GET_CATEGORIES(store) {
     if (store.state.categories.length === 0) {
-      return this.$axios
-        .$get('/categories')
-        .then(({ data }) => store.commit('SET_CATEGORIES', data.categories))
+      this.$categoryService
+        .getCategories(false)
+        .then(data => store.commit('SET_CATEGORIES', data.categories))
         .catch(() => store.commit('SET_CATEGORIES', []))
     }
   },

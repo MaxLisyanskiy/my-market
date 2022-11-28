@@ -41,7 +41,7 @@
           {
             hid: 'description',
             name: 'description',
-            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+            content: ``,
           },
           {
             hid: 'og:title',
@@ -56,7 +56,7 @@
           {
             hid: 'og:description',
             name: 'og:description',
-            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+            content: ``,
           },
           {
             hid: 'twitter:title',
@@ -66,7 +66,7 @@
           {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: `Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку.`,
+            content: ``,
           },
           {
             hid: 'twitter:card',

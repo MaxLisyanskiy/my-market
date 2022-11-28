@@ -7,11 +7,8 @@
             <LogoSvg class="header-main__logo-img" />
           </nuxt-link>
         </div>
-        <div
-          class="header-block header-block__search header-main__search"
-          :class="{ active: searchBlockDesk }"
-          @click="handleShowSearchBlockDesktop(true)"
-        >
+        <div class="header-block header-block__search header-main__search" :class="{ active: searchBlockDesk }">
+          <!-- @click="handleShowSearchBlockDesktop(true)" -->
           <form type="search" class="header-search" @submit.prevent="handleSearch">
             <input
               type="text"
@@ -362,7 +359,7 @@
         if (navigator.share) {
           navigator.share({
             title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
-            text: 'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU',
+            text: '',
             url: window.location.href,
           })
           // .then(function () {
