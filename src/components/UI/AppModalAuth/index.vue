@@ -30,6 +30,7 @@
 
       // Close a modal auth
       handleCloseModalAuth() {
+        document.querySelector('body').classList.remove('lock')
         this.SET_SHOW_MODAL_AUTH(false)
         this.SET_WINDOW_TO_SHOW('login')
       },
