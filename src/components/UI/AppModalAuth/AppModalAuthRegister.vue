@@ -10,6 +10,8 @@
       <AuthRegisterSvg />
 
       <validation-observer ref="observer" tag="form" class="auth-form signup__form" @submit.prevent="submit">
+        <h3 id="modalHeader" class="signup__title">Регистрация</h3>
+
         <!-- Название компании -->
         <validation-provider v-slot="{ errors }" ref="required" rules="required" tag="div" class="validate" mode="lazy">
           <input

@@ -334,6 +334,7 @@
 
       // Open modal auth
       handleShowModalAuth() {
+        document.querySelector('body').classList.add('lock')
         this.SET_SHOW_MODAL_AUTH(true)
       },
 
