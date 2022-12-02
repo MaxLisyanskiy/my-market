@@ -17,11 +17,14 @@
     layout: 'default',
     middleware: 'auth',
 
-    async asyncData({ app, params }) {
-      // const { product, company } = await app.$productService.getProductById(params.id)
+    async asyncData({ app, params, error }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      return { company }
+      if (company) {
+        return { company }
+      } else {
+        error({ statusCode: 404 })
+      }
     },
     data() {
       return {

@@ -12,20 +12,25 @@
     components: { Product },
     layout: 'default',
 
-    async asyncData({ app, store, params }) {
+    async asyncData({ app, store, params, error }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
       // Get product by ID
       const { product, company } = await app.$productService.getProductById(params.id)
+      let category = ''
 
       // Get category by ID
-      const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-      const category = await get(product.category_id)
+      if (product) {
+        const get = await store.getters['categories/GET_CATEGORY_BY_ID']
+        category = await get(product.category_id)
+        const { products } = await app.$productService.getProducts(1, 100, null)
+        return { product, company, category, products }
+      } else {
+        error({ statusCode: 404 })
+      }
 
       // Get all products
-      const { products } = await app.$productService.getProducts(1, 100, null)
-      return { product, company, category, products }
     },
     data() {
       return {
