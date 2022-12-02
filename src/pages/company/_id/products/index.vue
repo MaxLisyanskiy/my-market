@@ -17,21 +17,25 @@
     components: { CompanyTop, CompanyProducts },
     layout: 'default',
 
-    async asyncData({ app, store, params, query }) {
+    async asyncData({ app, store, params, query, error }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      const { products, pagen, categories } = await app.$companyService.getCompanyProducts(
-        params.id,
-        1,
-        20,
-        query?.q,
-        query?.category
-      )
+      if (company) {
+        const { products, pagen, categories } = await app.$companyService.getCompanyProducts(
+          params.id,
+          1,
+          20,
+          query?.q,
+          query?.category
+        )
 
-      // Check query in the routing and set query in store
-      await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
+        // Check query in the routing and set query in store
+        await store.dispatch('company/SET_COMPANY_SEARCH_QUERY', query.q ?? '')
 
-      return { company, products, pagen, categories }
+        return { company, products, pagen, categories }
+      } else {
+        error({ statusCode: 404 })
+      }
     },
 
     data() {

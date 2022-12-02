@@ -87,7 +87,7 @@
           <span class="header-product__copy-text">Коп. ссылку</span>
         </div>
         <a
-          :href="`https://t.me/share/url?url=${locationHref}&text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          :href="`https://t.me/share/url?url=${locationHref}&text=${product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
           target="_blank"
         >
           <div class="header-product__social">
@@ -95,7 +95,7 @@
           </div>
         </a>
         <a
-          :href="`https://api.whatsapp.com/send?text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          :href="`https://api.whatsapp.com/send?text=${product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
           target="_blank"
         >
           <div class="header-product__social">
@@ -359,7 +359,7 @@
       handleShareMob() {
         if (navigator.share) {
           navigator.share({
-            title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            title: `${this.product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
             text: '',
             url: window.location.href,
           })

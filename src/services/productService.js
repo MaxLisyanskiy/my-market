@@ -40,7 +40,7 @@ export default ($axios, error) => {
           return { ...data.data }
         })
         .catch(() => {
-          return error({ statusCode: 500 })
+          return error({ statusCode: 404 })
         })
     },
 
