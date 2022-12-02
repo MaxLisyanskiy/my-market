@@ -21,9 +21,9 @@
       </div>
 
       <div
-        :class="{ showDescription: !companyDescriptionEditor || !companyRequisitesEditor }"
         class="company-description"
       >
+	  <div :class="{ showDescription: !companyDescriptionEditor || !companyRequisitesEditor }">
         <div :class="{ show: !companyDescriptionEditor }" class="company-description__block">
           <span class="company-description__title">{{ descriptionTitle }}</span>
           <div class="company-description__flex">
@@ -237,6 +237,8 @@
             </div>
           </div>
         </div>
+
+	</div>
       </div>
     </div>
 
