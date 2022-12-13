@@ -4,20 +4,16 @@ const title = 'Мир поставщиков VALE.SU'
 // const description =
 //   'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU'
 const description = ''
-const image = `${process.env.ORIGIN_URL}/static/main-banner.png`
+const image = `${process.env.ORIGIN_URL}/main-banner.png`
 
 const meta = [
   { charset: 'utf-8' },
   {
     name: 'viewport',
-    content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+    content: 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0',
   },
   { name: 'format-detection', content: 'telephone=no' },
-  {
-    hid: 'apple-mobile-web-app-capable',
-    name: 'apple-mobile-web-app-capable',
-    content: 'yes',
-  },
+  { name: 'format-detection', content: 'address=no' },
   {
     hid: 'title',
     name: 'title',
@@ -104,6 +100,11 @@ const meta = [
     name: 'twitter:image',
     itemprop: 'image',
     content: image,
+  },
+  {
+    hid: 'apple-mobile-web-app-capable',
+    name: 'apple-mobile-web-app-capable',
+    content: 'yes',
   },
   {
     name: 'msapplication-TileColor',
