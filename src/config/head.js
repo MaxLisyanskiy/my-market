@@ -65,7 +65,6 @@ const meta = [
   },
   {
     hid: 'og:image',
-    itemprop: 'image',
     property: 'og:image',
     content: image,
   },
@@ -91,7 +90,6 @@ const meta = [
   },
   {
     hid: 'twitter:image',
-    itemprop: 'image',
     property: 'twitter:image',
     content: image,
   },

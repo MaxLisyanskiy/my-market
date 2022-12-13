@@ -88,7 +88,6 @@
           },
           {
             hid: 'og:image',
-            itemprop: 'image',
             property: 'og:image',
             content: `${this.product.images[0]?.url}`,
           },
