@@ -30,12 +30,12 @@ const meta = [
   },
   {
     hid: 'og:locale',
-    name: 'og:locale',
+    property: 'og:locale',
     content: 'ru_RU',
   },
   {
     hid: 'og:updated_time',
-    name: 'og:updated_time',
+    property: 'og:updated_time',
     content: new Date().getTime(),
   },
   {
@@ -66,31 +66,43 @@ const meta = [
   {
     hid: 'og:image',
     property: 'og:image',
+    itemprop: 'image',
     content: image,
   },
   {
+    hid: 'og:image:width',
+    property: 'og:image:width',
+    content: '256',
+  },
+  {
+    hid: 'og:image:height',
+    property: 'og:image:height',
+    content: '256',
+  },
+  {
     hid: 'twitter:card',
-    property: 'twitter:card',
+    name: 'twitter:card',
     content: 'summary_large_image',
   },
   {
     hid: 'twitter:url',
-    property: 'twitter:url',
+    name: 'twitter:url',
     content: process.env.ORIGIN_URL,
   },
   {
     hid: 'twitter:title',
-    property: 'twitter:title',
+    name: 'twitter:title',
     content: title,
   },
   {
     hid: 'twitter:description',
-    property: 'twitter:description',
+    name: 'twitter:description',
     content: description,
   },
   {
     hid: 'twitter:image',
-    property: 'twitter:image',
+    name: 'twitter:image',
+    itemprop: 'image',
     content: image,
   },
   {
