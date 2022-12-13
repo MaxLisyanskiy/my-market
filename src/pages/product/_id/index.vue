@@ -105,23 +105,29 @@
           },
           {
             hid: 'og:title',
-            name: 'og:title',
+            property: 'og:title',
             content: `${this.product.name} | VALE.SU`,
           },
           {
-            hid: 'og:site_name',
-            name: 'og:site_name',
-            content: 'Мир поставщиков VALE.SU',
-          },
-          {
             hid: 'og:description',
-            name: 'og:description',
+            property: 'og:description',
             content: `${this.product.description}`,
           },
           {
             hid: 'og:image',
-            name: 'og:image',
+            property: 'og:image',
+            itemprop: 'image',
             content: `${this.product.images[0]?.url}`,
+          },
+          {
+            hid: 'og:image:width',
+            property: 'og:image:width',
+            content: '256',
+          },
+          {
+            hid: 'og:image:height',
+            property: 'og:image:height',
+            content: '256',
           },
           {
             hid: 'twitter:title',
@@ -141,6 +147,7 @@
           {
             hid: 'twitter:image',
             name: 'twitter:image',
+            itemprop: 'image',
             content: `${this.product.images[0]?.url}`,
           },
         ],
