@@ -132,9 +132,13 @@
             />
           </form>
         </div>
+
+        <div class="header-categories__btn">
+          <HeaderFilterSvg />
+        </div>
       </div>
 
-      <div class="header-categories__bottom">
+      <!-- <div class="header-categories__bottom">
         <div class="search-unit opacity0">
           <button class="search-unit__btn active">Товарам</button>
           <button class="search-unit__btn">Продавцам</button>
@@ -142,7 +146,7 @@
         <div class="header-categories__btn">
           <HeaderFilterSvg />
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div v-else class="header header-mobile sticky">
