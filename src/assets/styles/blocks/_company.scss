@@ -13,13 +13,16 @@
 	}
 	&-add {
 	  &__slider {
-		margin-left: 12px;
+		margin-left:4px;
 		width: 215px;
 		height: 116px;
 		border-radius: 10px;
 		background: #e7e7e7;
 		justify-content: center;
-  
+		overflow:hidden;
+		cursor:pointer;
+		margin-bottom:16px;
+
 		@media (max-width: 600px) {
 		  width: 180px;
 		  height: 101px;
@@ -70,7 +73,6 @@
 		  border-radius: 10px;
 		  background: #e7e7e7;
 		  position: relative;
-		  margin: 0 0 12px 12px;
 		  @media (max-width: 600px) {
 			width: 180px;
 			height: 101px;
@@ -84,8 +86,8 @@
 		  width: 22px;
 		  height: 22px;
 		  position: absolute;
-		  top: -10px;
-		  right: 0;
+		  top: -5px;
+		  right: -5px;
 		  cursor: pointer;
 		}
 		&-img {
@@ -391,11 +393,7 @@
 	border-radius: 10px;
 	animation: fadeIn 300ms ease-in-out;
 	& .showDescription {
-		height: 45vh;
-		overflow:scroll;
-		@media(max-width:600px){
-			height:55vh;
-		}
+		overflow:hidden;
 	  }
 	@media (max-width: 991px) {
 	  width: 70%;
