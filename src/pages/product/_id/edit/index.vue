@@ -79,7 +79,7 @@
           {
             hid: 'og:site_name',
             name: 'og:site_name',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'og:description',
@@ -88,7 +88,6 @@
           },
           {
             hid: 'og:image',
-            itemprop: 'image',
             property: 'og:image',
             content: `${this.product.images[0]?.url}`,
           },

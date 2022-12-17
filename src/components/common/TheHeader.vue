@@ -87,7 +87,7 @@
           <span class="header-product__copy-text">Коп. ссылку</span>
         </div>
         <a
-          :href="`https://t.me/share/url?url=${locationHref}&text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          :href="`https://t.me/share/url?url=${locationHref}&text=${product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
           target="_blank"
         >
           <div class="header-product__social">
@@ -95,7 +95,7 @@
           </div>
         </a>
         <a
-          :href="`https://api.whatsapp.com/send?text=${product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
+          :href="`https://api.whatsapp.com/send?text=${product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`"
           target="_blank"
         >
           <div class="header-product__social">
@@ -132,9 +132,13 @@
             />
           </form>
         </div>
+
+        <div class="header-categories__btn">
+          <HeaderFilterSvg />
+        </div>
       </div>
 
-      <div class="header-categories__bottom">
+      <!-- <div class="header-categories__bottom">
         <div class="search-unit opacity0">
           <button class="search-unit__btn active">Товарам</button>
           <button class="search-unit__btn">Продавцам</button>
@@ -142,7 +146,7 @@
         <div class="header-categories__btn">
           <HeaderFilterSvg />
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div v-else class="header header-mobile sticky">
@@ -334,6 +338,7 @@
 
       // Open modal auth
       handleShowModalAuth() {
+        document.querySelector('body').classList.add('lock')
         this.SET_SHOW_MODAL_AUTH(true)
       },
 
@@ -358,7 +363,7 @@
       handleShareMob() {
         if (navigator.share) {
           navigator.share({
-            title: `${this.product.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
+            title: `${this.product?.name} - оптом от завода. По низким ценам с доставкой | VALE.SU`,
             text: '',
             url: window.location.href,
           })

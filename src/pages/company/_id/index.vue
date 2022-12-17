@@ -53,7 +53,7 @@
           {
             hid: 'og:site_name',
             name: 'og:site_name',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'og:description',
@@ -70,7 +70,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'twitter:description',

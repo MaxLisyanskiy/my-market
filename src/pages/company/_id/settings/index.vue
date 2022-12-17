@@ -17,11 +17,14 @@
     layout: 'default',
     middleware: 'auth',
 
-    async asyncData({ app, params }) {
-      // const { product, company } = await app.$productService.getProductById(params.id)
+    async asyncData({ app, params, error }) {
       const { company } = await app.$companyService.getCompanyById(params.id)
 
-      return { company }
+      if (company) {
+        return { company }
+      } else {
+        error({ statusCode: 404 })
+      }
     },
     data() {
       return {
@@ -55,7 +58,7 @@
           {
             hid: 'og:site_name',
             name: 'og:site_name',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'og:description',
@@ -72,7 +75,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'twitter:description',

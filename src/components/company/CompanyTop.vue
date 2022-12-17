@@ -525,10 +525,10 @@
       showCompanyEditor() {
         if (this.showCompanyEditor === true) {
           document.querySelector('body').style.overflowY = 'hidden'
-          document.querySelector('.backgroundPlate').classList.add('active')
+          document.querySelector('.backgroundPlateTwo').classList.add('active')
         } else {
           document.querySelector('body').removeAttribute('style')
-          document.querySelector('.backgroundPlate').classList.remove('active')
+          document.querySelector('.backgroundPlateTwo').classList.remove('active')
         }
       },
     },

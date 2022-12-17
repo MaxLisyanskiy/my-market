@@ -12,20 +12,25 @@
     components: { Product },
     layout: 'default',
 
-    async asyncData({ app, store, params }) {
+    async asyncData({ app, store, params, error }) {
       // Get all categoris
       await store.dispatch('categories/GET_CATEGORIES')
 
       // Get product by ID
       const { product, company } = await app.$productService.getProductById(params.id)
+      let category = ''
 
       // Get category by ID
-      const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-      const category = await get(product.category_id)
+      if (product) {
+        const get = await store.getters['categories/GET_CATEGORY_BY_ID']
+        category = await get(product.category_id)
+        const { products } = await app.$productService.getProducts(1, 100, null)
+        return { product, company, category, products }
+      } else {
+        error({ statusCode: 404 })
+      }
 
       // Get all products
-      const { products } = await app.$productService.getProducts(1, 100, null)
-      return { product, company, category, products }
     },
     data() {
       return {
@@ -100,24 +105,29 @@
           },
           {
             hid: 'og:title',
-            name: 'og:title',
+            property: 'og:title',
             content: `${this.product.name} | VALE.SU`,
           },
           {
-            hid: 'og:site_name',
-            name: 'og:site_name',
-            content: 'Оптовый интернет магазин VALE.SU',
-          },
-          {
             hid: 'og:description',
-            name: 'og:description',
+            property: 'og:description',
             content: `${this.product.description}`,
           },
           {
             hid: 'og:image',
-            itemprop: 'image',
             property: 'og:image',
+            itemprop: 'image',
             content: `${this.product.images[0]?.url}`,
+          },
+          {
+            hid: 'og:image:width',
+            property: 'og:image:width',
+            content: '256',
+          },
+          {
+            hid: 'og:image:height',
+            property: 'og:image:height',
+            content: '256',
           },
           {
             hid: 'twitter:title',
@@ -137,6 +147,7 @@
           {
             hid: 'twitter:image',
             name: 'twitter:image',
+            itemprop: 'image',
             content: `${this.product.images[0]?.url}`,
           },
         ],

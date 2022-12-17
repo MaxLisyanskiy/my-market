@@ -16,10 +16,14 @@
     components: { CompanyTop, CompanyAbout },
     layout: 'default',
 
-    async asyncData({ app, params }) {
+    async asyncData({ app, params, error }) {
       const { company } = await app.$companyService.getCompanyById(params.id, true)
 
-      return { company }
+      if (company) {
+        return { company }
+      } else {
+        error({ statusCode: 404 })
+      }
     },
     data() {
       return {
@@ -80,7 +84,7 @@
           {
             hid: 'og:site_name',
             name: 'og:site_name',
-            content: 'Оптовый интернет магазин VALE.SU',
+            content: 'Мир поставщиков VALE.SU',
           },
           {
             hid: 'og:description',

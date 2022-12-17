@@ -1,23 +1,19 @@
 // Глобальные настройки секции Head. Можно прописать общие мета-теги, атрибуты и прочее.
 
-const title = 'Оптовый интернет магазин VALE.SU'
+const title = 'Мир поставщиков VALE.SU'
 // const description =
 //   'VALE - оптовый интернет магазин №1. Мы предлагаем цены от производителей, гарантируем качество товара и организовываем доставку. Покупай выгодно с VALE.SU'
 const description = ''
-const image = `${process.env.ORIGIN_URL}/assets/img/icons/svg/logo.svg`
+const image = `${process.env.ORIGIN_URL}/main-banner.png`
 
 const meta = [
   { charset: 'utf-8' },
   {
     name: 'viewport',
-    content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+    content: 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0',
   },
   { name: 'format-detection', content: 'telephone=no' },
-  {
-    hid: 'apple-mobile-web-app-capable',
-    name: 'apple-mobile-web-app-capable',
-    content: 'yes',
-  },
+  { name: 'format-detection', content: 'address=no' },
   {
     hid: 'title',
     name: 'title',
@@ -30,12 +26,12 @@ const meta = [
   },
   {
     hid: 'og:locale',
-    name: 'og:locale',
+    property: 'og:locale',
     content: 'ru_RU',
   },
   {
     hid: 'og:updated_time',
-    name: 'og:updated_time',
+    property: 'og:updated_time',
     content: new Date().getTime(),
   },
   {
@@ -65,35 +61,50 @@ const meta = [
   },
   {
     hid: 'og:image',
-    itemprop: 'image',
     property: 'og:image',
+    itemprop: 'image',
     content: image,
   },
   {
+    hid: 'og:image:width',
+    property: 'og:image:width',
+    content: '256',
+  },
+  {
+    hid: 'og:image:height',
+    property: 'og:image:height',
+    content: '256',
+  },
+  {
     hid: 'twitter:card',
-    property: 'twitter:card',
+    name: 'twitter:card',
     content: 'summary_large_image',
   },
   {
     hid: 'twitter:url',
-    property: 'twitter:url',
+    name: 'twitter:url',
     content: process.env.ORIGIN_URL,
   },
   {
     hid: 'twitter:title',
-    property: 'twitter:title',
+    name: 'twitter:title',
     content: title,
   },
   {
     hid: 'twitter:description',
-    property: 'twitter:description',
+    name: 'twitter:description',
     content: description,
   },
   {
     hid: 'twitter:image',
+    name: 'twitter:image',
     itemprop: 'image',
-    property: 'twitter:image',
     content: image,
+  },
+  {
+    hid: 'apple-mobile-web-app-capable',
+    name: 'apple-mobile-web-app-capable',
+    content: 'yes',
   },
   {
     name: 'msapplication-TileColor',
