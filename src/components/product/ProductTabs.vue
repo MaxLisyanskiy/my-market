@@ -17,7 +17,7 @@
           </div>
         </div>
         <div v-if="productSpecsRight.length > 0" class="tabs-table__block tabs-table__block-two">
-          <div v-for="(spec, index) in productSpecsRight" :key="index" class="tabs-table__wrapp">
+          <div v-for="(spec, index) in productSpecsRight" :key="index" class="tabs-table__wrapp tabs-table__wrapp-two">
             <div class="tabs-table__left">{{ spec.key }}</div>
             <div class="tabs-table__right">{{ spec.value }}</div>
           </div>

@@ -14,7 +14,6 @@
       font-family: 'Roboto';
       font-weight: 500;
     }
-
     &_empty {
       cursor: default;
       color: #262626;
@@ -132,6 +131,14 @@
     @media (max-width: 390px) {
       width: 48%;
       font-size: 12px;
+    }
+  }
+}
+
+.product {
+  &-call {
+    &__text {
+      font-weight: 500;
     }
   }
 }
