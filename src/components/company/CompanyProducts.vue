@@ -277,7 +277,7 @@
       color: #ffffff;
       transition: all 0.2s ease;
       &:hover {
-        font-weight: 600;
+		background-color:#404040;
       }
     }
 

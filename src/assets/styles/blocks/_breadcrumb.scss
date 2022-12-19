@@ -35,5 +35,9 @@
       color: #808080;
       margin-right: 4px;
     }
+
+    & .nuxt-link-exact-active {
+      color: #4d4d4d;
+    }
   }
 }

@@ -3,12 +3,12 @@
     <div class="scroll-shadow scroll-shadow__right"></div>
     <div :style="{ background: category.color }" class="products-left products-left__scroll">
       <span class="products-left__title">{{ category.name }}</span>
-      <button class="products-btn">
-        <nuxt-link :to="`/category/${category.id}`">
+      <nuxt-link :to="`/category/${category.id}`">
+        <button class="products-btn">
           <span class="products-btn__text">Смотреть<span class="desktop">все</span></span>
           <HomeProductsSliderArrowSvg class="products-btn__img" />
-        </nuxt-link>
-      </button>
+        </button>
+      </nuxt-link>
     </div>
 
     <vue-custom-scrollbar class="products-right mobile" tagname="div">
