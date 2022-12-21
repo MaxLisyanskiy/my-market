@@ -41,14 +41,14 @@
       <div :class="{ active: headerProductBlock }" class="header-product__block">
         <div
           class="header-block header-product__back"
-          :class="{ hide: searchProductInput, dontShow: firstPageVisit }"
+          :class="{ hide: searchProductInput,hide: showMobileHeader !== 'category', dontShow: firstPageVisit }"
           @click="$router.go(-1)"
         >
           <HeaderBackSvg class="header-back__img" />
         </div>
         <div
           class="header-block header-product__back-two"
-          :class="{ active: searchProductInput }"
+          :class="{ active: searchProductInput ,hide: showMobileHeader !== 'category'}"
           @click="handleShowSearchInput(false)"
         >
           <HeaderBackSvg class="header-back__img" />
@@ -73,7 +73,11 @@
             <LogoSvg class="header-logo" />
           </nuxt-link>
         </div>
-        <div class="header-product__loupe" :class="{ hide: searchProductInput }" @click="handleShowSearchInput(true)">
+        <div
+          class="header-product__loupe"
+          :class="{ hide: searchProductInput, hide: showMobileHeader !== 'category' }"
+          @click="handleShowSearchInput(true)"
+        >
           <SearchIconLoopSvg class="header-product__loupe-img" />
         </div>
         <div class="header-product__share" :class="{ active: shareMobLink }" @click="handleShareMob">
