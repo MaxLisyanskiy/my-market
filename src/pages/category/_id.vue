@@ -35,7 +35,8 @@
 
       // Get category in store by ID and overwrite in data.
       const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-      const category = await get(params.id)
+      // const category = await get (params.id)
+      const { category } = await app.$categoryService.getProductsCategoryById(params.id)
 
       // If the category is valid, get the products of the category. If not, go to the error page 404
       if (category) {
