@@ -42,6 +42,22 @@ export default ($axios, error) => {
     },
 
     /**
+     * Get categories by id
+     *
+     * @returns {object} Object with field products, pages
+     */
+    getProductsCategoryById: async id => {
+      return await $axios
+        .get(`/categories/${id}`)
+        .then(({ data }) => {
+          return { ...data.data }
+        })
+        .catch(() => {
+          return error({ statusCode: 404 })
+        })
+    },
+
+    /**
      * Get products of a category with some configs
      *
      * @returns {array} Array with category objects
