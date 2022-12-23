@@ -88,17 +88,12 @@
         </div>
       </div>
     </div>
-    <CatalogProductsNotFound
-      v-if="products.length <= 0"
-      :search-query="$route.query.q"
-      class="company-products__not-found"
-    />
+    <CatalogProductsNotFound :search-query="$route.query.q" class="company-products__not-found" />
   </section>
 </template>
 
 <script>
   import CatalogProductsNotFound from '@/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
-
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
   import DotsCompanyProductsSvg from '@/assets/img/icons/svg/dots-company-products.svg?inline'
 
@@ -212,8 +207,7 @@
     display: none;
   }
   .company-products__not-found {
-    margin-top: 15px !important;
-    padding: 15px 30px;
+    padding: 0 30px;
   }
   .aside-not-found {
     margin-top: 0px;
@@ -277,7 +271,7 @@
       color: #ffffff;
       transition: all 0.2s ease;
       &:hover {
-		background-color:#404040;
+        background-color: #404040;
       }
     }
 
