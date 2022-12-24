@@ -3,7 +3,7 @@
     <article class="wrapper-product">
       <div class="card">
         <div class="product">
-          <ProductImages :product="product" :swiper-config="swiperConfig" />
+          <ProductImages :product="product" :company="company" :swiper-config="swiperConfig" />
           <ProductCenter :product="product" />
           <ProductRight v-if="company.name" :company="company" />
         </div>
