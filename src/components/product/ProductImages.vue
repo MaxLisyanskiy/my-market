@@ -1,7 +1,7 @@
 <template>
   <section class="product-left">
     <div class="product-left__img" :class="{ showMainMobImg: product.images.length === 1 }">
-      <img v-lazy="mainImg" :alt="product.name" />
+      <img v-lazy="mainImg" :alt="product.name" @click="handleShowProductImgs" />
 
       <div class="product-left__share" :class="{ active: shareDesktopLink }" @click="shareShowDesktop">
         <a class="product-left__share-link">
@@ -36,12 +36,14 @@
       </div>
     </div>
 
-    <AppSwiper
-      v-if="product.images.length > 1"
-      :swiper-config="swiperConfig"
-      :images="product.images"
-      :click-handler="handleSetMainImg"
-    />
+    <div @click="handleShowProductImgsSwiper">
+      <AppSwiper
+        v-if="product.images.length > 1"
+        :swiper-config="swiperConfig"
+        :images="product.images"
+        :click-handler="handleSetMainImg"
+      />
+    </div>
 
     <div class="product-left__share" :class="{ active: shareDesktopLink }" @click="shareShowDesktop">
       <a class="product-left__share-link">
@@ -64,11 +66,22 @@
         <CloseShareDesktopSvg class="product-share__close-icon" />
       </div>
     </div>
+
+    <AppLightBox
+      ref="lightbox"
+      :media="product.images"
+      :company="company"
+      :start-at="indexImg"
+      :show-caption="true"
+      :show-light-box="false"
+    />
   </section>
 </template>
 
 <script>
-  import AppSwiper from '../UI/AppSwiper.vue'
+  import AppSwiper from '@/components/UI/AppSwiper.vue'
+  import AppLightBox from '@/components/UI/AppLightBox/index.vue'
+
   import ShareSvg from '@/assets/img/icons/svg/share.svg?inline'
   import CopyShareSvg from '@/assets/img/icons/svg/copy-share.svg?inline'
   import TelegramDesktopSvg from '@/assets/img/icons/svg/telegram-desktop.svg?inline'
@@ -79,6 +92,7 @@
     name: 'ProductImages',
     components: {
       AppSwiper,
+      AppLightBox,
       ShareSvg,
       CopyShareSvg,
       TelegramDesktopSvg,
@@ -87,6 +101,10 @@
     },
     props: {
       product: {
+        type: Object,
+        default: () => {},
+      },
+      company: {
         type: Object,
         default: () => {},
       },
@@ -101,6 +119,7 @@
         shareDesktop: false,
         shareDesktopLink: true,
         locationHref: '',
+        showLightBox: false,
       }
     },
     computed: {
@@ -109,6 +128,7 @@
       },
     },
     mounted() {
+      console.log(this.company)
       this.locationHref = window.location.href
     },
     methods: {
@@ -119,14 +139,17 @@
       handleSetMainImg(index) {
         this.indexImg = index
       },
+
       shareShowDesktop() {
         this.shareDesktop = true
         this.shareDesktopLink = false
       },
+
       shareHideDesktop() {
         this.shareDesktop = false
         this.shareDesktopLink = true
       },
+
       handleCopyURL() {
         navigator.clipboard.writeText(window.location.href)
         this.$notify({
@@ -135,6 +158,16 @@
           type: 'success',
         })
         this.shareHideDesktop()
+      },
+
+      handleShowProductImgs() {
+        this.$refs.lightbox.showImage(this.indexImg)
+      },
+
+      handleShowProductImgsSwiper() {
+        if (window.innerWidth < 871) {
+          this.$refs.lightbox.showImage(this.indexImg)
+        }
       },
     },
   }

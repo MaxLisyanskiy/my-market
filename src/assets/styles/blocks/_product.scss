@@ -238,6 +238,7 @@
         height: auto;
         max-height: 346px;
         max-width: 100%;
+        cursor: zoom-in;
         @media (max-width: 992px) {
           max-height: 246px;
         }
@@ -920,8 +921,8 @@
             background: none;
           }
           &:nth-child(2n) {
-			background: #f2f0f0;
-			border-radius: 5px;
+            background: #f2f0f0;
+            border-radius: 5px;
           }
         }
       }
