@@ -10,7 +10,7 @@ const meta = [
   { charset: 'utf-8' },
   {
     name: 'viewport',
-    content: 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0',
+    content: 'width=device-width, height=device-height, initial-scale=1',
   },
   { name: 'format-detection', content: 'telephone=no' },
   { name: 'format-detection', content: 'address=no' },
