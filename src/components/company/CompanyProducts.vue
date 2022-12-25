@@ -88,7 +88,11 @@
         </div>
       </div>
     </div>
-    <CatalogProductsNotFound :search-query="$route.query.q" class="company-products__not-found" />
+    <CatalogProductsNotFound
+      v-if="products.length <= 0"
+      :search-query="$route.query.q"
+      class="company-products__not-found"
+    />
   </section>
 </template>
 
