@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import AuthSignup from '@/components/auth/AuthSignup.vue'
+  import AuthSignup from '@/components/auth/AuthSignUpTemp.vue'
 
   export default {
     name: 'RegisterPage',

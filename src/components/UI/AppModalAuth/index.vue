@@ -10,7 +10,7 @@
   import { mapState, mapMutations } from 'vuex'
 
   import AppModalAuthLogin from './AppModalAuthLogin.vue'
-  import AppModalAuthRegister from './AppModalAuthRegister.vue'
+  import AppModalAuthRegister from './AppModalAuthTemp.vue'
   import AppModalAuthReset from './AppModalAuthReset.vue'
 
   export default {
