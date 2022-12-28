@@ -128,7 +128,6 @@
       },
     },
     mounted() {
-      console.log(this.company)
       this.locationHref = window.location.href
     },
     methods: {
