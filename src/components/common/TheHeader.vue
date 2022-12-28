@@ -41,14 +41,14 @@
       <div :class="{ active: headerProductBlock }" class="header-product__block">
         <div
           class="header-block header-product__back"
-          :class="{ hide: searchProductInput,hide: showMobileHeader !== 'category', dontShow: firstPageVisit }"
+          :class="{ hide: searchProductInput, hide: $route.name === 'category', dontShow: firstPageVisit }"
           @click="$router.go(-1)"
         >
           <HeaderBackSvg class="header-back__img" />
         </div>
         <div
           class="header-block header-product__back-two"
-          :class="{ active: searchProductInput ,hide: showMobileHeader !== 'category'}"
+          :class="{ active: searchProductInput, hide: $route.name === 'category' }"
           @click="handleShowSearchInput(false)"
         >
           <HeaderBackSvg class="header-back__img" />
