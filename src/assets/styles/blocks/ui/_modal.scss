@@ -61,6 +61,18 @@
       font-size: 12px;
       line-height: 14px;
     }
+    & .auth-form__text,
+    & .auth-form__email {
+      color: #808080;
+      font-size: 16px;
+      line-height: 18.75px;
+      font-weight: 400;
+      text-align: center;
+    }
+    & .auth-form__email {
+      color: #404040;
+      cursor: pointer;
+    }
 
     // TODO
     &__todo {
