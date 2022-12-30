@@ -34,7 +34,38 @@
               </select>
             </div>
           </div>
-          <div class="company-products__top_mob">
+          <vue-custom-scrollbar class="company-products-categories" tagname="ul">
+            <li
+              v-for="(category, index) in productsCategories"
+              :key="index"
+              class="company-products-categories__item"
+              @click="handleChooseCategory(category)"
+            >
+              <div class="company-products-categories__img" :class="{ active: activeCategory.id === category.id }">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5.02025 8.67889L17.2505 2.13943L12.9999 0L0.389465 6.34771L5.02025 8.67889Z"
+                    fill="#707070"
+                  />
+                  <path
+                    d="M20.9648 4.00891L8.73456 10.5484L13 12.6957L25.6104 6.34752L20.9648 4.00891Z"
+                    fill="#707070"
+                  />
+                  <path
+                    d="M12.6518 13.3042L8.35714 11.1425V15.8921L6.5 14.0224H4.64286V9.27279L0 6.93604V19.6315L12.6518 26.0001V13.3042Z"
+                    fill="#707070"
+                  />
+                  <path d="M13.3482 13.3042V26.0001L26 19.6315V6.93604L13.3482 13.3042Z" fill="#707070" />
+                </svg>
+              </div>
+              <p class="company-products-categories__text" :class="{ active: activeCategory.id === category.id }">
+                {{ category.name }}
+              </p>
+            </li>
+          </vue-custom-scrollbar>
+
+          <!-- /* -->
+          <div v-if="false" class="company-products__top_mob">
             <p class="company-products__title">
               Все товары <span class="company-products__title_span">({{ products.length }})</span>
             </p>
@@ -44,6 +75,7 @@
           </div>
         </div>
 
+        <!-- v-if="products.length > 0" -->
         <div v-if="products.length > 0" class="company-products__row">
           <nuxt-link v-for="product in products" :key="product.id" :to="`/product/${product.id}`" class="product">
             <div class="product-wrapper">
