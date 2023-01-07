@@ -40,32 +40,6 @@
     padding-top: 12px;
     margin-top: 12px;
   }
-
-  &-link {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16.41px;
-    margin-bottom: 8px;
-    color: #262626;
-    position: relative;
-    & a {
-      color: #262626;
-    }
-    &__svg {
-      width: 6px;
-      height: 7.97px;
-      position: absolute;
-      right: 0;
-      top: 5px;
-    }
-    &:hover a {
-      color: #ff5833;
-      cursor: pointer;
-    }
-    &:hover &__path {
-      fill: red;
-    }
-  }
 }
 
 .home-wrapper .wrapper-slider {
