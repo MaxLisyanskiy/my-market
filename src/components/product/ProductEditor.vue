@@ -209,7 +209,6 @@
       return {
         dataForm: JSON.parse(JSON.stringify(this.form)),
         isAddNewSpecVisible: false,
-        goodsCategories: [],
         newSpec: {
           key: '',
           value: '',
@@ -229,20 +228,25 @@
         },
       }
     },
-    fetch() {
-      const arr = []
-      this.categories.forEach(item => {
-        item.children.forEach(level2 => {
-          level2.children.forEach(level3 => {
-            arr.push(level3)
-          })
-        })
-      })
-      this.goodsCategories = arr
-    },
+
     computed: {
       ...mapState('categories', ['categories']),
+
+      goodsCategories() {
+        const arr = []
+
+        this.categories.forEach(item => {
+          item.children.forEach(level2 => {
+            level2.children.forEach(level3 => {
+              arr.push(level3)
+            })
+          })
+        })
+
+        return arr
+      },
     },
+
     methods: {
       submit() {
         if (!this.validate()) return false

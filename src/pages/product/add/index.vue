@@ -13,10 +13,6 @@
     layout: 'default',
     middleware: 'auth',
 
-    async asyncData({ app, store, params }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
-    },
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
