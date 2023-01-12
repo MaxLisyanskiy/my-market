@@ -356,58 +356,58 @@
       line-height: 18.75px;
     }
 
-    &__menu {
-      border-top: 1px solid #e5e0e0;
-      padding-top: 3px;
-      margin-top: 7px;
-    }
+    // &__menu {
+    //   border-top: 1px solid #e5e0e0;
+    //   padding-top: 3px;
+    //   margin-top: 7px;
+    // }
 
-    &__link {
-      font-size: 14px;
-      line-height: 16px;
-      padding-bottom: 8px;
-      cursor: pointer;
-      font-weight: 400;
-      height: auto;
-      align-items: center;
-      display: flex;
-      margin-left: -10px;
-      box-sizing: border-box;
-      padding: 4px 0 4px 10px;
-      width: 224px;
-      @media (max-width: 992px) {
-        width: 112%;
-      }
-      & a {
-        color: #262626;
-      }
+    // &__link {
+    //   font-size: 14px;
+    //   line-height: 16px;
+    //   padding-bottom: 8px;
+    //   cursor: pointer;
+    //   font-weight: 400;
+    //   height: auto;
+    //   align-items: center;
+    //   display: flex;
+    //   margin-left: -10px;
+    //   box-sizing: border-box;
+    //   padding: 4px 0 4px 10px;
+    //   width: 224px;
+    //   @media (max-width: 992px) {
+    //     width: 112%;
+    //   }
+    //   & a {
+    //     color: #262626;
+    //   }
 
-      &:hover {
-        color: #ff5833;
-      }
+    //   &:hover {
+    //     color: #ff5833;
+    //   }
 
-      &.active {
-        background: #ff5833;
-        width: 224px;
-        border-radius: 5px;
-        color: #ffffff;
-        align-items: center;
-        display: flex;
-        margin-left: -10px;
-        box-sizing: border-box;
-        margin-bottom: 4px;
+    //   &.active {
+    //     background: #ff5833;
+    //     width: 224px;
+    //     border-radius: 5px;
+    //     color: #ffffff;
+    //     align-items: center;
+    //     display: flex;
+    //     margin-left: -10px;
+    //     box-sizing: border-box;
+    //     margin-bottom: 4px;
 
-        &:hover {
-          color: #ffffff;
-        }
-      }
+    //     &:hover {
+    //       color: #ffffff;
+    //     }
+    //   }
 
-      &:hover {
-        /*
-			color:#FF5833;
-			*/
-      }
-    }
+    //   &:hover {
+    //     /*
+    // 	color:#FF5833;
+    // 	*/
+    //   }
+    // }
   }
   &-applyied {
     padding: 20px 11px 14px 15px;

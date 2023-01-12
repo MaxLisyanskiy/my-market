@@ -20,7 +20,7 @@
             no-match-text="Ничего не найдено"
           >
             <el-option
-              v-for="category in categories"
+              v-for="category in goodsCategories"
               :key="category.id"
               :label="category.name"
               :value="category.id"
@@ -228,9 +228,25 @@
         },
       }
     },
+
     computed: {
       ...mapState('categories', ['categories']),
+
+      goodsCategories() {
+        const arr = []
+
+        this.categories.forEach(item => {
+          item.children.forEach(level2 => {
+            level2.children.forEach(level3 => {
+              arr.push(level3)
+            })
+          })
+        })
+
+        return arr
+      },
     },
+
     methods: {
       submit() {
         if (!this.validate()) return false
