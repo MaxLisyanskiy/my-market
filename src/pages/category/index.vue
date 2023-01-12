@@ -1,15 +1,49 @@
 <template>
   <section class="all-categories">
-    <h1 class="all-categories__title">Все категории</h1>
-    <div class="all-categories__list">
-      <nuxt-link
-        v-for="category in categories"
-        :key="`${category + category.id}`"
-        :to="`/category/${category.id}`"
-        class="all-categories__item"
+    <ul class="all-categories-nav">
+      <li class="all-categories-nav__item" :class="{ active: activeTab === 'goods' }" @click="handleChooseTab('goods')">
+        <AllCategoriesGoodsSvg />
+        <span>Товары</span>
+      </li>
+      <li
+        class="all-categories-nav__item"
+        :class="{ active: activeTab === 'companies' }"
+        @click="handleChooseTab('companies')"
       >
-        {{ category.name }}
-      </nuxt-link>
+        <AllCategoriesCompaniesSvg />
+        <span>Компании</span>
+      </li>
+    </ul>
+
+    <div v-show="activeTab === 'goods'">
+      <AppCategoriesAccordion
+        v-for="goodsCategory in goodsCategories"
+        :key="`${goodsCategory.id}`"
+        class="all-categories-accordion"
+      >
+        <template #title>
+          <span>{{ goodsCategory.name }}</span>
+        </template>
+        <template #content>
+          <div class="categories-accordion__level3">
+            <NuxtLink v-for="child in goodsCategory.children" :key="`${child.id}`" :to="`/category/${child.id}`">
+              {{ child.name }}
+            </NuxtLink>
+          </div>
+        </template>
+      </AppCategoriesAccordion>
+    </div>
+
+    <div v-show="activeTab === 'companies'">
+      <ul class="all-categories-list">
+        <li
+          v-for="companyCategory in companyCategories"
+          :key="`${companyCategory.id}`"
+          class="all-categories-list__item"
+        >
+          <span>{{ companyCategory.name }}</span>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
@@ -17,12 +51,36 @@
 <script>
   import { mapState } from 'vuex'
 
+  import AppCategoriesAccordion from '@/components/UI/AppCategoriesAccordion'
+
+  import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
+  import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
+
   export default {
     name: 'CategoryMainPage',
+    components: { AppCategoriesAccordion, AllCategoriesGoodsSvg, AllCategoriesCompaniesSvg },
     layout: 'default',
 
     data() {
-      return {}
+      return {
+        activeTab: 'goods',
+        goodsCategories: [],
+        companyCategories: [],
+      }
+    },
+    fetch() {
+      const newCompanyCategories = []
+      this.categories.map(item => {
+        this.goodsCategories = item.children
+        return item.children.map(child => {
+          return newCompanyCategories.push({
+            id: child.id,
+            name: child.name,
+          })
+        })
+      })
+      console.log(this.goodsCategories)
+      this.companyCategories = newCompanyCategories
     },
     head() {
       return {
@@ -73,11 +131,18 @@
     },
     computed: {
       ...mapState('categories', ['categories']),
+      allCategories() {
+        return false
+      },
     },
     created() {
       this.isTheDeskOrMob()
     },
     methods: {
+      handleChooseTab(name) {
+        this.activeTab = name
+      },
+
       isTheDeskOrMob() {
         if (process.browser) {
           if (window.innerWidth > 670) {
