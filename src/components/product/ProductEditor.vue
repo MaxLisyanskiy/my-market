@@ -20,7 +20,7 @@
             no-match-text="Ничего не найдено"
           >
             <el-option
-              v-for="category in categories"
+              v-for="category in goodsCategories"
               :key="category.id"
               :label="category.name"
               :value="category.id"
@@ -209,6 +209,7 @@
       return {
         dataForm: JSON.parse(JSON.stringify(this.form)),
         isAddNewSpecVisible: false,
+        goodsCategories: [],
         newSpec: {
           key: '',
           value: '',
@@ -227,6 +228,17 @@
           images: 'isImagesValid',
         },
       }
+    },
+    fetch() {
+      const arr = []
+      this.categories.forEach(item => {
+        item.children.forEach(level2 => {
+          level2.children.forEach(level3 => {
+            arr.push(level3)
+          })
+        })
+      })
+      this.goodsCategories = arr
     },
     computed: {
       ...mapState('categories', ['categories']),
