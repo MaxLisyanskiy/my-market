@@ -2,6 +2,7 @@
   <div>
     <button
       class="categories-accordion__btn"
+      :class="{ active: isOpen }"
       :aria-expanded="isOpen"
       :aria-controls="`collapse${_uid}`"
       @click="toggleAccordion()"
