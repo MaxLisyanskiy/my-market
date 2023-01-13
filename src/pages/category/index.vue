@@ -1,6 +1,24 @@
 <template>
   <section class="all-categories">
-    <ul class="all-categories-nav">
+    <div class="header-product sticky all-categories-header" :class="{ shadowHiden: !showCompaniesList }">
+      <div
+        v-show="showCompaniesList"
+        class="header-block header-product__back"
+        @click="handleBackToCompaniesCategories()"
+      >
+        <HeaderBackSvg class="header-back__img" />
+      </div>
+      <div class="header-product__logo">
+        <nuxt-link to="/">
+          <LogoSvg class="header-logo" />
+        </nuxt-link>
+      </div>
+      <div class="header-product__share" @click="handleShareMob">
+        <HeaderShareSvg class="header-product__share-icon" />
+      </div>
+    </div>
+
+    <ul v-show="!showCompaniesList" class="all-categories-nav">
       <li class="all-categories-nav__item" :class="{ active: activeTab === 'goods' }" @click="handleChooseTab('goods')">
         <AllCategoriesGoodsSvg />
         <span>Товары</span>
@@ -15,7 +33,7 @@
       </li>
     </ul>
 
-    <div v-show="activeTab === 'goods'">
+    <div v-show="activeTab === 'goods' && !showCompaniesList">
       <AppCategoriesAccordion
         v-for="goodsCategory in goodsCategories"
         :key="`${goodsCategory.id}`"
@@ -34,14 +52,27 @@
       </AppCategoriesAccordion>
     </div>
 
-    <div v-show="activeTab === 'companies'">
+    <div v-show="activeTab === 'companies' && !showCompaniesList">
       <ul class="all-categories-list">
         <li
           v-for="companyCategory in companyCategories"
           :key="`${companyCategory.id}`"
           class="all-categories-list__item"
+          @click="handleChooseCompanyCategory(companyCategory.id)"
         >
           <span>{{ companyCategory.name }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div v-show="showCompaniesList">
+      <ul class="all-categories-companies">
+        <li v-for="company in companiesList" :key="`${company.id}`" class="all-categories-companies__item">
+          <nuxt-link :to="`/company/${company.id}/products`">
+            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" />
+            <img v-else src="@/assets/img/icons/company-not-found-img.svg" alt="company-not-found-img" />
+            <span>{{ company.name }}</span>
+          </nuxt-link>
         </li>
       </ul>
     </div>
@@ -49,25 +80,47 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   import AppCategoriesAccordion from '@/components/UI/AppCategoriesAccordion'
 
+  import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
+  import LogoSvg from '@/assets/img/icons/svg/logo.svg?inline'
+  import HeaderShareSvg from '@/assets/img/icons/svg/header-share.svg?inline'
   import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
   import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
 
   export default {
     name: 'CategoryMainPage',
-    components: { AppCategoriesAccordion, AllCategoriesGoodsSvg, AllCategoriesCompaniesSvg },
+    components: {
+      AppCategoriesAccordion,
+      HeaderBackSvg,
+      LogoSvg,
+      HeaderShareSvg,
+      AllCategoriesGoodsSvg,
+      AllCategoriesCompaniesSvg,
+    },
     layout: 'default',
+    async asyncData({ app }) {
+      // Get all categoris
+      let categories = []
+
+      await app.$categoryService
+        .getCategories(false)
+        .then(data => (categories = data.categories))
+        .catch(() => {})
+
+      return { categories }
+    },
 
     data() {
       return {
         activeTab: 'goods',
+        showCompaniesList: false,
         goodsCategories: [],
         companyCategories: [],
+        companiesList: [],
       }
     },
+
     fetch() {
       const newCompanyCategories = []
       this.categories.map(item => {
@@ -79,9 +132,10 @@
           })
         })
       })
-      console.log(this.goodsCategories)
+
       this.companyCategories = newCompanyCategories
     },
+
     head() {
       return {
         title: `Все Категории | VALE.SU`,
@@ -129,18 +183,33 @@
         ],
       }
     },
+
     computed: {
-      ...mapState('categories', ['categories']),
       allCategories() {
         return false
       },
     },
+
     created() {
       this.isTheDeskOrMob()
     },
+
     methods: {
       handleChooseTab(name) {
         this.activeTab = name
+      },
+
+      async handleChooseCompanyCategory(id) {
+        const { companies } = await this.$companyService.getCompanisByCategoryId(id)
+        if (companies) {
+          this.companiesList = companies
+          this.showCompaniesList = true
+        }
+      },
+
+      handleBackToCompaniesCategories() {
+        this.showCompaniesList = false
+        this.companiesList = []
       },
 
       isTheDeskOrMob() {
@@ -148,6 +217,16 @@
           if (window.innerWidth > 670) {
             this.$router.push('/')
           }
+        }
+      },
+
+      handleShareMob() {
+        if (navigator.share) {
+          navigator.share({
+            title: `Все категори | VALE.SU`,
+            text: '',
+            url: window.location.href,
+          })
         }
       },
     },

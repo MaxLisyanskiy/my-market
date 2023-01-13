@@ -70,5 +70,22 @@ export default ($axios, error) => {
           return error({ statusCode: 500 })
         })
     },
+
+    /**
+     * Get companies by category id
+     *
+     * @param {number} id category id
+     * @returns {object} Object with companies
+     */
+    getCompanisByCategoryId: async id => {
+      return await $axios
+        .get(`/companies?category_id=${id}`)
+        .then(({ data }) => {
+          return { ...data.data }
+        })
+        .catch(() => {
+          return error({ statusCode: 500 })
+        })
+    },
   }
 }
