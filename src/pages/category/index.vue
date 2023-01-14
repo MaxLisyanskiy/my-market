@@ -44,6 +44,7 @@
         </template>
         <template #content>
           <div class="categories-accordion__level3">
+            <NuxtLink :to="`/category/${goodsCategory.id}`"> Все подкатегории </NuxtLink>
             <NuxtLink v-for="child in goodsCategory.children" :key="`${child.id}`" :to="`/category/${child.id}`">
               {{ child.name }}
             </NuxtLink>
@@ -58,7 +59,7 @@
           v-for="companyCategory in companyCategories"
           :key="`${companyCategory.id}`"
           class="all-categories-list__item"
-          @click="handleChooseCompanyCategory(companyCategory.id)"
+          @click="handleChooseCompanyCategory(companyCategory.id, companyCategory.name)"
         >
           <span>{{ companyCategory.name }}</span>
         </li>
@@ -99,7 +100,8 @@
       AllCategoriesCompaniesSvg,
     },
     layout: 'default',
-    async asyncData({ app }) {
+
+    async asyncData({ app, route }) {
       // Get all categoris
       let categories = []
 
@@ -108,13 +110,33 @@
         .then(data => (categories = data.categories))
         .catch(() => {})
 
-      return { categories }
+      const { query } = route
+
+      let activeTab = 'goods'
+      let showCompaniesList = false
+      let companyId = null
+      let companiesList = null
+      let categoryName = null
+
+      if (query.active) {
+        activeTab = query.active
+      }
+
+      if (query.companyId) {
+        companyId = query.companyId
+        showCompaniesList = true
+
+        const { companies } = await app.$companyService.getCompanisByCategoryId(query.companyId)
+        const { category } = await app.$categoryService.getProductsCategoryById(query.companyId)
+        companiesList = companies
+        categoryName = category.name
+      }
+
+      return { categories, activeTab, showCompaniesList, companyId, companiesList, categoryName }
     },
 
     data() {
       return {
-        activeTab: 'goods',
-        showCompaniesList: false,
         goodsCategories: [],
         companyCategories: [],
         companiesList: [],
@@ -137,23 +159,31 @@
     },
 
     head() {
+      let titleName = ''
+
+      if (this.companyId) {
+        titleName = `Список компаний в категории ${this.categoryName} | VALE.SU`
+      } else {
+        titleName =
+          this.activeTab === 'goods' ? 'Все категори товаров | VALE.SU' : 'Виды деятельности компаний | VALE.SU'
+      }
       return {
-        title: `Все Категории | VALE.SU`,
+        title: titleName,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `Все категории | VALE.SU`,
+            content: titleName,
           },
           {
             hid: 'description',
             name: 'description',
-            content: ``,
+            content: titleName,
           },
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `Все категории | VALE.SU`,
+            content: titleName,
           },
           {
             hid: 'og:site_name',
@@ -163,17 +193,17 @@
           {
             hid: 'og:description',
             name: 'og:description',
-            content: ``,
+            content: titleName,
           },
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: 'Мир поставщиков VALE.SU',
+            content: titleName,
           },
           {
             hid: 'twitter:description',
             name: 'twitter:description',
-            content: ``,
+            content: titleName,
           },
           {
             hid: 'twitter:card',
@@ -197,19 +227,35 @@
     methods: {
       handleChooseTab(name) {
         this.activeTab = name
+        this.$router.push({
+          path: this.$route.path,
+          query: { active: name },
+        })
       },
 
-      async handleChooseCompanyCategory(id) {
+      async handleChooseCompanyCategory(id, name) {
+        this.companyId = id
+        this.categoryName = name
         const { companies } = await this.$companyService.getCompanisByCategoryId(id)
         if (companies) {
           this.companiesList = companies
           this.showCompaniesList = true
+          this.$router.push({
+            path: this.$route.path,
+            query: { active: 'companies', companyId: id },
+          })
         }
       },
 
       handleBackToCompaniesCategories() {
+        this.companyId = null
+        this.categoryName = null
         this.showCompaniesList = false
         this.companiesList = []
+        this.$router.push({
+          path: this.$route.path,
+          query: { active: 'companies' },
+        })
       },
 
       isTheDeskOrMob() {
@@ -221,9 +267,17 @@
       },
 
       handleShareMob() {
+        let titleName = ''
+
+        if (this.companyId) {
+          titleName = `Список компаний в категории ${this.categoryName} | VALE.SU`
+        } else {
+          titleName =
+            this.activeTab === 'goods' ? 'Все категори товаров | VALE.SU' : 'Виды деятельности компаний | VALE.SU'
+        }
         if (navigator.share) {
           navigator.share({
-            title: `Все категори | VALE.SU`,
+            title: titleName,
             text: '',
             url: window.location.href,
           })
