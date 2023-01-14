@@ -22,8 +22,8 @@
 
       // Get category by ID
       if (product) {
-        const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-        category = await get(product.category_id)
+        const res = await app.$categoryService.getProductsCategoryById(product.category_id)
+        category = res.category
         const { products } = await app.$productService.getProducts(1, 100, null)
         return { product, company, category, products }
       } else {
