@@ -1,14 +1,17 @@
 <template>
   <div class="applyied-block">
-    <div v-if="showApplyiedResult" class="applyied-result">
-      <span v-show="false">
-        <button class="applyied-btn active">
+    <div class="applyied-result">
+      <div class="applyied-wrapper">
+        <button class="applyied-btn">
+          <AllCategoriesGoodsSvg />
           <span class="applyied-btn__text">Товары</span>
         </button>
         <button class="applyied-btn">
-          <span class="applyied-btn__text">Продавцы</span>
+          <AllCategoriesCompaniesSvg />
+          <span class="applyied-btn__text">Компании</span>
         </button>
-      </span>
+      </div>
+      <!-- v-if="showApplyiedResult" -->
       <span class="applyied-text"
         >По запросу "{{ searchQuery }}" {{ getDeclensionWordFound }}
         <span class="applyied-text__orange">{{ searchProductsCount }}</span>
@@ -53,10 +56,12 @@
 
   import SortingListSvg from '@/assets/img/icons/svg/sorting-list.svg?inline'
   import SortingGallerySvg from '@/assets/img/icons/svg/sorting-gallery.svg?inline'
+  import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
+  import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
 
   export default {
     name: 'CatalogFilter',
-    components: { SortingListSvg, SortingGallerySvg },
+    components: { SortingListSvg, SortingGallerySvg, AllCategoriesGoodsSvg, AllCategoriesCompaniesSvg },
     data() {
       return {
         showApplyiedResult: false,

@@ -1,6 +1,6 @@
 <template>
   <section class="applyied">
-    <CatalogFilter v-if="false" />
+    <CatalogFilter />
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
       <CatalogProducts :products="products" />
