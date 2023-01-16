@@ -242,6 +242,14 @@
     margin: 0;
     display: none;
   }
+  .company-products__top {
+    @media (max-width: 768px) {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #f5f5f5;
+    }
+  }
   .company-products__not-found {
     padding: 0 30px;
   }

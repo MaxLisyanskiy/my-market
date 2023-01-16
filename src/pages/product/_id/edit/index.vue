@@ -20,9 +20,10 @@
       // Get product by ID
       const { product } = await app.$productService.getProductById(params.id)
 
-      // Get category by ID
-      const get = await store.getters['categories/GET_CATEGORY_BY_ID']
-      const category = await get(product.category_id)
+      let category = ''
+
+      const res = await app.$categoryService.getProductsCategoryById(product.category_id)
+      category = res.category
 
       // Set form with product-data for ProductEditor
       const form = {
