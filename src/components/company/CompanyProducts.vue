@@ -144,6 +144,7 @@
       </button>
       <button class="modal-delete__btn">Отмена</button>
     </div>
+	
   </section>
 </template>
 
