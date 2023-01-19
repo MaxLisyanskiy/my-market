@@ -12,10 +12,10 @@
         </li>
 
         <li class="menu-link">
-          <nuxt-link to="/category/">
+          <a href="#" @click="e => handleGoToAllCategories(e)">
             <AllCategoriesSvg class="menu-link__icon" />
             <span class="menu-link__text">Все категории</span>
-          </nuxt-link>
+          </a>
         </li>
 
         <li class="menu-link">
@@ -53,7 +53,16 @@
         return this.$auth.loggedIn
       },
     },
-    methods: {},
+    methods: {
+      handleGoToAllCategories(e) {
+        e.preventDefault()
+        if (this.$route.path === '/category/') {
+          this.$router.push('/category/?active=goods&reload=true')
+        } else {
+          this.$router.push('/category/?active=goods')
+        }
+      },
+    },
   }
 </script>
 

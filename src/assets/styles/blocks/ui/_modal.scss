@@ -25,7 +25,51 @@
   &.active {
     display: flex;
   }
-
+  
+  &-delete {
+    width: 300px;
+    height: 220px;
+    background: #ffffff;
+    box-shadow: 0px 0px 2px rgba(204, 204, 204, 0.6);
+    border-radius: 10px;
+    margin: 0 auto;
+    position: fixed;
+    text-align: center;
+    top: 200px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    @media (max-width: 768px) {
+      width: 250px;
+      top: 153px;
+    }
+    &__title {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 23px;
+      color: #404040;
+      margin: 48px 0;
+      display: block;
+      @media (max-width: 768px) {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 50px 0 46px 0;
+      }
+    }
+    &__btn {
+      border-top: 1px solid #e7e7e7;
+      background: none;
+      width: 100%;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      color: #595959;
+      height: 50px;
+      &-delete {
+        color: #f00b1d;
+      }
+    }
+  }
   &-dialog {
     width: 350px;
     max-width: 350px;
@@ -144,7 +188,7 @@
       top: 400px;
       background: linear-gradient(78.83deg, rgba(240, 11, 29, 0.9) 0%, rgba(255, 88, 51, 0.9) 100%);
       border-radius: 8px;
-      font-weight: 700;
+      font-weight: 500;
       font-size: 16px;
       line-height: 19px;
       color: #ffffff;

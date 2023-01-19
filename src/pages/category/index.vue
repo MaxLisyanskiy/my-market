@@ -220,6 +220,19 @@
       },
     },
 
+    watch: {
+      $route() {
+        if (this.$route.query.reload) {
+          this.activeTab = 'goods'
+          this.showCompaniesList = false
+          this.companyId = null
+          this.companiesList = null
+          this.categoryName = null
+          this.$router.push('/category/?active=goods')
+        }
+      },
+    },
+
     created() {
       this.isTheDeskOrMob()
     },
