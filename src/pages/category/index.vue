@@ -66,7 +66,15 @@
       </ul>
     </div>
 
-    <div v-show="showCompaniesList">
+    <div v-show="showCompaniesList" class="all-categories-companies__mainWrapp">
+      <div class="all-categories-companies__banner">
+        <img v-if="companyId === 5" src="@/assets/img/allCategoriesBanner/glass-packaging.jpg" alt="glass-packaging" />
+        <img
+          v-else-if="companyId === 7"
+          src="@/assets/img/allCategoriesBanner/lids-corks-caps.jpg"
+          alt="lids-corks-caps"
+        />
+      </div>
       <ul class="all-categories-companies">
         <li v-for="company in companiesList" :key="`${company.id}`" class="all-categories-companies__item">
           <nuxt-link :to="`/company/${company.id}/products`">
