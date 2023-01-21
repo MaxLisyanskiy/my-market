@@ -130,7 +130,18 @@
   &-companies {
     display: flex;
     flex-direction: column;
-    padding-top: 56px;
+
+    &__mainWrapp {
+      padding-top: 56px;
+    }
+
+    &__banner {
+      margin: 10px;
+
+      & img {
+        width: 100%;
+      }
+    }
 
     &__item {
       padding: 10px 20px;
