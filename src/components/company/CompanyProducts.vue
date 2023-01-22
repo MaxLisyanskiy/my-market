@@ -97,7 +97,11 @@
                     >
                       Изменить
                     </button>
-                    <button class="product-combobox__btn" @click.stop="e => handleDeleteProduct(e, product.id)">
+                    <button
+                      class="product-combobox__btn"
+                      @click.stop="e => showModalDeleteFunc(e, product.id)"
+                      @touchstart.stop="e => showModalDeleteFunc(e, product.id)"
+                    >
                       Удалить
                     </button>
                   </div>
@@ -125,6 +129,22 @@
       :search-query="$route.query.q"
       class="company-products__not-found"
     />
+    <client-only>
+      <div ref="backgroundPlate" class="backgroundPlate"></div>
+    </client-only>
+
+    <div v-if="showModalDelete" class="modal-delete">
+      <span class="modal-delete__title">Удалить товар?</span>
+      <button
+        class="modal-delete__btn modal-delete__btn-delete"
+        @click.stop="e => handleDeleteProduct(e, productId)"
+        @click="handleCloseModalDelete"
+      >
+        Удалить
+      </button>
+      <button class="modal-delete__btn">Отмена</button>
+    </div>
+	
   </section>
 </template>
 
@@ -163,6 +183,8 @@
           name: null,
           products_count: null,
         },
+        showModalDelete: false,
+        productId: '',
       }
     },
     computed: {
@@ -175,6 +197,9 @@
       },
     },
     mounted() {
+      window.addEventListener('keydown', this.escCloseModal)
+      document.addEventListener('click', this.onClick)
+
       if (this.products.length <= 0) {
         return (this.activeCategory = {
           id: null,
@@ -191,7 +216,42 @@
         this.setCategories()
       }
     },
+    destroy() {
+      window.removeEventListener('keydown', this.escCloseModal)
+      document.addEventListener('click', this.onClick)
+    },
     methods: {
+      showModalDeleteFunc(e, id) {
+        this.$refs.backgroundPlate.classList.add('active')
+        document.querySelector('body').classList.add('lock')
+        this.showModalDelete = true
+        this.productId = id
+        e.preventDefault()
+      },
+      // Close a modal delete
+      handleCloseModalDelete() {
+        this.showModalDelete = false
+        this.$refs.backgroundPlate.classList.remove('active')
+        document.querySelector('body').classList.remove('lock')
+      },
+      onClick(event) {
+        const modalDelete = event.target.matches('.modal-delete')
+        const modalDeleteTitle = event.target.matches('.modal-delete__title')
+        if (modalDelete || modalDeleteTitle) {
+          document.querySelector('body').classList.add('lock')
+        } else {
+          this.handleCloseModalDelete()
+        }
+        event.preventDefault()
+      },
+
+      // Close a modal on pressing the Esc key
+      escCloseModal(e) {
+        if (this.showModalDelete && e.key === 'Escape') {
+          this.handleCloseModalDelete()
+        }
+      },
+
       /**
        * Set active category
        * @param {object} category category object
