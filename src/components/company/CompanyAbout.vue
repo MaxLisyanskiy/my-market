@@ -20,7 +20,7 @@
         </ul>
       </div>
 
-      <div class="company-description">
+      <div ref="description" class="company-description">
         <div :class="{ showDescription: !companyDescriptionEditor || !companyRequisitesEditor }">
           <div :class="{ show: !companyDescriptionEditor }" class="company-description__block">
             <span class="company-description__title">{{ descriptionTitle }}</span>
