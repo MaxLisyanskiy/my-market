@@ -612,6 +612,7 @@
 
       &__wrapp {
         display: flex;
+        position: relative;
       }
 
       &__fields {
@@ -705,6 +706,18 @@
 
       &__logo-input {
         display: none;
+      }
+    }
+
+    &__delete-logo {
+      position: absolute;
+      z-index: 2;
+      left: 90px;
+      top: 2px;
+	  cursor:pointer;
+      @media (max-width: 768px) {
+        left: 50px;
+        top: -6px;
       }
     }
 

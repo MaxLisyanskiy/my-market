@@ -304,7 +304,7 @@
     </div>
 
     <client-only>
-      <div class="backgroundPlateTwo"></div>
+      <div v-if="backgroundPlate" class="backgroundPlateTwo"></div>
     </client-only>
   </section>
 </template>
@@ -354,6 +354,7 @@
         companyDescriptionEditor: true,
         companyRequisitesEditor: true,
         companyShowPlate: false,
+		backgroundPlate:false,
       }
     },
     computed: {
