@@ -66,7 +66,11 @@
       </ul>
     </div>
 
-    <div v-show="showCompaniesList">
+    <div v-show="showCompaniesList" class="all-categories-companies__mainWrapp">
+      <div class="all-categories-companies__banner">
+        <img v-if="companyId === 5" src="@/static/allCategoriesBanner/glass-packaging.jpg" alt="glass-packaging" />
+        <img v-else-if="companyId === 7" src="@/static/allCategoriesBanner/lids-corks-caps.jpg" alt="lids-corks-caps" />
+      </div>
       <ul class="all-categories-companies">
         <li v-for="company in companiesList" :key="`${company.id}`" class="all-categories-companies__item">
           <nuxt-link :to="`/company/${company.id}/products`">
@@ -123,7 +127,7 @@
       }
 
       if (query.companyId) {
-        companyId = query.companyId
+        companyId = Number(query.companyId)
         showCompaniesList = true
 
         const { companies } = await app.$companyService.getCompanisByCategoryId(query.companyId)
@@ -160,6 +164,11 @@
 
     head() {
       let titleName = ''
+      const image = `${process.env.ORIGIN_URL}/main-banner.png`
+      const banner =
+        this.companyId === 5
+          ? `${process.env.ORIGIN_URL}/allCategoriesBanner/glass-packaging.jpg`
+          : `${process.env.ORIGIN_URL}/allCategoriesBanner/lids-corks-caps.jpg`
 
       if (this.companyId) {
         titleName = `Список компаний в категории ${this.categoryName} | VALE.SU`
@@ -196,6 +205,22 @@
             content: titleName,
           },
           {
+            hid: 'og:image',
+            property: 'og:image',
+            itemprop: 'image',
+            content: this.companyId ? banner : image,
+          },
+          {
+            hid: 'og:image:width',
+            property: 'og:image:width',
+            content: '256',
+          },
+          {
+            hid: 'og:image:height',
+            property: 'og:image:height',
+            content: '256',
+          },
+          {
             hid: 'twitter:title',
             name: 'twitter:title',
             content: titleName,
@@ -204,6 +229,12 @@
             hid: 'twitter:description',
             name: 'twitter:description',
             content: titleName,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            itemprop: 'image',
+            content: this.companyId ? banner : image,
           },
           {
             hid: 'twitter:card',

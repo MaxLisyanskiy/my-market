@@ -30,9 +30,15 @@
                 Редактировать профиль
               </button>
             </div>
+
           </div>
         </div>
-
+		<client-only>
+              <div
+                v-if="backgroundPlate"
+                class="backgroundPlateTwo"
+              ></div>
+            </client-only>
         <validation-observer
           ref="observer"
           tag="form"
@@ -41,6 +47,11 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
+            <LogoDeleteSvg
+              v-if="isCompanyOwner"
+              class="banner-info__delete-logo"
+              @click.stop="e => handleCompanyLogoDelete(notFound)"
+            />
             <label for="companyLogo" class="banner-info-edit__logo">
               <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
               <img
@@ -282,6 +293,11 @@
           @submit.prevent="handleEditCompanyProfile"
         >
           <div class="banner-info-edit__wrapp">
+            <LogoDeleteSvg
+              v-if="isCompanyOwner"
+              class="banner-info__delete-logo"
+              @click.stop="e => handleCompanyLogoDelete()"
+            />
             <label for="companyLogo" class="banner-info-edit__logo">
               <img v-if="companyLogo" v-lazy="companyLogo.url" :alt="company.name" class="banner-info__logo" />
               <img
@@ -455,6 +471,7 @@
   import CompanyOwnerSettingsSvg from '@/assets/img/icons/svg/company/company-owner-settings.svg?inline'
   import CompanyEditLogoSvg from '@/assets/img/icons/svg/company/company-edit-logo.svg?inline'
   import CompanyEditLogoMobSvg from '@/assets/img/icons/svg/company/company-edit-logo-mob.svg?inline'
+  import LogoDeleteSvg from '@/assets/img/icons/svg/close-share.svg?inline'
 
   export default {
     name: 'CompanyTop',
@@ -467,6 +484,7 @@
       CompanyOwnerSettingsSvg,
       CompanyEditLogoSvg,
       CompanyEditLogoMobSvg,
+      LogoDeleteSvg,
     },
     props: {
       company: {
@@ -492,6 +510,9 @@
         companyNameError: '',
         companyPhoneError: '',
         companyEmailError: '',
+
+        backgroundPlate: false,
+		notFound: 'handleCompanyLogoDelete'
       }
     },
 
@@ -525,10 +546,10 @@
       showCompanyEditor() {
         if (this.showCompanyEditor === true) {
           document.querySelector('body').style.overflowY = 'hidden'
-          document.querySelector('.backgroundPlateTwo').classList.add('active')
+          this.backgroundPlate = true
         } else {
           document.querySelector('body').removeAttribute('style')
-          document.querySelector('.backgroundPlateTwo').classList.remove('active')
+          this.backgroundPlate = false
         }
       },
     },
@@ -581,6 +602,11 @@
 
         this.$emit('scrolled', this.scrolledToTabs)
       },
+
+    handleCompanyLogoDelete() {
+		this.companyLogo = ""
+		document.querySelector('#companyLogo').value = '';
+	},
 
       async handleCompanyLogoChange(file) {
         const formData = new FormData()
@@ -651,6 +677,7 @@
             email: this.companyEmail,
             logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
           }
+
           const result = await this.$companyService.updateCompany(body)
 
           if (result[0]) {
