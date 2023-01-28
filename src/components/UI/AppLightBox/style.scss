@@ -134,6 +134,7 @@
     max-width: calc(95%);
   }
   &_desk {
+    display: flex;
     @media (max-width: 500px) {
       display: none;
     }
@@ -221,14 +222,36 @@
   align-items: center;
   justify-content: flex-end;
 }
-
+.vib-left,
+.vib-right {
+  width: 50%;
+  height: 100%;
+  display: block;
+  position: absolute;
+}
+.vib-left:hover {
+  .vib-arrow-left {
+	opacity:1;
+	transition: all 0.2s ease-out;
+  }
+}
 .vib-arrow-left {
   left: 0;
+  opacity:0;
   transform: rotate(-180deg);
 }
-
+.vib-right {
+  right: 0;
+  &:hover {
+    .vib-arrow-right {
+      opacity:1;
+	  transition: all 0.2s ease-out;
+    }
+  }
+}
 .vib-arrow-right {
   right: 0;
+  opacity:0;
 }
 
 @media (min-width: 500px) {

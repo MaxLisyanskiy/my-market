@@ -27,11 +27,11 @@
 
         <div class="vib-content" @click.stop>
           <div class="vib-content_desk">
+			<div class="vib-left">
             <button
               v-if="media.length > 1"
               type="button"
               class="vib-arrow vib-arrow-left vib-hideable"
-              :class="{ 'vib-hidden': controlsHidden }"
               :title="previousText"
               @click.stop="previousImage()"
               @mouseover="interfaceHovered = true"
@@ -46,6 +46,7 @@
                 </svg>
               </slot>
             </button>
+			</div>
             <transition mode="out-in" :name="imageTransitionName">
               <img
                 :key="currentMedia.url"
@@ -55,11 +56,11 @@
                 :alt="currentMedia.caption"
               />
             </transition>
+			<div class="vib-right">
             <button
               v-if="media.length > 1"
               type="button"
               class="vib-arrow vib-arrow-right vib-hideable"
-              :class="{ 'vib-hidden': controlsHidden }"
               :title="nextText"
               @click.stop="nextImage()"
               @mouseover="interfaceHovered = true"
@@ -74,6 +75,7 @@
                 </svg>
               </slot>
             </button>
+		</div>
           </div>
           <swiper v-if="lightBoxShown" :media="media" :select="select" :click-handler="handleSetMainImg" />
         </div>
@@ -81,7 +83,6 @@
         <div
           v-if="showThumbs"
           class="vib-thumbnail-wrapper vib-hideable"
-          :class="{ 'vib-hidden': controlsHidden }"
           @click.stop
           @mouseover="interfaceHovered = true"
           @mouseleave="interfaceHovered = false"
@@ -100,7 +101,6 @@
 
         <div
           class="vib-footer vib-footer_desk vib-hideable"
-          :class="{ 'vib-hidden': controlsHidden }"
           @mouseover="interfaceHovered = true"
           @mouseleave="interfaceHovered = false"
           @click.stop
@@ -150,7 +150,6 @@
           type="button"
           :title="closeText"
           class="vib-close vib-hideable"
-          :class="{ 'vib-hidden': controlsHidden }"
           @mouseover="interfaceHovered = true"
           @mouseleave="interfaceHovered = false"
         >
