@@ -2,18 +2,17 @@
   <div class="applyied-block">
     <div class="applyied-result">
       <div class="applyied-wrapper">
-        <button class="applyied-btn">
+        <button class="applyied-btn" :class="{ active: whatIsPage === 'goodsCategory' }">
           <AllCategoriesGoodsSvg />
           <span class="applyied-btn__text">Товары</span>
         </button>
-        <button class="applyied-btn">
+        <button class="applyied-btn" :class="{ active: whatIsPage === 'companiesCategory' }">
           <AllCategoriesCompaniesSvg />
           <span class="applyied-btn__text">Компании</span>
         </button>
       </div>
-      <!-- v-if="showApplyiedResult" -->
-      <span class="applyied-text"
-        >По запросу "{{ searchQuery }}" {{ getDeclensionWordFound }}
+      <span v-if="showApplyiedResult" class="applyied-text">
+        По запросу "{{ searchQuery }}" {{ getDeclensionWordFound }}
         <span class="applyied-text__orange">{{ searchProductsCount }}</span>
         {{ getDeclensionWordProduct }}</span
       >
@@ -62,6 +61,12 @@
   export default {
     name: 'CatalogFilter',
     components: { SortingListSvg, SortingGallerySvg, AllCategoriesGoodsSvg, AllCategoriesCompaniesSvg },
+    props: {
+      whatIsPage: {
+        type: String,
+        default: 'goodsCategory',
+      },
+    },
     data() {
       return {
         showApplyiedResult: false,

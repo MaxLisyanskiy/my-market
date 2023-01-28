@@ -1,17 +1,11 @@
 <template>
   <section class="applyied">
-    <CatalogFilter />
+    <CatalogFilter :what-is-page="'goodsCategory'" />
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
       <CatalogProducts :products="products" />
       <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
-    <!-- <AppPagination
-      v-if="pagen.total > countProducts"
-      :initial-page="pagen.page"
-      :page-count="Math.ceil(pagen.total / countProducts)"
-      :click-handler="handleClickPagination"
-    /> -->
   </section>
 </template>
 
@@ -46,6 +40,7 @@
         error({ statusCode: 404 })
       }
     },
+
     data() {
       return {
         category: {},
@@ -55,6 +50,7 @@
         image: '',
       }
     },
+
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
@@ -67,6 +63,7 @@
         ],
       })
     },
+
     head() {
       return {
         title: `Категория | ${this.category.name}`,
@@ -114,6 +111,7 @@
         ],
       }
     },
+
     computed: {
       showInfiniteLoading() {
         if (this.products.length >= 20 && this.pagen.total > this.products.length) {
@@ -122,6 +120,7 @@
         return false
       },
     },
+
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
 
