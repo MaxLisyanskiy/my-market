@@ -68,21 +68,21 @@ body {
     margin-top: 9px;
   }
   &-slider {
-    width: 936px;
-    height: 350px;
+    // width: 936px;
+    // height: 350px;
     border-radius: 10px;
-    margin-left: 20px;
+    width: 100%;
 
     &:hover .swiper-button-next,
     &:hover .swiper-button-prev {
       opacity: 1;
     }
-    @media (max-width: 1220px) {
-      width: 75%;
-    }
-    @media (max-width: 768px) {
-      width: 70%;
-    }
+    // @media (max-width: 1220px) {
+    //   width: 75%;
+    // }
+    // @media (max-width: 768px) {
+    //   width: 70%;
+    // }
     @media (max-width: 670px) {
       width: 100%;
       margin: 0;

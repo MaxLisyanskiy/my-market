@@ -7,6 +7,7 @@
             <LogoSvg class="header-main__logo-img" />
           </nuxt-link>
         </div>
+        <TheHeaderDesktopCategories :categories="categories" />
         <div class="header-block header-block__search header-main__search" :class="{ active: searchBlockDesk }">
           <!-- @click="handleShowSearchBlockDesktop(true)" -->
           <form type="search" class="header-search" @submit.prevent="handleSearch">
@@ -143,14 +144,14 @@
       </div>
 
       <!-- <div class="header-categories__bottom">
-        <div class="search-unit opacity0">
-          <button class="search-unit__btn active">Товарам</button>
-          <button class="search-unit__btn">Продавцам</button>
-        </div>
-        <div class="header-categories__btn">
-          <HeaderFilterSvg />
-        </div>
-      </div> -->
+          <div class="search-unit opacity0">
+            <button class="search-unit__btn active">Товарам</button>
+            <button class="search-unit__btn">Продавцам</button>
+          </div>
+          <div class="header-categories__btn">
+            <HeaderFilterSvg />
+          </div>
+        </div> -->
     </div>
 
     <div v-else class="header header-mobile sticky">
@@ -202,6 +203,7 @@
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
   import HeaderFilterSvg from '@/assets/img/icons/svg/header-filter.svg?inline'
 
+  import TheHeaderDesktopCategories from '@/components/common/TheHeader/TheHeaderDesktopCategories'
   import AppModalAuth from '@/components/UI/AppModalAuth/index'
 
   export default {
@@ -217,6 +219,7 @@
       SearchIconSvg,
       HeaderBackSvg,
       HeaderFilterSvg,
+      TheHeaderDesktopCategories,
       AppModalAuth,
     },
     data() {
@@ -237,6 +240,7 @@
     computed: {
       ...mapState('search', ['searchInput']),
       ...mapState('global', ['firstPageVisit']),
+      ...mapState('categories', ['categories']),
 
       isCompanyPages() {
         if (
