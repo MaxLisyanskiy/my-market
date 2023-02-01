@@ -1,7 +1,6 @@
 <template>
   <article class="content-row">
     <section class="home-wrapper">
-      <HomeCategories />
       <AppSwiper :swiper-config="swiperConfig" :images="images" />
     </section>
     <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
@@ -18,7 +17,7 @@
 
   export default {
     name: 'HomePage',
-    components: { HomeCategories, HomeProductsSlider, AppSwiper },
+    components: { HomeProductsSlider, AppSwiper },
     layout: 'default',
 
     async asyncData({ app }) {
