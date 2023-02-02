@@ -763,11 +763,6 @@
           margin-right: 0px;
           margin-bottom: 10px;
         }
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
-            rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-        }
-
         & svg {
           margin-right: 4.5px;
         }
@@ -784,11 +779,6 @@
         line-height: 16px;
         color: #404040;
         transition: all 0.3s ease;
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
-            rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-        }
-
         & svg {
           margin-right: 4.5px;
         }
@@ -883,10 +873,6 @@
         line-height: 16px;
         color: #ffffff;
         transition: all 0.3s ease;
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
-            rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-        }
       }
 
       &_write {
@@ -898,10 +884,6 @@
         line-height: 16px;
         color: #f83229;
         transition: all 0.3s ease;
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
-            rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-        }
       }
 
       &_edit {
@@ -913,10 +895,6 @@
         line-height: 16px;
         color: #404040;
         transition: all 0.3s ease;
-        &:hover {
-          box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
-            rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
-        }
       }
     }
   }

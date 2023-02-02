@@ -15,7 +15,7 @@
 <script>
   import { mapState, mapActions } from 'vuex'
 
-  import TheHeader from '../components/common/TheHeader.vue'
+  import TheHeader from '../components/common/TheHeader/index.vue'
   import TheBreadcrumbs from '../components/common/TheBreadcrumbs.vue'
   import TheFooter from '../components/common/TheFooter.vue'
 

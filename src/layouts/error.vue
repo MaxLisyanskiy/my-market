@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import TheHeader from '../components/common/TheHeader.vue'
+  import TheHeader from '../components/common/TheHeader/index.vue'
 
   import Error404 from '../components/error/Error404.vue'
   import Error500 from '../components/error/Error500.vue'
