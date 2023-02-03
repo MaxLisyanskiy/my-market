@@ -5,7 +5,8 @@ body {
 }
 
 .backgroundPlate,
-.backgroundPlateTwo {
+.backgroundPlateCompanyTop,
+.backgroundPlateCompanyProducts {
   display: none;
   position: fixed;
   top: 0;
@@ -26,9 +27,13 @@ body {
     z-index: 9;
   }
 }
-.backgroundPlateTwo {
+.backgroundPlateCompanyProducts,
+.backgroundPlateCompanyTop {
   display: block;
   z-index: 9;
+}
+.backgroundPlateCompanyProducts {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .header {
