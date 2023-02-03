@@ -130,7 +130,7 @@
 		class="company-products__not-found"
 	  />
 	  <client-only>
-		<div v-if="backgroundPlate" class="backgroundPlateTwo"  @click="(showModalDelete = false,backgroundPlate = false)"></div>
+		<div v-if="backgroundPlate" class="backgroundPlateCompanyProducts"  @click="(showModalDelete = false,backgroundPlate = false)"></div>
 	  </client-only>
   
 	  <div v-if="showModalDelete" class="modal-delete">
