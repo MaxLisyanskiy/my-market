@@ -1,16 +1,18 @@
 <template>
   <div class="applyied-block">
-    <div v-if="showApplyiedResult" class="applyied-result">
-      <span v-show="false">
-        <button class="applyied-btn active">
+    <div class="applyied-result">
+      <div class="applyied-wrapper">
+        <button class="applyied-btn" :class="{ active: whatIsPage === 'goodsCategory' }">
+          <AllCategoriesGoodsSvg />
           <span class="applyied-btn__text">Товары</span>
         </button>
-        <button class="applyied-btn">
-          <span class="applyied-btn__text">Продавцы</span>
+        <button class="applyied-btn" :class="{ active: whatIsPage === 'companiesCategory' }">
+          <AllCategoriesCompaniesSvg />
+          <span class="applyied-btn__text">Компании</span>
         </button>
-      </span>
-      <span class="applyied-text"
-        >По запросу "{{ searchQuery }}" {{ getDeclensionWordFound }}
+      </div>
+      <span v-if="showApplyiedResult" class="applyied-text">
+        По запросу "{{ searchQuery }}" {{ getDeclensionWordFound }}
         <span class="applyied-text__orange">{{ searchProductsCount }}</span>
         {{ getDeclensionWordProduct }}</span
       >
@@ -53,10 +55,18 @@
 
   import SortingListSvg from '@/assets/img/icons/svg/sorting-list.svg?inline'
   import SortingGallerySvg from '@/assets/img/icons/svg/sorting-gallery.svg?inline'
+  import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
+  import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
 
   export default {
     name: 'CatalogFilter',
-    components: { SortingListSvg, SortingGallerySvg },
+    components: { SortingListSvg, SortingGallerySvg, AllCategoriesGoodsSvg, AllCategoriesCompaniesSvg },
+    props: {
+      whatIsPage: {
+        type: String,
+        default: 'goodsCategory',
+      },
+    },
     data() {
       return {
         showApplyiedResult: false,
