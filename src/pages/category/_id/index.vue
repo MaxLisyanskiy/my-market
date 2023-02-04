@@ -24,18 +24,24 @@
     layout: 'catalog',
 
     async asyncData({ app, store, params, query, error }) {
-      // Get all categoris
-      await store.dispatch('categories/GET_CATEGORIES')
+      // // Get all categoris
+      // await store.dispatch('categories/GET_CATEGORIES')
 
-      // Get category in store by ID and overwrite in data.
-      const get = await store.getters['categories/GET_CATEGORY_BY_ID']
+      let categoryParent = ''
       // const category = await get (params.id)
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
+
+      if (category.depth === 2) {
+        const resParent = await app.$categoryService.getProductsCategoryById(category.parent_id)
+        categoryParent = resParent.category
+      } else {
+        categoryParent = category
+      }
 
       // If the category is valid, get the products of the category. If not, go to the error page 404
       if (category) {
         const { products, pagen } = await app.$categoryService.getProductsCategory(params.id, query.p ?? 1, 20)
-        return { category, products, pagen }
+        return { category, categoryParent, products, pagen }
       } else {
         error({ statusCode: 404 })
       }
@@ -44,6 +50,7 @@
     data() {
       return {
         category: {},
+        categoryParent: {},
         products: [],
         pagen: [],
         countProducts: 20,
@@ -52,16 +59,47 @@
     },
 
     fetch() {
-      // Set links and name for breadcrumbs
-      this.SET_BREADCRUMBS({
-        breadcrumbsLinks: [
+      let breadcrumbsLinksArr = []
+
+      if (this.category.id !== this.categoryParent.id) {
+        breadcrumbsLinksArr = [
+          { name: 'Главная', path: '/' },
+          {
+            name: `${this.categoryParent.name}`,
+            path: `/category/${this.categoryParent.id}`,
+          },
+          {
+            name: `${this.category.name}`,
+            path: `/category/${this.category.id}`,
+          },
+        ]
+      } else {
+        breadcrumbsLinksArr = [
           { name: 'Главная', path: '/' },
           {
             name: `${this.category.name}`,
             path: `/category/${this.category.id}`,
           },
-        ],
+        ]
+      }
+
+      // Set links and name for breadcrumbs
+      this.SET_BREADCRUMBS({
+        breadcrumbsLinks: breadcrumbsLinksArr,
       })
+
+      this.SET_SIDEBAR_CATEGORIES([
+        {
+          name: this.categoryParent.name,
+        },
+        [
+          {
+            name: 'Все подкатегории',
+            id: this.categoryParent.id,
+          },
+          ...this.categoryParent.children,
+        ],
+      ])
     },
 
     head() {
@@ -123,6 +161,7 @@
 
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
+      ...mapMutations('categories', ['SET_SIDEBAR_CATEGORIES']),
 
       /**
        * Get category products with configs after change page in pagination

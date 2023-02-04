@@ -2,6 +2,7 @@
 
 export const state = () => ({
   categories: [],
+  sidebarCategories: [{ name: 'Категория' }],
 })
 
 export const getters = {
@@ -14,6 +15,9 @@ export const getters = {
 export const mutations = {
   SET_CATEGORIES(state, categories) {
     state.categories = categories
+  },
+  SET_SIDEBAR_CATEGORIES(state, categories) {
+    state.sidebarCategories = categories
   },
 }
 
