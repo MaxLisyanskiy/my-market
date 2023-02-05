@@ -36,7 +36,7 @@
 
     methods: {
       async getCompanyProducts(id) {
-        const { products } = await this.$companyService.getCompanyProducts(id)
+        const { products } = await this.$companyService.getCompanyProducts(id, 1, 3)
         this.products = products
       },
     },
