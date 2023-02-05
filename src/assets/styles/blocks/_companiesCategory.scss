@@ -139,5 +139,9 @@
           -webkit-transform 1.25s cubic-bezier(0.165, 0.84, 0.44, 1);
       }
     }
+
+    &__right {
+      display: flex;
+    }
   }
 }

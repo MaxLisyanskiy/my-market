@@ -10,6 +10,9 @@
     width: 95%;
     max-width: 95%;
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 
   & img {
     width: 100%;
