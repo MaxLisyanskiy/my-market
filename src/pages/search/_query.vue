@@ -5,12 +5,6 @@
     <div v-if="products.length > 0" class="categories">
       <CatalogProducts :products="products" />
     </div>
-    <AppPagination
-      v-if="pagen.total > countProducts && products.length > 0"
-      :initial-page="pagen.page"
-      :page-count="Math.ceil(pagen.total / countProducts)"
-      :click-handler="handleClickPagination"
-    />
     <CatalogProductsNotFound v-if="products.length <= 0" :search-query="$route.query.q" />
   </section>
 </template>
@@ -23,11 +17,9 @@
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
   import CatalogProductsNotFound from '~/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
 
-  import AppPagination from '~/components/UI/AppPagination.vue'
-
   export default {
     name: 'SearchPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts, CatalogProductsNotFound, AppPagination },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts, CatalogProductsNotFound },
     layout: 'catalog',
 
     async asyncData({ store, query, app }) {
