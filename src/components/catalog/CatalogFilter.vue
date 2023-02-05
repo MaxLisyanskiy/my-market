@@ -2,11 +2,19 @@
   <div class="applyied-block">
     <div class="applyied-result">
       <div class="applyied-wrapper">
-        <button class="applyied-btn" :class="{ active: whatIsPage === 'goodsCategory' }">
+        <button
+          class="applyied-btn"
+          :class="{ active: whatIsPage === 'goodsCategory' }"
+          @click="handleChangePage('good')"
+        >
           <AllCategoriesGoodsSvg />
           <span class="applyied-btn__text">Товары</span>
         </button>
-        <button class="applyied-btn" :class="{ active: whatIsPage === 'companiesCategory' }">
+        <button
+          class="applyied-btn"
+          :class="{ active: whatIsPage === 'companiesCategory' }"
+          @click="handleChangePage('company')"
+        >
           <AllCategoriesCompaniesSvg />
           <span class="applyied-btn__text">Компании</span>
         </button>
@@ -18,22 +26,6 @@
       >
     </div>
     <div v-if="false" class="categories-applyied">
-      <!-- <button class="categories-applyied__btn">Опция #1</button>
-      <button class="categories-applyied__btn active">Опция #2</button>
-      <button class="categories-applyied__btn">Опция #3</button>
-
-      <button class="categories-applyied__clear">Очистить всё</button> -->
-
-      <!-- <div class="categories-select">
-        <select>
-          <option class="categories-select__option" value="Naples">Сначала дешёвые</option>
-          <option class="categories-select__option" value="London">2</option>
-          <option class="categories-select__option" value="Berlin">3</option>
-          <option class="categories-select__option" value="New York">4</option>
-          <option class="categories-select__option" value="Frattamaggiore">5</option>
-        </select>
-      </div> -->
-
       <div class="sorting">
         <SortingListSvg
           class="sorting-icon sorting-list"
@@ -160,6 +152,14 @@
           this.showApplyiedResult = true
         } else {
           this.showApplyiedResult = false
+        }
+      },
+
+      handleChangePage(type) {
+        if (type === 'good') {
+          this.$router.push(`/category/${this.$route.params.id}`)
+        } else {
+          this.$router.push(`/companies-category/${this.$route.params.id}`)
         }
       },
     },

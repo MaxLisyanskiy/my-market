@@ -16,8 +16,6 @@
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
 
-  // import AppPagination from '~/components/UI/AppPagination.vue'
-
   export default {
     name: 'CategoryIdPage',
     components: { CatalogFilter, CatalogMobText, CatalogProducts },
@@ -28,7 +26,6 @@
       // await store.dispatch('categories/GET_CATEGORIES')
 
       let categoryParent = ''
-      // const category = await get (params.id)
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
 
       if (category.depth === 2) {
@@ -91,6 +88,7 @@
       this.SET_SIDEBAR_CATEGORIES([
         {
           name: this.categoryParent.name,
+          path: 'category',
         },
         [
           {

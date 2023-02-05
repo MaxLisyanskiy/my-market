@@ -2,7 +2,11 @@
   <aside class="catalogSidebar">
     <p class="catalogSidebar__title">{{ sidebarCategories[0].name }}</p>
     <div class="catalogSidebar__menu">
-      <nuxt-link v-for="category in sidebarCategories[1]" :key="category.id" :to="`/category/${category.id}`">
+      <nuxt-link
+        v-for="category in sidebarCategories[1]"
+        :key="category.id"
+        :to="`/${sidebarCategories[0].path}/${category.id}`"
+      >
         {{ category.name }}
       </nuxt-link>
     </div>
