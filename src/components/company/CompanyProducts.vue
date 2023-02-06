@@ -23,16 +23,6 @@
           <div class="company-products__top_desk">
             <span class="company-products__title">{{ activeCategory.name }}</span>
             <span class="company-products__text">Количество товаров: {{ products.length }}</span>
-            <div v-if="products.length > 0" class="categories-select company-products__select">
-              <img src="@/assets/img/icons/svg/select.svg" alt="" class="categories-select__img" />
-              <select>
-                <option class="categories-select__option" value="Naples">Сначала дешёвые</option>
-                <option class="categories-select__option" value="London">2</option>
-                <option class="categories-select__option" value="Berlin">3</option>
-                <option class="categories-select__option" value="New York">4</option>
-                <option class="categories-select__option" value="Frattamaggiore">5</option>
-              </select>
-            </div>
           </div>
           <vue-custom-scrollbar class="company-products-categories" tagname="ul">
             <li
