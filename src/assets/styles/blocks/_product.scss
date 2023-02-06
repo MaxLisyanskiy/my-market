@@ -357,7 +357,7 @@
   }
   @media (max-width: 870px) {
     border-right: none;
-    width: 88px;
+    width: 92px;
     margin-top: 0;
   }
   @media (max-width: 670px) {
@@ -477,13 +477,6 @@
     margin-bottom: 16px;
     @media (max-width: 870px) {
       margin-bottom: 14px;
-    }
-    &:last-child {
-      @media (max-width: 670px) {
-        display: block;
-        margin-top: 10px;
-        margin-bottom: 9px;
-      }
     }
     &__text,
     &__value {
