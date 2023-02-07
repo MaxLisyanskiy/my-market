@@ -39,6 +39,19 @@
         countProducts: 20,
       }
     },
+
+    fetch() {
+      this.SET_BREADCRUMBS({
+        breadcrumbsLinks: [
+          { name: 'Главная', path: '/' },
+          {
+            name: `"${this.searchQuery}""`,
+            path: `${this.$route.fullPath}`,
+          },
+        ],
+      })
+    },
+
     head() {
       return {
         title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
@@ -86,15 +99,11 @@
         ],
       }
     },
+
     computed: {
       ...mapState('search', ['searchQuery']),
     },
     watch: {
-      // searchQuery(newCount, oldCount) {
-      //   if (oldCount !== newCount) {
-      //     this.handleLoadProducts()
-      //   }
-      // },
       '$route.query.q'() {
         this.$router.app.refresh()
       },

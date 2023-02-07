@@ -3,7 +3,7 @@
     <CatalogFilter :what-is-page="'companiesCategory'" />
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
     <div class="categories">
-      <CompaniesCategoryProducts :companies="companies" />
+      <CompaniesCategory :companies="companies" />
       <!-- <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading> -->
     </div>
   </section>
@@ -14,14 +14,14 @@
 
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
-  import CompaniesCategoryProducts from '~/components/companiesCategory/CompaniesCategoryProducts.vue'
+  import CompaniesCategory from '~/components/companiesCategory/CompaniesCategory.vue'
 
   export default {
     name: 'CompaniesCategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CompaniesCategoryProducts },
+    components: { CatalogFilter, CatalogMobText, CompaniesCategory },
     layout: 'catalog',
 
-    async asyncData({ app, store, params, query, error }) {
+    async asyncData({ app, params, error }) {
       let categoryParent = ''
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
 
