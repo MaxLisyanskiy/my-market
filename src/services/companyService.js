@@ -79,7 +79,7 @@ export default ($axios, error) => {
      */
     getCompanisByCategoryId: async id => {
       return await $axios
-        .get(`/companies?category_id=${id}`)
+        .get(`/companies?category_id=${id}&include=products`)
         .then(({ data }) => {
           return { ...data.data }
         })

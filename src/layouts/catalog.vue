@@ -3,7 +3,6 @@
     <TheHeader />
     <TheBreadcrumbs v-show="showBreadcrumbs" />
     <main :class="{ mainWrapper: !showBreadcrumbs }">
-      <CatalogBanner />
       <article class="categories-wrapper">
         <CatalogSidebar />
         <Nuxt />
@@ -21,7 +20,6 @@
   import TheFooter from '../components/common/TheFooter.vue'
 
   import CatalogSidebar from '../components/catalog/CatalogSidebar/index.vue'
-  import CatalogBanner from '~/components/catalog/CatalogBanner/CatalogBanner.vue'
 
   export default {
     name: 'CatalogLayout',
@@ -30,7 +28,6 @@
       TheBreadcrumbs,
       TheFooter,
       CatalogSidebar,
-      CatalogBanner,
     },
     head() {
       const canonical = `${process.env.ORIGIN_URL}${this.$route.path.toLowerCase().replace(/\/$/, '')}`

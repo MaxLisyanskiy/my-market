@@ -6,7 +6,7 @@
     &__left {
       display: flex;
       flex-direction: column;
-      width: 440px;
+      margin-right: 15px;
     }
 
     &__link {
@@ -40,6 +40,7 @@
     }
 
     &-btns {
+      margin-top: 13px;
       display: flex;
 
       &__call {
@@ -56,6 +57,9 @@
         background: linear-gradient(88.41deg, #6bbc38 0%, #7bd941 100%);
         border-radius: 5px;
         cursor: pointer;
+        @media (max-width: 1200px) {
+          width: 150px;
+        }
       }
 
       &__chat {
@@ -71,6 +75,9 @@
         background: #fed9d8;
         border-radius: 5px;
         cursor: pointer;
+        @media (max-width: 1200px) {
+          width: 150px;
+        }
       }
     }
 
@@ -106,7 +113,6 @@
       height: 135px;
       padding-top: 100%;
       overflow: hidden;
-      border-radius: 10px;
 
       &_imgs {
         position: absolute;
@@ -115,7 +121,6 @@
         bottom: 0;
         left: 0;
         overflow: hidden;
-        border-radius: 10px 10px 0 0;
       }
 
       &_imgs > img {
@@ -142,6 +147,31 @@
 
     &__right {
       display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    &__item {
+      margin-right: 15px;
+
+      &:nth-child(1) {
+        @media (max-width: 700px) {
+          display: none;
+        }
+      }
+
+      &:nth-child(2) {
+        @media (max-width: 900px) {
+          display: none;
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+        @media (max-width: 1085px) {
+          display: none;
+        }
+      }
     }
   }
 }

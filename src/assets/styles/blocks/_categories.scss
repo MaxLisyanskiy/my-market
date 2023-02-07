@@ -3,7 +3,6 @@
   background: #ffffff;
   box-shadow: 0 0 2px rgba(204, 204, 204, 0.6);
   border-radius: 10px;
-  max-width: 936px;
 
   @media (max-width: 600px) {
     background: #ffffff;
@@ -14,7 +13,6 @@
 
   &-wrapper {
     @extend %container;
-    margin-top: 20px;
     position: relative;
     display: flex;
     justify-content: center;
