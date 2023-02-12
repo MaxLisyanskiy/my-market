@@ -8,14 +8,7 @@ export default ({ app: { router, store } }) => {
   })
 
   // Check router-path and changed breadcrumbs
-  const routerArray = [
-    'category-id',
-    'companies-category-id',
-    'search-query',
-    'product-id',
-    'product-id-edit',
-    'product-add',
-  ]
+  const routerArray = ['category-id', 'factories-id', 'search-query', 'product-id', 'product-id-edit', 'product-add']
   router.afterEach((to, from) => {
     if (from.name && store.state.global.firstPageVisit) {
       store.commit('global/SET_FIRST_PAGE_VISIT', false)

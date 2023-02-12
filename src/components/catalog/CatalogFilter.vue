@@ -159,7 +159,7 @@
         if (type === 'good') {
           this.$router.push(`/category/${this.$route.params.id}`)
         } else {
-          this.$router.push(`/companies-category/${this.$route.params.id}`)
+          this.$router.push(`/factories/${this.$route.params.id}`)
         }
       },
     },
