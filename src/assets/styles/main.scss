@@ -3,19 +3,7 @@
 @import '_config.scss';
 
 // Blocks
-@import './blocks/_footer.scss';
-@import './blocks/_header.scss';
-@import './blocks/_breadcrumb.scss';
-@import './blocks/_homeWrapper.scss';
-@import './blocks/_homeProducts.scss';
-@import './blocks/_categories.scss';
-@import './blocks/_search.scss';
-@import './blocks/_product.scss';
-@import './blocks/_company.scss';
-@import './blocks/_error.scss';
 @import './blocks/_all-categories.scss';
-@import './blocks/_editor.scss';
-@import './blocks/_auth.scss';
 
 //ui
 @import './blocks/ui/_animations.scss';
@@ -29,7 +17,3 @@
 @import './blocks/swiper/_main-swiper.scss';
 @import './blocks/swiper/_company-swiper.scss';
 @import './blocks/swiper/_product-swiper.scss';
-
-// Company
-@import './blocks/company/_company-settings.scss';
-@import './blocks/company/_company-products.scss';

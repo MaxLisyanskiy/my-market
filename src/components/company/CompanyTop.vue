@@ -706,12 +706,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .header-mob-logo {
-    & svg {
-      margin-top: 8px;
-      width: 60.31px;
-      height: 18.67px;
-    }
-  }
-</style>
+<style src="./company.scss" lang="scss"></style>

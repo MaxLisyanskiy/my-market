@@ -25,3 +25,5 @@
     name: 'HomeProducts',
   }
 </script>
+
+<style src="./homeProducts.scss" lang="scss"></style>

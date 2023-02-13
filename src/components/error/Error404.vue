@@ -22,3 +22,5 @@
     },
   }
 </script>
+
+<style src="./error.scss" lang="scss"></style>

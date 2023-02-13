@@ -1,23 +1,20 @@
 <template>
   <article class="content-row">
-    <section class="home-wrapper">
-      <AppSwiper :swiper-config="swiperConfig" :images="images" />
-    </section>
+    <HomeWrapper />
     <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
     <!-- <HomeProducts /> -->
   </article>
 </template>
 
 <script>
-  import AppSwiper from '~/components/UI/AppSwiper.vue'
-
   import HomeCategories from '~/components/home/HomeCategories.vue'
   import HomeProductsSlider from '~/components/home/HomeProductsSlider.vue'
+  import HomeWrapper from '~/components/home/HomeWrapper.vue'
   import HomeProducts from '~/components/home/HomeProducts.vue'
 
   export default {
     name: 'HomePage',
-    components: { HomeProductsSlider, AppSwiper },
+    components: { HomeWrapper, HomeProductsSlider },
     layout: 'default',
 
     async asyncData({ app }) {
@@ -33,38 +30,6 @@
     data() {
       return {
         categories: [],
-        images: [
-          {
-            id: 1,
-            assets: true,
-            url: 'slider/main-banner.png',
-          },
-          {
-            id: 2,
-            assets: true,
-            url: 'slider/main-banner.png',
-          },
-          {
-            id: 3,
-            assets: true,
-            url: 'slider/main-banner.png',
-          },
-        ],
-        swiperConfig: {
-          mainClass: 'wrapper-slider',
-          wrapperClass: '',
-          slidesPerView: 1,
-          loop: true,
-          direction: 'horizontal',
-          pagination: {
-            isPagination: true,
-            el: '#swiperPagination',
-            clickable: 'true',
-          },
-          btnPrevClass: 'swiper-button-prev',
-          btnNextClass: 'swiper-button-next',
-          addColorForActiveSlide: false,
-        },
       }
     },
   }
