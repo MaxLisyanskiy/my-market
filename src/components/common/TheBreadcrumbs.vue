@@ -20,3 +20,5 @@
     },
   }
 </script>
+
+<style src="./breadcrumb.scss" lang="scss"></style>

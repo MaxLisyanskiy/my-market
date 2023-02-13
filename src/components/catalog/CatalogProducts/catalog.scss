@@ -1,3 +1,5 @@
+@import '@/assets/styles/variables.scss';
+
 .categories {
   height: auto;
   background: #ffffff;
@@ -21,24 +23,6 @@
       margin-top: 62px;
       width: 100%;
       max-width: 100%;
-    }
-  }
-
-  &-subtitle {
-    @extend %container;
-    display: none;
-    @media (max-width: 600px) {
-      margin-bottom: 7px;
-      display: block;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 16px;
-      color: #666666;
-    }
-
-    & span {
-      font-weight: 500;
-      color: #262626;
     }
   }
 
@@ -519,7 +503,7 @@
   height: 7.07px;
   left: 2.2px;
   top: 4.95px;
-  background: url('../img/icons/checkbox-checked.svg');
+  background: url('@/assets/img/icons/checkbox-checked.svg');
   background-size: 100%;
   cursor: pointer;
 }

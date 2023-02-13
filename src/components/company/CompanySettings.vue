@@ -223,3 +223,5 @@
     },
   }
 </script>
+
+<style src="./company-settings.scss" lang="scss"></style>

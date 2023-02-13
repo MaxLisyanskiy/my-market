@@ -61,4 +61,4 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style src="./product.scss" lang="scss"></style>

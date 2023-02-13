@@ -1,3 +1,30 @@
+@import '@/assets/styles/variables.scss';
+
+.hidden {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.opacity0 {
+  opacity: 0;
+}
+
+.header-mob-logo {
+  display: flex;
+  align-items: center;
+  & svg {
+    margin-top: -2px;
+    width: 60.31px;
+    height: 18.67px;
+  }
+}
+
+.dontShow {
+  opacity: 0;
+  cursor: default;
+}
+
 body {
   &.lock {
     overflow: hidden;

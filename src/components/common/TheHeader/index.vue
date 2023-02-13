@@ -389,29 +389,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .hidden {
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  .opacity0 {
-    opacity: 0;
-  }
-
-  .header-mob-logo {
-    display: flex;
-    align-items: center;
-    & svg {
-      margin-top: -2px;
-      width: 60.31px;
-      height: 18.67px;
-    }
-  }
-
-  .dontShow {
-    opacity: 0;
-    cursor: default;
-  }
-</style>
+<style src="./header.scss" lang="scss"></style>
