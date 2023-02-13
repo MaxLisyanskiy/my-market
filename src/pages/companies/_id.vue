@@ -60,11 +60,11 @@
           { name: 'Главная', path: '/' },
           {
             name: `${this.categoryParent.name}`,
-            path: `/factories/${this.categoryParent.id}`,
+            path: `/companies/${this.categoryParent.id}`,
           },
           {
             name: `${this.category.name}`,
-            path: `/factories/${this.category.id}`,
+            path: `/companies/${this.category.id}`,
           },
         ]
       } else {
@@ -72,7 +72,7 @@
           { name: 'Главная', path: '/' },
           {
             name: `${this.category.name}`,
-            path: `/factories/${this.category.id}`,
+            path: `/companies/${this.category.id}`,
           },
         ]
       }
@@ -85,7 +85,7 @@
       this.SET_SIDEBAR_CATEGORIES([
         {
           name: this.categoryParent.name,
-          path: 'factories',
+          path: 'companies',
         },
         [
           {
