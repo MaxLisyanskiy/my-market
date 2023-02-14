@@ -16,7 +16,7 @@
         </ul>
       </div>
 
-      <div class="company-description">
+      <div class="company-description company-description__settings">
         <div class="company-settings">
           <h1 class="company-settings__title desktop">Данные авторизации</h1>
 
@@ -112,6 +112,7 @@
 
               <button type="submit" class="company-settings-form__btn">Сохранить</button>
               <span v-if="mainError" class="validate__main-error">{{ mainError }}</span>
+              <button type="button" class="company-settings__block-exit desk" @click="handleLogout">Выйти</button>
             </div>
           </validation-observer>
         </div>
@@ -120,7 +121,7 @@
 
     <div class="company-settings__block">
       <button type="submit" class="company-settings__block-saved" @click="submit">Сохранить</button>
-      <button type="button" class="company-settings__block-exit" @click="handleLogout">Выйти</button>
+      <button type="button" class="company-settings__block-exit mob" @click="handleLogout">Выйти</button>
     </div>
   </section>
 </template>
@@ -224,4 +225,4 @@
   }
 </script>
 
-<style src="./company-settings.scss" lang="scss"></style>
+<style src="./company-settings.scss" lang="scss" scoped></style>
