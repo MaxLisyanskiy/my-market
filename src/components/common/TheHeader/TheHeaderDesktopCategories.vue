@@ -1,6 +1,6 @@
 <template>
   <div class="header-block header-desktop-categories">
-    <div class="header-desktop-categories__btn" @mouseenter="active = true" @click="active = !active">
+    <div class="header-desktop-categories__btn" @click="active = !active">
       <HeaderDesktopCategoriesSvg />
       <span>Категории</span>
     </div>
