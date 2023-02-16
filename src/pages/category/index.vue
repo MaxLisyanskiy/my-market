@@ -8,12 +8,41 @@
       >
         <HeaderBackSvg class="header-back__img" />
       </div>
-      <div class="header-product__logo">
+      <div class="header-product__logo header-category__logo" :class="{ hide: searchBlockMob }">
         <nuxt-link to="/">
           <LogoSvg class="header-logo" />
         </nuxt-link>
       </div>
-      <div class="header-product__share" @click="handleShareMob">
+      <div class="header-block header-mobile__back" :class="{ active: searchBlockMob }">
+        <HeaderBackSvg class="header-category__back-img" @click="handleShowSearchBlockMob(false)" />
+      </div>
+      <SearchIconLoopSvg
+        class="header-category__loupe"
+        :class="{ hide: searchBlockMob }"
+        @click="handleShowSearchBlockMob(true)"
+      />
+      <div
+        class="header-block header-block__search header-main__search header-category__search"
+        :class="{ active: searchBlockMob }"
+        @click="handleShowSearchBlockMob(true)"
+      >
+        <button class="header-search__img" @click="handleSearch">
+          <SearchIconSvg />
+        </button>
+        <form type="search" class="header-search" @submit.prevent="handleSearch">
+          <input
+            type="text"
+            placeholder="Я ищу..."
+            class="header-search__input header-input__mobile"
+            :value="searchInput"
+            inputmode="search"
+            @input="handleUpdateSearchInput"
+          />
+        </form>
+      </div>
+      <div class="main-modal" :class="{ active: searchBlockMob }"></div>
+
+      <div class="header-product__share" :class="{ hide: searchBlockMob }" @click="handleShareMob">
         <HeaderShareSvg class="header-product__share-icon" />
       </div>
     </div>
@@ -85,6 +114,7 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   import AppCategoriesAccordion from '@/components/UI/AppCategoriesAccordion'
 
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
@@ -92,6 +122,8 @@
   import HeaderShareSvg from '@/assets/img/icons/svg/header-share.svg?inline'
   import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
   import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
+  import SearchIconSvg from '@/assets/img/icons/svg/search-icon.svg?inline'
+  import SearchIconLoopSvg from '@/assets/img/icons/svg/search-icon-loop.svg?inline'
 
   export default {
     name: 'CategoryMainPage',
@@ -102,6 +134,8 @@
       HeaderShareSvg,
       AllCategoriesGoodsSvg,
       AllCategoriesCompaniesSvg,
+      SearchIconSvg,
+      SearchIconLoopSvg,
     },
     layout: 'default',
 
@@ -144,6 +178,7 @@
         goodsCategories: [],
         companyCategories: [],
         companiesList: [],
+        searchBlockMob: false,
       }
     },
 
@@ -246,6 +281,7 @@
     },
 
     computed: {
+      ...mapState('search', ['searchInput']),
       allCategories() {
         return false
       },
@@ -269,12 +305,41 @@
     },
 
     methods: {
+      ...mapMutations('search', ['UPDATE_SEARCH_INPUT', 'UPDATE_SEARCH_QUERY']),
       handleChooseTab(name) {
         this.activeTab = name
         this.$router.push({
           path: this.$route.path,
           query: { active: name },
         })
+      },
+      /**
+       * Update search input in the store and in the input
+       *
+       * @param {Event & { target: HTMLInputElement }} e
+       */
+      handleUpdateSearchInput(e) {
+        this.UPDATE_SEARCH_INPUT(e.target.value)
+      },
+      // Submit to search page if valid query
+      handleSearch() {
+        if (this.searchInput.trim() !== '') {
+          this.handleShowSearchBlockMob(false)
+
+          this.UPDATE_SEARCH_QUERY(this.searchInput)
+          this.$router.push({
+            path: '/search/',
+            query: { q: this.searchInput },
+          })
+        }
+      },
+      handleShowSearchBlockMob(value) {
+        if (value === true) {
+          document.querySelector('body').classList.add('lock')
+        } else {
+          document.querySelector('body').classList.remove('lock')
+        }
+        this.searchBlockMob = value
       },
 
       async handleChooseCompanyCategory(id, name) {
