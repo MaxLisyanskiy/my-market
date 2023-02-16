@@ -2,26 +2,15 @@
 // https://www.npmjs.com/package/@nuxtjs/robots
 
 const robots = [
-  {
-    userAgent: '*',
-    disallow: '*',
-  },
-  {
-    userAgent: '*',
-    allow: '/$',
-  },
-  {
-    userAgent: '*',
-    allow: '/category/',
-  },
-  {
-    userAgent: '*',
-    allow: '/product/',
-  },
-  {
-    userAgent: '*',
-    allow: '/profile/',
-  },
+  { UserAgent: '*' },
+  { Disallow: '*' },
+  { Allow: '/$' },
+  { Allow: '/company/*' },
+  { Disallow: '/company/*/settings/' },
+  { Allow: '/product/*' },
+  { Disallow: '/product/add' },
+  { Disallow: '/product/*/edit' },
+  { Allow: '/category/*' },
   {
     sitemap: `${process.env.ORIGIN_URL}/sitemap.xml`,
   },
