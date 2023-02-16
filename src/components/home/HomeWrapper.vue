@@ -1,7 +1,10 @@
 <template>
   <div>
-    <section class="home-wrapper">
-      <AppSwiper :swiper-config="swiperConfig" :images="images" />
+    <section class="home-wrapper home-wrapper__desktop">
+      <AppSwiper :swiper-config="swiperConfig" :images="imagesDesktop" />
+    </section>
+    <section class="home-wrapper home-wrapper__mobile">
+      <AppSwiper class="mobile" :swiper-config="swiperConfig" :images="imagesMobile" />
     </section>
   </div>
 </template>
@@ -17,7 +20,7 @@
     data() {
       return {
         categories: [],
-        images: [
+        imagesDesktop: [
           {
             id: 1,
             assets: true,
@@ -32,6 +35,23 @@
             id: 3,
             assets: true,
             url: 'slider/main-banner.png',
+          },
+        ],
+        imagesMobile: [
+          {
+            id: 1,
+            assets: true,
+            url: 'slider/main-banner-mob.png',
+          },
+          {
+            id: 2,
+            assets: true,
+            url: 'slider/main-banner-mob.png',
+          },
+          {
+            id: 3,
+            assets: true,
+            url: 'slider/main-banner-mob.png',
           },
         ],
         swiperConfig: {
