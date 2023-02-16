@@ -3,11 +3,30 @@
     <div class="header header-desktop sticky" :class="{ active: searchBlockDesk }">
       <div class="header-main">
         <div class="header-block header-main__logo">
-          <nuxt-link to="/">
-            <LogoSvg class="header-main__logo-img" />
-          </nuxt-link>
+          <LogoSvg class="header-main__logo-img" @click="handleGoToMainPage()" />
         </div>
+
         <TheHeaderDesktopCategories :categories="categories" />
+
+        <div v-show="isMainPageOrCategories !== ''" class="header-block header-desktop-page-switcher">
+          <a
+            class="header-desktop-page-switcher__goods"
+            :class="{ active: isMainPageOrCategories === 'index' || isMainPageOrCategories === 'category-id' }"
+            @click="handleToggleSwitcher(isMainPageOrCategories, 'goods')"
+          >
+            <AllCategoriesGoodsSvg />
+            <span>Товары</span>
+          </a>
+          <a
+            class="header-desktop-page-switcher__companies"
+            :class="{ active: isMainPageOrCategories === 'companies' || isMainPageOrCategories === 'companies-id' }"
+            @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
+          >
+            <AllCategoriesCompaniesSvg />
+            <span>Компании</span>
+          </a>
+        </div>
+
         <div class="header-block header-block__search header-main__search" :class="{ active: searchBlockDesk }">
           <!-- @click="handleShowSearchBlockDesktop(true)" -->
           <form type="search" class="header-search" @submit.prevent="handleSearch">
@@ -19,7 +38,10 @@
               inputmode="search"
               @input="handleUpdateSearchInput"
             />
-            <button type="submit" class="header-search__btn">Поиск</button>
+            <button type="submit" class="header-search__btn">
+              <SearchIconSvg />
+              <span>Поиск</span>
+            </button>
           </form>
           <div class="header-block__examples" :class="{ active: searchBlockDesk }"></div>
         </div>
@@ -155,36 +177,56 @@
     </div>
 
     <div v-else class="header header-mobile sticky">
-      <div class="header-main">
-        <div class="header-block header-mobile__back" :class="{ active: searchBlockMob }">
-          <HeaderBackSvg class="header-main__back-img" @click="handleShowSearchBlockMob(false)" />
-        </div>
-        <div class="header-block header-mobile__logo" :class="{ hide: searchBlockMob }">
-          <nuxt-link to="/">
-            <LogoSvg class="header-main__logo-img" />
-          </nuxt-link>
-        </div>
-        <div class="header-block header-block__search header-main__search" @click="handleShowSearchBlockMob(true)">
-          <button class="header-search__img" @click="handleSearch">
-            <SearchIconSvg />
-          </button>
-          <form type="search" class="header-search" @submit.prevent="handleSearch">
-            <input
-              type="text"
-              placeholder="Я ищу..."
-              class="header-search__input header-input__mobile"
-              :value="searchInput"
-              inputmode="search"
-              @input="handleUpdateSearchInput"
-            />
-          </form>
-        </div>
-        <div class="main-modal" :class="{ active: searchBlockMob }"></div>
+      <div class="header-block header-mobile__back" :class="{ active: searchBlockMob }">
+        <HeaderBackSvg class="header-main__back-img" @click="handleShowSearchBlockMob(false)" />
       </div>
+
+      <a v-show="!searchBlockMob" class="header-mobile__logo">
+        <LogoSvg class="header-main__logo-img" @click="handleGoToMainPage()" />
+      </a>
+
+      <div v-show="!searchBlockMob" class="header-mobile-page-switcher">
+        <a
+          class="header-mobile-page-switcher__goods"
+          :class="{ active: isMainPageOrCategories === 'index' || isMainPageOrCategories === 'category-id' }"
+          @click="handleToggleSwitcher(isMainPageOrCategories, 'goods')"
+        >
+          <span>Товары</span>
+        </a>
+
+        <a
+          class="header-mobile-page-switcher__companies"
+          :class="{ active: isMainPageOrCategories === 'companies' || isMainPageOrCategories === 'companies-id' }"
+          @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
+        >
+          <span>Компании</span>
+        </a>
+      </div>
+
+      <SearchIconLoopSvg v-show="!searchBlockMob" @click="handleShowSearchBlockMob(true)" />
+
+      <div v-show="searchBlockMob" class="header-block header-block__search header-main__search">
+        <button class="header-search__img" @click="handleSearch">
+          <SearchIconSvg />
+        </button>
+        <form type="search" class="header-search" @submit.prevent="handleSearch">
+          <input
+            type="text"
+            placeholder="Я ищу..."
+            class="header-search__input header-input__mobile"
+            :value="searchInput"
+            inputmode="search"
+            @input="handleUpdateSearchInput"
+          />
+        </form>
+      </div>
+      <div class="main-modal" :class="{ active: searchBlockMob }"></div>
     </div>
+
     <client-only>
       <div id="backgroundPlate" ref="backgroundPlate" class="backgroundPlate"></div>
     </client-only>
+
     <AppModalAuth />
   </header>
 </template>
@@ -202,6 +244,8 @@
   import SearchIconLoopSvg from '@/assets/img/icons/svg/search-icon-loop.svg?inline'
   import HeaderBackSvg from '@/assets/img/icons/svg/header-back.svg?inline'
   import HeaderFilterSvg from '@/assets/img/icons/svg/header-filter.svg?inline'
+  import AllCategoriesGoodsSvg from '@/assets/img/icons/svg/categories/all-categories-goods.svg?inline'
+  import AllCategoriesCompaniesSvg from '@/assets/img/icons/svg/categories/all-categories-companies.svg?inline'
 
   import TheHeaderDesktopCategories from '@/components/common/TheHeader/TheHeaderDesktopCategories'
   import AppModalAuth from '@/components/UI/AppModalAuth/index'
@@ -219,6 +263,8 @@
       SearchIconSvg,
       HeaderBackSvg,
       HeaderFilterSvg,
+      AllCategoriesGoodsSvg,
+      AllCategoriesCompaniesSvg,
       TheHeaderDesktopCategories,
       AppModalAuth,
     },
@@ -253,10 +299,29 @@
         return false
       },
 
+      isMainPageOrCategories() {
+        switch (this.$route.name) {
+          case 'index':
+            return 'index'
+          case 'category-id':
+            return 'category-id'
+          case 'companies':
+            return 'companies'
+          case 'companies-id':
+            return 'companies-id'
+          default:
+            return ''
+        }
+      },
+
       showMobileHeader() {
         if (this.$route.name === 'product-id' || this.$route.name === 'category') {
           return 'product'
-        } else if (this.$route.name === 'category-id' || this.$route.name === 'search-query') {
+        } else if (
+          this.$route.name === 'category-id' ||
+          this.$route.name === 'search-query' ||
+          this.$route.name === 'companies-id'
+        ) {
           return 'category'
         }
         return true
@@ -383,6 +448,25 @@
           // })
         } else {
           this.shareShowMob()
+        }
+      },
+
+      handleGoToMainPage() {
+        const name = this.$route.name
+        if (name === 'companies' || name === 'companies-id') {
+          this.$router.push('/companies')
+        } else {
+          this.$router.push('/')
+        }
+      },
+
+      handleToggleSwitcher(a, b) {
+        if (a === 'index' || a === 'companies') {
+          const url = b === 'companies' ? '/companies' : '/'
+          this.$router.push(url)
+        } else {
+          const url = b === 'companies' ? `/companies/${this.$route.params.id}` : `/category/${this.$route.params.id}`
+          this.$router.push(url)
         }
       },
     },
