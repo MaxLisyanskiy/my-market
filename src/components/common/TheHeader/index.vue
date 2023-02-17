@@ -11,7 +11,7 @@
         <div v-show="isMainPageOrCategories !== ''" class="header-block header-desktop-page-switcher">
           <a
             class="header-desktop-page-switcher__goods"
-            :class="{ active: isMainPageOrCategories === 'index' || isMainPageOrCategories === 'category-id' }"
+            :class="{ active: typeOfSector === 'goods' }"
             @click="handleToggleSwitcher(isMainPageOrCategories, 'goods')"
           >
             <AllCategoriesGoodsSvg />
@@ -19,7 +19,7 @@
           </a>
           <a
             class="header-desktop-page-switcher__companies"
-            :class="{ active: isMainPageOrCategories === 'companies' || isMainPageOrCategories === 'companies-id' }"
+            :class="{ active: typeOfSector === 'companies' }"
             @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
           >
             <AllCategoriesCompaniesSvg />
@@ -28,7 +28,6 @@
         </div>
 
         <div class="header-block header-block__search header-main__search" :class="{ active: searchBlockDesk }">
-          <!-- @click="handleShowSearchBlockDesktop(true)" -->
           <form type="search" class="header-search" @submit.prevent="handleSearch">
             <input
               type="text"
@@ -286,6 +285,7 @@
     computed: {
       ...mapState('search', ['searchInput']),
       ...mapState('global', ['firstPageVisit']),
+      ...mapState('global', ['typeOfSector']),
       ...mapState('categories', ['categories']),
 
       isCompanyPages() {
@@ -309,6 +309,8 @@
             return 'companies'
           case 'companies-id':
             return 'companies-id'
+          case 'search-query':
+            return 'search-query'
           default:
             return ''
         }
@@ -401,10 +403,12 @@
           this.handleShowSearchBlockDesktop(false)
           this.handleShowSearchBlockMob(false)
 
+          const newQuery = { q: this.searchInput, active: this.typeOfSector }
+
           this.UPDATE_SEARCH_QUERY(this.searchInput)
           this.$router.push({
             path: '/search/',
-            query: { q: this.searchInput },
+            query: newQuery,
           })
         }
       },
@@ -452,18 +456,15 @@
       },
 
       handleGoToMainPage() {
-        const name = this.$route.name
-        if (name === 'companies' || name === 'companies-id') {
-          this.$router.push('/companies')
-        } else {
-          this.$router.push('/')
-        }
+        this.$router.push(this.typeOfSector === 'goods' ? '/' : '/companies')
       },
 
       handleToggleSwitcher(a, b) {
         if (a === 'index' || a === 'companies') {
           const url = b === 'companies' ? '/companies' : '/'
           this.$router.push(url)
+        } else if (a === 'search-query') {
+          this.$router.push(`/search/?q=${this.$route.query.q}&active=${b}`)
         } else {
           const url = b === 'companies' ? `/companies/${this.$route.params.id}` : `/category/${this.$route.params.id}`
           this.$router.push(url)

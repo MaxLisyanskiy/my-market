@@ -17,9 +17,8 @@
     components: { HomeCompaniesSlider, AppSwiper },
     layout: 'default',
 
-    async asyncData({ app }) {
-      // Get the categories with products for the HomeProductsSlider
-      // const { categories } = await app.$categoryService.getCategoriesWithProducts()
+    async asyncData({ app, store }) {
+      store.commit('global/SET_TYPE_OF_SECTOR', 'companies')
 
       let categories = null
       const res = await app.$categoryService.getCategories(true)

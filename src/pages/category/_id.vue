@@ -2,10 +2,11 @@
   <section class="applyied">
     <CatalogFilter :what-is-page="'goodsCategory'" />
     <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
-    <div class="categories">
+    <div v-if="products.length > 0" class="categories">
       <CatalogProducts :products="products" />
       <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
+    <CompaniesCategoryNotFound v-else />
   </section>
 </template>
 
@@ -15,15 +16,15 @@
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
+  import CompaniesCategoryNotFound from '~/components/companiesCategory/CompaniesCategoryNotFound.vue'
 
   export default {
     name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts },
+    components: { CatalogFilter, CatalogMobText, CatalogProducts, CompaniesCategoryNotFound },
     layout: 'catalog',
 
     async asyncData({ app, store, params, query, error }) {
-      // // Get all categoris
-      // await store.dispatch('categories/GET_CATEGORIES')
+      store.commit('global/SET_TYPE_OF_SECTOR', 'goods')
 
       let categoryParent = ''
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
