@@ -17,7 +17,9 @@
     components: { HomeWrapper, HomeProductsSlider },
     layout: 'default',
 
-    async asyncData({ app }) {
+    async asyncData({ app, store }) {
+      store.commit('global/SET_TYPE_OF_SECTOR', 'goods')
+
       // Get the categories with products for the HomeProductsSlider
       const { categories } = await app.$categoryService.getCategoriesWithProducts()
 

@@ -329,7 +329,7 @@
           this.UPDATE_SEARCH_QUERY(this.searchInput)
           this.$router.push({
             path: '/search/',
-            query: { q: this.searchInput },
+            query: { q: this.searchInput, active: this.activeTab },
           })
         }
       },

@@ -1,11 +1,12 @@
 <template>
   <section class="applyied">
     <CatalogFilter :what-is-page="'companiesCategory'" />
-    <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
-    <div class="categories">
+    <CatalogMobText :what-is-page="'category'" :companies="companies" :category="category" />
+    <div v-if="companies.length > 0" class="categories">
       <CompaniesCategory :companies="companies" />
       <!-- <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading> -->
     </div>
+    <CompaniesCategoryNotFound v-else />
   </section>
 </template>
 
@@ -15,13 +16,16 @@
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CompaniesCategory from '~/components/companiesCategory/CompaniesCategory.vue'
+  import CompaniesCategoryNotFound from '~/components/companiesCategory/CompaniesCategoryNotFound.vue'
 
   export default {
     name: 'CompaniesCategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CompaniesCategory },
+    components: { CatalogFilter, CatalogMobText, CompaniesCategory, CompaniesCategoryNotFound },
     layout: 'catalog',
 
-    async asyncData({ app, params, error }) {
+    async asyncData({ app, store, params, error }) {
+      store.commit('global/SET_TYPE_OF_SECTOR', 'companies')
+
       let categoryParent = ''
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
 
