@@ -84,5 +84,3 @@
     },
   }
 </script>
-
-<style src="./catalog-filter.scss" lang="scss"></style>

@@ -60,5 +60,3 @@
     },
   }
 </script>
-
-<style src="./product.scss" lang="scss"></style>

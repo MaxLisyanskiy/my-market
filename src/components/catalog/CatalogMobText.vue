@@ -73,5 +73,3 @@
     },
   }
 </script>
-
-<style src="./catalogMobText.scss" lang="scss"></style>

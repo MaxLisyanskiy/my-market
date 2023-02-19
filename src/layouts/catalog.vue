@@ -16,8 +16,8 @@
   import { mapState, mapActions } from 'vuex'
 
   import TheHeader from '../components/common/TheHeader/index.vue'
-  import TheBreadcrumbs from '../components/common/TheBreadcrumbs.vue'
-  import TheFooter from '../components/common/TheFooter.vue'
+  import TheBreadcrumbs from '../components/common/TheBreadcrumbs/TheBreadcrumbs.vue'
+  import TheFooter from '../components/common/TheFooter/TheFooter.vue'
 
   import CatalogSidebar from '../components/catalog/CatalogSidebar/index.vue'
 

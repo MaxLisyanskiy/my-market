@@ -371,5 +371,3 @@
     }
   }
 </style>
-
-<style src="./company-products.scss" lang="scss"></style>

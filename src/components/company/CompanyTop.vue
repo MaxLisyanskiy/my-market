@@ -33,7 +33,11 @@
           </div>
         </div>
         <client-only>
-          <div v-if="backgroundPlate" class="backgroundPlateCompanyTop" @click="(showCompanyEditor = false,backgroundPlate = false)"></div>
+          <div
+            v-if="backgroundPlate"
+            class="backgroundPlateCompanyTop"
+            @click=";(showCompanyEditor = false), (backgroundPlate = false)"
+          ></div>
         </client-only>
         <validation-observer
           ref="observer"
@@ -705,5 +709,3 @@
     },
   }
 </script>
-
-<style src="./company.scss" lang="scss"></style>

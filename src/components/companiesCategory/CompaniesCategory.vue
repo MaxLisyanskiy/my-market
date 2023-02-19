@@ -36,5 +36,3 @@
     },
   }
 </script>
-
-<style src="./companies-category.scss" lang="scss"></style>

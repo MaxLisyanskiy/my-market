@@ -372,5 +372,3 @@
     },
   }
 </script>
-
-<style src="./product-editor.scss" lang="scss"></style>

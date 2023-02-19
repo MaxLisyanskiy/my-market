@@ -34,4 +34,4 @@
   }
 </script>
 
-<style src="./error.scss" lang="scss"></style>
+<style src="./error500.scss" lang="scss"></style>
