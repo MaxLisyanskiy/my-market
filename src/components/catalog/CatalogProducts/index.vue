@@ -86,5 +86,3 @@
     },
   }
 </script>
-
-<style src="./catalog.scss" lang="scss"></style>

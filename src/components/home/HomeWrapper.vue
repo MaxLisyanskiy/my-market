@@ -73,5 +73,3 @@
     },
   }
 </script>
-
-<style src="./homeWrapper.scss" lang="scss"></style>

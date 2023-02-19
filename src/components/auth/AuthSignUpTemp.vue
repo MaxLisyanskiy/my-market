@@ -34,5 +34,3 @@
     },
   }
 </script>
-
-<style src="./auth.scss" lang="scss"></style>

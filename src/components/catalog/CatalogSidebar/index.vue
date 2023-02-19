@@ -26,5 +26,3 @@
     },
   }
 </script>
-
-<style src="./catalog-sidebar.scss" lang="scss"></style>

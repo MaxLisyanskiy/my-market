@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import TheFooter from '../components/common/TheFooter.vue'
+  import TheFooter from '../components/common/TheFooter/TheFooter.vue'
 
   export default {
     name: 'CustomLayout',
