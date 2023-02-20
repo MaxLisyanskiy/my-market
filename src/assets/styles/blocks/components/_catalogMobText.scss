@@ -1,0 +1,19 @@
+.categories {
+  &-subtitle {
+    @extend %container;
+    display: none;
+    @media (max-width: 600px) {
+      margin-bottom: 7px;
+      display: block;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #666666;
+    }
+
+    & span {
+      font-weight: 500;
+      color: #262626;
+    }
+  }
+}

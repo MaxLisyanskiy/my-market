@@ -30,15 +30,15 @@
                 Редактировать профиль
               </button>
             </div>
-
           </div>
         </div>
-		<client-only>
-              <div
-                v-if="backgroundPlate"
-                class="backgroundPlateTwo"
-              ></div>
-            </client-only>
+        <client-only>
+          <div
+            v-if="backgroundPlate"
+            class="backgroundPlateCompanyTop"
+            @click=";(showCompanyEditor = false), (backgroundPlate = false)"
+          ></div>
+        </client-only>
         <validation-observer
           ref="observer"
           tag="form"
@@ -512,7 +512,7 @@
         companyEmailError: '',
 
         backgroundPlate: false,
-		notFound: 'handleCompanyLogoDelete'
+        notFound: 'handleCompanyLogoDelete',
       }
     },
 
@@ -554,6 +554,8 @@
       },
     },
     mounted() {
+      window.addEventListener('keydown', this.escCloseModal)
+
       this.companyName = this.company.name || ''
       this.companyPhone = this.company.phone || ''
       this.companyEmail = this.company.email || ''
@@ -562,9 +564,16 @@
     },
     destroyed() {
       window.removeEventListener('scroll', this.handleScroll)
+      window.removeEventListener('keydown', this.escCloseModal)
     },
 
     methods: {
+      // Close a modal on pressing the Esc key
+      escCloseModal(e) {
+        if (this.showCompanyEditor && e.key === 'Escape') {
+          this.showCompanyEditor = false
+        }
+      },
       ...mapMutations('company', ['UPDATE_COMPANY_SEARCH_INPUT', 'UPDATE_COMPANY_SEARCH_QUERY']),
 
       /**
@@ -603,10 +612,10 @@
         this.$emit('scrolled', this.scrolledToTabs)
       },
 
-    handleCompanyLogoDelete() {
-		this.companyLogo = ""
-		document.querySelector('#companyLogo').value = '';
-	},
+      handleCompanyLogoDelete() {
+        this.companyLogo = ''
+        document.querySelector('#companyLogo').value = ''
+      },
 
       async handleCompanyLogoChange(file) {
         const formData = new FormData()
@@ -700,13 +709,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .header-mob-logo {
-    & svg {
-      margin-top: 8px;
-      width: 60.31px;
-      height: 18.67px;
-    }
-  }
-</style>

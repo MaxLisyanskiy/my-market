@@ -1,10 +1,10 @@
 <template>
   <section class="applyied">
-    <CatalogFilter :what-is-page="'goodsCategory'" />
-    <CatalogMobText :what-is-page="'category'" :products="products" :category="category" />
-    <div v-if="products.length > 0" class="categories">
-      <CatalogProducts :products="products" />
-      <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
+    <CatalogFilter :what-is-page="'companiesCategory'" />
+    <CatalogMobText :what-is-page="'category'" :companies="companies" :category="category" />
+    <div v-if="companies.length > 0" class="categories">
+      <CompaniesCategory :companies="companies" />
+      <!-- <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading> -->
     </div>
     <CompaniesCategoryNotFound v-else />
   </section>
@@ -15,16 +15,16 @@
 
   import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
-  import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
+  import CompaniesCategory from '~/components/companiesCategory/CompaniesCategory.vue'
   import CompaniesCategoryNotFound from '~/components/companiesCategory/CompaniesCategoryNotFound.vue'
 
   export default {
-    name: 'CategoryIdPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts, CompaniesCategoryNotFound },
+    name: 'CompaniesCategoryIdPage',
+    components: { CatalogFilter, CatalogMobText, CompaniesCategory, CompaniesCategoryNotFound },
     layout: 'catalog',
 
-    async asyncData({ app, store, params, query, error }) {
-      store.commit('global/SET_TYPE_OF_SECTOR', 'goods')
+    async asyncData({ app, store, params, error }) {
+      store.commit('global/SET_TYPE_OF_SECTOR', 'companies')
 
       let categoryParent = ''
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
@@ -36,10 +36,10 @@
         categoryParent = category
       }
 
-      // If the category is valid, get the products of the category. If not, go to the error page 404
       if (category) {
-        const { products, pagen } = await app.$categoryService.getProductsCategory(params.id, query.p ?? 1, 20)
-        return { category, categoryParent, products, pagen }
+        const { companies, pagen } = await app.$companyService.getCompanisByCategoryId(params.id)
+
+        return { category, categoryParent, companies, pagen }
       } else {
         error({ statusCode: 404 })
       }
@@ -48,7 +48,7 @@
     data() {
       return {
         category: {},
-        categoryParent: {},
+        companies: [],
         products: [],
         pagen: [],
         countProducts: 20,
@@ -64,11 +64,11 @@
           { name: 'Главная', path: '/' },
           {
             name: `${this.categoryParent.name}`,
-            path: `/category/${this.categoryParent.id}`,
+            path: `/companies/${this.categoryParent.id}`,
           },
           {
             name: `${this.category.name}`,
-            path: `/category/${this.category.id}`,
+            path: `/companies/${this.category.id}`,
           },
         ]
       } else {
@@ -76,7 +76,7 @@
           { name: 'Главная', path: '/' },
           {
             name: `${this.category.name}`,
-            path: `/category/${this.category.id}`,
+            path: `/companies/${this.category.id}`,
           },
         ]
       }
@@ -89,7 +89,7 @@
       this.SET_SIDEBAR_CATEGORIES([
         {
           name: this.categoryParent.name,
-          path: 'category',
+          path: 'companies',
         },
         [
           {
@@ -103,12 +103,12 @@
 
     head() {
       return {
-        title: `Категория | ${this.category.name}`,
+        title: `Вид деятельности | ${this.category.name}`,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `Категория | ${this.category.name}`,
+            content: `Вид деятельности | ${this.category.name}`,
           },
           {
             hid: 'description',
@@ -118,7 +118,7 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `Категория | ${this.category.name}`,
+            content: `Вид деятельности | ${this.category.name}`,
           },
           {
             hid: 'og:site_name',
@@ -133,7 +133,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: `Категория | ${this.category.name}`,
+            content: `Вид деятельности | ${this.category.name}`,
           },
           {
             hid: 'twitter:description',
@@ -147,15 +147,6 @@
           },
         ],
       }
-    },
-
-    computed: {
-      showInfiniteLoading() {
-        if (this.products.length >= 20 && this.pagen.total > this.products.length) {
-          return true
-        }
-        return false
-      },
     },
 
     methods: {

@@ -1,0 +1,41 @@
+.catalogSidebar {
+  width: 244px;
+  height: auto;
+  background: #fff;
+  padding: 14px 20px 20px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 0 2px rgba(204, 204, 204, 0.6);
+  border-radius: 10px;
+  @media (max-width: 991px) {
+    width: 200px;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 20px;
+    color: #262626;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #e6e0e0;
+  }
+
+  &__menu {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+
+    & a {
+      margin-bottom: 6px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 18px;
+      color: #262626;
+      &.nuxt-link-active {
+        color: #ff5833;
+      }
+    }
+  }
+}

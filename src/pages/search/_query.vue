@@ -1,44 +1,57 @@
 <template>
   <section class="applyied">
-    <CatalogFilter />
-    <CatalogMobText :what-is-page="'search'" :products="products" />
+    <CatalogFilterSearch />
+    <CatalogMobText :what-is-page="'search'" :products="products" :companies="companies" />
     <div v-if="products.length > 0" class="categories">
       <CatalogProducts :products="products" />
     </div>
-    <AppPagination
-      v-if="pagen.total > countProducts && products.length > 0"
-      :initial-page="pagen.page"
-      :page-count="Math.ceil(pagen.total / countProducts)"
-      :click-handler="handleClickPagination"
-    />
-    <CatalogProductsNotFound v-if="products.length <= 0" :search-query="$route.query.q" />
+    <div v-else-if="companies.length > 0" class="categories">
+      <CompaniesCategory :companies="companies" />
+    </div>
+    <CatalogProductsNotFound v-else :search-query="$route.query.q" />
   </section>
 </template>
 
 <script>
   import { mapState, mapMutations } from 'vuex'
 
-  import CatalogFilter from '~/components/catalog/CatalogFilter.vue'
+  import CatalogFilterSearch from '~/components/catalog/CatalogFilterSearch.vue'
   import CatalogMobText from '~/components/catalog/CatalogMobText.vue'
   import CatalogProducts from '~/components/catalog/CatalogProducts/index.vue'
+  import CompaniesCategory from '~/components/companiesCategory/CompaniesCategory.vue'
   import CatalogProductsNotFound from '~/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
-
-  import AppPagination from '~/components/UI/AppPagination.vue'
 
   export default {
     name: 'SearchPage',
-    components: { CatalogFilter, CatalogMobText, CatalogProducts, CatalogProductsNotFound, AppPagination },
+    components: { CatalogFilterSearch, CatalogMobText, CatalogProducts, CompaniesCategory, CatalogProductsNotFound },
     layout: 'catalog',
 
     async asyncData({ store, query, app }) {
       // Check query in the routing and set query in store
       const { q } = await query
+      const { active } = await query
+
       await store.dispatch('search/SET_SEARCH_QUERY', q)
 
-      // Get products by query
-      const { products, pagen } = await app.$productService.getProducts(query.p ?? 1, 20, q)
-      store.commit('search/UPDATE_SEARCH_PRODUCTS_COUNT', products.length)
-      return { products, pagen }
+      store.commit('global/SET_TYPE_OF_SECTOR', active)
+
+      let products = []
+      let companies = []
+      let pagen = []
+
+      if (active === 'goods') {
+        const res = await app.$productService.getProducts(query.p ?? 1, 20, q)
+        products = res.products
+        pagen = res.pagen
+        store.commit('search/UPDATE_SEARCH_PRODUCTS_COUNT', res.products.length)
+      } else {
+        const res = await app.$companyService.getCompanisByName(q)
+        companies = res.companies
+        pagen = res.pagen
+        store.commit('search/UPDATE_SEARCH_PRODUCTS_COUNT', res.companies.length)
+      }
+
+      return { products, companies, pagen, active }
     },
     data() {
       return {
@@ -47,6 +60,29 @@
         countProducts: 20,
       }
     },
+
+    fetch() {
+      this.SET_BREADCRUMBS({
+        breadcrumbsLinks: [
+          { name: 'Главная', path: '/' },
+          {
+            name: `"${this.searchQuery}""`,
+            path: `${this.$route.fullPath}`,
+          },
+        ],
+      })
+
+      this.SET_SIDEBAR_CATEGORIES([
+        {
+          name: 'Категории',
+          path: `${this.$route.fullPath}`,
+        },
+        [],
+      ])
+
+      // this.SET_TYPE_OF_SECTOR(this.$route.params.active)
+    },
+
     head() {
       return {
         title: `${this.searchQuery ?? 'Товары не найдены'} | VALE.SU`,
@@ -94,22 +130,23 @@
         ],
       }
     },
+
     computed: {
       ...mapState('search', ['searchQuery']),
     },
     watch: {
-      // searchQuery(newCount, oldCount) {
-      //   if (oldCount !== newCount) {
-      //     this.handleLoadProducts()
-      //   }
-      // },
       '$route.query.q'() {
+        this.$router.app.refresh()
+      },
+      '$route.query.active'() {
         this.$router.app.refresh()
       },
     },
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_PRODUCTS_COUNT']),
+      ...mapMutations('global', ['SET_TYPE_OF_SECTOR']),
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
+      ...mapMutations('categories', ['SET_SIDEBAR_CATEGORIES']),
 
       /**
        * Get products by query when change search input

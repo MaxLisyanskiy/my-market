@@ -33,3 +33,5 @@
     },
   }
 </script>
+
+<style src="./error500.scss" lang="scss"></style>

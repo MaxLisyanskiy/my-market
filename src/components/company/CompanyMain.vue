@@ -11,5 +11,3 @@
     name: 'CompanyMain',
   }
 </script>
-
-<style lang="scss" scoped></style>

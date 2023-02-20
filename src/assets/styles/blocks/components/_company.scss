@@ -1,3 +1,10 @@
+.header-mob-logo {
+  & svg {
+    margin-top: 8px;
+    width: 60.31px;
+    height: 18.67px;
+  }
+}
 .companyWrapper {
   padding-top: 70px;
   @media (max-width: 768px) {
@@ -487,7 +494,7 @@
     font-weight: 400;
     color: #262626;
     display: block;
-	margin-top:10px;
+    margin-top: 10px;
     width: 100%;
     @media (max-width: 600px) {
       margin: 10px 10px 0 10px;
@@ -713,7 +720,7 @@
       z-index: 2;
       left: 90px;
       top: 2px;
-	  cursor:pointer;
+      cursor: pointer;
       @media (max-width: 768px) {
         left: 50px;
         top: -6px;

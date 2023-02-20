@@ -71,3 +71,5 @@
     fill: #404040;
   }
 </style>
+
+<style src="./footer.scss" lang="scss"></style>

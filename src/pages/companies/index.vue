@@ -1,27 +1,26 @@
 <template>
   <article class="content-row">
     <HomeWrapper />
-    <HomeProductsSlider v-for="category in categories" :key="category.id" :category="category" />
-    <!-- <HomeProducts /> -->
+    <HomeCompaniesSlider v-for="category in categories" :key="category.id" :category="category" />
   </article>
 </template>
 
 <script>
-  import HomeCategories from '~/components/home/HomeCategories.vue'
-  import HomeProductsSlider from '~/components/home/HomeProductsSlider.vue'
+  // import AppSwiper from '~/components/UI/AppSwiper.vue'
   import HomeWrapper from '~/components/home/HomeWrapper.vue'
-  import HomeProducts from '~/components/home/HomeProducts.vue'
+  import HomeCompaniesSlider from '~/components/home/HomeCompaniesSlider.vue'
 
   export default {
     name: 'HomePage',
-    components: { HomeWrapper, HomeProductsSlider },
+    components: { HomeCompaniesSlider },
     layout: 'default',
 
     async asyncData({ app, store }) {
-      store.commit('global/SET_TYPE_OF_SECTOR', 'goods')
+      store.commit('global/SET_TYPE_OF_SECTOR', 'companies')
 
-      // Get the categories with products for the HomeProductsSlider
-      const { categories } = await app.$categoryService.getCategoriesWithProducts()
+      let categories = null
+      const res = await app.$categoryService.getCategories(true)
+      categories = res.categories[0].children
 
       // Add color for categories
       const colorArray = ['#F2F2D2', '#F2D2EF', '#F2D2D2', '#D2F2EA', '#D2D9F2', '#DAF2D2', '#F2DED2', '#A6D8D4']

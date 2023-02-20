@@ -350,11 +350,11 @@
           { name: 'Реквизиты', goTo: 'requisites' },
         ],
 
-		requisites:{},
+        requisites: {},
         companyDescriptionEditor: true,
         companyRequisitesEditor: true,
         companyShowPlate: false,
-		backgroundPlate:false,
+        backgroundPlate: false,
       }
     },
     computed: {
@@ -448,6 +448,7 @@
     },
   }
 </script>
+
 <style lang="scss">
   .company-add__slider {
     & .el-upload--picture-card {

@@ -34,28 +34,3 @@
     },
   }
 </script>
-<style lang="scss" scoped>
-  .signup__title-temp {
-    line-height: 0;
-  }
-  .auth-form {
-    background: none;
-    box-shadow: none;
-    &__email,
-    &__text {
-      color: #808080;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      text-align: center;
-    }
-    &__email {
-      color: #404040;
-      cursor: pointer;
-    }
-    &__link {
-      font-size: 12px;
-      line-height: 14px;
-    }
-  }
-</style>
