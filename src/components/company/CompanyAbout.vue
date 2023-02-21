@@ -293,7 +293,7 @@
                 <div class="table-block__left">Генеральный директор:</div>
                 <div class="table-block__right">{{ dataForm.requisites.ceo }}</div>
               </div>
-              <div v-if="requisites?.director" class="table-block">
+              <div v-if="company.requisites?.director" class="table-block">
                 <div class="table-block__left">Директор:</div>
                 <div class="table-block__right">{{ dataForm.requisites.director }}</div>
               </div>
