@@ -32,18 +32,15 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   import HeaderDesktopCategoriesSvg from '@/assets/img/icons/svg/header/header-desktop-categories.svg?inline'
   import HeaderDesktopCategoriesArrowSvg from '@/assets/img/icons/svg/header/header-desktop-categories-arrow.svg?inline'
 
   export default {
     name: 'TheHeaderDesktopCategories',
     components: { HeaderDesktopCategoriesSvg, HeaderDesktopCategoriesArrowSvg },
-    props: {
-      categories: {
-        type: Array,
-        default() {},
-      },
-    },
+
     data() {
       return {
         active: false,
@@ -52,11 +49,19 @@
         categoriesLevelThree: [],
       }
     },
-    fetch() {
+    async fetch() {
       const newCategoriesLevelTwo = []
       const newCategoriesLevelThree = []
+      let newCategories = []
 
-      this.categories.map(item => {
+      if (this.categories.length === 0) {
+        const { categories } = await this.$categoryService.getCategories(false)
+        newCategories = categories
+      } else {
+        newCategories = this.categories
+      }
+
+      newCategories.map(item => {
         this.activeCategory = item.children[0].id
         newCategoriesLevelTwo.push(...item.children)
         return item.children.map(itemLevelTwo => {
@@ -76,5 +81,8 @@
     //     }
     //   },
     // },
+    computed: {
+      ...mapState('categories', ['categories']),
+    },
   }
 </script>
