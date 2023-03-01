@@ -115,7 +115,12 @@
       </div>
     </div>
     <CatalogProductsNotFound
-      v-if="products.length <= 0"
+      v-if="products.length <= 0 && $route.query.q > 1"
+      :search-query="$route.query.q"
+      class="company-products__not-found"
+    />
+    <CatalogProductsNothing
+      v-if="products.length <= 0 && typeof $route.query.q === 'undefined' "
       :search-query="$route.query.q"
       class="company-products__not-found"
     />
@@ -143,6 +148,7 @@
 
 <script>
   import CatalogProductsNotFound from '@/components/catalog/CatalogProducts/CatalogProductsNotFound.vue'
+  import CatalogProductsNothing from '@/components/catalog/CatalogProducts/CatalogProductsNothing.vue'
   import CompanyProductsFilterMobSvg from '@/assets/img/icons/svg/company-products-filter-mob.svg?inline'
   import DotsCompanyProductsSvg from '@/assets/img/icons/svg/dots-company-products.svg?inline'
 
@@ -150,6 +156,7 @@
     name: 'CompanyProducts',
     components: {
       CatalogProductsNotFound,
+      CatalogProductsNothing,
       CompanyProductsFilterMobSvg,
       DotsCompanyProductsSvg,
     },
@@ -284,11 +291,7 @@
   .product {
     position: relative;
   }
-  .productsNotFound {
-    width: 100%;
-    margin: 0;
-    display: none;
-  }
+
   .company-products__top {
     @media (max-width: 768px) {
       position: sticky;
@@ -296,9 +299,6 @@
       z-index: 2;
       background: #f5f5f5;
     }
-  }
-  .company-products__not-found {
-    padding: 0 30px;
   }
   .aside-not-found {
     margin-top: 0px;
