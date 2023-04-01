@@ -23,8 +23,6 @@
 <script>
   export default {
     asyncData({ req }) {
-      console.log(req)
-
       if (process.server) {
         const host = req.headers.host
         return { host }
