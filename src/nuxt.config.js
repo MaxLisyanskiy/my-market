@@ -125,7 +125,12 @@ export default {
    */
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa', '@nuxtjs/svg'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/pwa',
+    '@nuxtjs/svg',
+    ['@nuxtjs/router', { keepDefaultRouter: true }],
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
