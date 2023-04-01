@@ -8,11 +8,12 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
   if (process.server && ssrContext && ssrContext.nuxt && ssrContext.req) {
     const req = ssrContext.req
 
-    const domainLevel = (req.headers.host.match(/\./g) || []).length + 1
+    const domainLevel = req.headers.host === 'stage.vale.su' ? 1 : (req.headers.host.match(/\./g) || []).length + 1
 
     // Get routes directory by hostname
 
     routesDirectory = domainLevel > 1 ? 'sub-domain' : 'root-domain'
+
     // Save to the object that will be sent to the client as inline-script
     ssrContext.nuxt.routesDirectory = routesDirectory
   }
