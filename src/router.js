@@ -12,7 +12,7 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
 
     // Get routes directory by hostname
 
-    routesDirectory = domainLevel > 1 ? 'sub-domain' : 'root-domain'
+    routesDirectory = domainLevel > 1 ? 'sub-domain' : ''
 
     // Save to the object that will be sent to the client as inline-script
     ssrContext.nuxt.routesDirectory = routesDirectory
@@ -35,7 +35,7 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
     newRoutes = options.routes
       .filter(route => {
         // remove routes from other directories
-        const toRemove = routesDirectory === 'sub-domain' ? 'root-domain' : 'sub-domain'
+        const toRemove = routesDirectory === 'sub-domain' ? '' : 'sub-domain'
         return !isUnderDirectory(route, toRemove)
       })
       .map(route => {
