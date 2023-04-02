@@ -96,25 +96,3 @@
     }
   }
 }
-
-/*Search result - not found */
-.not-found {
-  text-align: center;
-  padding-top: 15px;
-  box-sizing: border-box;
-
-  &__title {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    color: #262626;
-    display: block;
-  }
-
-  &__text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-    color: #808080;
-  }
-}
