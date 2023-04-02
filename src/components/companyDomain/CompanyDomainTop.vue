@@ -158,26 +158,13 @@
 
       <div id="bannerTabs" class="banner-tabs">
         <div class="banner-tabs-list">
-          <nuxt-link
-            v-show="false"
-            :to="`/company/${company.id}`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'Main' }"
-          >
+          <nuxt-link v-show="false" :to="`/`" class="banner-tabs-list__link" :class="{ active: activeTab === 'Main' }">
             Главная
           </nuxt-link>
-          <nuxt-link
-            :to="`/company/${company.id}/products`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'Products' }"
-          >
+          <nuxt-link :to="`/`" class="banner-tabs-list__link" :class="{ active: activeTab === 'Products' }">
             Товары
           </nuxt-link>
-          <nuxt-link
-            :to="`/company/${company.id}/about/`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'About' }"
-          >
+          <nuxt-link :to="`/settings`" class="banner-tabs-list__link" :class="{ active: activeTab === 'About' }">
             О компании
           </nuxt-link>
         </div>
@@ -310,26 +297,13 @@
       </div>
       <div class="banner-tabs">
         <div class="banner-tabs-list">
-          <nuxt-link
-            v-show="false"
-            :to="`/company/${company.id}`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'Main' }"
-          >
+          <nuxt-link v-show="false" :to="`/`" class="banner-tabs-list__link" :class="{ active: activeTab === 'Main' }">
             Главная
           </nuxt-link>
-          <nuxt-link
-            :to="`/company/${company.id}/products`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'Products' }"
-          >
+          <nuxt-link :to="`/`" class="banner-tabs-list__link" :class="{ active: activeTab === 'Products' }">
             Товары
           </nuxt-link>
-          <nuxt-link
-            :to="`/company/${company.id}/about/`"
-            class="banner-tabs-list__link"
-            :class="{ active: activeTab === 'About' }"
-          >
+          <nuxt-link :to="`/settings`" class="banner-tabs-list__link" :class="{ active: activeTab === 'About' }">
             О компании
           </nuxt-link>
         </div>
