@@ -6,9 +6,10 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
   let routesDirectory = null
 
   if (process.server && ssrContext && ssrContext.nuxt && ssrContext.req) {
+
     const req = ssrContext.req
 
-    const domainLevel = req.headers.host === 'stage.vale.su' ? 1 : (req.headers.host.match(/\./g) || []).length + 1
+    const domainLevel = (req.headers.host === 'stage.vale.su' || req.headers.host === 'vale.su') ? 1 : (req.headers.host.match(/\./g) || []).length + 1
 
     // Get routes directory by hostname
 
