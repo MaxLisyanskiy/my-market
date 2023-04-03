@@ -117,7 +117,6 @@
       width: 100%;
     }
   }
-
   &__wrapper {
     display: flex;
   }
@@ -253,6 +252,12 @@
 
   &.fixed {
     top: 126px;
+  }
+
+  &_domain {
+    &.fixed {
+      top: 10px;
+    }
   }
 
   &-list {

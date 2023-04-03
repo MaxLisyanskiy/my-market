@@ -102,6 +102,12 @@
       &.active {
         display: flex;
       }
+      &__two {
+        top: -100px;
+        @media (max-width: 870px) {
+          top: 20px;
+        }
+      }
       &__two.active {
         @media (max-width: 600px) {
           display: none;
