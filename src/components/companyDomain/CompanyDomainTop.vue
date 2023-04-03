@@ -309,59 +309,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Banner Fixed -->
-    <section class="banner-fixed" :class="{ active: !scrolledToTabs }">
-      <div class="banner-tabs">
-        <div class="banner-tabs__wrapp">
-          <div class="banner-tabs-company">
-            <img v-if="company.logo" v-lazy="company.logo.url" :alt="company.name" />
-            <img v-else src="@/assets/img/icons/company-not-found-img.svg" alt="company-not-found-img" />
-            <h3>{{ company.name }}</h3>
-          </div>
-          <div class="banner-tabs-list">
-            <nuxt-link
-              v-show="false"
-              :to="`/company/${company.id}`"
-              class="banner-tabs-list__link"
-              :class="{ active: activeTab === 'Main' }"
-            >
-              Главная
-            </nuxt-link>
-            <nuxt-link
-              :to="`/company/${company.id}/products`"
-              class="banner-tabs-list__link"
-              :class="{ active: activeTab === 'Products' }"
-            >
-              Товары
-            </nuxt-link>
-            <nuxt-link
-              :to="`/company/${company.id}/about/`"
-              class="banner-tabs-list__link"
-              :class="{ active: activeTab === 'About' }"
-            >
-              О компании
-            </nuxt-link>
-          </div>
-        </div>
-        <div class="banner-tabs-connection">
-          <template v-if="!isCompanyOwner">
-            <a :href="`tel:${company.phone}`" class="banner-tabs-connection__tel">
-              <img src="@/assets/img/icons/company-tel.svg" alt="company-tel" />
-              <span>Позвонить</span>
-            </a>
-            <a :href="`mailto:${company.email}`" class="banner-tabs-connection__mail">
-              <img src="@/assets/img/icons/company-mail.svg" alt="company-mail" />
-              <span> Написать</span>
-            </a>
-          </template>
-          <nuxt-link v-else :to="`/company/${company.id}/settings/`" class="banner-tabs-connection__settings">
-            <CompanySettingsSvg />
-            <span>Настройки</span>
-          </nuxt-link>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -378,12 +325,8 @@
   export default {
     name: 'CompanyTop',
     components: {
-      // LogoSvg,
-      // CompanyHeaderBackSvg,
-      // CompanyHeaderSearchSvg,
       CompanyAddProductPlusSvg,
       CompanySettingsSvg,
-      // CompanyOwnerSettingsSvg,
       CompanyEditLogoSvg,
       CompanyEditLogoMobSvg,
       LogoDeleteSvg,

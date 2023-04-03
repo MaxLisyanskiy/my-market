@@ -6,7 +6,7 @@
     </div>
 
     <div class="company__wrapper">
-      <div class="wrapper-sidebar sidebar" :class="{ fixed: !scrolled }">
+      <div class="wrapper-sidebar sidebar sidebar_domain" :class="{ fixed: !scrolled }">
         <ul class="sidebar-list">
           <li
             v-for="link in links"

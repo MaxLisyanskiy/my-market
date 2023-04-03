@@ -69,12 +69,12 @@
     },
     head() {
       return {
-        title: `${this.company.name} - О компании | VALE.SU`,
+        title: `${this.company.name} - О компании`,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `${this.company.name} - О компании | VALE.SU`,
+            content: `${this.company.name} - О компании`,
           },
           {
             hid: 'description',
@@ -84,12 +84,12 @@
           {
             hid: 'og:title',
             name: 'og:title',
-            content: `${this.company.name} - О компании | VALE.SU`,
+            content: `${this.company.name} - О компании`,
           },
           {
             hid: 'og:site_name',
             name: 'og:site_name',
-            content: 'Мир поставщиков VALE.SU',
+            content: 'Glass-Union',
           },
           {
             hid: 'og:description',
@@ -106,7 +106,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            content: `${this.company.name} - О компании | VALE.SU`,
+            content: `${this.company.name} - О компании`,
           },
           {
             hid: 'twitter:description',

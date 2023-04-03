@@ -115,12 +115,12 @@
     },
     head() {
       return {
-        title: `${this.product.name} | VALE.SU`,
+        title: `${this.product.name}`,
         meta: [
           {
             hid: 'title',
             name: 'title',
-            content: `${this.product.name} | VALE.SU`,
+            content: `${this.product.name}`,
           },
           {
             hid: 'description',
@@ -130,7 +130,12 @@
           {
             hid: 'og:title',
             property: 'og:title',
-            content: `${this.product.name} | VALE.SU`,
+            content: `${this.product.name}`,
+          },
+          {
+            hid: 'og:site_name',
+            name: 'og:site_name',
+            content: 'Glass-Union',
           },
           {
             hid: 'og:description',
@@ -156,7 +161,7 @@
           {
             hid: 'twitter:title',
             name: 'twitter:title',
-            title: `${this.product.name} | VALE.SU`,
+            title: `${this.product.name}`,
           },
           {
             hid: 'twitter:description',
