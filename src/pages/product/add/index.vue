@@ -12,7 +12,7 @@
     components: { ProductEditor },
     layout: 'default',
     middleware: 'auth',
-
+    
     fetch() {
       // Set links and name for breadcrumbs
       this.SET_BREADCRUMBS({
