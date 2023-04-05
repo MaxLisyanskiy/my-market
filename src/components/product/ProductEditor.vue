@@ -172,8 +172,6 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   import draggable from 'vuedraggable'
 
   import PlusSvg from '@/assets/img/icons/plus.svg?inline'
@@ -226,12 +224,10 @@
         rules: {
           images: 'isImagesValid',
         },
+        categories: []
       }
     },
-
     computed: {
-      ...mapState('categories', ['categories']),
-
       goodsCategories() {
         const arr = []
 
@@ -246,7 +242,10 @@
         return arr
       },
     },
-
+    async created() {
+      const {categories} =  await this.$categoryService.getCategories(true)
+      this.categories = categories
+    },
     methods: {
       submit() {
         if (!this.validate()) return false
