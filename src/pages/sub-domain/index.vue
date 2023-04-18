@@ -162,7 +162,7 @@
 
       infiniteHandler($state) {
         this.$companyService
-          .getCompanyProducts(this.$route.params.id, this.pagen.page + 1, this.countProducts)
+          .getCompanyProducts(1, this.pagen.page + 1, this.countProducts)
           .then(({ products, pagen }) => {
             if (products.length) {
               this.products.push(...products)
