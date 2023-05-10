@@ -16,7 +16,7 @@
           @click="handleChangePage('company')"
         >
           <AllCategoriesCompaniesSvg />
-          <span class="applyied-btn__text">Компании</span>
+          <span class="applyied-btn__text">Поставщики</span>
         </button>
       </div>
     </div>
