@@ -23,7 +23,7 @@
             @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
           >
             <AllCategoriesCompaniesSvg />
-            <span>Компании</span>
+            <span>Поставщики</span>
           </a>
         </div>
 
@@ -198,7 +198,7 @@
           :class="{ active: isMainPageOrCategories === 'companies' || isMainPageOrCategories === 'companies-id' }"
           @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
         >
-          <span>Компании</span>
+          <span>Поставщики</span>
         </a>
       </div>
 

@@ -49,7 +49,7 @@
 
     <ul v-show="!showCompaniesList" class="all-categories-nav">
       <li class="all-categories-nav__item" :class="{ active: activeTab === 'goods' }" @click="handleChooseTab('goods')">
-        <AllCategoriesGoodsSvg />
+        <!-- <AllCategoriesGoodsSvg /> -->
         <span>Товары</span>
       </li>
       <li
@@ -57,8 +57,8 @@
         :class="{ active: activeTab === 'companies' }"
         @click="handleChooseTab('companies')"
       >
-        <AllCategoriesCompaniesSvg />
-        <span>Компании</span>
+        <!-- <AllCategoriesCompaniesSvg /> -->
+        <span>Поставщики</span>
       </li>
     </ul>
 
@@ -132,8 +132,8 @@
       HeaderBackSvg,
       LogoSvg,
       HeaderShareSvg,
-      AllCategoriesGoodsSvg,
-      AllCategoriesCompaniesSvg,
+      // AllCategoriesGoodsSvg,
+      // AllCategoriesCompaniesSvg,
       SearchIconSvg,
       SearchIconLoopSvg,
     },
@@ -206,10 +206,10 @@
           : `${process.env.ORIGIN_URL}/allCategoriesBanner/lids-corks-caps.jpg`
 
       if (this.companyId) {
-        titleName = `Список компаний в категории ${this.categoryName} | VALE.SU`
+        titleName = `Список поставщиков в категории ${this.categoryName} | VALE.SU`
       } else {
         titleName =
-          this.activeTab === 'goods' ? 'Все категори товаров | VALE.SU' : 'Виды деятельности компаний | VALE.SU'
+          this.activeTab === 'goods' ? 'Все категори товаров | VALE.SU' : 'Виды деятельности поставщиков | VALE.SU'
       }
       return {
         title: titleName,

@@ -55,9 +55,9 @@
 
             <!-- eslint-disable-next-line vue/no-v-html -->
             <AppSwiper
-              v-if="dataForm.images.length > 0 && companyDescriptionEditor"
+              v-if="dataForm.gallery && dataForm.gallery.length > 0 && companyDescriptionEditor"
               :swiper-config="swiperConfig"
-              :images="dataForm.images"
+              :images="dataForm.gallery"
             />
 
             <div v-if="companyDescriptionEditor" style="width: 100%; display: flex"></div>
@@ -67,9 +67,9 @@
             <div v-if="!companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
                 <div class="el-upload-list el-upload-list--picture-card">
-                  <draggable v-model="dataForm.images">
+                  <draggable v-model="dataForm.gallery">
                     <transition-group>
-                      <li v-for="(image, imageIndex) of dataForm.images" :key="image.id" class="el-upload-list__item">
+                      <li v-for="(image, imageIndex) of dataForm.gallery" :key="image.id" class="el-upload-list__item">
                         <div class="company-redact__slider-block">
                           <img class="company-redact__slider-img" :src="image.url" />
                           <CompanyDeleteSvg
@@ -326,7 +326,7 @@
         type: Object,
         default: () => {
           return {
-            images: [],
+            gallery: [],
           }
         },
       },
@@ -432,7 +432,7 @@
             },
           })
           .then(({ data }) => {
-            this.dataForm.images.push(...data)
+            this.dataForm.gallery.push(...data)
           })
           .catch(() => {
             this.$notify({
@@ -443,7 +443,7 @@
           })
       },
       handleImagesRemove(imageIndex) {
-        this.dataForm.images.splice(imageIndex, 1)
+        this.dataForm.gallery.splice(imageIndex, 1)
       },
     },
   }
