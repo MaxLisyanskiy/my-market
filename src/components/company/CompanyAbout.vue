@@ -30,11 +30,10 @@
                 class="company-edit"
                 @click="() => ((companyDescriptionEditor = !companyDescriptionEditor), (companyShowPlate = true))"
               >
-                <!--
                 <div class="company-edit__icon">
                   <CompanyEditSvg class="company-edit__icon-img" />
                 </div>
-                <span class="company-edit__text">Редактировать</span>-->
+                <span class="company-edit__text">Редактировать</span>
               </div>
               <div
                 v-if="!companyDescriptionEditor"
@@ -126,7 +125,7 @@
             </div>
           </div>
 
-          <div ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
+          <div v-if="hide" ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
             <div class="company-requisites__block company-requisites__block-redact">
               <h3 class="company-requisites__title">{{ requisitesTitle }}</h3>
               <div class="company-requisites__flex">
@@ -135,11 +134,10 @@
                   class="company-edit"
                   @click="() => ((companyRequisitesEditor = !companyRequisitesEditor), (companyShowPlate = true))"
                 >
-                  <!--
                   <div class="company-edit__icon">
                     <CompanyEditSvg class="company-edit__icon-img" />
                   </div>
-                  <span class="company-edit__text">Редактировать</span>-->
+                  <span class="company-edit__text">Редактировать</span>
                 </div>
                 <div
                   v-if="!companyRequisitesEditor"
@@ -163,10 +161,10 @@
                   <div class="table-block__left">Название компании:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.company_name"
+                      v-model="requisites.company_name"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.company_name"
+                      :placeholder="requisites.company_name"
                     />
                   </div>
                 </div>
@@ -174,10 +172,10 @@
                   <div class="table-block__left">Юридический адрес:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.legal_address"
+                      v-model="requisites.legal_address"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.legal_address"
+                      :placeholder="requisites.legal_address"
                     />
                   </div>
                 </div>
@@ -185,27 +183,32 @@
                   <div class="table-block__left">Фактический адрес:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.actual_address"
+                      v-model="requisites.actual_address"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.actual_address"
+                      :placeholder="requisites.actual_address"
                     />
                   </div>
                 </div>
                 <div class="table-block">
                   <div class="table-block__left">ИНН:</div>
                   <div class="table-block__right table-redact__right">
-                    <input v-model="dataForm.inn" class="table-redact__input" type="text" :placeholder="company.inn" />
+                    <input
+                      v-model="requisites.inn"
+                      class="table-redact__input"
+                      type="text"
+                      :placeholder="requisites.inn"
+                    />
                   </div>
                 </div>
                 <div class="table-block">
                   <div class="table-block__left">ОГРН:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.ogrn"
+                      v-model="requisites.ogrn"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.ogrn"
+                      :placeholder="requisites.ogrn"
                     />
                   </div>
                 </div>
@@ -213,10 +216,10 @@
                   <div class="table-block__left">КПП</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.kpp"
+                      v-model="requisites.kpp"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.kpp"
+                      :placeholder="requisites.kpp"
                     />
                   </div>
                 </div>
@@ -224,10 +227,10 @@
                   <div class="table-block__left">Генеральный директор:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.ceo"
+                      v-model="requisites.ceo"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.ceo"
+                      :placeholder="requisites.ceo"
                     />
                   </div>
                 </div>
@@ -235,10 +238,10 @@
                   <div class="table-block__left">Директор:</div>
                   <div class="table-block__right table-redact__right">
                     <input
-                      v-model="dataForm.requisites.director"
+                      v-model="requisites.director"
                       class="table-redact__input"
                       type="text"
-                      :placeholder="dataForm.requisites.director"
+                      :placeholder="requisites.director"
                     />
                   </div>
                 </div>
@@ -265,35 +268,35 @@
               v-if="(company.requisites && companyRequisitesEditor) || (company.inn && companyRequisitesEditor)"
               class="table"
             >
-              <div v-if="company.requisites?.company_name" class="table-block">
+              <div v-if="requisites?.company_name" class="table-block">
                 <div class="table-block__left">Название компании:</div>
                 <div class="table-block__right">{{ dataForm.requisites.company_name }}</div>
               </div>
-              <div v-if="company.requisites?.legal_address" class="table-block">
+              <div v-if="requisites?.legal_address" class="table-block">
                 <div class="table-block__left">Юридический адрес:</div>
                 <div class="table-block__right">{{ dataForm.requisites.legal_address }}</div>
               </div>
-              <div v-if="company.requisites?.actual_address" class="table-block">
+              <div v-if="requisites?.actual_address" class="table-block">
                 <div class="table-block__left">Фактический адрес:</div>
                 <div class="table-block__right">{{ dataForm.requisites.actual_address }}</div>
               </div>
-              <div v-if="company.inn" class="table-block">
+              <div v-if="requisites?.inn" class="table-block">
                 <div class="table-block__left">ИНН:</div>
                 <div class="table-block__right">{{ dataForm.inn }}</div>
               </div>
-              <div v-if="company.requisites?.ogrn" class="table-block">
+              <div v-if="requisites?.ogrn" class="table-block">
                 <div class="table-block__left">ОГРН:</div>
                 <div class="table-block__right">{{ dataForm.requisites.ogrn }}</div>
               </div>
-              <div v-if="company.requisites?.kpp" class="table-block">
+              <div v-if="requisites?.kpp" class="table-block">
                 <div class="table-block__left">КПП:</div>
                 <div class="table-block__right">{{ dataForm.requisites.kpp }}</div>
               </div>
-              <div v-if="company.requisites?.ceo" class="table-block">
+              <div v-if="requisites?.ceo" class="table-block">
                 <div class="table-block__left">Генеральный директор:</div>
                 <div class="table-block__right">{{ dataForm.requisites.ceo }}</div>
               </div>
-              <div v-if="company.requisites?.director" class="table-block">
+              <div v-if="requisites?.director" class="table-block">
                 <div class="table-block__left">Директор:</div>
                 <div class="table-block__right">{{ dataForm.requisites.director }}</div>
               </div>
@@ -304,7 +307,7 @@
     </div>
 
     <client-only>
-      <div v-if="backgroundPlate" class="backgroundPlateTwo"></div>
+      <div ref="backgroundPlate" class="backgroundPlate"></div>
     </client-only>
   </section>
 </template>
@@ -314,13 +317,13 @@
 
   import draggable from 'vuedraggable'
   import AppSwiper from '~/components/UI/AppSwiper.vue'
-  //  import CompanyEditSvg from '@/assets/img/icons/svg/edit.svg?inline'
+  import CompanyEditSvg from '@/assets/img/icons/svg/edit.svg?inline'
   import CompanyDeleteSvg from '@/assets/img/icons/svg/close-share.svg?inline'
   import CompanyCameraSvg from '@/assets/img/icons/svg/camera.svg?inline'
 
   export default {
     name: 'CompanyAbout',
-    components: { AppSwiper, CompanyCameraSvg, CompanyDeleteSvg, draggable },
+    components: { draggable, AppSwiper, CompanyEditSvg, CompanyCameraSvg, CompanyDeleteSvg },
     props: {
       company: {
         type: Object,
@@ -341,7 +344,9 @@
     },
     data() {
       return {
-        dataForm: JSON.parse(JSON.stringify(this.company)),
+        // dataForm: JSON.parse(JSON.stringify(this.company)),
+        hide: false,
+        dataForm: {},
         requisitesTitle: 'Реквизиты',
         descriptionTitle: 'Описание',
         activeLink: 'description',
@@ -357,6 +362,7 @@
         backgroundPlate: false,
       }
     },
+
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
@@ -373,21 +379,49 @@
         return false
       },
     },
-
     watch: {
       companyShowPlate() {
+        // if (this.companyShowPlate === true) {
+        // //   document.querySelector('.backgroundPlateTwo').classList.add('active')
+        // this.backgroundPlate = true
+        // } else {
+        // //   document.querySelector('.backgroundPlateTwo').classList.remove('active')
+        // this.backgroundPlate = false
+        // }
         if (this.companyShowPlate === true) {
-          document.querySelector('.backgroundPlateTwo').classList.add('active')
+          document.querySelector('body').classList.add('lock')
+          this.$refs.backgroundPlate.classList.add('active')
         } else {
-          document.querySelector('.backgroundPlateTwo').classList.remove('active')
+          document.querySelector('body').classList.remove('lock')
+          this.$refs.backgroundPlate.classList.remove('active')
         }
       },
+    },
+    mounted() {
+      console.log(this.requisites)
+      this.dataForm = {
+        ...this.company,
+        requisites: {
+          company_name: this.company.requisites?.company_name ? this.company.requisites.company_name : '',
+          legal_address: this.company.requisites?.legal_address ? this.company.requisites.legal_address : '',
+          actual_address: this.company.requisites?.actual_address ? this.company.requisites.actual_address : '',
+          inn: this.company.requisites?.inn ? this.company.requisites.inn : '',
+          ogrn: this.company.requisites?.ogrn ? this.company.requisites.ogrn : '',
+          kpp: this.company.requisites?.kpp ? this.company.requisites.kpp : '',
+          ceo: this.company.requisites?.ceo ? this.company.requisites.ceo : '',
+          director: this.company.requisites?.director ? this.company.requisites.director : '',
+        },
+      }
+      this.requisites = {
+        ...this.dataForm.requisites,
+      }
     },
     methods: {
       save(name) {
         this.companyShowPlate = false
         if (name === this.requisitesTitle) {
           alert(this.requisitesTitle)
+          console.log(this.requisites)
         } else {
           alert(this.descriptionTitle)
         }
