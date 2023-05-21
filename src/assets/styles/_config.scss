@@ -2,6 +2,10 @@
 // html {
 //   height: 100%;
 // }
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
 
 img {
   text-indent: -10000px;
@@ -28,7 +32,7 @@ body {
   padding-bottom: 90px;
   position: relative;
   box-sizing: border-box;
-  min-height:100vh;
+  min-height: 100vh;
 }
 .content-row {
   @extend %container;

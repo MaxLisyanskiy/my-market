@@ -361,7 +361,7 @@
           document.querySelector('body').classList.add('lock')
           this.$refs.backgroundPlate.classList.add('active')
         } else {
-          document.querySelector('body').classList.remove('lock')
+        //   document.querySelector('body').classList.remove('lock')
           this.$refs.backgroundPlate.classList.remove('active')
         }
         this.searchBlockDesk = value

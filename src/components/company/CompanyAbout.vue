@@ -21,12 +21,12 @@
       </div>
 
       <div ref="description" class="company-description">
-        <div :class="{ showDescription: !companyDescriptionEditor || !companyRequisitesEditor }">
-          <div :class="{ show: !companyDescriptionEditor }" class="company-description__block">
+        <div :class="{ showDescription: companyDescriptionEditor || companyRequisitesEditor }">
+          <div :class="{ show: companyDescriptionEditor }" class="company-description__block">
             <span class="company-description__title">{{ descriptionTitle }}</span>
             <div class="company-description__flex">
               <div
-                v-if="companyDescriptionEditor && isCompanyOwner"
+                v-if="!companyDescriptionEditor && isCompanyOwner"
                 class="company-edit"
                 @click="() => ((companyDescriptionEditor = !companyDescriptionEditor), (companyShowPlate = true))"
               >
@@ -36,17 +36,17 @@
                 <span class="company-edit__text">Редактировать</span>
               </div>
               <div
-                v-if="!companyDescriptionEditor"
+                v-if="companyDescriptionEditor"
                 class="company-save desktop"
-                @click="() => ((companyDescriptionEditor = true), save(descriptionTitle))"
+                @click="() => ((companyDescriptionEditor = false), save(descriptionTitle))"
               >
                 <span class="company-save__text">Сохранить</span>
               </div>
 
               <div
-                v-if="!companyDescriptionEditor"
+                v-if="companyDescriptionEditor"
                 class="company-cancel desktop"
-                @click="() => ((companyDescriptionEditor = true), (companyShowPlate = false))"
+                @click="() => ((companyDescriptionEditor = false), (companyShowPlate = false))"
               >
                 <span>x</span>
               </div>
@@ -54,16 +54,16 @@
 
             <!-- eslint-disable-next-line vue/no-v-html -->
             <AppSwiper
-              v-if="dataForm.gallery && dataForm.gallery.length > 0 && companyDescriptionEditor"
+              v-if="dataForm.gallery && dataForm.gallery.length > 0 && !companyDescriptionEditor"
               :swiper-config="swiperConfig"
               :images="dataForm.gallery"
             />
 
-            <div v-if="companyDescriptionEditor" style="width: 100%; display: flex"></div>
-            <div v-if="companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
-            <span v-if="companyDescriptionEditor" class="company-description__read">Показать полностью</span>
+            <div v-if="!companyDescriptionEditor" style="width: 100%; display: flex"></div>
+            <div v-if="!companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
+            <span v-if="!companyDescriptionEditor" class="company-description__read">Показать полностью</span>
 
-            <div v-if="!companyDescriptionEditor" class="company-redact__slider">
+            <div v-if="companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
                 <div class="el-upload-list el-upload-list--picture-card">
                   <draggable v-model="dataForm.gallery">
@@ -100,7 +100,7 @@
               </div>
             </div>
 
-            <div v-if="!companyDescriptionEditor" class="description-redact">
+            <div v-if="companyDescriptionEditor" class="description-redact">
               <textarea
                 v-model="dataForm.description"
                 class="description-redact__textarea"
@@ -108,31 +108,31 @@
               ></textarea>
             </div>
 
-            <div v-if="!companyDescriptionEditor" class="company-save mob">
+            <div v-if="companyDescriptionEditor" class="company-save mob">
               <span
                 class="company-save__text"
-                @click="() => ((companyDescriptionEditor = true), save(descriptionTitle))"
+                @click="() => ((companyDescriptionEditor = false), save(descriptionTitle))"
                 >Сохранить</span
               >
             </div>
 
-            <div v-if="!companyDescriptionEditor" class="company-cancel mob">
+            <div v-if="companyDescriptionEditor" class="company-cancel mob">
               <span
                 class="company-cancel"
-                @click="() => ((companyDescriptionEditor = true), (companyShowPlate = false))"
+                @click="() => ((companyDescriptionEditor = false), (companyShowPlate = false))"
                 >X</span
               >
             </div>
           </div>
 
-          <div v-if="hide" ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
+          <div v-if="hide" ref="requisites" class="company-requisites" :class="{ show: companyRequisitesEditor }">
             <div class="company-requisites__block company-requisites__block-redact">
               <h3 class="company-requisites__title">{{ requisitesTitle }}</h3>
               <div class="company-requisites__flex">
                 <div
-                  v-if="companyRequisitesEditor && isCompanyOwner"
+                  v-if="!companyRequisitesEditor && isCompanyOwner"
                   class="company-edit"
-                  @click="() => ((companyRequisitesEditor = !companyRequisitesEditor), (companyShowPlate = true))"
+                  @click="() => ((companyRequisitesEditor = true), (companyShowPlate = true))"
                 >
                   <div class="company-edit__icon">
                     <CompanyEditSvg class="company-edit__icon-img" />
@@ -142,7 +142,7 @@
                 <div
                   v-if="!companyRequisitesEditor"
                   class="company-save desktop"
-                  @click="() => ((companyRequisitesEditor = true), save(requisitesTitle))"
+                  @click="() => ((companyRequisitesEditor = false), save(requisitesTitle))"
                 >
                   <span class="company-save__text">Сохранить</span>
                 </div>
@@ -150,13 +150,13 @@
                 <div
                   v-if="!companyRequisitesEditor"
                   class="company-cancel desktop"
-                  @click="() => ((companyRequisitesEditor = true), (companyShowPlate = false))"
+                  @click="() => ((companyRequisitesEditor = false), (companyShowPlate = false))"
                 >
                   <span>x</span>
                 </div>
               </div>
 
-              <div v-if="!companyRequisitesEditor" class="table table-redact">
+              <div v-if="companyRequisitesEditor" class="table table-redact">
                 <div class="table-block">
                   <div class="table-block__left">Название компании:</div>
                   <div class="table-block__right table-redact__right">
@@ -249,12 +249,12 @@
                 <div v-if="!companyRequisitesEditor" class="company-save mob">
                   <span
                     class="company-save__text"
-                    @click="() => ((companyRequisitesEditor = true), save(requisitesTitle))"
+                    @click="() => ((companyRequisitesEditor = false), save(requisitesTitle))"
                     >Сохранить</span
                   >
                 </div>
 
-                <div v-if="!companyRequisitesEditor" class="company-cancel mob">
+                <div v-if="companyRequisitesEditor" class="company-cancel mob">
                   <span
                     class="company-cancel"
                     @click="() => ((companyRequisitesEditor = true), (companyShowPlate = false))"
@@ -265,7 +265,7 @@
             </div>
 
             <div
-              v-if="(company.requisites && companyRequisitesEditor) || (company.inn && companyRequisitesEditor)"
+              v-if="(company.requisites && !companyRequisitesEditor) || (company.inn && !companyRequisitesEditor)"
               class="table"
             >
               <div v-if="requisites?.company_name" class="table-block">
@@ -306,9 +306,7 @@
       </div>
     </div>
 
-    <client-only>
-      <div ref="backgroundPlate" class="backgroundPlate"></div>
-    </client-only>
+    <div ref="backgroundPlate" class="backgroundPlate" @click="hideEditor"></div>
   </section>
 </template>
 
@@ -356,8 +354,8 @@
         ],
 
         requisites: {},
-        companyDescriptionEditor: true,
-        companyRequisitesEditor: true,
+        companyDescriptionEditor: false,
+        companyRequisitesEditor: false,
         companyShowPlate: false,
         backgroundPlate: false,
       }
@@ -398,6 +396,7 @@
       },
     },
     mounted() {
+      document.addEventListener('click', this.onClick)
       console.log(this.requisites)
       this.dataForm = {
         ...this.company,
@@ -416,7 +415,17 @@
         ...this.dataForm.requisites,
       }
     },
+    destroyed() {
+      document.removeEventListener('click', this.onClick)
+    },
     methods: {
+      hideEditor() {
+        this.companyDescriptionEditor = false
+        this.companyRequisitesEditor = false
+        this.companyShowPlate = false
+        this.$refs.backgroundPlate.classList.remove('active')
+        document.querySelector('body').classList.remove('lock')
+      },
       save(name) {
         this.companyShowPlate = false
         if (name === this.requisitesTitle) {
