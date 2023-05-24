@@ -75,11 +75,21 @@ export default ($axios, error) => {
      * Get companies by category id
      *
      * @param {number} id category id
+     * @param {number} page page number of companies list (use for infinity-pagination)
+     * @param {number} count number of products to display
      * @returns {object} Object with companies
      */
-    getCompanisByCategoryId: async id => {
+    getCompanisByCategoryId: async (id, page = 1, count = 10) => {
+      const config = {
+        params: {
+          category_id: id,
+          include: 'products',
+          page: Number(page),
+          count,
+        },
+      }
       return await $axios
-        .get(`/companies?category_id=${id}&include=products`)
+        .get(`/companies`, config)
         .then(({ data }) => {
           return { ...data.data }
         })

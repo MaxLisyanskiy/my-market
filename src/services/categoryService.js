@@ -20,7 +20,7 @@ export default ($axios, error) => {
      * Get products of a category with some configs
      *
      * @param {number} id Router params id.
-     * @param {number} page page number of products list (use for pagination)
+     * @param {number} page page number of categories list (use for infinity-pagination)
      * @param {number} count number of products to display
      * @returns {object} Object with field products, pages
      */
