@@ -9,7 +9,7 @@ export default ($axios, error) => {
      */
     getCompanyById: async (id, include = null) => {
       return await $axios
-        .get(`/companies/${id}${include ? '?include=requisites' : ''}`)
+        .get(`v1/companies/${id}${include ? '?include=requisites' : ''}`)
         .then(({ data }) => {
           return { ...data.data }
         })
@@ -59,7 +59,7 @@ export default ($axios, error) => {
      */
     updateCompany: async body => {
       return await $axios
-        .post(`/companies`, body)
+        .post(`v1/companies`, body)
         .then(res => {
           if (res.data.status !== 'success') {
             return [false, 'Произошла ошибка, попробуйте позже']
