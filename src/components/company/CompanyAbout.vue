@@ -397,7 +397,7 @@
     },
     mounted() {
       document.addEventListener('click', this.onClick)
-      console.log(this.requisites)
+
       this.dataForm = {
         ...this.company,
         requisites: {
@@ -427,13 +427,68 @@
         document.querySelector('body').classList.remove('lock')
       },
       save(name) {
+        // this.companyService.updateCompany(body)
+                            // .then
+                            // .catch(() => {
+                            //   this.$notify({
+                            //       title: '',
+                            //       message: '.......',
+                            //       type: 'error',
+                            //     })
+                            // })
+
+
+        //         body = {
+        //     "name": "Тестовая компания1234",
+        //     "description": "description1",
+        //     "address": "address",
+        //     "city": "city",
+        //     "country": "country1",
+        //     "zipcode": "123456",
+        //     "email": "test@test.test",
+        //     "phone": "+79215553534",
+        //     "inn": "1232112312",
+        //     "excerpt": "sasdsa",
+        //     "logoPath": "storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp",
+        //     "gallery": [
+        //             {
+        //                 "path": "storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp",
+        //                 "url": "http://backend.test/storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/qWphDwNR4oN8zv1P1w7lXeTYnlQJyWMvQkxGEAPG.webp",
+        //                 "url": "http://backend.test/storage/temp/images/qWphDwNR4oN8zv1P1w7lXeTYnlQJyWMvQkxGEAPG.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/nVsBlOGOWhYhPMahRRBrUOLh5pV0ELI8OHdgURga.webp",
+        //                 "url": "http://backend.test/storage/temp/images/nVsBlOGOWhYhPMahRRBrUOLh5pV0ELI8OHdgURga.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/vS9pjGTywlHaw1sg7DcsFuY4PimMi6XzM5A8GKTD.webp",
+        //                 "url": "http://backend.test/storage/temp/images/vS9pjGTywlHaw1sg7DcsFuY4PimMi6XzM5A8GKTD.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/yYlT9oPKyNsrLEV4lpRnoI75BhQkOOVggsS9sTxR.webp",
+        //                 "url": "http://backend.test/storage/temp/images/yYlT9oPKyNsrLEV4lpRnoI75BhQkOOVggsS9sTxR.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/Dn2IrqoW6bGMXjq8przC9zCJuTkjtzYBr0djFpyt.webp",
+        //                 "url": "http://backend.test/storage/temp/images/Dn2IrqoW6bGMXjq8przC9zCJuTkjtzYBr0djFpyt.webp"
+        //             },
+        //             {
+        //                 "path": "storage/temp/images/muSY4sXKgJfMWL1SdFITxlN7VcRnrt9gocCUTkqB.webp",
+        //                 "url": "http://backend.test/storage/temp/images/muSY4sXKgJfMWL1SdFITxlN7VcRnrt9gocCUTkqB.webp"
+        //             }
+        //         ],
+        //     "_method": "PATCH"
+        // }
         this.companyShowPlate = false
-        if (name === this.requisitesTitle) {
-          alert(this.requisitesTitle)
-          console.log(this.requisites)
-        } else {
-          alert(this.descriptionTitle)
-        }
+        // if (name === this.requisitesTitle) {
+        //   alert(this.requisitesTitle)
+        //   console.log(this.requisites)
+        // } else {
+        //   alert(this.descriptionTitle)
+        // }
       },
       scrollTo(refName) {
         const element = this.$refs[refName]
@@ -464,20 +519,21 @@
         }
         return name
       },
+
       async handleImagesChange(files) {
         const formData = new FormData()
         formData.append('images[]', files.raw)
 
         await this.$axios
-          .post('/images', formData, {
+          .post('/v1/images', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
           .then(({ data }) => {
-            this.dataForm.gallery.push(...data)
+            this.dataForm.gallery.push(...data.data.images)
           })
-          .catch(() => {
+          .catch((e) => {
             this.$notify({
               title: '',
               message: 'Что-то пошло не так при добавлении фотографии',
