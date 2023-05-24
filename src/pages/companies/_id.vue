@@ -4,7 +4,7 @@
     <CatalogMobText :what-is-page="'category'" :companies="companies" :category="category" />
     <div v-if="companies.length > 0" class="categories">
       <CompaniesCategory :companies="companies" />
-      <!-- <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading> -->
+      <InfiniteLoading v-if="showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
     <CompaniesCategoryNotFound v-else />
   </section>
@@ -51,7 +51,7 @@
         companies: [],
         products: [],
         pagen: [],
-        countProducts: 20,
+        countCompanies: 10,
         image: '',
       }
     },
@@ -149,36 +149,41 @@
       }
     },
 
+    computed: {
+      showInfiniteLoading() {
+        if (this.companies.length >= 10 && this.pagen.total > this.products.length) {
+          return true
+        }
+        return false
+      },
+    },
+
     methods: {
       ...mapMutations('breadcrumbs', ['SET_BREADCRUMBS']),
       ...mapMutations('categories', ['SET_SIDEBAR_CATEGORIES']),
 
-      /**
-       * Get category products with configs after change page in pagination
-       * @param {number} pageNum page number in pagination
-       * @returns {object} Object with field products, pages
-       */
-      async handleClickPagination(pageNum) {
-        const { products, pagen } = await this.$categoryService.getProductsCategory(
-          this.$route.params.id,
-          pageNum,
-          this.countProducts
-        )
+      // async handleClickPagination(pageNum) {
+      //   const { products, pagen } = await this.$categoryService.getProductsCategory(
+      //     this.$route.params.id,
+      //     pageNum,
+      //     this.countProducts
+      //   )
 
-        this.products = products
-        this.pagen = pagen
+      //   this.products = products
+      //   this.pagen = pagen
 
-        this.$router.push(`${this.$route.path}?p=${pageNum}`)
-      },
+      //   this.$router.push(`${this.$route.path}?p=${pageNum}`)
+      // },
 
       infiniteHandler($state) {
-        this.$categoryService
-          .getProductsCategory(this.$route.params.id, this.pagen.page + 1, this.countProducts)
-          .then(({ products, pagen }) => {
-            if (products.length) {
-              this.products.push(...products)
+
+        this.$companyService
+          .getCompanisByCategoryId(this.$route.params.id, Number(this.pagen.page) + 1, this.countCompanies)
+          .then(({ companies, pagen }) => {
+            if (companies.length) {
+              this.companies.push(...companies)
               this.pagen = pagen
-              if (pagen.total > this.products.length) {
+              if (pagen.total > this.companies.length) {
                 $state.complete()
               } else {
                 $state.loaded()
