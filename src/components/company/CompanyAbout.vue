@@ -364,7 +364,6 @@
         backgroundPlate: false,
       }
     },
-
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
@@ -437,26 +436,21 @@
         this.$refs.backgroundPlate.classList.remove('active')
         document.querySelector('body').classList.remove('lock')
       },
-      save(name) {
+      save() {
         const body = {
           _method: 'PATCH',
-          name: this.dataForm.gallery,
-          description: this.dataForm.description,
-          address: this.dataForm.address,
-          city: this.dataForm.city,
-          country: this.dataForm.country,
-          zipcode: this.dataForm.zipcode,
+          name: this.dataForm.name,
           email: this.dataForm.email,
           phone: this.dataForm.phone,
           inn: this.dataForm.inn,
-          excerpt: this.dataForm.excerpt,
-          logoPath: this.dataForm.logo,
           gallery: this.dataForm.gallery,
         }
 
+        if (this.dataForm.description.trim() !== '') body.description = this.dataForm.description
+
         this.$companyService
-          .updateCompany(body)
-          .then(response => {
+          .updateCompany(this.company.id, body)
+          .then(() => {
             this.$notify({
               title: '',
               message: 'Данные о компании были успешно изменены!',
@@ -470,13 +464,8 @@
               type: 'error',
             })
           })
+
         this.companyShowPlate = false
-        // if (name === this.requisitesTitle) {
-        //   alert(this.requisitesTitle)
-        //   console.log(this.requisites)
-        // } else {
-        //   alert(this.descriptionTitle)
-        // }
       },
       scrollTo(refName) {
         const element = this.$refs[refName]
