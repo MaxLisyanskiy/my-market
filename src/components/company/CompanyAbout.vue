@@ -68,7 +68,11 @@
                 <div class="el-upload-list el-upload-list--picture-card">
                   <draggable v-model="dataForm.gallery">
                     <transition-group>
-                      <li v-for="(image, imageIndex) of dataForm.gallery" :key="image.id" class="el-upload-list__item">
+                      <li
+                        v-for="(image, imageIndex) of dataForm.gallery"
+                        :key="imageIndex"
+                        class="el-upload-list__item"
+                      >
                         <div class="company-redact__slider-block">
                           <img class="company-redact__slider-img" :src="image.url" />
                           <CompanyDeleteSvg
@@ -350,7 +354,7 @@
         activeLink: 'description',
         links: [
           { name: 'Описание', goTo: 'description' },
-          { name: 'Реквизиты', goTo: 'requisites' },
+          //   { name: 'Реквизиты', goTo: 'requisites' },
         ],
 
         requisites: {},
@@ -397,9 +401,16 @@
     },
     mounted() {
       document.addEventListener('click', this.onClick)
-
       this.dataForm = {
         ...this.company,
+        description: this.company?.description ? this.company.description : '',
+        city: this.company?.city ? this.company.company.city : '',
+        country: this.company?.country ? this.company.country : '',
+        zipcode: this.company?.zipcode ? this.company.zipcode : '',
+        email: this.company?.email ? this.company.email : '',
+        phone: this.company?.phone ? this.company.phone : '',
+        excerpt: this.company?.logo ? this.company.logo : '',
+        gallery: this.company?.gallery ? this.company.gallery : '',
         requisites: {
           company_name: this.company.requisites?.company_name ? this.company.requisites.company_name : '',
           legal_address: this.company.requisites?.legal_address ? this.company.requisites.legal_address : '',
@@ -427,61 +438,38 @@
         document.querySelector('body').classList.remove('lock')
       },
       save(name) {
-        // this.companyService.updateCompany(body)
-                            // .then
-                            // .catch(() => {
-                            //   this.$notify({
-                            //       title: '',
-                            //       message: '.......',
-                            //       type: 'error',
-                            //     })
-                            // })
+        const body = {
+          _method: 'PATCH',
+          name: this.dataForm.gallery,
+          description: this.dataForm.description,
+          address: this.dataForm.address,
+          city: this.dataForm.city,
+          country: this.dataForm.country,
+          zipcode: this.dataForm.zipcode,
+          email: this.dataForm.email,
+          phone: this.dataForm.phone,
+          inn: this.dataForm.inn,
+          excerpt: this.dataForm.excerpt,
+          logoPath: this.dataForm.logo,
+          gallery: this.dataForm.gallery,
+        }
 
-
-        //         body = {
-        //     "name": "Тестовая компания1234",
-        //     "description": "description1",
-        //     "address": "address",
-        //     "city": "city",
-        //     "country": "country1",
-        //     "zipcode": "123456",
-        //     "email": "test@test.test",
-        //     "phone": "+79215553534",
-        //     "inn": "1232112312",
-        //     "excerpt": "sasdsa",
-        //     "logoPath": "storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp",
-        //     "gallery": [
-        //             {
-        //                 "path": "storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp",
-        //                 "url": "http://backend.test/storage/temp/images/ZdWVBkYQNfg12AQ1ajbP0LiLc470PNR8Un5OqzZx.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/qWphDwNR4oN8zv1P1w7lXeTYnlQJyWMvQkxGEAPG.webp",
-        //                 "url": "http://backend.test/storage/temp/images/qWphDwNR4oN8zv1P1w7lXeTYnlQJyWMvQkxGEAPG.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/nVsBlOGOWhYhPMahRRBrUOLh5pV0ELI8OHdgURga.webp",
-        //                 "url": "http://backend.test/storage/temp/images/nVsBlOGOWhYhPMahRRBrUOLh5pV0ELI8OHdgURga.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/vS9pjGTywlHaw1sg7DcsFuY4PimMi6XzM5A8GKTD.webp",
-        //                 "url": "http://backend.test/storage/temp/images/vS9pjGTywlHaw1sg7DcsFuY4PimMi6XzM5A8GKTD.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/yYlT9oPKyNsrLEV4lpRnoI75BhQkOOVggsS9sTxR.webp",
-        //                 "url": "http://backend.test/storage/temp/images/yYlT9oPKyNsrLEV4lpRnoI75BhQkOOVggsS9sTxR.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/Dn2IrqoW6bGMXjq8przC9zCJuTkjtzYBr0djFpyt.webp",
-        //                 "url": "http://backend.test/storage/temp/images/Dn2IrqoW6bGMXjq8przC9zCJuTkjtzYBr0djFpyt.webp"
-        //             },
-        //             {
-        //                 "path": "storage/temp/images/muSY4sXKgJfMWL1SdFITxlN7VcRnrt9gocCUTkqB.webp",
-        //                 "url": "http://backend.test/storage/temp/images/muSY4sXKgJfMWL1SdFITxlN7VcRnrt9gocCUTkqB.webp"
-        //             }
-        //         ],
-        //     "_method": "PATCH"
-        // }
+        this.$companyService
+          .updateCompany(body)
+          .then(response => {
+            this.$notify({
+              title: '',
+              message: 'Данные о компании были успешно изменены!',
+              type: 'success',
+            })
+          })
+          .catch(() => {
+            this.$notify({
+              title: '',
+              message: 'Что-то пошло не так при изменение данных о компании',
+              type: 'error',
+            })
+          })
         this.companyShowPlate = false
         // if (name === this.requisitesTitle) {
         //   alert(this.requisitesTitle)
@@ -533,7 +521,7 @@
           .then(({ data }) => {
             this.dataForm.gallery.push(...data.data.images)
           })
-          .catch((e) => {
+          .catch(e => {
             this.$notify({
               title: '',
               message: 'Что-то пошло не так при добавлении фотографии',

@@ -228,6 +228,7 @@
   }
 }
 .company .sidebar {
+  min-height: 68px;
   padding: 0;
   height: fit-content;
   position: sticky;
@@ -410,7 +411,7 @@
     z-index: 33;
     @media (max-width: 992px) {
       width: 100%;
-	  left:0;
+      left: 0;
     }
   }
   @media (max-width: 991px) {
