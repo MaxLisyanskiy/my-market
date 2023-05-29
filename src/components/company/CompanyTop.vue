@@ -673,7 +673,7 @@
         }
       },
 
-      async handleEditCompanyProfile() {
+      handleEditCompanyProfile() {
         this.validateCompanyName()
         this.validateCompanyPhone()
         this.validateCompanyEmail()
@@ -684,26 +684,25 @@
             name: this.companyName,
             phone: this.companyPhone,
             email: this.companyEmail,
+            inn: this.company.inn,
             logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
           }
 
-          const result = await this.$companyService.updateCompany(body)
-
-          if (result[0]) {
-            this.$notify({
-              title: '',
-              message: 'Данные о компании были успешно изменены!',
-              type: 'success',
+          this.$companyService.updateCompany(this.company.id, body)
+            .then(() => {
+              this.$notify({
+                title: '',
+                message: 'Данные о компании были успешно изменены!',
+                type: 'success',
+              })
             })
-            this.$emit('updateCompany')
-            this.showCompanyEditor = false
-          } else {
-            this.$notify({
-              title: '',
-              message: 'Что-то пошло не так при изменение данных о компании',
-              type: 'error',
+            .catch(() => {
+              this.$notify({
+                title: '',
+                message: 'Что-то пошло не так при изменение данных о компании',
+                type: 'error',
+              })
             })
-          }
         }
       },
     },

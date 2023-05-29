@@ -54,12 +54,13 @@ export default ($axios, error) => {
     /**
      * Update companies information
      *
+     * @param {object} id company id
      * @param {object} body companies information
      * @returns {object} Object with field products, count, pages
      */
-    updateCompany: async body => {
+    updateCompany: async (id, body) => {
       return await $axios
-        .post(`v1/companies`, body)
+        .post(`v1/companies/${id}`, body)
         .then(res => {
           if (res.data.status !== 'success') {
             return [false, 'Произошла ошибка, попробуйте позже']
