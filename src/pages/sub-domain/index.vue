@@ -17,12 +17,14 @@
     components: { CompanyDomainTop, CompanyDomainProducts },
     layout: 'subDomain',
 
-    async asyncData({ app, store, params, query, error }) {
-      const { company } = await app.$companyService.getCompanyById(1)
+    async asyncData({ app, store, req, query, error }) {
+      const hostname = req ? req.headers.host : window.location.host.split(':')[0]
+
+      const { company } = await app.$companyDomainService.getCompanyByDomain(hostname)
 
       if (company) {
-        const { products, pagen, categories } = await app.$companyService.getCompanyProducts(
-          1,
+        const { products, pagen, categories } = await app.$companyDomainService.getCompanyDomainProducts(
+          hostname,
           1,
           20,
           query?.q,

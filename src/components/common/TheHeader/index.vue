@@ -23,7 +23,7 @@
             @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
           >
             <AllCategoriesCompaniesSvg />
-            <span>Компании</span>
+            <span>Поставщики</span>
           </a>
         </div>
 
@@ -198,7 +198,7 @@
           :class="{ active: isMainPageOrCategories === 'companies' || isMainPageOrCategories === 'companies-id' }"
           @click="handleToggleSwitcher(isMainPageOrCategories, 'companies')"
         >
-          <span>Компании</span>
+          <span>Поставщики</span>
         </a>
       </div>
 
@@ -361,7 +361,7 @@
           document.querySelector('body').classList.add('lock')
           this.$refs.backgroundPlate.classList.add('active')
         } else {
-          document.querySelector('body').classList.remove('lock')
+        //   document.querySelector('body').classList.remove('lock')
           this.$refs.backgroundPlate.classList.remove('active')
         }
         this.searchBlockDesk = value

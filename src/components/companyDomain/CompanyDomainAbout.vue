@@ -2,7 +2,7 @@
   <section id="About" class="company content-row active">
     <div class="banner-about">
       <a href="#" class="banner-about__link active">Описание</a>
-      <a href="#" class="banner-about__link">Реквизиты</a>
+      <!-- <a href="#" class="banner-about__link">Реквизиты</a> -->
     </div>
 
     <div class="company__wrapper">
@@ -347,7 +347,7 @@
         activeLink: 'description',
         links: [
           { name: 'Описание', goTo: 'description' },
-          { name: 'Реквизиты', goTo: 'requisites' },
+        //   { name: 'Реквизиты', goTo: 'requisites' },
         ],
 
         requisites: {},

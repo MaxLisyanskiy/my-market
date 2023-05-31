@@ -9,7 +9,7 @@ export default ($axios, error) => {
      */
     getCompanyById: async (id, include = null) => {
       return await $axios
-        .get(`/companies/${id}${include ? '?include=requisites' : ''}`)
+        .get(`v1/companies/${id}${include ? '?include=requisites' : ''}`)
         .then(({ data }) => {
           return { ...data.data }
         })
@@ -54,12 +54,13 @@ export default ($axios, error) => {
     /**
      * Update companies information
      *
+     * @param {object} id company id
      * @param {object} body companies information
      * @returns {object} Object with field products, count, pages
      */
-    updateCompany: async body => {
+    updateCompany: async (id, body) => {
       return await $axios
-        .post(`/companies`, body)
+        .post(`v1/companies/${id}`, body)
         .then(res => {
           if (res.data.status !== 'success') {
             return [false, 'Произошла ошибка, попробуйте позже']
@@ -75,11 +76,21 @@ export default ($axios, error) => {
      * Get companies by category id
      *
      * @param {number} id category id
+     * @param {number} page page number of companies list (use for infinity-pagination)
+     * @param {number} count number of products to display
      * @returns {object} Object with companies
      */
-    getCompanisByCategoryId: async id => {
+    getCompanisByCategoryId: async (id, page = 1, count = 10) => {
+      const config = {
+        params: {
+          category_id: id,
+          include: 'products',
+          page: Number(page),
+          count,
+        },
+      }
       return await $axios
-        .get(`/companies?category_id=${id}&include=products`)
+        .get(`/companies`, config)
         .then(({ data }) => {
           return { ...data.data }
         })
