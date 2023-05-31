@@ -21,8 +21,10 @@
     components: { CompanyDomainTop, CompanyDomainAbout },
     layout: 'subDomain',
 
-    async asyncData({ app, params, error }) {
-      const { company } = await app.$companyService.getCompanyById(1, true)
+    async asyncData({ app, req, error }) {
+      const hostname = req ? req.headers.host : window.location.host.split(':')[0]
+
+      const { company } = await app.$companyDomainService.getCompanyByDomain(hostname)
 
       if (company) {
         return { company }
