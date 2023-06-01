@@ -1,6 +1,7 @@
 .all-categories {
+  position: absolute;
+  padding-bottom: 100px;
   display: none;
-  position: fixed;
   z-index: 9999;
   width: 100%;
   @media (max-width: 670px) {
