@@ -403,7 +403,7 @@
       this.dataForm = {
         ...this.company,
         description: this.company?.description ? this.company.description : '',
-        city: this.company?.city ? this.company.company.city : '',
+        city: this.company?.city ? this.company.city : '',
         country: this.company?.country ? this.company.country : '',
         zipcode: this.company?.zipcode ? this.company.zipcode : '',
         email: this.company?.email ? this.company.email : '',

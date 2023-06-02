@@ -11,6 +11,7 @@
   justify-content: center;
   position: absolute;
   bottom: 0;
+  z-index: 9999;
   &-text {
     color: #262626;
     font-size: 12px;
