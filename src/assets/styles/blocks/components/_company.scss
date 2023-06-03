@@ -85,8 +85,8 @@
           height: 101px;
           margin: 0 0 10px 10px;
         }
-        @media (max-width: 390px) {
-          width: 46%;
+        @media (max-width: 480px) {
+          width: 100%;
         }
       }
       &-delete {
@@ -122,9 +122,9 @@
   }
   &-edit {
     display: flex;
-    align-items: center;
     margin-left: 11px;
     cursor: pointer;
+    align-items: center;
     @media (max-width: 600px) {
       margin: -5px 0 0 10px;
     }
@@ -473,6 +473,9 @@
         border: none;
       }
       @media (max-width: 600px) {
+        width: 96%;
+        margin: 0 auto;
+        margin-top: 10px;
         & > .company-description__flex {
           position: absolute;
           bottom: 0;
