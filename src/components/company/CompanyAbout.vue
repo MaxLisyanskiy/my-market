@@ -70,7 +70,7 @@
                     <transition-group>
                       <li
                         v-for="(image, imageIndex) of dataForm.gallery"
-                        :key="imageIndex"
+                        :key="'image_' + imageIndex"
                         class="el-upload-list__item"
                       >
                         <div class="company-redact__slider-block">
@@ -547,6 +547,14 @@
       height: 116px;
       border-radius: 10px;
       margin-left: 4px;
+      @media (max-width: 480px) {
+        width: 44%;
+      }
+    }
+    & .el-upload-list .el-upload-list--picture-card {
+      @media (max-width: 480px) {
+        width: 100%;
+      }
     }
   }
 </style>

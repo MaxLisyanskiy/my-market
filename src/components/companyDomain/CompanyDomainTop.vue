@@ -531,8 +531,9 @@
             email: this.companyEmail,
             logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
           }
-
-          this.$companyService.updateCompany(this.company.id, body)
+          this.showCompanyEditor = false
+          this.$companyService
+            .updateCompany(this.company.id, body)
             .then(() => {
               this.$notify({
                 title: '',

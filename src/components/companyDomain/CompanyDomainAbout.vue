@@ -347,7 +347,7 @@
         activeLink: 'description',
         links: [
           { name: 'Описание', goTo: 'description' },
-        //   { name: 'Реквизиты', goTo: 'requisites' },
+          //   { name: 'Реквизиты', goTo: 'requisites' },
         ],
 
         requisites: {},
@@ -471,6 +471,14 @@
       height: 116px;
       border-radius: 10px;
       margin-left: 4px;
+      @media (max-width: 600px) {
+        width: 44%;
+      }
+    }
+    & .el-upload-list--picture-card {
+      @media (max-width: 600px) {
+        width: 100%;
+      }
     }
   }
 </style>
