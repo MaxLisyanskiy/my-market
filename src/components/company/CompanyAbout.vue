@@ -547,8 +547,8 @@
       height: 116px;
       border-radius: 10px;
       margin-left: 4px;
-      @media (max-width: 480px) {
-        width: 44%;
+      @media (max-width: 600px) {
+        width: 150px;
       }
     }
     & .el-upload-list .el-upload-list--picture-card {
