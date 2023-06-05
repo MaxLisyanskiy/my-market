@@ -1,7 +1,7 @@
 <template>
   <article class="companyWrapper">
     <CompanyTop :company="company" :active-tab="'About'" @scrolled="scrolled" @updateCompany="handleUpdateCompany" />
-    <CompanyAbout :company="company" :swiper-config="swiperConfig" :scrolled="scrolledData" @updateCompany="handleUpdateCompany"/>
+    <CompanyAbout :key="key" :company="company" :swiper-config="swiperConfig" :scrolled="scrolledData" @updateCompany="handleUpdateCompany"/>
   </article>
 </template>
 
@@ -27,6 +27,7 @@
     },
     data() {
       return {
+        key: 1,
         company: {},
         scrolledData: true,
         swiperConfig: {
@@ -137,6 +138,7 @@
       async handleUpdateCompany() {
         const { company } = await this.$companyService.getCompanyById(this.$route.params.id)
         this.company = company;
+        this.key += 1;
       },
     },
   }

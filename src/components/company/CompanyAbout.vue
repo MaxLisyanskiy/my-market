@@ -54,7 +54,8 @@
 
             <!-- eslint-disable-next-line vue/no-v-html -->
             <AppSwiper
-              v-if="company.gallery && company.gallery.length > 0 && !companyDescriptionEditor"
+              v-if="company.gallery && company.gallery.length > 0"
+              v-show="!companyDescriptionEditor"
               :swiper-config="swiperConfig"
               :images="company.gallery"
             />
