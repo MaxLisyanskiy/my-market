@@ -62,7 +62,7 @@
 
             <div v-if="companyDescriptionEditor" style="width: 100%; display: flex"></div>
             <div v-if="companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
-            <span v-if="companyDescriptionEditor" class="company-description__read">Показать полностью</span>
+            <!-- <span v-if="companyDescriptionEditor" class="company-description__read">Показать полностью</span> -->
 
             <div v-if="!companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
@@ -126,7 +126,7 @@
             </div>
           </div>
 
-          <div ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
+          <div v-if="hide" ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
             <div class="company-requisites__block company-requisites__block-redact">
               <h3 class="company-requisites__title">{{ requisitesTitle }}</h3>
               <div class="company-requisites__flex">
@@ -341,6 +341,7 @@
     },
     data() {
       return {
+        hide: false,
         dataForm: JSON.parse(JSON.stringify(this.company)),
         requisitesTitle: 'Реквизиты',
         descriptionTitle: 'Описание',

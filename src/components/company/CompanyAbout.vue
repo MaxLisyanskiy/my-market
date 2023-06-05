@@ -2,7 +2,7 @@
   <section id="About" class="company content-row active">
     <div class="banner-about">
       <a href="#" class="banner-about__link active">Описание</a>
-      <a href="#" class="banner-about__link">Реквизиты</a>
+      <!-- <a href="#" class="banner-about__link">Реквизиты</a> -->
     </div>
 
     <div class="company__wrapper">
@@ -61,7 +61,7 @@
 
             <div v-if="!companyDescriptionEditor" style="width: 100%; display: flex"></div>
             <div v-if="!companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
-            <span v-if="!companyDescriptionEditor" class="company-description__read">Показать полностью</span>
+            <!-- <span v-if="!companyDescriptionEditor" class="company-description__read">Показать полностью</span> -->
 
             <div v-if="companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
