@@ -109,6 +109,7 @@
           </nuxt-link>
         </li>
       </ul>
+      <InfiniteLoading v-if="showCompaniesList && showInfiniteLoading" spinner="spiral" @infinite="infiniteHandler"></InfiniteLoading>
     </div>
   </section>
 </template>
@@ -154,6 +155,7 @@
       let showCompaniesList = false
       let companyId = null
       let companiesList = null
+      let companiesPage = null
       let categoryName = null
 
       if (query.active) {
@@ -162,15 +164,16 @@
 
       if (query.companyId) {
         companyId = Number(query.companyId)
-        showCompaniesList = true
 
-        const { companies } = await app.$companyService.getCompanisByCategoryId(query.companyId)
+        const { companies, pagen } = await app.$companyService.getCompanisByCategoryId(query.companyId)
         const { category } = await app.$categoryService.getProductsCategoryById(query.companyId)
         companiesList = companies
+        companiesPage = pagen
         categoryName = category.name
+        showCompaniesList = true
       }
 
-      return { categories, activeTab, showCompaniesList, companyId, companiesList, categoryName }
+      return { categories, activeTab, companyId, companiesList, companiesPage, categoryName, showCompaniesList }
     },
 
     data() {
@@ -282,7 +285,15 @@
 
     computed: {
       ...mapState('search', ['searchInput']),
+
       allCategories() {
+        return false
+      },
+
+      showInfiniteLoading() {
+        if (this.companiesList.length >= 10 && this.companiesPage.total > this.companiesList.length) {
+          return true
+        }
         return false
       },
     },
@@ -306,6 +317,7 @@
 
     methods: {
       ...mapMutations('search', ['UPDATE_SEARCH_INPUT', 'UPDATE_SEARCH_QUERY']),
+
       handleChooseTab(name) {
         this.activeTab = name
         this.$router.push({
@@ -313,15 +325,11 @@
           query: { active: name },
         })
       },
-      /**
-       * Update search input in the store and in the input
-       *
-       * @param {Event & { target: HTMLInputElement }} e
-       */
+
       handleUpdateSearchInput(e) {
         this.UPDATE_SEARCH_INPUT(e.target.value)
       },
-      // Submit to search page if valid query
+
       handleSearch() {
         if (this.searchInput.trim() !== '') {
           this.handleShowSearchBlockMob(false)
@@ -333,6 +341,7 @@
           })
         }
       },
+
       handleShowSearchBlockMob(value) {
         if (value === true) {
           document.querySelector('body').classList.add('lock')
@@ -345,9 +354,10 @@
       async handleChooseCompanyCategory(id, name) {
         this.companyId = id
         this.categoryName = name
-        const { companies } = await this.$companyService.getCompanisByCategoryId(id)
+        const { companies, pagen } = await this.$companyService.getCompanisByCategoryId(id)
         if (companies) {
           this.companiesList = companies
+          this.companiesPage = pagen
           this.showCompaniesList = true
           this.$router.push({
             path: this.$route.path,
@@ -391,6 +401,24 @@
             url: window.location.href,
           })
         }
+      },
+
+      infiniteHandler($state) {
+        this.$companyService
+          .getCompanisByCategoryId(this.$route.query.companyId, Number(this.companiesPage.page) + 1, 10)
+          .then(({ companies, pagen }) => {
+            if (companies.length) {
+              this.companiesList.push(...companies)
+              this.companiesPage = pagen
+              if (pagen.total > this.companiesList.length) {
+                $state.complete()
+              } else {
+                $state.loaded()
+              }
+            } else {
+              $state.complete()
+            }
+          })
       },
     },
   }

@@ -2,7 +2,7 @@
   <section id="About" class="company content-row active">
     <div class="banner-about">
       <a href="#" class="banner-about__link active">Описание</a>
-      <a href="#" class="banner-about__link">Реквизиты</a>
+      <!-- <a href="#" class="banner-about__link">Реквизиты</a> -->
     </div>
 
     <div class="company__wrapper">
@@ -54,23 +54,24 @@
 
             <!-- eslint-disable-next-line vue/no-v-html -->
             <AppSwiper
-              v-if="dataForm.gallery && dataForm.gallery.length > 0 && !companyDescriptionEditor"
+              v-if="company.gallery && company.gallery.length > 0"
+              v-show="!companyDescriptionEditor"
               :swiper-config="swiperConfig"
-              :images="dataForm.gallery"
+              :images="company.gallery"
             />
 
             <div v-if="!companyDescriptionEditor" style="width: 100%; display: flex"></div>
-            <div v-if="!companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
-            <span v-if="!companyDescriptionEditor" class="company-description__read">Показать полностью</span>
+            <div v-if="!companyDescriptionEditor" class="company-description__text">{{ company.description }}</div>
+            <!-- <span v-if="!companyDescriptionEditor" class="company-description__read">Показать полностью</span> -->
 
             <div v-if="companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
                 <div class="el-upload-list el-upload-list--picture-card">
-                  <draggable v-model="dataForm.gallery">
+                  <draggable v-model="dataFormUpdated.gallery">
                     <transition-group>
                       <li
-                        v-for="(image, imageIndex) of dataForm.gallery"
-                        :key="imageIndex"
+                        v-for="(image, imageIndex) of dataFormUpdated.gallery"
+                        :key="'image_' + imageIndex"
                         class="el-upload-list__item"
                       >
                         <div class="company-redact__slider-block">
@@ -106,9 +107,9 @@
 
             <div v-if="companyDescriptionEditor" class="description-redact">
               <textarea
-                v-model="dataForm.description"
+                v-model="dataFormUpdated.description"
                 class="description-redact__textarea"
-                :placeholder="dataForm.description"
+                :placeholder="dataFormUpdated.description"
               ></textarea>
             </div>
 
@@ -331,7 +332,24 @@
         type: Object,
         default: () => {
           return {
-            gallery: [],
+            description: this.company?.description ? this.company.description : '',
+            city: this.company?.city ? this.company.city : '',
+            country: this.company?.country ? this.company.country : '',
+            zipcode: this.company?.zipcode ? this.company.zipcode : '',
+            email: this.company?.email ? this.company.email : '',
+            phone: this.company?.phone ? this.company.phone : '',
+            excerpt: this.company?.logo ? this.company.logo : '',
+            gallery: this.company?.gallery ? this.company.gallery : [],
+            requisites: {
+              company_name: this.company.requisites?.company_name ? this.company.requisites.company_name : '',
+              legal_address: this.company.requisites?.legal_address ? this.company.requisites.legal_address : '',
+              actual_address: this.company.requisites?.actual_address ? this.company.requisites.actual_address : '',
+              inn: this.company.requisites?.inn ? this.company.requisites.inn : '',
+              ogrn: this.company.requisites?.ogrn ? this.company.requisites.ogrn : '',
+              kpp: this.company.requisites?.kpp ? this.company.requisites.kpp : '',
+              ceo: this.company.requisites?.ceo ? this.company.requisites.ceo : '',
+              director: this.company.requisites?.director ? this.company.requisites.director : '',
+            }
           }
         },
       },
@@ -346,9 +364,8 @@
     },
     data() {
       return {
-        // dataForm: JSON.parse(JSON.stringify(this.company)),
         hide: false,
-        dataForm: {},
+        dataFormUpdated: {},
         requisitesTitle: 'Реквизиты',
         descriptionTitle: 'Описание',
         activeLink: 'description',
@@ -367,12 +384,14 @@
     computed: {
       ...mapState('company', ['companySearchInput', 'companySearchQuery']),
       ...mapState('global', ['firstPageVisit']),
+
       isCompanyEdit() {
         if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
           return true
         }
         return false
       },
+
       isCompanyOwner() {
         if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
           return true
@@ -382,13 +401,6 @@
     },
     watch: {
       companyShowPlate() {
-        // if (this.companyShowPlate === true) {
-        // //   document.querySelector('.backgroundPlateTwo').classList.add('active')
-        // this.backgroundPlate = true
-        // } else {
-        // //   document.querySelector('.backgroundPlateTwo').classList.remove('active')
-        // this.backgroundPlate = false
-        // }
         if (this.companyShowPlate === true) {
           document.querySelector('body').classList.add('lock')
           this.$refs.backgroundPlate.classList.add('active')
@@ -400,34 +412,18 @@
     },
     mounted() {
       document.addEventListener('click', this.onClick)
-      this.dataForm = {
-        ...this.company,
-        description: this.company?.description ? this.company.description : '',
-        city: this.company?.city ? this.company.city : '',
-        country: this.company?.country ? this.company.country : '',
-        zipcode: this.company?.zipcode ? this.company.zipcode : '',
-        email: this.company?.email ? this.company.email : '',
-        phone: this.company?.phone ? this.company.phone : '',
-        excerpt: this.company?.logo ? this.company.logo : '',
-        gallery: this.company?.gallery ? this.company.gallery : '',
-        requisites: {
-          company_name: this.company.requisites?.company_name ? this.company.requisites.company_name : '',
-          legal_address: this.company.requisites?.legal_address ? this.company.requisites.legal_address : '',
-          actual_address: this.company.requisites?.actual_address ? this.company.requisites.actual_address : '',
-          inn: this.company.requisites?.inn ? this.company.requisites.inn : '',
-          ogrn: this.company.requisites?.ogrn ? this.company.requisites.ogrn : '',
-          kpp: this.company.requisites?.kpp ? this.company.requisites.kpp : '',
-          ceo: this.company.requisites?.ceo ? this.company.requisites.ceo : '',
-          director: this.company.requisites?.director ? this.company.requisites.director : '',
-        },
-      }
+
       this.requisites = {
-        ...this.dataForm.requisites,
+        ...this.company.requisites,
       }
+      this.dataFormUpdated = JSON.parse(JSON.stringify(this.company))
+
     },
+
     destroyed() {
       document.removeEventListener('click', this.onClick)
     },
+
     methods: {
       hideEditor() {
         this.companyDescriptionEditor = false
@@ -435,22 +431,23 @@
         this.companyShowPlate = false
         this.$refs.backgroundPlate.classList.remove('active')
         document.querySelector('body').classList.remove('lock')
+        this.dataFormUpdated = JSON.parse(JSON.stringify(this.company))
       },
       save() {
         const body = {
           _method: 'PATCH',
-          name: this.dataForm.name,
-          email: this.dataForm.email,
-          phone: this.dataForm.phone,
-          inn: this.dataForm.inn,
-          gallery: this.dataForm.gallery,
+          name: this.company.name,
+          description: this.dataFormUpdated.description,
+          email: this.company.email,
+          phone: this.company.phone,
+          inn: this.company.inn,
+          gallery: this.dataFormUpdated.gallery,
         }
-
-        if (this.dataForm.description.trim() !== '') body.description = this.dataForm.description
 
         this.$companyService
           .updateCompany(this.company.id, body)
           .then(() => {
+            this.$emit('updateCompany')
             this.$notify({
               title: '',
               message: 'Данные о компании были успешно изменены!',
@@ -467,6 +464,7 @@
 
         this.companyShowPlate = false
       },
+
       scrollTo(refName) {
         const element = this.$refs[refName]
         const top = element.offsetTop
@@ -508,7 +506,7 @@
             },
           })
           .then(({ data }) => {
-            this.dataForm.gallery.push(...data.data.images)
+            this.dataFormUpdated.gallery.push(...data.data.images)
           })
           .catch(e => {
             this.$notify({
@@ -518,8 +516,9 @@
             })
           })
       },
+
       handleImagesRemove(imageIndex) {
-        this.dataForm.gallery.splice(imageIndex, 1)
+        this.dataFormUpdated.gallery.splice(imageIndex, 1)
       },
     },
   }
@@ -547,6 +546,14 @@
       height: 116px;
       border-radius: 10px;
       margin-left: 4px;
+      @media (max-width: 600px) {
+        width: 150px;
+      }
+    }
+    & .el-upload-list .el-upload-list--picture-card {
+      @media (max-width: 480px) {
+        width: 100%;
+      }
     }
   }
 </style>

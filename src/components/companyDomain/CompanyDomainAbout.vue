@@ -55,14 +55,14 @@
 
             <!-- eslint-disable-next-line vue/no-v-html -->
             <AppSwiper
-              v-if="dataForm.images.length > 0 && companyDescriptionEditor"
+              v-if="company.gallery && company.gallery.length > 0"
               :swiper-config="swiperConfig"
-              :images="dataForm.images"
+              :images="company.gallery"
             />
 
             <div v-if="companyDescriptionEditor" style="width: 100%; display: flex"></div>
-            <div v-if="companyDescriptionEditor" class="company-description__text">{{ dataForm.description }}</div>
-            <span v-if="companyDescriptionEditor" class="company-description__read">Показать полностью</span>
+            <div v-if="companyDescriptionEditor" class="company-description__text">{{ company.description }}</div>
+            <!-- <span v-if="companyDescriptionEditor" class="company-description__read">Показать полностью</span> -->
 
             <div v-if="!companyDescriptionEditor" class="company-redact__slider">
               <div class="editor-imgs">
@@ -126,7 +126,7 @@
             </div>
           </div>
 
-          <div ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
+          <div v-if="hide" ref="requisites" class="company-requisites" :class="{ show: !companyRequisitesEditor }">
             <div class="company-requisites__block company-requisites__block-redact">
               <h3 class="company-requisites__title">{{ requisitesTitle }}</h3>
               <div class="company-requisites__flex">
@@ -326,7 +326,24 @@
         type: Object,
         default: () => {
           return {
-            images: [],
+            description: this.company?.description ? this.company.description : '',
+            city: this.company?.city ? this.company.city : '',
+            country: this.company?.country ? this.company.country : '',
+            zipcode: this.company?.zipcode ? this.company.zipcode : '',
+            email: this.company?.email ? this.company.email : '',
+            phone: this.company?.phone ? this.company.phone : '',
+            excerpt: this.company?.logo ? this.company.logo : '',
+            gallery: this.company?.gallery ? this.company.gallery : [],
+            requisites: {
+              company_name: this.company.requisites?.company_name ? this.company.requisites.company_name : '',
+              legal_address: this.company.requisites?.legal_address ? this.company.requisites.legal_address : '',
+              actual_address: this.company.requisites?.actual_address ? this.company.requisites.actual_address : '',
+              inn: this.company.requisites?.inn ? this.company.requisites.inn : '',
+              ogrn: this.company.requisites?.ogrn ? this.company.requisites.ogrn : '',
+              kpp: this.company.requisites?.kpp ? this.company.requisites.kpp : '',
+              ceo: this.company.requisites?.ceo ? this.company.requisites.ceo : '',
+              director: this.company.requisites?.director ? this.company.requisites.director : '',
+            }
           }
         },
       },
@@ -341,13 +358,14 @@
     },
     data() {
       return {
+        hide: false,
         dataForm: JSON.parse(JSON.stringify(this.company)),
         requisitesTitle: 'Реквизиты',
         descriptionTitle: 'Описание',
         activeLink: 'description',
         links: [
           { name: 'Описание', goTo: 'description' },
-        //   { name: 'Реквизиты', goTo: 'requisites' },
+          //   { name: 'Реквизиты', goTo: 'requisites' },
         ],
 
         requisites: {},
@@ -471,6 +489,14 @@
       height: 116px;
       border-radius: 10px;
       margin-left: 4px;
+      @media (max-width: 600px) {
+        width:150px;
+      }
+    }
+    & .el-upload-list--picture-card {
+      @media (max-width: 600px) {
+        width: 100%;
+      }
     }
   }
 </style>
