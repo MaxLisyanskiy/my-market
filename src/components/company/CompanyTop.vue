@@ -622,13 +622,13 @@
         formData.append('images[]', file[0])
 
         await this.$axios
-          .post('/images', formData, {
+          .post('/v1/images', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
           .then(({ data }) => {
-            this.companyLogo = data[0]
+            this.companyLogo = {...data.data.images[0]}
           })
           .catch(() => {
             this.$notify({
@@ -685,12 +685,13 @@
             phone: this.companyPhone,
             email: this.companyEmail,
             inn: this.company.inn,
-            logo: this.companyLogo ? { id: this.companyLogo.id, path: this.companyLogo?.path } : null,
+            logoPath: this.companyLogo.path,
           }
           this.showCompanyEditor = false
           this.$companyService
             .updateCompany(this.company.id, body)
             .then(() => {
+              this.$emit('updateCompany')
               this.$notify({
                 title: '',
                 message: 'Данные о компании были успешно изменены!',
