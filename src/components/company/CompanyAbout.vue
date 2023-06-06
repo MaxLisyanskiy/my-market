@@ -391,6 +391,7 @@
         }
         return false
       },
+
       isCompanyOwner() {
         if (this.$auth.user && this.$auth.user.company_id === Number(this.$route.params.id)) {
           return true
