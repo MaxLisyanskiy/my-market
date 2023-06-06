@@ -1,6 +1,6 @@
 <template>
   <article class="companyWrapper">
-    <CompanyTop :company="company" :active-tab="'About'" @scrolled="scrolled" @updateCompany="handleUpdateCompany" />
+    <CompanyTop :key="key" :company="company" :active-tab="'About'" @scrolled="scrolled" @updateCompany="handleUpdateCompany" />
     <CompanyAbout :key="key" :company="company" :swiper-config="swiperConfig" :scrolled="scrolledData" @updateCompany="handleUpdateCompany"/>
   </article>
 </template>
