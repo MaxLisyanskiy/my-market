@@ -187,16 +187,17 @@
 
     fetch() {
       const newCompanyCategories = []
+      const newGoodCategories = []
       this.categories.map(item => {
-        this.goodsCategories = item.children
         return item.children.map(child => {
+          newGoodCategories.push(child)
           return newCompanyCategories.push({
             id: child.id,
             name: child.name,
           })
         })
       })
-
+      this.goodsCategories = newGoodCategories
       this.companyCategories = newCompanyCategories
     },
 
