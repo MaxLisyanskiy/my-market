@@ -2,18 +2,16 @@
   <div class="companiesCategory">
     <div v-for="company in companies" :key="`${company.name + company.id}`" class="companiesCategory-item">
       <CompaniesCategoryInfo :company="company" />
-      <CompaniesCategoryProducts :products="company.products" />
     </div>
   </div>
 </template>
 
 <script>
   import CompaniesCategoryInfo from '~/components/companiesCategory/CompaniesCategoryInfo.vue'
-  import CompaniesCategoryProducts from '~/components/companiesCategory/CompaniesCategoryProducts.vue'
 
   export default {
     name: 'CompaniesCategory',
-    components: { CompaniesCategoryInfo, CompaniesCategoryProducts },
+    components: { CompaniesCategoryInfo },
     props: {
       companies: {
         type: Array,
