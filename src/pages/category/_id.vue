@@ -29,7 +29,7 @@
       let categoryParent = ''
       const { category } = await app.$categoryService.getProductsCategoryById(params.id)
 
-      if (category.depth === 2) {
+      if (category?.depth === 2) {
         const resParent = await app.$categoryService.getProductsCategoryById(category.parent_id)
         categoryParent = resParent.category
       } else {
