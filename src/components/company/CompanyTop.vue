@@ -685,7 +685,7 @@
             phone: this.companyPhone,
             email: this.companyEmail,
             inn: this.company.inn,
-            logoPath: this.companyLogo.path,
+            logoPath: this.companyLogo?.path ?? null,
           }
           this.showCompanyEditor = false
           this.$companyService
